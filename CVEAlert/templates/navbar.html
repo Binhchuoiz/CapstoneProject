@@ -3,8 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {#Cần chỉnh Css#}
+    <style>
+        .icon-social > a > img {
+            height: 30px;
+            width: 30px;
+        }
+        body {
+            overflow-x: hidden;
+        }
+    </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">CVE Daily Alert</a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">List CVEs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">SignUp</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 
+
+
+<footer style="background-color: black; color: white;">
+   <div class="row" style="padding : 30px">
+     <div class="col">
+       {#Thêm link Social#}
+       <h3>QUICK LINKS</h3>
+       <p>Go fast to your destination</p>
+       <a href="#" style="color: royalblue">Home</a>
+       <a href="#" style="color: royalblue">Dashboard</a>
+       <a href="#" style="color: royalblue">Finding</a>
+       <a href="#" style="color: royalblue">Profile</a>
+     </div>
+     <div class="col icon-social">
+       {#Thêm link Social#}
+       <h3>ABOUT</h3>
+       <a href=""><img alt="" src=""></a>
+       <a href=""><img alt="" src=""></a>
+       <a href=""><img alt="" src=""></a>
+       <a href=""><img alt="" src=""></a>
+     </div>
+     <div class="col">
+       {#Thêm link Social#}
+       <h3>FOR DEV OWNER</h3>
+       <p>Test</p>
+       <h3>BECOME OUR PARTNER</h3>
+       <p>Test</p>
+       <a href="mailto:"><p><b style="color: white">Email: ...</b></p></a>
+       <p><b>Phone number: ...</b></p>
+     </div>
+   </div>
+</footer>
 </body>
 </html>
