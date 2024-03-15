@@ -1,47 +1,6 @@
 {% extends 'navbar.html' %}
 
-<style>
-    .form-find-cve {
-    background-color: white;
-    padding: 25px;
-    border-radius: 20px;
-    line-height: 30px;
-    margin-top: -100px;
-    margin-bottom: 50px;
-    z-index: 99;
-    position:relative;
-    }
-    form > input {
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    }
-    .button-find {
-    padding: 15px 30px 15px 30px;
-    font-weight: bold;
-    }
-    body {
-    background-color: #222831 !important;
-    }
-    a {
-    text-decoration: none;
-    color: black;
-    }
-    .top-right {
-    position: absolute;
-    top: 100px;
-    right: 16px;
-    }
-    .image-first {
-    position: relative;
-    color: white;
-    }
-    .rectangle {
-    height: 40px;
-    width: 15px;
-    background-color: #0F60DD;
-    float:left;
-</style>
+
 
 {% block css %}
  .form-find-cve {
@@ -95,16 +54,15 @@
 
 
 {% block content %}
-{#  Content  #}
     <div class="image-first">
         <img src="/media/bg-sec.jpg" style="width = 100%" alt="background">
         <div class="top-right">
             <div class="row">
                 <div class="col-6"></div>
                 <div class="col-6">
-                    {#ADD content and link in intro#}
                     <h2 style="font-size: 52px">LET'S FIND</h2>
-                    <p></p>
+                    <p>Technology-based CVE Search, Vulnerabilities and CVEs Suggested based on the technology you are
+                        tracking!</p>
                     <div class="row">
                         <div class="col">
                             <a href="#"><button style="width: 100%" class="btn btn-primary">FIND NOW</button></a>
@@ -121,8 +79,8 @@
         <div class="form-find-cve">
             <h1><b style="color: dodgerblue">FIND</b> <b>YOUR</b> <b style="color: dodgerblue">CVE</b></h1>
             <p>Find your cve...</p>
-            {#test#}
-            <form>
+            <form method="post">
+                {% csrf_token %}
                 <input type="text" name="id_cve" style="width: 100%" placeholder="Find CVE-ID">
                 <button type="submit" class="btn btn-primary button-find">FIND NOW</button>
             </form>
@@ -130,14 +88,31 @@
         {#lack of logic to go to listcve content#}
         <div class="row">
             <a style="text-decoration: none;" href="#">
-                <h2 style="color: white;">
+                <h2 style="color: Black;">
                     <div class="rectangle"></div>&nbsp;List CVE
                 </h2>
             </a>
             {#lack of logic to display cve content#}
-            <div>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="/media/test.jpg" class="card-img-top" alt="...Picture...">
+                                <div class="card-body">
+                                    <h3 class="card-title">CVE test</h3>
+                                    <p class="card-text">
+                                        Publish Date: test
+                                    </p>
+                                    <p class="card-text">
+                                        Type: test
+                                    </p>
 
-            </div>
+                                    <a>
+                                        <button class="btn btn-dark">READ NOW</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                </div>
         </div>
     </div>
     <br>
@@ -151,8 +126,26 @@
                     </h2>
                 </a>
                  {#lack of logic to go to technologies content#}
-                <div>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <div class="col">
+                            {#lack of logic to display technology content#}
+                            <div class="card h-100">
+                                <img src="/media/test.jpg" class="card-img-top" alt="...Picture...">
+                                <div class="card-body">
+                                    <h3 class="card-title">Tech test</h3>
+                                    <p class="card-text">
+                                        Publish Date: test
+                                    </p>
+                                    <p class="card-text">
+                                        Type: test
+                                    </p>
 
+                                    <a>
+                                        <button class="btn btn-dark">READ NOW</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -165,7 +158,6 @@
                     </h2>
             </a>
             <br>
-            {#add more information about gmail#}
             <div class="card mb-3" style="max-width: 540px; background-color: #222831; border: none; color: white">
               <div class="row g-0">
                 <div class="col-md-4">
@@ -173,14 +165,13 @@
                 </div>
                 <div class="col-md-8">
                   <div class="card-body">
-                    <h5 class="card-title">Title</h5>
-                    <p class="card-text">...</p>
-                    <p class="card-text"><a href="#"><b style="color: red">...</b></a></p>
+                    <h5 class="card-title">Announce news via Gmail</h5>
+                    <p class="card-text">How to auto send gmail. when news cve publish</p>
+                    <p class="card-text"><a href="#"><b style="color: red">Read more</b></a></p>
                   </div>
                 </div>
               </div>
             </div>
-            {#add more information about telegram#}
             <div class="card mb-3" style="max-width: 540px; background-color: #222831; border: none; color: white">
               <div class="row g-0">
                 <div class="col-md-4">
@@ -188,9 +179,9 @@
                 </div>
                 <div class="col-md-8">
                   <div class="card-body">
-                    <h5 class="card-title">Title</h5>
-                    <p class="card-text">...</p>
-                    <p class="card-text"><a href="#"><b style="color: red">...</b></a></p>
+                    <h5 class="card-title">Announce news via Telegram</h5>
+                    <p class="card-text">How to auto send telegram. when news cve publish</p>
+                    <p class="card-text"><a href="#"><b style="color: red">Read more</b></a></p>
                   </div>
                 </div>
               </div>
