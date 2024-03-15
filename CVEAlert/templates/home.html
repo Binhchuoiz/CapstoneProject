@@ -1,6 +1,25 @@
 {% extends 'navbar.html' %}
 
 <style>
+    .form-find-cve {
+    background-color: white;
+    padding: 25px;
+    border-radius: 20px;
+    line-height: 30px;
+    margin-top: -100px;
+    margin-bottom: 50px;
+    z-index: 99;
+    position:relative;
+    }
+    form > input {
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    }
+    .button-find {
+    padding: 15px 30px 15px 30px;
+    font-weight: bold;
+    }
     body {
     background-color: #222831 !important;
     }
@@ -25,7 +44,46 @@
 </style>
 
 {% block css %}
-{#  CSS  #}
+ .form-find-cve {
+    background-color: white;
+    padding: 25px;
+    border-radius: 20px;
+    line-height: 30px;
+    margin-top: -100px;
+    margin-bottom: 50px;
+    z-index: 99;
+    position:relative;
+    }
+    form > input {
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    }
+    .button-find {
+    padding: 15px 30px 15px 30px;
+    font-weight: bold;
+    }
+    body {
+    background-color: #222831 !important;
+    }
+    a {
+    text-decoration: none;
+    color: black;
+    }
+    .top-right {
+    position: absolute;
+    top: 100px;
+    right: 16px;
+    }
+    .image-first {
+    position: relative;
+    color: white;
+    }
+    .rectangle {
+    height: 40px;
+    width: 15px;
+    background-color: #0F60DD;
+    float:left;
 {% endblock %}
 
 
