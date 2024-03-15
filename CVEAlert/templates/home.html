@@ -1,9 +1,10 @@
 {% extends 'navbar.html' %}
 
+
+
 {% block css %}
 {#  CSS  #}
 {% endblock %}
-
 
 
 
@@ -13,7 +14,108 @@
 
 
 
-
 {% block content %}
 {#  Content  #}
+    <div class="image-first">
+        <img src="/media/bg-sec.jpg" style="width = 100%" alt="background">
+        <div class="top-right">
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6">
+                    {#ADD content and link in intro#}
+                    <h2 style="font-size: 52px">LET'S FIND</h2>
+                    <p></p>
+                    <div class="row">
+                        <div class="col">
+                            <a href="#"><button style="width: 100%" class="btn btn-primary">FIND NOW</button></a>
+                        </div>
+                        <div class="col">
+                            <a href="#"><button style="width: 100%" class="btn btn-primary">LEARN MORE</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-find-cve">
+            <h1><b style="color: dodgerblue">FIND</b> <b>YOUR</b> <b style="color: dodgerblue">CVE</b></h1>
+            <p>Find your cve...</p>
+            {#test#}
+            <form>
+                <input type="text" name="id_cve" style="width: 100%" placeholder="Find CVE-ID">
+                <button type="submit" class="btn btn-primary button-find">FIND NOW</button>
+            </form>
+        </div>
+        {#lack of logic to go to listcve content#}
+        <div class="row">
+            <a style="text-decoration: none;" href="#">
+                <h2 style="color: white;">
+                    <div class="rectangle"></div>&nbsp;List CVE
+                </h2>
+            </a>
+            {#lack of logic to display cve content#}
+            <div>
+
+            </div>
+        </div>
+    </div>
+    <br>
+    {#not content yet#}
+    <div style="background-color: white !important; color: black !important; padding: 20px;">
+        <div class="container">
+            <div class="row">
+                <a style="text-decoration: none;" href="#">
+                    <h2 style="color: black">
+                        <div class="rectangle"></div>&nbsp;Technoligies
+                    </h2>
+                </a>
+                 {#lack of logic to go to technologies content#}
+                <div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="padding: 20px;">
+        <div class="container">
+            <a style="text-decoration: none;" href="#">
+                    <h2 style="color: black">
+                        <div class="rectangle"></div>&nbsp;Notification methods
+                    </h2>
+            </a>
+            <br>
+            {#add more information about gmail#}
+            <div class="card mb-3" style="max-width: 540px; background-color: #222831; border: none; color: white">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="/media/gmail_logo.png" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">Title</h5>
+                    <p class="card-text">...</p>
+                    <p class="card-text"><a href="#"><b style="color: red">...</b></a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {#add more information about telegram#}
+            <div class="card mb-3" style="max-width: 540px; background-color: #222831; border: none; color: white">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="/media/telegram_logo.jpg" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">Title</h5>
+                    <p class="card-text">...</p>
+                    <p class="card-text"><a href="#"><b style="color: red">...</b></a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
