@@ -61,6 +61,31 @@
 
         </div>
         {# Hiển thị thẻ Cve #}
+        {# Thêm logic trỏ vào model cve để hiển thị nó #}
+        <div class="col-9">
+            <h2>List CVEs</h2>
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-6">
+                            <div class="card-body" style="padding: 30px;">
+                                <h3 class="card-title"><a
+                                        href="#">Test</a></h3>
+                                <p class="card-text">Year: Test</p>
+                                <p class="card-text">Date Publish: Test</p>
+                                <p class="card-text">
+                                    <a href="#">
+                                        <button class="btn btn-primary">READ NOW</button>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {# Thêm logic để hiển thị số trang #}
+        <div class="pagination">
+                <a href="#"><button class="button-paging">1</button></a>
+        </div>
+        </div>
     </div>
 </div>
 {% endblock %}
