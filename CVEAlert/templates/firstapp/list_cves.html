@@ -1,8 +1,16 @@
 {% extends 'navbar.html' %}
 
-
 {% block css %}
-
+    a {
+    text-decoration: none;
+    color: black;
+    }
+    .button-paging {
+        padding-left: 10px;
+        padding-right: 10px;
+        margin: 10px;
+        border-radius: 5px;
+    }
 {% endblock %}
 
 
@@ -36,7 +44,7 @@
             <h3>FINDING METHODS</h3>
             <hr>
             <form method="post">
-                
+                {% csrf_token %}
                 <input type="checkbox" id="product" name="product" value="product">
                 <label for="product">Product</label><br>
                 <input type="checkbox" id="vendor" name="vendor" value="vendor">
