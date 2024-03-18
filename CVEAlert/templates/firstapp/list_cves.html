@@ -12,5 +12,55 @@
 
 
 {% block content %}
+<div class="container">
+    {# Hiển thị thanh search #}
+    <div class="row" style="margin-top: 30px; margin-bottom: 30px;">
+        <div class="col-3">
+        </div>
+        <div class="col-9">
+            <form method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input name="search_focus" type="search" class="form-control" placeholder="Search..."/>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
 
+    </div>
+    <div class="row" style="margin-top: 30px;">
+        {# Hiển thị filter #}
+        <div class="col-3">
+            <h3>FINDING METHODS</h3>
+            <hr>
+            <form method="post">
+                
+                <input type="checkbox" id="product" name="product" value="product">
+                <label for="product">Product</label><br>
+                <input type="checkbox" id="vendor" name="vendor" value="vendor">
+                <label for="vendor">Vendor</label><br>
+                <input type="checkbox" id="others" name="others" value="others">
+                <label for="others">Others</label><br><br>
+                <h3>PUBLISHED YEARS</h3>
+                {# Hiển thị year qua logic #}
+                <hr>
+                
+                    <input type="checkbox" id="years" name="filter_year" value="">
+                    <label for="years"></label><br>
+               
+                <h3>SORT BY</h3>
+                <hr>
+                <input type="checkbox" id="newest" name="newest" value="newest">
+                <label for="newest">Newest</label><br>
+                <input type="checkbox" id="oldest" name="oldest" value="oldest">
+                <label for="oldest">Oldest</label><hr>
+                <button class="btn btn-dark">Find</button>
+            </form>
+
+        </div>
+        {# Hiển thị thẻ Cve #}
+    </div>
+</div>
 {% endblock %}
