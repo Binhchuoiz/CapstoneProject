@@ -16,4 +16,10 @@ def get_list_CVE(request):
             listCVE= CVE.objects.all().order_by('-date_publish')
         elif  'oldest' in request.POST:
          listCVE= CVE.objects.all().order_by('date_publish')
-    return render(request, 'firstapp/list_cves.html')   
+
+     
+    context={
+        #'list_cve':[1,2,3,4],
+        'list_cve':listCVE
+         }
+    return render(request, 'firstapp/list_cves.html', context=context)   
