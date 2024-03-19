@@ -2,15 +2,134 @@
 
 
 {% block css %}
-
+   
 {% endblock %}
 
-
+<style>
+     a {
+    text-decoration: none;
+    color: black;
+    }
+    input, textarea {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+    }
+    .title-box > * {
+    padding: 10px;
+    background-color: black !important;
+    color: white !important;
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px !important;
+    margin: 0;
+    }
+    .content-box {
+    background-color: lightgray !important;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin: 0;
+    padding: 10px;
+    }
+    .base-score {
+    background-color: black !important;
+    color: white !important;
+    padding: 10px;
+    border-radius: 10px;
+    }
+    .alert-msg {
+        background-color: lightgreen;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        border-color: red;
+    }
+</style>
 {% block title %}
     Detail CVEs
 {% endblock %}
 
 
 {% block content %}
-
+{# Thêm logic để hiện thị các trường của CVE #}
+<div class="container" style="margin-top: 20px; margin-bottom: 20px">
+    <div>
+        <a href=#><p> < Explore CVE list</p></a>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <h1>Test CVE</h1>
+            <h2>Test</h2> 
+            <h1>Test</h1>
+            <div class="box-info">
+                <div class="title-box">
+                    <h2>DESCCRIPTION</h2>
+                </div>
+                <div class="content-box">
+                    <p>Test</p>
+                </div>
+            </div>
+            <div class="box-info">
+                <div class="title-box">
+                    <h2>Vulnerable products, Vendor</h2>
+                </div>
+                <div class="content-box">
+                            <p>Name: Test</p>
+                            <p>Version: Test</p>
+                            <p>Vendor name: Test</p>
+                </div>
+            </div>
+            <div class="box-info">
+                <div class="title-box">
+                    <h2>Solution, References</h2>
+                </div>
+                <div class="content-box">
+                    <p>Solution: Test</p>
+                    <p>URL: Test</p>
+                </div>
+            </div>
+            <div class="box-info">
+                    <p class="base-score">BASE SCORE <b
+                            style="float: right">Test</b></p>
+                    <p class="base-score">BASE SCORE <b
+                            style="float: right">Test</b></p>
+                    <p class="base-score">BASE SCORE <b
+                            style="float: right">Test</b></p>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="box-info">
+                <div class="title-box">
+                    <h2>CVE Informations</h2>
+                </div>
+                <div class="content-box">
+                    <form method="post">
+                            <p class="alert-msg">Test</p>
+                        <p>CVE ID: Test</p>
+                        <p>Published Date: Test</p>
+                        <p>Modified Date: Test</p>
+                            <input name="follow_affect" value="null" style="display: none">
+                            <input name="follow_affect" value="null" style="display: none">
+                        <button class="btn btn-dark">Follow News Now</button>
+                    </form>
+                </div>
+            </div>
+            <br>
+            <div class="box-info">
+                <div class="title-box">
+                    <h2>Asking for information</h2>
+                </div>
+                <div class="content-box">
+                    <form method="post">
+                        <input type="text" name="your_name" placeholder="Your Name"><br>
+                        <input type="text" name="email_address" placeholder="Email Address"><br>
+                        <input type="text" name="phone_number" placeholder="Phone Number"><br>
+                        <textarea name="message" placeholder="Message" rows="5"></textarea><br>
+                        <button class="btn btn-dark" style="width: 100%">Sent</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
