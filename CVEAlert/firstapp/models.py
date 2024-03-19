@@ -2,6 +2,7 @@ from django.db import models
 
 class CVE(models.Model):
     cve_id = models.CharField(max_length=255, default="")
+    year = models.CharField(max_length=255, default="")
     data_type = models.CharField(max_length=255, default="")
     data_version = models.CharField(max_length=255, default="")
     date_reserved = models.CharField(max_length=255, default="", null = True)
