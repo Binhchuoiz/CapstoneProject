@@ -2,11 +2,7 @@
 
 
 {% block css %}
-   
-{% endblock %}
-
-<style>
-     a {
+    a {
     text-decoration: none;
     color: black;
     }
@@ -23,6 +19,10 @@
     border-top-right-radius: 10px !important;
     border-top-left-radius: 10px !important;
     margin: 0;
+    }
+    .box-info {
+        margin-bottom: 20px;
+        margin-top: 20px;
     }
     .content-box {
     background-color: lightgray !important;
@@ -44,7 +44,9 @@
         border-radius: 5px;
         border-color: red;
     }
-</style>
+{% endblock %}
+
+
 {% block title %}
     Detail CVEs
 {% endblock %}
@@ -104,6 +106,7 @@
                 </div>
                 <div class="content-box">
                     <form method="post">
+                        {% csrf_token %}
                             <p class="alert-msg">Test</p>
                         <p>CVE ID: Test</p>
                         <p>Published Date: Test</p>
@@ -121,6 +124,7 @@
                 </div>
                 <div class="content-box">
                     <form method="post">
+                        {% csrf_token %}
                         <input type="text" name="your_name" placeholder="Your Name"><br>
                         <input type="text" name="email_address" placeholder="Email Address"><br>
                         <input type="text" name="phone_number" placeholder="Phone Number"><br>
