@@ -105,7 +105,11 @@
                                         Publish Date: {{ i.date_publish }}
                                     </p>
                                     <p class="card-text">
-                                        Type: {{ i.data_type }}
+                                        {% for a in affected %}
+                                            {% if a.con_id == i.id %}
+                                                Product: {{ a.product.name }}
+                                            {% endif %}
+                                        {% endfor %}
                                     </p>
 
                                     <a href="{% url 'app:detail_cves' %}">

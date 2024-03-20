@@ -85,14 +85,15 @@
                                         Year: {{ i.year }}
                                     </p>
                                     <p class="card-text">
-                                        Publish Date: test
                                         Publish Date: {{ i.date_publish }}
                                     </p>
-                                    <p class="card-text">
-                                        Type: test
-                                        Type: {{ i.data_type }}
-                                    </p>
-
+                                    {% for a in affected%}
+                                        <p class="card-text">
+                                            {% if a.con_id == i.id %}
+                                                Product: {{ a.product.name }}
+                                            {% endif %}
+                                        </p>
+                                    {% endfor %}
                                     <a>
                                     <a href="{% url 'app:detail_cves' %}">
                                         <button class="btn btn-dark">READ NOW</button>

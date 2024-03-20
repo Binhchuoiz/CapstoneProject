@@ -4,18 +4,18 @@ from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
 from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions 
 # Create your views here.
 def get_home(request):
-    listCVE= CVE.objects.all().order_by('-date_publish')[:3]
-    affected = Affected.objects.filter(con__in=listCVE)
+    listCVE = CVE.objects.all().order_by('-date_publish')[:3]
+    cve_ids = [cve.id for cve in listCVE] 
+    affected = Affected.objects.filter(con_id__in=cve_ids) 
     products = [a.product for a in affected]
     vendors = [a.vendor for a in affected]
-    context={
-        # 'list_cve':[1,2,3,4],
+    context = {
         'listCVE': listCVE,
-        'products' : products,
-        'vendors' : vendors,
+        'products': products,
+        'vendors': vendors,
         'affected': affected,
     }
-    return render(request,'home.html', context=context)
+    return render(request, 'home.html', context=context)
 
 def get_list_CVE(request, page):
     listCVE= CVE.objects.all()
@@ -32,9 +32,10 @@ def get_list_CVE(request, page):
     paginator = Paginator(listCVE, per_page)
     page_obj = paginator.get_page(page)
     data = page_obj.object_list
-    affected = Affected.objects.filter(con__in=listCVE)
-    products = [a.products for a in affected]
-    vendors = [a.vendors for a in affected]
+    cve_ids = [cve.id for cve in listCVE] 
+    affected = Affected.objects.filter(con_id__in=cve_ids) 
+    products = [a.product for a in affected]
+    vendors = [a.vendor for a in affected]
 
     context={
         "page" :{

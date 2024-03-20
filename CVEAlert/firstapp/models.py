@@ -3,10 +3,11 @@ from django.db import models
 class CVE(models.Model):
     cve_id = models.CharField(max_length=255, default="")
     year = models.CharField(max_length=255, default="")
+    data_version = models.CharField(max_length=255, default="")
     data_type = models.CharField(max_length=255, default="")
-    date_reserved = models.DateTimeField(null=True, blank=True)
-    date_publish = models.DateTimeField(null=True, blank=True)
-    date_update = models.DateTimeField(null=True, blank=True)
+    date_reserved = models.CharField(max_length=255, default="", null = True)
+    date_publish = models.CharField(max_length=255, default="", null = True)
+    date_update = models.CharField(max_length=255, default="", null = True)
     assigner_Org_Id = models.CharField(max_length=255, default="", null = True)
     provider_Metadata = models.CharField(max_length=255, default="", null = True)
 
