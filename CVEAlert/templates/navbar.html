@@ -50,7 +50,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'app:list_cves' %}">List CVEs</a>
+                    <a class="nav-link" href="{% url 'app:list_cves' page=1 %}">List CVEs</a>
                 </li>
 
 
@@ -78,7 +78,7 @@
             <p>Go fast to your destination</p>
             <a href="{% url 'app:home' %}"><p style="color: royalblue">Home</p></a>
             <a href="{% url 'app:home' %}"><p style="color: royalblue">Dashboard</p></a>
-            <a href="{% url 'app:list_cves' %}"><p style="color: royalblue">Finding</p></a>
+            <a href="{% url 'app:list_cves' page=1 %}"><p style="color: royalblue">Finding</p></a>
             <a href="#"><p style="color: royalblue">Profile</p></a>
         </div>
         <div class="col icon-social">

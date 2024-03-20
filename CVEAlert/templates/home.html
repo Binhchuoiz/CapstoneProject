@@ -64,7 +64,7 @@
                     </p>
                     <div class="row">
                         <div class="col">
-                            <a href="{% url 'app:list_cves' %}"><button style="width: 100%" class="btn btn-primary">FIND NOW</button></a>
+                            <a href="{% url 'app:list_cves' page=1 %}"><button style="width: 100%" class="btn btn-primary">FIND NOW</button></a>
                         </div>
                         <div class="col">
                             <button style="width: 100%" class="btn btn-primary">LEARN MORE</button>
@@ -86,7 +86,7 @@
         </div>
         {#lack of logic to go to listcve content#}
         <div class="row">
-            <a style="text-decoration: none;" href="{% url 'app:list_cves' %}">
+            <a style="text-decoration: none;" href="{% url 'app:list_cves' page=1 %}">
                 <h2 style="color: white;">
                     <div class="rectangle"></div>&nbsp;List CVE
                 </h2>
