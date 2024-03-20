@@ -4,7 +4,12 @@ from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
 from .models import CVE , Affected , References , Metric 
 # Create your views here.
 def get_home(request):
-    return render(request,'home.html')
+    listCVE= CVE.objects.all().order_by('-date_publish')[:3]
+    context={
+        # 'list_cve':[1,2,3,4],
+        'listCVE':listCVE
+    }
+    return render(request,'home.html', context=context)
 
 def get_list_CVE(request, page):
     listCVE= CVE.objects.all()
@@ -29,7 +34,7 @@ def get_list_CVE(request, page):
             'has_previous' : page_obj.has_previous,
         },
         'paginator': paginator,
-        'list_cve':data,
+        'listCVE':data,
     }
 
     # print(listCVE)
