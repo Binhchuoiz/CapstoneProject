@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
-from .models import CVE 
+from .models import CVE , Affected , References , Metric 
 # Create your views here.
 def get_home(request):
     return render(request,'home.html')
@@ -35,7 +35,31 @@ def get_list_CVE(request, page):
     # print(listCVE)
     return render(request, 'firstapp/list_cves.html', context=context)   
 
-def get_detail_cves(request):
+def get_detail_cves(request,pk):
+    detail_cve = CVE.objects.get(pk=pk)
+    try:
+         affected = Affected.objects.get(cve_id = detail_cve.id)
+    except:
+         affected = None 
+    
+    try:
+         refrence = References.objects.get(cve=detail_cve)
+    except :
+        refrence = None
+
+    try:
+         metric = Metric.objects.get(cve=detail_cve)
+    except:
+         metric = None
+
+    context ={
+         'detail_cve' : detail_cve,
+         'affected': affected,
+         'refrence' : refrence,
+         'metric' : metric,
+    }
+
+
     return render(request, 'firstapp/detail_cve.html')
 
 def get_tele_notifi(request):
