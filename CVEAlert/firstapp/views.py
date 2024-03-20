@@ -5,9 +5,15 @@ from .models import CVE , Affected , References , Metric , CvssV31 , Products , 
 # Create your views here.
 def get_home(request):
     listCVE= CVE.objects.all().order_by('-date_publish')[:3]
+    affected = Affected.objects.filter(con_id=listCVE.id)
+    products = [a.product for a in affected]
+    vendors = [a.vendor for a in affected]
     context={
         # 'list_cve':[1,2,3,4],
-        'listCVE':listCVE
+        'listCVE':listCVE,
+        'products' : products,
+        'vendors' : vendors,
+        'affected': affected,
     }
     return render(request,'home.html', context=context)
 
@@ -26,7 +32,7 @@ def get_list_CVE(request, page):
     paginator = Paginator(listCVE, per_page)
     page_obj = paginator.get_page(page)
     data = page_obj.object_list
-    affected = Affected.objects.filter(con_id=CVE.id)
+    affected = Affected.objects.filter(con_id=listCVE.id)
     products = [a.products for a in affected]
     vendors = [a.vendors for a in affected]
 
