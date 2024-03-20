@@ -24,3 +24,6 @@ def get_list_CVE(request):
         'listCVE':listCVE
     }
     return render(request, 'firstapp/list_cves.html', context=context)   
+
+def get_detail_cves(request):
+    return render(request, 'firstapp/detail_cve.html')
