@@ -105,9 +105,10 @@
                 {% else %}
                     <p style="color: white">There are currently no CVEs</p>
                 {% endif %}
-            {# Thêm logic để hiển thị số trang #}
         <div class="pagination">
-                <a href="#"><button class="button-paging">1</button></a>
+            {% for page in  paginator.page_range %}
+            <a href="{% url 'app:list_cves' page=page %}"><button class="button-paging">{{ page }}</button></a>
+        {% endfor %}
         </div>
         </div>
     </div>
