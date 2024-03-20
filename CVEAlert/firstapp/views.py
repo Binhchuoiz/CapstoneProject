@@ -40,31 +40,7 @@ def get_list_CVE(request, page):
     # print(listCVE)
     return render(request, 'firstapp/list_cves.html', context=context)   
 
-def get_detail_cves(request,pk):
-    detail_cve = CVE.objects.get(pk=pk)
-    try:
-         affected = Affected.objects.get(cve_id = detail_cve.id)
-    except:
-         affected = None 
-    
-    try:
-         refrence = References.objects.get(cve=detail_cve)
-    except :
-        refrence = None
-
-    try:
-         metric = Metric.objects.get(cve=detail_cve)
-    except:
-         metric = None
-
-    context ={
-         'detail_cve' : detail_cve,
-         'affected': affected,
-         'refrence' : refrence,
-         'metric' : metric,
-    }
-
-
+def get_detail_cves(request):
     return render(request, 'firstapp/detail_cve.html')
 
 def get_tele_notifi(request):
