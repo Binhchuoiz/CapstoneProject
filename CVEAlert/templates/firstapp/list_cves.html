@@ -72,25 +72,39 @@
         {# Thêm logic trỏ vào model cve để hiển thị nó #}
         <div class="col-9">
             <h2>List CVEs</h2>
-            {% for it in listCVE %}
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-6">
-                            <div class="card-body" style="padding: 30px;">
-                                <h3 class="card-title"><a
-                                        href="#">{{ it.cve_id }}</a></h3>
-                                <p class="card-text">Year: Test</p>
-                                <p class="card-text">Date Publish:{{ it.date_publish }}</p>
-                                <p class="card-text">
-                                    <a href="#">
-                                        <button class="btn btn-primary">READ NOW</button>
+            {% if listCVE %}
+                    {% for i in listCVE %}
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h3 class="card-title">CVE test</h3>
+                                <div class="card-body" style="padding: 20px;">
+                                    <a href="{% url 'app:detail_cves' %}"><h3 class="card-title">{{ i.cve_id }}</h3>
+                                    </a><br>
+                                    <p class="card-text">
+                                        Year: {{ i.year }}
+                                    </p>
+                                    <p class="card-text">
+                                        Publish Date: test
+                                        Publish Date: {{ i.date_publish }}
+                                    </p>
+                                    <p class="card-text">
+                                        Type: test
+                                        Type: {{ i.data_type }}
+                                    </p>
+
+                                    <a>
+                                    <a href="{% url 'app:detail_cves' %}">
+                                        <button class="btn btn-dark">READ NOW</button>
                                     </a>
-                                </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
                 </div>
-            {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <p style="color: white">There are currently no CVEs</p>
+                {% endif %}
             {# Thêm logic để hiển thị số trang #}
         <div class="pagination">
                 <a href="#"><button class="button-paging">1</button></a>

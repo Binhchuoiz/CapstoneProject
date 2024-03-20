@@ -10,5 +10,5 @@ urlpatterns = [
     path('detail-cve/', get_detail_cves, name='detail_cves'),
 
     path('telegram-notification/', get_tele_notifi, name='tele_noti'),
-	path('gmail-notification/', get_gmail_notifi, name='gmail_noti'),
+	path('gmail-notification/', get_gmail_notifi, name='gmail_noti')
 ]
