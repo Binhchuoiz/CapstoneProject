@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
-from .models import CVE , Affected , References , Metric 
+from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions 
 # Create your views here.
 def get_home(request):
     listCVE= CVE.objects.all().order_by('-date_publish')[:3]
@@ -26,6 +26,9 @@ def get_list_CVE(request, page):
     paginator = Paginator(listCVE, per_page)
     page_obj = paginator.get_page(page)
     data = page_obj.object_list
+    affected = Affected.objects.filter(con_id=CVE.id)
+    products = [a.products for a in affected]
+    vendors = [a.vendors for a in affected]
 
     context={
         "page" :{
@@ -35,13 +38,39 @@ def get_list_CVE(request, page):
         },
         'paginator': paginator,
         'listCVE':data,
+        'products' : products,
+         'vendors' : vendors,
+         'affected': affected
+
     }
 
     # print(listCVE)
     return render(request, 'firstapp/list_cves.html', context=context)   
 
-def get_detail_cves(request):
-    return render(request, 'firstapp/detail_cve.html')
+def get_detail_cves(request, pk):
+    detail_cve = CVE.objects.get(pk=pk)
+    affected = Affected.objects.filter(con_id=detail_cve.id)
+    products = [a.product for a in affected]
+    vendors = [a.vendor for a in affected]
+    cvssv31 = CvssV31.objects.get(pk=pk) 
+    metric = Metric.objects.filter(cvssv31_id=cvssv31.id)
+    solutions = Solutions.objects.get(pk=pk)
+    descriptions = Descriptions.objects.get(pk=pk)
+    refrences = References.objects.filter(con_id=CVE.id)
+
+    context = {
+         'detail_cve': detail_cve,
+         'products' : products,
+         'vendors' : vendors,
+         'affected': affected,
+         'metric' : metric,
+         'solutions' : solutions,
+         'descriptions' : descriptions,
+         'refrences' : refrences
+
+    }
+
+    return render(request, 'firstapp/detail_cve.html' , context=context)
 
 def get_tele_notifi(request):
 
