@@ -96,7 +96,7 @@
                         <div class="col">
                             <div class="card h-100">
                                 <div class="card-body" style="padding: 20px;">
-                                    <a href="{% url 'app:detail_cves' %}"><h3 class="card-title">{{ i.cve_id }}</h3>
+                                    <a href="{% url 'app:detail_cves' pk=i.pk %}"><h3 class="card-title">{{ i.cve_id }}</h3>
                                     </a><br>
                                     <p class="card-text">
                                         Year: {{ i.year }}
@@ -112,7 +112,7 @@
                                         {% endfor %}
                                     </p>
 
-                                    <a href="{% url 'app:detail_cves' %}">
+                                    <a href="{% url 'app:detail_cves' pk=i.pk %}">
                                         <button class="btn btn-dark">READ NOW</button>
                                     </a>
                                 </div>
