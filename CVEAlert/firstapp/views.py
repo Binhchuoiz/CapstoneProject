@@ -27,3 +27,12 @@ def get_list_CVE(request):
 
 def get_detail_cves(request):
     return render(request, 'firstapp/detail_cve.html')
+
+def get_tele_notifi(request):
+
+	return render(request, 'telegram_notifi.html')
+
+
+def get_gmail_notifi(request):
+	
+	return render(request, 'gmail_notifi.html')
