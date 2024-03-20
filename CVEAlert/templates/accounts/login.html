@@ -1,6 +1,36 @@
 {% extends 'navbar.html' %}
 
-
+<style>   body {
+    background-color: #2b2426 !important;
+    }
+    input, button {
+    width: 100%;
+    }
+    .form-login {
+    width: 60%;
+    border: 1px solid #ccc;
+    padding: 50px;
+    background-color: white;
+    padding: 25px;
+    border-radius: 5px;
+    line-height: 30px;
+    margin-top: -120px;
+    margin-bottom: 50px;
+    z-index: 99;
+    position:relative;
+    }
+    .form-login > form > * {
+    margin-bottom: 20px;
+    border-radius: 5px;
+    }
+    .alert-msg {
+        background-color: #f76f6f;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        border-color: red;
+    }
+    </style>
 {% block css %}
 
 {% endblock %}
@@ -12,5 +42,24 @@
 
 
 {% block content %}
-
+<img src="/media/bg-sec.jpg" style="width: 100%" alt="background">
+<div class="container form-login">
+    <div class="row">
+        <div class="col">
+            <h2>LOGIN</h2>
+        </div>
+        <div class="col">
+            <p style="float: right;">Don't have an account? <a href="#"><b
+                    style="background-color: black; color: white; padding: 5px; font-size: 10px;">JOIN NOW</b></a>
+            </p>
+        </div>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="username" id="username" placeholder="Email Address">
+        <input type="password" name="password" id="password" placeholder="Password">
+        <button type="submit" class="btn btn-dark">LOGIN</button>
+        <button class="btn btn-light" style="border-color: black">Countinue with Google</button>
+    </form>
+</div>
 {% endblock %}
