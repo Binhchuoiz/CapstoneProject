@@ -90,7 +90,11 @@
                                     Publish Date: {{ cve.date_publish }}
                                 </p>
                                 <p class="card-text">
-                                    Products:
+                                    {% for a in page_obj.affected %}
+                                        {% if a.con_id == cve.id %}
+                                            <p class="card-text">Product: {{ a.product.name }}</p>
+                                        {% endif %}
+                                    {% endfor %}
                                 </p>
                                 <a href="{% url 'app:detail_cves' pk=cve.pk %}">
                                     <button class="btn btn-dark">READ NOW</button>
