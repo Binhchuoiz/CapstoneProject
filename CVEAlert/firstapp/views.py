@@ -46,8 +46,8 @@ def get_list_CVE(request, page):
         'paginator': paginator,
         'listCVE':data,
         'products' : products,
-         'vendors' : vendors,
-         'affected': affected
+        'vendors' : vendors,
+        'affected': affected
 
     }
 
