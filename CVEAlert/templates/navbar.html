@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
-
+    <link rel="icon" type="image/x-icon" href="/media/CVE.jpg">
     <title>
     {% block title %}
 
@@ -50,9 +50,11 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'app:list_cves' page=1 %}">List CVEs</a>
+                    <a class="nav-link" href="#C1">List CVEs</a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="#C2">Notification Methods</a>
+                </li>
 
 
                 <li class="nav-item">
@@ -97,9 +99,9 @@
                 the technologies our users follow.</p>
             <h3>BECOME OUR PARTNER</h3>
             <p>Interested in becoming our partner? Contact us here</p>
-            <a href="mailto:CveDailyAlert@gmail.com"><p><b style="color: white">Email: CveDailyAlert@gmail.com</b></p>
-            </a>
-            <p><b>Phone number: 1900010000</b></p>
+                <a href="mailto:CveDailyAlert@gmail.com"><p><b style="color: white">Email: CveDailyAlert@gmail.com</b></p>
+                </a>
+                <p><b>Phone number: 1900010000</b></p>
         </div>
     </div>
 </footer>

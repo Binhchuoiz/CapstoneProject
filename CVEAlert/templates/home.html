@@ -66,7 +66,7 @@
                         <div class="col">
                             <a href="{% url 'app:list_cves' page=1 %}"><button style="width: 100%" class="btn btn-primary">FIND NOW</button></a>
                         </div>
-                        <div class="col">
+                        <div class="col" >
                             <button style="width: 100%" class="btn btn-primary">LEARN MORE</button>
                         </div>
                     </div>
@@ -84,10 +84,10 @@
                 <button type="submit" class="btn btn-primary button-find">FIND NOW</button>
             </form>
         </div>
-        <div class="row">
+        <div class="row" style="padding: 80px;">
             <a style="text-decoration: none;" href="{% url 'app:list_cves' page=1 %}">
                 <h2 style="color: white;">
-                    <div class="rectangle"></div>&nbsp;List CVE
+                    <div id="C1" class="rectangle"></div>&nbsp;List CVE
                 </h2>
             </a>
             <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -95,7 +95,7 @@
                     {% for i in listCVE %}
                         <div class="col">
                             <div class="card h-100">
-                                <div class="card-body" style="padding: 20px;">
+                                <div class="card-body" style="padding: 30px;">
                                     <a href="{% url 'app:detail_cves' pk=i.pk %}"><h3 class="card-title">{{ i.cve_id }}</h3>
                                     </a><br>
                                     <p class="card-text">
@@ -126,11 +126,11 @@
         </div>
     </div>
     <br>
-    <div style="background-color: white !important; color: black !important; padding: 20px;">
+    <div style="background-color: white !important; color: black !important; padding: 80px;">
         <div class="container">
             <a style="text-decoration: none;" href="#">
                     <h2>
-                        <div class="rectangle"></div>&nbsp;Notification methods
+                        <div id="C2" class="rectangle"></div>&nbsp;Notification methods
                     </h2>
             </a><br>
             <div class="card mb-3" style="max-width: 540px; border: none;">
