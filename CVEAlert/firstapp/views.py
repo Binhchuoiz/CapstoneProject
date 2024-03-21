@@ -28,21 +28,24 @@ def get_list_CVE(request, page):
         if 'search_focus' in request.POST:
             id_cve= request.POST['search_focus']
             listCVE = CVE.objects.filter(cve_id__contains=id_cve)
-        # if 'newest' in request.POST:
-        #     listCVE= CVE.objects.all().annotate(published_date=Cast(F('date_publish'),DateTimeField())).order_by('-published_date')
-        # elif  'oldest' in request.POST:
-        #     listCVE= CVE.objects.all().annotate(published_date=Cast(F('date_publish'),DateTimeField())).order_by('published_date')
     
     per_page = request.GET.get("per_page", 10)
     paginator = Paginator(listCVE, per_page)
     page_obj = paginator.get_page(page)
-    data = page_obj.object_list
 
-    # cve_ids = [cve.id for cve in listCVE] 
-    # affected = Affected.objects.filter(con_id__in=cve_ids) 
-    # products = [a.product for a in affected]
-    # vendors = [a.vendor for a in affected]
+    cve_ids = [cve.id for cve in page_obj]
 
+    affected = Affected.objects.filter(con_id__in=cve_ids)
+    products = {}
+    vendors = {}
+    for a in affected:
+        if a.con_id in products:
+            products[a.con_id].append(a.product)
+            vendors[a.con_id].append(a.vendor)
+        else:
+            products[a.con_id] = [a.product]
+            vendors[a.con_id] = [a.vendor]
+    
     context={
         "page" :{
             'current' : page_obj.number,
@@ -50,10 +53,9 @@ def get_list_CVE(request, page):
             'has_previous' : page_obj.has_previous,
         },
         'paginator': paginator,
-        'listCVE':data,
-        # 'products' : products,
-        #  'vendors' : vendors,
-        #  'affected': affected
+        'page_obj' : page_obj,
+        'products' : products,
+        'vendors' : vendors
 
     }
 
