@@ -1,5 +1,5 @@
 {% extends 'navbar.html' %}
-
+{% load crispy_forms_tags %}
 
 {% block css %}
     body {
@@ -46,10 +46,7 @@
         </div>
         <form method="post">
             {% csrf_token %}
-            <input type="text" name="username" id="username" placeholder="username">
-            <input type="password" name="password" id="password" placeholder="Password">
-            <input type="text" name="Email" id="username" placeholder="Email Address">
-            <input type="password" name="password" id="password" placeholder="Confirm Password">
+            {{ form|crispy }}
             <button type="submit" class="btn btn-dark" style="width: 100%">SIGN UP</button>
             <button class="btn btn-light" style="border-color: black">Countinue with Google</button>
         </form>
