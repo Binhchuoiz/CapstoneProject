@@ -56,14 +56,25 @@ def get_list_CVE(request, page):
 
 def get_detail_cves(request, pk):
     detail_cve = CVE.objects.get(pk=pk)
-    affected = Affected.objects.filter(con_id=detail_cve.id)
+    try :
+        affected = Affected.objects.filter(con_id=detail_cve.id)
+    except :
+        affected = None
+
     products = [a.product for a in affected]
     vendors = [a.vendor for a in affected]
     cvssv31 = CvssV31.objects.get(pk=pk) 
-    metric = Metric.objects.filter(cvssv31_id=cvssv31.id)
+    try :
+        metric = Metric.objects.filter(cvssv31_id=cvssv31.id)
+    except :
+        metric = None
+
     solutions = Solutions.objects.get(pk=pk)
     descriptions = Descriptions.objects.get(pk=pk)
-    refrences = References.objects.filter(con_id=CVE.id)
+    try:
+        refrences = References.objects.filter(con_id=CVE.id)
+    except:
+         refrences = None
 
     context = {
          'detail_cve': detail_cve,

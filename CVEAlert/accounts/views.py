@@ -1,7 +1,10 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate , logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+
+
 
 
 from . import forms
@@ -47,3 +50,8 @@ def get_sign_up(request):
 			return HttpResponseRedirect(reverse('accounts:login'))
 		
 	return render(request, 'accounts/sign_up.html', {'form': form})
+
+@login_required
+def get_logout(request):
+	logout(request)
+	return HttpResponseRedirect(reverse('app:home'))
