@@ -55,3 +55,20 @@ def get_sign_up(request):
 def get_logout(request):
 	logout(request)
 	return HttpResponseRedirect(reverse('app:home'))
+
+@login_required
+def profile_detail_view(request):
+	form = forms.EditProfile()
+	profile = models.UserProfile.objects.get(user=request.user)
+	if request.method == 'POST':
+		form = forms.EditProfile(request.POST or None, request.FILES, instance=profile)
+		if form.is_valid():
+			form.save(commit=True)
+			return HttpResponseRedirect(reverse('accounts:profile'))
+	
+	context= {
+		'profile' : profile,
+		'form' :form,
+	}
+
+	return render(request,'accounts/profile.html',context=context)
