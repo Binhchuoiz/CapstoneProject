@@ -52,12 +52,16 @@
                 <input type="checkbox" id="others" name="others" value="others">
                 <label for="others">Others</label><br><br>
                 <h3>PUBLISHED YEARS</h3>
-                {# Hiển thị year qua logic #}
-                <hr>
-                
-                    <input type="checkbox" id="years" name="filter_year" value="">
-                    <label for="years"></label><br>
-               
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Select Year
+                    </button>
+                    {% for it in list_years %}
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="years" name="filter_year" value="{{ it }}">
+                      <a class="dropdown-item" href="#"><label for="years">{{ it }}</label><br></a>
+                    </div>
+                    {% endfor %}
+                </div>
                 <h3>SORT BY</h3>
                 <hr>
                 <input type="checkbox" id="newest" name="newest" value="newest">
@@ -68,7 +72,6 @@
             </form>
 
         </div>
-        {# Hiển thị thẻ Cve #}
         {# Thêm logic trỏ vào model cve để hiển thị nó #}
         <div class="col-9">
             <h2>List CVEs</h2>
