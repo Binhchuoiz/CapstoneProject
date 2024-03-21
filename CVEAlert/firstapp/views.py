@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
-from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions 
+from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions , Products_Versions
 # Create your views here.
 def get_home(request):
     listCVE = CVE.objects.all().order_by('-date_publish')[:3]
@@ -56,35 +56,45 @@ def get_list_CVE(request, page):
 
 def get_detail_cves(request, pk):
     detail_cve = CVE.objects.get(pk=pk)
-    try :
-        affected = Affected.objects.filter(con_id=detail_cve.id)
-    except :
-        affected = None
-
+    affected = Affected.objects.filter(con_id=detail_cve.id)
+    
     products = [a.product for a in affected]
+    products_versions = Products_Versions.objects.filter(product__in=products)
+    versions = [p.version for p in products_versions]
     vendors = [a.vendor for a in affected]
-    cvssv31 = CvssV31.objects.get(pk=pk) 
+     
     try :
-        metric = Metric.objects.filter(cvssv31_id=cvssv31.id)
+        metric = Metric.objects.filter(con_id=detail_cve.id)
     except :
         metric = None
-
-    solutions = Solutions.objects.get(pk=pk)
-    descriptions = Descriptions.objects.get(pk=pk)
+    cvssv31 = [m.cvssv31 for m in metric]
+     
     try:
-        refrences = References.objects.filter(con_id=CVE.id)
-    except:
+        solutions = Solutions.objects.get(pk=pk)
+    except Solutions.DoesNotExist:
+        solutions = None
+
+    try:
+        descriptions = Descriptions.objects.get(pk=pk)
+    except Descriptions.DoesNotExist:
+        descriptions = None
+    try:
+        refrences = References.objects.filter(con_id=pk)
+    except References.DoesNotExist:
          refrences = None
 
     context = {
          'detail_cve': detail_cve,
          'products' : products,
+         'versions' : versions,
          'vendors' : vendors,
          'affected': affected,
+         'products_versions' : products_versions,
          'metric' : metric,
          'solutions' : solutions,
          'descriptions' : descriptions,
-         'refrences' : refrences
+         'refrences' : refrences,
+         'cvssv31' : cvssv31
 
     }
 
