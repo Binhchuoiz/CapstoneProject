@@ -1,7 +1,9 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
-from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions , Products_Versions
+from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions , Products_Versions 
+from django.db.models import F, DateTimeField , ExpressionWrapper
+from django.db.models.functions import Cast
 # Create your views here.
 def get_home(request):
     listCVE = CVE.objects.all().order_by('-date_publish')[:3]
@@ -9,6 +11,9 @@ def get_home(request):
     affected = Affected.objects.filter(con_id__in=cve_ids) 
     products = [a.product for a in affected]
     vendors = [a.vendor for a in affected]
+    if request.method == 'POST': 
+            id_cve= request.POST['id_cve']
+            listCVE = CVE.objects.filter(cve_id__contains=id_cve)[:12]
     context = {
         'listCVE': listCVE,
         'products': products,
@@ -18,24 +23,25 @@ def get_home(request):
     return render(request, 'home.html', context=context)
 
 def get_list_CVE(request, page):
-    listCVE= CVE.objects.all()
+    listCVE= CVE.objects.all().order_by('date_publish')
     if request.method == 'POST':  
-        # if 'search_focus' in request.POST:
-        # id_cve= request.POST['search_focus']
-        # listCVE = CVE.objects.filter(title_contains=id_cve)
-        if 'newest' in request.POST:
-            listCVE= CVE.objects.all().order_by('-date_publish')
-        elif  'oldest' in request.POST:
-            listCVE= CVE.objects.all().order_by('date_publish')
+        if 'search_focus' in request.POST:
+            id_cve= request.POST['search_focus']
+            listCVE = CVE.objects.filter(cve_id__contains=id_cve)
+        # if 'newest' in request.POST:
+        #     listCVE= CVE.objects.all().annotate(published_date=Cast(F('date_publish'),DateTimeField())).order_by('-published_date')
+        # elif  'oldest' in request.POST:
+        #     listCVE= CVE.objects.all().annotate(published_date=Cast(F('date_publish'),DateTimeField())).order_by('published_date')
     
     per_page = request.GET.get("per_page", 10)
     paginator = Paginator(listCVE, per_page)
     page_obj = paginator.get_page(page)
     data = page_obj.object_list
-    cve_ids = [cve.id for cve in listCVE] 
-    affected = Affected.objects.filter(con_id__in=cve_ids) 
-    products = [a.product for a in affected]
-    vendors = [a.vendor for a in affected]
+
+    # cve_ids = [cve.id for cve in listCVE] 
+    # affected = Affected.objects.filter(con_id__in=cve_ids) 
+    # products = [a.product for a in affected]
+    # vendors = [a.vendor for a in affected]
 
     context={
         "page" :{
@@ -45,9 +51,9 @@ def get_list_CVE(request, page):
         },
         'paginator': paginator,
         'listCVE':data,
-        'products' : products,
-         'vendors' : vendors,
-         'affected': affected
+        # 'products' : products,
+        #  'vendors' : vendors,
+        #  'affected': affected
 
     }
 
