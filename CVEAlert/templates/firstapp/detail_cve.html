@@ -56,17 +56,17 @@
 {# Thêm logic để hiện thị các trường của CVE #}
 <div class="container" style="margin-top: 20px; margin-bottom: 20px">
     <div>
-        <a href=#><p> < Explore CVE list</p></a>
+        <a href={% url 'app:list_cves' page=1 %}><p> < Explore CVE list</p></a>
     </div>
     <div class="row">
         <div class="col-8">
-            <h1>Test CVE</h1>
+            <h1>{{ detail_cve.cve_id }}</h1>
             <div class="box-info">
                 <div class="title-box">
                     <h2>DESCCRIPTION</h2>
                 </div>
                 <div class="content-box">
-                    <p>Test</p>
+                    <p>{{ descriptions.value }}</p>
                 </div>
             </div>
             <div class="box-info">
@@ -74,9 +74,17 @@
                     <h2>Vulnerable products, Vendor</h2>
                 </div>
                 <div class="content-box">
-                            <p>Name: Test</p>
-                            <p>Version: Test</p>
-                            <p>Vendor name: Test</p>
+                        {% for a in affected %} 
+                            {% if a.con_id == detail_cve.id %}
+                                <p>Product name: {{ a.product.name }}</p>
+                                <p>Vendor name: {{ a.vendor.name }}</p>
+                            {% endif %}
+                            {% for p in products_versions %} 
+                                {% if p.product_id == a.product.id %}
+                                    <p>Version: {{ p.version.version }}</p>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
                 </div>
             </div>
             <div class="box-info">
@@ -84,17 +92,22 @@
                     <h2>Solution, References</h2>
                 </div>
                 <div class="content-box">
-                    <p>Solution: Test</p>
-                    <p>URL: Test</p>
+                    <p>Solution: {{ solutions.value }}</p>
+                    {% for r in refrences %}
+                        {% if r.con_id == detail_cve.id %}
+                            <p>URL: {{ r.url }}</p>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
             <div class="box-info">
-                    <p class="base-score">BASE SCORE <b
-                            style="float: right">Test</b></p>
-                    <p class="base-score">BASE SCORE <b
-                            style="float: right">Test</b></p>
-                    <p class="base-score">BASE SCORE <b
-                            style="float: right">Test</b></p>
+                <p class="base-score">BASE SCORE V3.1 >
+                    {% for m in metric %}
+                        {% if m.con_id == detail_cve.id %}
+                            <span style="float: right">{{ m.cvssv31.base_score }}</span>
+                        {% endif %}
+                    {% endfor %}
+                </p>
             </div>
         </div>
         <div class="col-4">
@@ -106,9 +119,8 @@
                     <form method="post">
                         {% csrf_token %}
                             <p class="alert-msg">Test</p>
-                        <p>CVE ID: Test</p>
-                        <p>Published Date: Test</p>
-                        <p>Modified Date: Test</p>
+                        <p>CVE ID: {{ detail_cve.cve_id }}</p>
+                        <p>Published Date: {{ detail_cve.date_publish }}</p>
                             <input name="follow_affect" value="null" style="display: none">
                             <input name="follow_affect" value="null" style="display: none">
                         <button class="btn btn-dark">Follow News Now</button>

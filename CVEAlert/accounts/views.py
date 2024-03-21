@@ -1,7 +1,10 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate , logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+
+
 
 
 from . import forms
@@ -44,6 +47,28 @@ def get_sign_up(request):
 			user = form.save()
 			create_profile = models.UserProfile.objects.create(user=user)
 			create_profile.save()
-			return HttpResponseRedirect(reverse('accounts:login'))
+			return HttpResponseRedirect(reverse('app:home'))
 		
 	return render(request, 'accounts/sign_up.html', {'form': form})
+
+@login_required
+def get_logout(request):
+	logout(request)
+	return HttpResponseRedirect(reverse('app:home'))
+
+@login_required
+def profile_detail_view(request):
+	form = forms.EditProfile()
+	profile = models.UserProfile.objects.get(user=request.user)
+	if request.method == 'POST':
+		form = forms.EditProfile(request.POST or None, request.FILES, instance=profile)
+		if form.is_valid():
+			form.save(commit=True)
+			return HttpResponseRedirect(reverse('accounts:profile'))
+	
+	context= {
+		'profile' : profile,
+		'form' :form,
+	}
+
+	return render(request,'accounts/profile.html',context=context)

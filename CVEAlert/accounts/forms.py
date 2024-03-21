@@ -20,3 +20,13 @@ class UserProfileSignUpForm(UserCreationForm):
 			'password1',
 			'password2',
 		)
+
+class EditProfile(forms.ModelForm):
+	class Meta:
+			model = UserProfile
+			fields = (
+				'full_name',
+				'dob',
+				'phone_number',
+				'email_profile'
+			)
