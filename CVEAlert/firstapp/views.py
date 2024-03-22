@@ -28,7 +28,6 @@ def get_list_CVE(request, page):
         if 'search_focus' in request.POST:
             id_cve= request.POST['search_focus']
             listCVE = CVE.objects.filter(cve_id__contains=id_cve)
-    
     per_page = request.GET.get("per_page", 10)
     paginator = Paginator(listCVE, per_page)
     page_obj = paginator.get_page(page)
@@ -46,6 +45,14 @@ def get_list_CVE(request, page):
             products[a.con_id] = [a.product]
             vendors[a.con_id] = [a.vendor]
     page_obj.affected = affected
+    if request.method == 'POST' and 'search_focus' in request.POST and 'products' in request.POST:
+             product_Name = request.POST['search_focus']
+             products = Products.objects.filter(name__in=product_Name)
+    if request.method == 'POST' and 'search_focus' in request.POST and 'vendors' in request.POST:
+             vendors_Name = request.POST['search_focus']
+             vendors = Vendors.objects.filter(name__in=vendors_Name)      
+
+            
     context={
         "page": {
 			'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
