@@ -2,7 +2,7 @@
 
 
 {% block css %}
-    .form-find-cve {
+.form-find-cve {
     background-color: white;
     padding: 25px;
     border-radius: 20px;
@@ -11,38 +11,39 @@
     margin-bottom: 50px;
     z-index: 99;
     position:relative;
-    }
-    form > input {
+}
+form > input {
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 20px;
-    }
-    .button-find {
+}
+.button-find {
     padding: 15px 30px 15px 30px;
     font-weight: bold;
-    }
-    body {
+}
+body {
     background-color: #222831 !important;
-    }
-    a {
+}
+a {
     text-decoration: none;
     color: black;
-    }
-    .top-right {
+}
+.top-right {
     position: absolute;
-    top: 100px;
-    right: 16px;
-    }
-    .image-first {
+    top: 50px;
+    right: 150px;
+}
+.image-first {
     position: relative;
     color: white;
-    }
-    .rectangle {
+    
+}
+.rectangle {
     height: 40px;
     width: 15px;
     background-color: #0F60DD;
     float:left;
-    }
+}
 {% endblock %}
 
 {% block title %}
@@ -66,8 +67,8 @@
                         <div class="col">
                             <a href="{% url 'app:list_cves' page=1 %}"><button style="width: 100%" class="btn btn-primary">FIND NOW</button></a>
                         </div>
-                        <div class="col" >
-                            <button style="width: 100%" class="btn btn-primary">LEARN MORE</button>
+                        <div class="col">
+                            <a href="/"><button style="width: 100%" class="btn btn-primary">LEARN MORE</button></a>
                         </div>
                     </div>
                 </div>
@@ -87,7 +88,7 @@
         <div class="row" style="padding: 80px;">
             <a style="text-decoration: none;" href="{% url 'app:list_cves' page=1 %}">
                 <h2 style="color: white;">
-                    <div id="C1" class="rectangle"></div>&nbsp;List CVE
+                    <div class="rectangle"></div>&nbsp;List CVE
                 </h2>
             </a>
             <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -130,7 +131,7 @@
         <div class="container">
             <a style="text-decoration: none;" href="#">
                     <h2>
-                        <div id="C2" class="rectangle"></div>&nbsp;Notification methods
+                        <div id="section2" class="rectangle"></div>&nbsp;Notification methods
                     </h2>
             </a><br>
             <div class="card mb-3" style="max-width: 540px; border: none;">
