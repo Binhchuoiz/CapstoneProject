@@ -50,13 +50,12 @@
                 <label for="vendor">Vendor</label><br><br>
                 <h3>PUBLISHED YEARS</h3>
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% comment %} <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Select Year
-                    </button>
-                    {% for it in list_years %}
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="years" name="filter_year" value="{{ it }}">
-                      <a class="dropdown-item" href="#"><label for="years">{{ it }}</label><br></a>
-                    </div>
+                    </button> {% endcomment %}
+                    {% for it in page_obj %}
+                        <input type="checkbox" id="years" name="filter_year" value="{{ it.year }}">
+                        <label for="years">{{ it.year }}</label><br>
                     {% endfor %}
                 </div></br>
                 <h3>SORT BY</h3>
