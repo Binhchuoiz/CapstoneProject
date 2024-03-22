@@ -74,31 +74,32 @@
 
         </div>
         {# Thêm logic trỏ vào detail cve để hiển thị nó #}
-        <div class="col-9">
+        <div class="col-9 ">
             <h2>List CVEs</h2>
             {% for cve in page_obj %}
-                <div class="col">
-                    <div class="card h-100">
+        </br>
+                <div class="col" >
+                    <div class="card h-100" style="border-width:2px; border-color:black">
                         <div class="card-body">
                             <h3 class="card-title">
                                 <a href="{% url 'app:detail_cves' pk=cve.pk %}">{{ cve.cve_id }}</a>
                             </h3>
-                            <div class="card-body" style="padding: 20px;">
+                            <div class="card-body" style="padding: 30px;">
                                 <p class="card-text">
-                                    Year: {{ cve.year }}
+                                    - Year: {{ cve.year }}
                                 </p>
                                 <p class="card-text">
-                                    Publish Date: {{ cve.date_publish }}
+                                    - Publish Date: {{ cve.date_publish }}
                                 </p>
                                 <p class="card-text">
                                     {% for a in page_obj.affected %}
                                         {% if a.con_id == cve.id %}
-                                            <p class="card-text">Product: {{ a.product.name }}</p>
+                                            <p class="card-text">- Product: {{ a.product.name }}</p>
                                         {% endif %}
                                     {% endfor %}
                                 </p>
                                 <a href="{% url 'app:detail_cves' pk=cve.pk %}">
-                                    <button class="btn btn-dark">READ NOW</button>
+                                    <button class="btn btn-dark"> <b style= "color: dodgerblue"> READ </b>NOW</button>
                                 </a>
                             </div>
                         </div>
@@ -110,7 +111,7 @@
                 <button class="button-paging">Page {{ page.current }} of  {{ len_page }}</button>
                 <a href="{% url 'app:list_cves' page=page.next %}"><button class="button-paging">Next >></button></a>
             </div>
-            </div>
+            </div> 
     </div>
 </div>
 {% endblock %}
