@@ -56,9 +56,10 @@
                         <a class="nav-link" href="#section2"><i class="fa-solid fa-bell"></i> Notification</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav">
+                <!--ms-md-auto chia navbar 2 phia-->
+                <ul class="navbar-nav ms-md-auto">
                     {% if user.is_authenticated %}
-                        <li content="nav-item" style="float: right">
+                        <li content="nav-item">
                             <a class="nav-link" href="{% url 'accounts:profile' %}"><b><i class="fa-solid fa-user"></i> Profile: {{ user.username }} </b></a>
                         </li>
                         <li class="nav-item">
@@ -93,22 +94,22 @@
         <div class="col icon-social" style="width: 80%" >
             <h3>ABOUT</h3>
             <div class="row">
-                <div class="col-2">
+                <div class="col-1">
                     <a href="https://www.facebook.com/profile.php?id=100088244351596">
                         <img alt="icon-facebook" src="/media/icon-fb.png"/>
                     </a>
                 </div>
-                <div class="col-2">
+                <div class="col-1">
                     <a href="https://www.instagram.com/daily_cve_alert?fbclid=IwAR1QpxhZaR_wnf5HqTA2mB_v1WpHZPNdA5HtfX1aNbYDmdnYoBxOcI0W-5I">
                         <img alt="icon-instagram" src="/media/icon-instagram.png"/>
                     </a>
                 </div>
-                <div class="col-2">
+                <div class="col-1">
                     <a href="https://www.linkedin.com/in/cve-alert-b700302b2/?fbclid=IwAR3H40amSM3V8WjmfHPOdMOso3yIcrqShPfhPIIIIxHakuGTUyVXNIV31Cc">
                         <img alt="icon-linkedin" src="/media/icon-linkedin.png"/>
                     </a>
                 </div>
-                <div class="col-2">
+                <div class="col-1">
                     <a href="https://twitter.com/CveDailyAlert?fbclid=IwAR0Sq2jk2gQs_pO3M4T18g7YFnKPlriPPuZVn4Uo9sDSIGjGRtkIScP26HY"><img
                             alt="icon-twitter" src="/media/icon-twitter.png"/></a>
                 </div>
