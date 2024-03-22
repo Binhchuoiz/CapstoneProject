@@ -21,7 +21,6 @@
 
 {% block content %}
 <div class="container">
-    {# Hiển thị thanh search #}
     <div class="row" style="margin-top: 30px; margin-bottom: 30px;">
         <div class="col-3">
         </div>
@@ -39,7 +38,7 @@
 
     </div>
     <div class="row" style="margin-top: 30px;">
-        {# Hiển thị filter #}
+        {# Hiển thị filter year#}
         <div class="col-3">
             <h3>FINDING METHODS</h3>
             <hr>
@@ -72,7 +71,7 @@
             </form>
 
         </div>
-        {# Thêm logic trỏ vào model cve để hiển thị nó #}
+        {# Thêm logic trỏ vào detail cve để hiển thị nó #}
         <div class="col-9">
             <h2>List CVEs</h2>
             {% for cve in page_obj %}
@@ -104,13 +103,12 @@
                     </div>
                 </div>
             {% endfor %}
-
-        <div class="pagination">
-            {% for page in  paginator.page_range %}
-                <a href="{% url 'app:list_cves' page=page %}"><button class="button-paging">{{ page }}</button></a>
-            {% endfor %}
-        </div>
-        </div>
+            <div class="pagination">
+                <a href="{% url 'app:list_cves' page=page.prev %}"><button class="button-paging"><< Prev</button></a>
+                <button class="button-paging">Page {{ page.current }} of  {{ len_page }}</button>
+                <a href="{% url 'app:list_cves' page=page.next %}"><button class="button-paging">Next >></button></a>
+            </div>
+            </div>
     </div>
 </div>
 {% endblock %}

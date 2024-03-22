@@ -47,11 +47,11 @@ def get_list_CVE(request, page):
             vendors[a.con_id] = [a.vendor]
     page_obj.affected = affected
     context={
-        "page" :{
-            'current' : page_obj.number,
-            'has_next' : page_obj.has_next,
-            'has_previous' : page_obj.has_previous,
-        },
+        "page": {
+			'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
+			'current': page_obj.number,
+			'next': page_obj.number + 1 if page_obj.number + 1 < paginator.num_pages else paginator.num_pages,
+		},
         'paginator': paginator,
         'page_obj' : page_obj,
         'products' : products,
