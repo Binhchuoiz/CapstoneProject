@@ -5,17 +5,115 @@
     text-decoration: none;
     color: black;
     }
-    .button-paging {
-        padding-left: 10px;
-        padding-right: 10px;
-        margin: 10px;
-        border-radius: 5px;
-    }
     .pagination {
         display: flex;
         align-items: center;
         justify-content: center;
     }
+    /*=SEARCH BAR=*/
+
+   
+
+    /*=CARD TITLE=*/
+    .card-title{
+        a {
+            box-shadow: inset 0 0 0 0 black;
+            color: black;
+              padding: 0 .25rem;
+              margin: 0 -.25rem;
+              border-radius: 5px;
+            transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+          }
+          a:hover {
+            color: white;
+            box-shadow: inset 200px 0 0 0 black;;
+          }
+          
+          /* Presentational styles */
+          a {
+            color: black;
+            font-family: 'Poppins', sans-serif;
+            font-size: 23px;
+            font-weight: 600;
+            line-height: 0;
+            text-decoration: none;
+          }
+    }
+    /*=READ NOW=*/
+    .btn {
+        line-height: 20px;
+        height: 60px;
+        text-align: center;
+        width: 120px;
+        cursor: pointer;
+        background-color:black;
+      }
+      .btn-one {
+        color: white;
+        transition: all 0.5s;
+        position: relative;
+      }
+      .btn-one span {
+        transition: all 0.5s;
+      }
+      .btn-one::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        opacity: 0;
+        transition: all 1s;
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-top-style: solid;
+        border-bottom-style: solid;
+        border-top-color: black;
+        border-bottom-color: black;
+        transform: scale(0.1, 1);
+        
+      }
+      .btn-one:hover span {
+        letter-spacing: 2px;
+      }
+      .btn-one:hover::before {
+        opacity: 1; 
+        transform: scale(1, 1); 
+      }
+      .btn-one::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        transition: all 0.3s;
+        background-color: rgba(255,255,255,0.1);
+      }
+      .btn-one:hover::after {
+        opacity: 0; 
+        transform: scale(0.1, 1);
+      }
+      
+
+/*=PAGE=*/
+.pagination-style-one a { 
+    padding: 10px; 
+    margin: 15px;
+    background: black; 
+    color: white; 
+    border-radius: 80%; 
+    box-shadow: 0px 5px 10px 5px rgba(0,0,0,.1);}
+.pagination-style-one a.selected, 
+.pagination-style-one a:hover, 
+.pagination-style-one a:active, 
+.pagination-style-one a:focus { 
+    padding: 15px; 
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,.5);
+}
 {% endblock %}
 
 
@@ -33,7 +131,7 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="input-group">
-                    <input name="search_focus" type="search" class="form-control" placeholder="Search..."/>
+                    <input name="search_focus" type="search" class="form-control" placeholder="Search CVE ID..."/>
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-search"></i>
                     </button>
@@ -71,9 +169,8 @@
                 <label for="oldest">Oldest</label><hr>
                 <button class="btn btn-dark">Find</button>
             </form>
-
+            
         </div>
-        {# Thêm logic trỏ vào detail cve để hiển thị nó #}
         <div class="col-9 ">
             <h2>List CVEs</h2>
             {% for cve in page_obj %}
@@ -98,20 +195,21 @@
                                         {% endif %}
                                     {% endfor %}
                                 </p>
-                                <a href="{% url 'app:detail_cves' pk=cve.pk %}">
-                                    <button class="btn btn-dark"> <b style= "color: dodgerblue"> READ </b>NOW</button>
-                                </a>
+                                 <a href="{% url 'app:detail_cves' pk=cve.pk %}" class="cta">
+                                    <button class="btn btn-one"> <b style= "color: dodgerblue"> READ </b>NOW</button>
+                                </a> 
                             </div>
                         </div>
                     </div>
                 </div>
             {% endfor %}
-            <div class="pagination">
-                <a href="{% url 'app:list_cves' page=page.prev %}"><button class="button-paging"><< Prev</button></a>
-                <button class="button-paging">Page {{ page.current }} of  {{ len_page }}</button>
-                <a href="{% url 'app:list_cves' page=page.next %}"><button class="button-paging">Next >></button></a>
-            </div>
-            </div> 
+            </br>
+            <div class="pagination pagination-style-one m-t-20">
+                <a href="{% url 'app:list_cves' page=page.prev %}">< Pre</a>
+                <a style="color:white">Page {{ page.current }}  {{ len_page }}</a>
+                <a href="{% url 'app:list_cves' page=page.next %}">Next ></a>
+              </div>
+        </div>   
     </div>
 </div>
 {% endblock %}
