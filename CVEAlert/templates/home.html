@@ -27,7 +27,7 @@ body {
 a {
     text-decoration: none;
     color: black;
-    }
+}
 .top-right {
     position: absolute;
     top: 50px;
@@ -39,11 +39,145 @@ a {
     
 }
 .rectangle {
-    height: 40px;
+    height: 44px;
     width: 15px;
     background-color: #0F60DD;
     float:left;
 }
+/*=LIST CVEs*/
+.list1{
+    a {
+        box-shadow: inset 0 0 0 0 #0F60DD;
+        color: #0F60DD;
+          padding: 4px;
+          margin: 0 -.25rem;
+          border-radius: 1px;
+        transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+      }
+      a:hover {
+        color: black;
+        box-shadow: inset 1000px 0px 0 0 #0F60DD;;
+      }
+      
+      /* Presentational styles */
+      a { 
+        color: white;
+        font-family: 'Poppins', sans-serif;
+        font-size: 32px;
+        font-weight: 500;
+        line-height: 0;
+        text-decoration: none;
+      }
+}
+.list2{
+    a {
+        box-shadow: inset 0 0 0 0 #0F60DD;
+        color: #0F60DD;
+          padding: 4px;
+          margin: 0 -.25rem;
+          border-radius: 1px;
+        transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+      }
+      a:hover {
+        color: white;
+        box-shadow: inset 1000px 0px 0 0 #0F60DD;;
+      }
+      
+      /* Presentational styles */
+      a { 
+        color: black;
+        font-family: 'Poppins', sans-serif;
+        font-size: 32px;
+        font-weight: 500;
+        line-height: 0;
+        text-decoration: none;
+      }
+}
+/*=CARD TITLE=*/
+  .card-title{
+      a {
+          box-shadow: inset 0 0 0 0 black;
+          color: black;
+            padding: 0 .25rem;
+            margin: 0 -.25rem;
+            border-radius: 5px;
+          transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+        }
+        a:hover {
+          color: white;
+          box-shadow: inset 200px 0 0 0 black;;
+        }
+        
+        /* Presentational styles */
+        a {
+          color: black;
+          font-family: 'Poppins', sans-serif;
+          font-size: 23px;
+          font-weight: 600;
+          line-height: 0;
+          text-decoration: none;
+        }
+  }
+/*=READ NOW=*/
+.btn {
+    line-height: 20px;
+    height: 60px;
+    text-align: center;
+    text-style:bold
+    width: 120px;
+    cursor: pointer;
+    background-color:dodgerblue;
+  }
+  .btn-one {
+    color: white;
+    transition: all 0.5s;
+    position: relative;
+  }
+  .btn-one span {
+    transition: all 0.5s;
+  }
+  .btn-one::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    opacity: 0;
+    transition: all 1s;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-top-color: dodgerblue;
+    border-bottom-color: dodgerblue;
+    transform: scale(0.1, 1);
+    
+  }
+  .btn-one:hover span {
+    letter-spacing: 2px;
+  }
+  .btn-one:hover::before {
+    opacity: 1; 
+    transform: scale(1, 1); 
+  }
+  .btn-one::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition: all 0.3s;
+    background-color: rgba(255,255,255,0.1);
+  }
+  .btn-one:hover::after {
+    opacity: 0; 
+    transform: scale(0.1, 1);
+  }
+  
 {% endblock %}
 
 {% block title %}
@@ -58,17 +192,17 @@ a {
             <div class="row">
                 <div class="col-6"></div>
                 <div class="col-6">
-                    <h2 style="font-size: 52px">LET'S FIND</h2>
+                    <h2 style="font-size: 55px">LET'S FIND</h2>
                     <p>
                         Technology-based CVE Search, Vulnerabilities and CVEs Suggested based on the technology you are
                         tracking!
                     </p>
                     <div class="row">
                         <div class="col">
-                            <a href="{% url 'app:list_cves' page=1 %}"><button style="width: 100%" class="btn btn-primary">FIND NOW</button></a>
+                            <a href="{% url 'app:list_cves' page=1 %}"><button style="width: 100%" class="btn btn-one"><b>FIND NOW</b></button></a>
                         </div>
                         <div class="col">
-                            <a href="/"><button style="width: 100%" class="btn btn-primary">LEARN MORE</button></a>
+                            <a href="/"><button style="width: 100%" class="btn btn-one"><b>LEARN MORE</b></button></a>
                         </div>
                     </div>
                 </div>
@@ -78,17 +212,18 @@ a {
     <div class="container">
         <div class="form-find-cve">
             <h1><b style="color: dodgerblue">FIND</b> <b>YOUR</b> <b style="color: dodgerblue">CVE</b></h1>
-            <p>Find your CVE...</p>
+            <i>Find your CVE...</i>
             <form method="post">
                 {% csrf_token %}
                 <input type="text" name="id_cve" style="width: 100%" placeholder="Find CVE-ID">
-                <button type="submit" class="btn btn-primary button-find">FIND NOW</button>
+                <button type="submit" class="btn btn-one button-find">FIND NOW</button>
             </form>
         </div>
         <div class="row">
             <a style="text-decoration: none;" href="{% url 'app:list_cves' page=1 %}">
-                <h2 class="test" style="color: white;">
-                    <div class="rectangle"></div>&nbsp;List CVE
+                <h2 style="color: white;" class="list1">
+                    <div class="rectangle"></div>&nbsp;List CVEs
+                    <a href="{% url 'app:list_cves' page=1 %}"></a>
                 </h2>
             </a>
             <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -97,24 +232,26 @@ a {
                         <div class="col">
                             <div class="card h-100">
                                 <div class="card-body" style="padding: 30px;">
-                                    <a href="{% url 'app:detail_cves' pk=i.pk %}"><h3 class="card-title">{{ i.cve_id }}</h3>
-                                    </a><br>
-                                    <p class="card-text">
-                                        Year: {{ i.year }}
+                                    <h3 class="card-title">
+                                    <a href="{% url 'app:detail_cves' pk=i.pk %}">{{ i.cve_id }}
+                                    </a>
+                                </h3><br>
+                                    <p class="card-text" >
+                                        <b>Year:</b> "{{ i.year }}"
                                     </p>
                                     <p class="card-text">
-                                        Publish Date: {{ i.date_publish }}
+                                        <b>Publish Date:</b> "{{ i.date_publish }}"
                                     </p>
                                     <p class="card-text">
                                         {% for a in affected %}
                                             {% if a.con_id == i.id %}
-                                                Product: {{ a.product.name }}
+                                            <b>Product:</b> "{{ a.product.name }}"
                                             {% endif %}
                                         {% endfor %}
                                     </p>
 
                                     <a href="{% url 'app:detail_cves' pk=i.pk %}">
-                                        <button class="btn btn-dark">READ NOW</button>
+                                        <button class="btn btn-one"><b>READ NOW</b></button>
                                     </a>
                                 </div>
                             </div>
@@ -130,9 +267,10 @@ a {
     <div style="background-color: white !important; color: black !important; padding: 80px;">
         <div class="container">
             <a style="text-decoration: none;" href="#">
-                    <h2>
-                        <div id="section2" class="rectangle"></div>&nbsp;Notification methods
-                    </h2>
+                <h2 style="color: white;" class="list2">
+                    <div class="rectangle"></div>&nbsp;Notification methods
+                    <a href="#"></a>
+                </h2>
             </a><br>
             <div class="card mb-3" style="max-width: 540px; border: none;">
               <div class="row g-0">
@@ -143,7 +281,9 @@ a {
                   <div class="card-body">
                     <h5 class="card-title">Announce news via Gmail</h5>
                     <p class="card-text">How to auto send gmail. when news cve publish</p>
-                    <p class="card-text"><a href="#"><b style="color: red">Read more</b></a></p>
+                    <a href="#">
+                        <button class="btn btn-one"><b>READ MORE</b></button>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -157,7 +297,10 @@ a {
                   <div class="card-body">
                     <h5 class="card-title">Announce news via Telegram</h5>
                     <p class="card-text">How to auto send telegram. when news cve publish</p>
-                    <p class="card-text"><a href="#"><b style="color: red">Read more</b></a></p>
+                    <p class="card-text">
+                        <a href="#">
+                            <button class="btn btn-one"><b>READ MORE</b></button>
+                        </a>
                   </div>
                 </div>
               </div>

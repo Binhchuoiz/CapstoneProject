@@ -22,14 +22,90 @@
     
     {#Cần chỉnh CSS#}
     <style>
-        .icon-social > div > div > a > img {
-            height: 40px;
-            width: 40px;
+        <!--Body-->
+        body{
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 400;
+            color: #212112;
+                    }
+        
+
+        
+
+        <!--Link-->
+    
+        <!--social-->
+        .button-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 500%;
         }
 
-        body {
-            overflow-x: hidden;
+        .glass-btn {
+        width: 60px;
+        height: 60px;
+        background-color: #fafafa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 7px;
+        margin-left: 1em;
+        margin-right: 1em;  
+        cursor: pointer;
+        transition: all 0.3s;
+
+        &.blue-btn {
+            -webkit-box-shadow: 0px 20px 20px -17px rgba(0, 111, 255, 0.53);
+            -moz-box-shadow: 0px 20px 20px -17px rgba(0, 111, 255, 0.53);
+            box-shadow: 0px 20px 20px -17px rgba(0, 111, 255, 0.53);
+
+            &:hover {
+            -webkit-box-shadow: 0px 20px 35px -16px rgba(0, 111, 255, 0.65);
+            -moz-box-shadow: 0px 20px 35px -16px rgba(0, 111, 255, 0.65);
+            box-shadow: 0px 20px 35px -16px rgba(0, 111, 255, 0.65);      
+            }
+
+            .content {
+            font-size: 4em;
+            font-family: "Roboto", sans-serif;
+            background: linear-gradient(to right, #006fff, #00acff 70%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 10px 37px rgba(0, 111, 255, 0.8);
+            }
         }
+
+        &.red-btn {
+            -webkit-box-shadow: 0px 20px 20px -17px rgba(255, 16, 39, 0.5);
+            -moz-box-shadow: 0px 20px 20px -17px rgba(255, 16, 39, 0.5);
+            box-shadow: 0px 20px 20px -17px rgba(255, 16, 39, 0.5);
+
+            &:hover {
+            -webkit-box-shadow: 0px 20px 35px -16px rgba(255, 16, 39, 0.57);
+            -moz-box-shadow: 0px 20px 35px -16px rgba(255, 16, 39, 0.57);
+            box-shadow: 0px 20px 35px -16px rgba(255, 16, 39, 0.57);      
+            }
+
+            .content {
+            font-size: 4em;
+            font-family: "Roboto", sans-serif;
+            background: linear-gradient(to right, #ff1027, #ff4f06 70%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 10px 37px rgba(255, 16, 39, 0.6);
+            }
+        }
+
+        &:hover {
+            background-color: darken(#fafafa, 2%);    
+            transform: translateY(-5px);
+            transition: all 0.3s;
+        }
+        }
+
         {% block css %}
 
         {% endblock %}
@@ -41,7 +117,7 @@
 <body>
 {#  Chỉnh lại style  #}
 <!--https://getbootstrap.com/docs/5.3/components/navbar/-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
     <div class="container">
         <a class="navbar-brand" href="/"><b>CVE'S DAILY ALERT</b></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +136,7 @@
                 <ul class="navbar-nav ms-md-auto">
                     {% if user.is_authenticated %}
                         <li content="nav-item">
-                            <a class="nav-link" href="{% url 'accounts:profile' %}"><b><i class="fa-solid fa-user"></i> Profile: {{ user.username }} </b></a>
+                            <a class="nav-link" href="{% url 'accounts:profile' %}"><b><i class="fa-solid fa-user"></i> My Account:  {{ user.username }} </b></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" style="right: -40px;" href="{% url 'accounts:log_out' %}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
@@ -88,31 +164,32 @@
             <h3>QUICK LINKS</h3>
             <p>Go fast to your destination</p>
             <a href="{% url 'app:home' %}"><p style="color: royalblue">Home</p></a>
-            <a href="{% url 'app:list_cves' page=1 %}"><p style="color: royalblue">Finding</p></a>
-            <a href="#"><p style="color: royalblue">Profile</p></a>
+            <a href="{% url 'app:list_cves' page=1 %}" ><p style="color: royalblue" >Finding</p></a>
+            <a href="#"><p style="color: royalblue" >Profile</p></a> 
         </div>
         <div class="col icon-social" style="width: 80%" >
-            <h3>ABOUT</h3>
+            <h3 style="margin-left:80px; margin-bottom:20px">ABOUT</h3>
             <div class="row">
-                <div class="col-1">
-                    <a href="https://www.facebook.com/profile.php?id=100088244351596">
-                        <img alt="icon-facebook" src="/media/icon-fb.png"/>
-                    </a>
-                </div>
-                <div class="col-1">
-                    <a href="https://www.instagram.com/daily_cve_alert?fbclid=IwAR1QpxhZaR_wnf5HqTA2mB_v1WpHZPNdA5HtfX1aNbYDmdnYoBxOcI0W-5I">
-                        <img alt="icon-instagram" src="/media/icon-instagram.png"/>
-                    </a>
-                </div>
-                <div class="col-1">
-                    <a href="https://www.linkedin.com/in/cve-alert-b700302b2/?fbclid=IwAR3H40amSM3V8WjmfHPOdMOso3yIcrqShPfhPIIIIxHakuGTUyVXNIV31Cc">
-                        <img alt="icon-linkedin" src="/media/icon-linkedin.png"/>
-                    </a>
-                </div>
-                <div class="col-1">
-                    <a href="https://twitter.com/CveDailyAlert?fbclid=IwAR0Sq2jk2gQs_pO3M4T18g7YFnKPlriPPuZVn4Uo9sDSIGjGRtkIScP26HY"><img
-                            alt="icon-twitter" src="/media/icon-twitter.png"/></a>
-                </div>
+                <div class="glass-btn blue-btn">
+                    <!--<div class="content">
+                      h
+                    </div> -->
+                    <a href="https://www.facebook.com/profile.php?id=100088244351596"><img src="/media/Facebook_logo_(square).png" alt="facebook" style="width: 4em; height:4em;"></a>
+                  </div>
+                
+                  <div class="glass-btn red-btn">
+                    <!-- <div class="content">
+                      e
+                    </div> -->
+                    <a href="https://www.instagram.com/daily_cve_alert?fbclid=IwAR1QpxhZaR_wnf5HqTA2mB_v1WpHZPNdA5HtfX1aNbYDmdnYoBxOcI0W-5I"><img src="/media/Instagram_icon.png" alt="facebook" style="width: 4em; height:4em;"></a>
+                  </div>
+                  
+                  <div class="glass-btn blue-btn">
+                    <!-- <div class="content">
+                      y
+                    </div> -->
+                    <a href="https://twitter.com/CveDailyAlert?fbclid=IwAR0Sq2jk2gQs_pO3M4T18g7YFnKPlriPPuZVn4Uo9sDSIGjGRtkIScP26HY"><img src="/media/new-twitter-logo-x-2023-twitter-x-logo-vector-download_691560-10795.png" alt="facebook" style="width: 5em; height:5em;"></a>
+                  </div>
             </div>
         </div>
         <div class="col">

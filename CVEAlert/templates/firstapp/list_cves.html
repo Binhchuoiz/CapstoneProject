@@ -132,7 +132,7 @@
                 {% csrf_token %}
                 <div class="input-group">
                     <input name="search_focus" type="search" class="form-control" placeholder="Search CVE ID..."/>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-one">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
@@ -167,7 +167,7 @@
                 <label for="newest">Newest</label><br>
                 <input type="checkbox" id="oldest" name="oldest" value="oldest">
                 <label for="oldest">Oldest</label><hr>
-                <button class="btn btn-dark">Find</button>
+                <button class="btn btn-one">FIND</button>
             </form>
             
         </div>
@@ -183,15 +183,15 @@
                             </h3>
                             <div class="card-body" style="padding: 30px;">
                                 <p class="card-text">
-                                    - Year: {{ cve.year }}
+                                    <b> Year:</b> "{{ cve.year }}"
                                 </p>
                                 <p class="card-text">
-                                    - Publish Date: {{ cve.date_publish }}
+                                    <b> Publish Date: </b>"{{ cve.date_publish }}"
                                 </p>
                                 <p class="card-text">
                                     {% for a in page_obj.affected %}
                                         {% if a.con_id == cve.id %}
-                                            <p class="card-text">- Product: {{ a.product.name }}</p>
+                                            <p class="card-text"><b> Product:</b> "{{ a.product.name }}"</p>
                                         {% endif %}
                                     {% endfor %}
                                 </p>
