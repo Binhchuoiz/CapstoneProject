@@ -43,6 +43,7 @@ a {
     width: 15px;
     background-color: #0F60DD;
     float:left;
+    border-radius: 4px;
 }
 /*=LIST CVEs*/
 .list1{
@@ -51,7 +52,7 @@ a {
         color: #0F60DD;
           padding: 4px;
           margin: 0 -.25rem;
-          border-radius: 1px;
+          border-radius: 4px;
         transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
       }
       a:hover {
@@ -75,7 +76,7 @@ a {
         color: #0F60DD;
           padding: 4px;
           margin: 0 -.25rem;
-          border-radius: 1px;
+          border-radius: 4px;
         transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
       }
       a:hover {
@@ -93,8 +94,8 @@ a {
         text-decoration: none;
       }
 }
-/*=CARD TITLE=*/
-  .card-title{
+/*=CARD TITLE1=*/
+  .card-title1{
       a {
           box-shadow: inset 0 0 0 0 black;
           color: black;
@@ -118,6 +119,7 @@ a {
           text-decoration: none;
         }
   }
+
 /*=READ NOW=*/
 .btn {
     line-height: 20px;
@@ -177,7 +179,31 @@ a {
     opacity: 0; 
     transform: scale(0.1, 1);
   }
-  
+  /*=CARD TITLE2=*/
+  .card-title2{
+      a {
+          box-shadow: inset 0 0 0 0 white;
+          color: white;
+            padding: 20px;
+            margin: 0 -.25rem;
+            border-radius: 5px;
+          transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+        }
+        a:hover {
+          color: white;
+          box-shadow: inset 200px 0 0 0 black;;
+        }
+        
+        /* Presentational styles */
+        a {
+          text-color: white;
+          font-family: 'Poppins', sans-serif;
+          font-size: 22px;
+          font-weight: 600;
+          line-height: 0;
+          text-decoration: none;
+        }
+  }
 {% endblock %}
 
 {% block title %}
@@ -219,7 +245,7 @@ a {
                 <button type="submit" class="btn btn-one button-find">FIND NOW</button>
             </form>
         </div>
-        <div class="row">
+        <div class="row" style="margin-bottom:30px;">
             <a style="text-decoration: none;" href="{% url 'app:list_cves' page=1 %}">
                 <h2 style="color: white;" class="list1">
                     <div class="rectangle"></div>&nbsp;List CVEs
@@ -232,7 +258,7 @@ a {
                         <div class="col">
                             <div class="card h-100">
                                 <div class="card-body" style="padding: 30px;">
-                                    <h3 class="card-title">
+                                    <h3 class="card-title1">
                                     <a href="{% url 'app:detail_cves' pk=i.pk %}">{{ i.cve_id }}
                                     </a>
                                 </h3><br>
@@ -264,7 +290,7 @@ a {
         </div>
     </div>
     <br>
-    <div style="background-color: white !important; color: black !important; padding: 80px;">
+    <div style="background-color: white !important; color: black !important; padding: 80px; margin-bottom:-50px; margin-top:50px;">
         <div class="container">
             <a style="text-decoration: none;" href="#">
                 <h2 style="color: white;" class="list2">
@@ -279,8 +305,11 @@ a {
                 </div>
                 <div class="col-md-8">
                   <div class="card-body">
-                    <h5 class="card-title">Announce news via Gmail</h5>
-                    <p class="card-text">How to auto send gmail. when news cve publish</p>
+                    <h3 class="card-title1">
+                        <a href="#">Gmail
+                        </a>
+                    </h3>
+                    <p class="card-text">"How to receive notifications via Gmail whenever a new CVE is updated."</p>
                     <a href="#">
                         <button class="btn btn-one"><b>READ MORE</b></button>
                     </a>
@@ -295,8 +324,11 @@ a {
                 </div>
                 <div class="col-md-8">
                   <div class="card-body">
-                    <h5 class="card-title">Announce news via Telegram</h5>
-                    <p class="card-text">How to auto send telegram. when news cve publish</p>
+                    <h3 class="card-title1">
+                        <a href="#">Telegram
+                        </a>
+                    </h3>
+                    <p class="card-text">"How to receive notifications via Telegram whenever a new CVE is updated."</p>
                     <p class="card-text">
                         <a href="#">
                             <button class="btn btn-one"><b>READ MORE</b></button>

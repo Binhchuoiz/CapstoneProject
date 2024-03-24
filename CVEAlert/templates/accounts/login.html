@@ -1,5 +1,6 @@
 {% extends 'navbar.html' %}
 
+
 {% block css %}
     body {
     background-color: #2b2426 !important;
@@ -31,6 +32,126 @@
         border-radius: 5px;
         border-color: red;
     }
+    /*=Login=*/
+.btn {
+    line-height: 15px;
+    height: 40px;
+    text-align: center;
+    text-style:bold
+    width: 120px;
+    cursor: pointer;
+    background-color:black;
+  }
+  .btn-one {
+    color: white;
+    transition: all 0.5s;
+    position: relative;
+  }
+  .btn-one span {
+    transition: all 0.5s;
+  }
+  .btn-one::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    opacity: 0;
+    transition: all 1s;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-top-color: black;
+    border-bottom-color: black;
+    transform: scale(0.1, 1);
+    
+  }
+  .btn-one:hover span {
+    letter-spacing: 2px;
+  }
+  .btn-one:hover::before {
+    opacity: 1; 
+    transform: scale(1, 1); 
+  }
+  .btn-one::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition: all 0.3s;
+    background-color: rgba(255,255,255,0.1);
+  }
+  .btn-one:hover::after {
+    opacity: 0; 
+    transform: scale(0.1, 1);
+  }
+
+  /*=continuew with Google=*/
+  .btn2 {
+      line-height: 15px;
+      height: 40px;
+      text-align: center;
+      text-style:bold
+      width: 120px;
+      cursor: pointer;
+      background-color:white;
+      
+    }
+    .btn2-two {
+      color: white;
+      transition: all 0.5s;
+      position: relative;
+    }
+    .btn2-two span {
+      transition: all 0.5s;
+    }
+    .btn2-two::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      opacity: 0;
+      transition: all 1s;
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+      border-top-style: solid;
+      border-bottom-style: solid;
+      border-top-color: black;
+      border-bottom-color: black;
+      transform: scale(0.1, 1);
+    }
+    .btn2-two:hover span {
+      letter-spacing: 2px;
+    }
+    .btn2-two:hover::before {
+      opacity: 1; 
+      transform: scale(1, 1); 
+    }
+    .btn2-two::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      transition: all 0.3s;
+      background-color: rgba(255,255,255,0.1);
+    }
+    .btn2-two:hover::after {
+      opacity: 0; 
+      transform: scale(0.1, 1);
+    
+    }
 {% endblock %}
 
 
@@ -52,15 +173,15 @@
             </p>
         </div>
     </div>
-    {% if msg %}
+    {% if msg %} 
     <p class="alert-msg">{{ msg }}</p>
     {% endif %}
     <form method="post">
         {% csrf_token %}
         <input type="text" name="username" id="username" placeholder="Email Address">
         <input type="password" name="password" id="password" placeholder="Password">
-        <button type="submit" class="btn btn-dark">LOGIN</button>
-        <button class="btn btn-light" style="border-color: black">Countinue with Google</button>
+        <button type="submit" class="btn btn-one"><b>LOGIN</b></button>
+        <button class="btn2 btn2-two" style="color:black;"><b>Countinue with Google</b></button>
     </form>
 </div>
 {% endblock %}
