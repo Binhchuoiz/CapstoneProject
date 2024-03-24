@@ -58,6 +58,7 @@ def get_logout(request):
 
 @login_required
 def profile_detail_view(request):
+	profile = models.UserProfile.objects.get(user=request.user)
 	form = forms.EditProfile()
 	profile = models.UserProfile.objects.get(user=request.user)
 	if request.method == 'POST':
