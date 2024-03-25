@@ -73,3 +73,17 @@ def profile_detail_view(request):
 	}
 
 	return render(request,'accounts/profile.html',context=context)
+
+
+
+
+
+def list_affect_view(request):
+	return render(request, 'accounts/list_affect.html')
+
+@login_required
+def change_password_view(request):
+	return render(request, 'accounts/change_password.html')
+
+def notification_user_view(request):
+	return render(request, 'accounts/notification_user.html')
