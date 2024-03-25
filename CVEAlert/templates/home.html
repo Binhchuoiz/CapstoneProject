@@ -294,7 +294,7 @@ a {
         <div class="container">
             <a style="text-decoration: none;" href="#">
                 <h2 style="color: white;" class="list2">
-                    <div class="rectangle"></div>&nbsp;Notification methods
+                    <div class="rectangle" id="section2"></div>&nbsp;Notification methods
                     <a href="#"></a>
                 </h2>
             </a><br>
@@ -306,11 +306,11 @@ a {
                 <div class="col-md-8">
                   <div class="card-body">
                     <h3 class="card-title1">
-                        <a href="#">Gmail
+                        <a href="{% url 'app:gmail_noti' %}">Gmail
                         </a>
                     </h3>
                     <p class="card-text">"How to receive notifications via Gmail whenever a new CVE is updated."</p>
-                    <a href="#">
+                    <a href="{% url 'app:gmail_noti' %}">
                         <button class="btn btn-one"><b>READ MORE</b></button>
                     </a>
                   </div>
@@ -325,12 +325,12 @@ a {
                 <div class="col-md-8">
                   <div class="card-body">
                     <h3 class="card-title1">
-                        <a href="#">Telegram
+                        <a href="{% url 'app:tele_noti' %}">Telegram
                         </a>
                     </h3>
                     <p class="card-text">"How to receive notifications via Telegram whenever a new CVE is updated."</p>
                     <p class="card-text">
-                        <a href="#">
+                        <a href="{% url 'app:tele_noti' %}">
                             <button class="btn btn-one"><b>READ MORE</b></button>
                         </a>
                   </div>
