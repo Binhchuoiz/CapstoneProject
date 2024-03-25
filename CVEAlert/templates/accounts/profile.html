@@ -122,13 +122,13 @@
                        href="{% url 'accounts:profile' %}">Personal Info</a>
                 </p>
                 <p class = "link">
-                    <a href="#">Password</a>
+                    <a href="{% url 'accounts:change_password' %}">Password</a>
                 </p >
                 <p class = "link">
-                    <a href="#">Affected Followed</a>
+                    <a href="{% url 'accounts:list_affect' %}">Affected Followed</a>
                 </p >
                 <p class = "link">
-                    <a href="#">Notification</a>
+                    <a href="{% url 'accounts:notification' %}">Notification</a>
                 </p>
             </div>
             <div class="col-6">

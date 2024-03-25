@@ -1,16 +1,75 @@
 {% extends 'navbar.html' %}
 
-
 {% block css %}
-
+    .form-edit-profile > input {
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    }
+    .form-edit-profile > button {
+    width: 50%;
+    }
+    body {
+    background-color: white !important;
+    }
+    input, select, textarea {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 5px;
+    }
+    .form-edit-avatar {
+    text-align: center;
+    }
+    .list-page-profile > p > a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    }
+    .list-page-profile > p > .active {
+    color: dodgerblue;
+    }
 {% endblock %}
 
-
 {% block title %}
-    abcxyz
+    Setting Notification
 {% endblock %}
 
 
 {% block content %}
-
+    <div class="container" style="padding: 20px;">
+        <div class="row">
+            <div class="col-4 list-page-profile">
+                <p>
+                    <a href="{% url 'accounts:profile' %}">Personal Info</a>
+                </p>
+                <p>
+                    <a href="{% url 'accounts:change_password'%}">Password</a>
+                </p>
+                <p>
+                    <a href="{% url 'accounts:list_affect'%}">Affected Followed</a>
+                </p>
+                <p>
+                    <a class="active" href="{% url 'accounts:notification' %}">Setting Notification</a>
+                </p>
+            </div>
+            <div class="col-6">
+                <form method="post" class="form-edit-profile" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h2><b>YOUR</b> <b style="color: dodgerblue">NOTIFICATION</b></h2>
+                    <label for="status">Status</label>
+                    <select name="status" id="status">
+                            <option value=1></option>
+                    </select>
+                    <label for="email_address">Email Address</label>
+                    <input type="email" name="email_address" id="email_address">
+                    <label for="token_bot">Token Bot</label>
+                    <input type="text" name="token_bot" id="token_bot" >
+                    <label for="chat_id">Chat ID</label>
+                    <input type="text" name="chat_id" id="chat_id">
+                    <button type="submit" class="btn btn-primary">SAVE</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
