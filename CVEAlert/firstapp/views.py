@@ -54,7 +54,7 @@ def get_list_CVE(request, page):
              products = Products.objects.filter(name__in=product_Name)
     if request.method == 'POST' and 'search_focus' in request.POST and 'vendors' in request.POST:
              vendors_Name = request.POST['search_focus']
-             vendors = Vendors.objects.filter(name__in=vendors_Name)      
+             vendors = Vendors.objects.filter(name__in=vendors_Name)    
 
     # print(unique_year_List)
     context={

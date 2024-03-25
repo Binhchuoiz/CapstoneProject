@@ -142,7 +142,7 @@
     </div>
     <div class="row" style="margin-top: 30px;">
         {# Hiển thị filter year#}
-        <div class="col-3">
+        <div class="col-3 " >
             <h3>FINDING METHODS</h3>
             <hr>
             <form method="post">
@@ -150,24 +150,16 @@
                 <input type="checkbox" id="product" name="product" value="product">
                 <label for="product">Product</label><br>
                 <input type="checkbox" id="vendor" name="vendor" value="vendor">
-                <label for="vendor">Vendor</label><br><br>
+                <label for="vendor">Vendor</label><br>
+            </br>
                 <h3>PUBLISHED YEARS</h3>
-                <div class="dropdown">
-                    {% comment %} <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Select Year
-                    </button> {% endcomment %}
-                    {% for it in page_obj %}
-                        <input type="checkbox" id="years" name="filter_year" value="{{ it.year }}">
-                        <label for="years">{{ it.year }}</label><br>
-                    {% endfor %}
-                </div></br>
-                <h3>SORT BY</h3>
                 <hr>
-                <input type="checkbox" id="newest" name="newest" value="newest">
-                <label for="newest">Newest</label><br>
-                <input type="checkbox" id="oldest" name="oldest" value="oldest">
-                <label for="oldest">Oldest</label><hr>
-                <button class="btn btn-one">FIND</button>
+                {% for it in unique_year %}
+                    <input type="checkbox" id="years" name="filter_year" value="{{ it }}">
+                    <label for="years">{{ it }}</label><br>
+                {% endfor %}
+                <hr>
+                <button type="submit" class="btn btn-one">Find</button>
             </form>
             
         </div>
