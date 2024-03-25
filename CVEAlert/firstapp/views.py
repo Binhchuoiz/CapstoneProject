@@ -24,6 +24,10 @@ def get_home(request):
 
 def get_list_CVE(request, page):
     listCVE= CVE.objects.all().order_by('date_publish')
+    year = CVE.objects.values_list('year',flat=True)
+    unique_Year = set(year)
+    unique_year_List = list(unique_Year)
+    unique_year_List.sort()
     if request.method == 'POST':  
         if 'search_focus' in request.POST:
             id_cve= request.POST['search_focus']
@@ -52,7 +56,7 @@ def get_list_CVE(request, page):
              vendors_Name = request.POST['search_focus']
              vendors = Vendors.objects.filter(name__in=vendors_Name)      
 
-            
+    print(unique_year_List)
     context={
         "page": {
 			'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
@@ -63,7 +67,8 @@ def get_list_CVE(request, page):
         'page_obj' : page_obj,
         'products' : products,
         'vendors' : vendors,
-        'affected' : affected
+        'affected' : affected,
+        'unique_year' : unique_year_List
 
     }
 
