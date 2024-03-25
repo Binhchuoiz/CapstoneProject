@@ -56,7 +56,7 @@ def get_list_CVE(request, page):
              vendors_Name = request.POST['search_focus']
              vendors = Vendors.objects.filter(name__in=vendors_Name)      
 
-    print(unique_year_List)
+    # print(unique_year_List)
     context={
         "page": {
 			'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
