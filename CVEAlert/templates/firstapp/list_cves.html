@@ -165,11 +165,7 @@
         </div>
         <div class="col-9 ">
             <h2 style="font-size: 35px; text-align:center"><b>List CVEs</b></h2>
-            <div class="pagination pagination-style-one m-t-20">
-                <a href="{% url 'app:list_cves' page=page.prev %}">< Pre</a>
-                <a style="color:white">Page {{ page.current }}  {{ len_page }}</a>
-                <a href="{% url 'app:list_cves' page=page.next %}">Next ></a>
-              </div>
+          
             {% for cve in page_obj %}
         </br>
                 <div class="col" >
