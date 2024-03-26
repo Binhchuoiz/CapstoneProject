@@ -1,4 +1,5 @@
 from django.db import models
+from accounts.models import User
 
 class CVE(models.Model):
     cve_id = models.CharField(max_length=255, default="")
@@ -103,4 +104,11 @@ class Metric(models.Model):
     
     def __str__(self):
         return self.con
+    
+class Follow_Affected(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follow_user', blank=True, default=None)
+    affected = models.ForeignKey(Affected, on_delete=models.CASCADE, related_name='follow_affected', blank=True, default=None)
+
+    def __str__(self):
+        return self.user
 # Create your models here.
