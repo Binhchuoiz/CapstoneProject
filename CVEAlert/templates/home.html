@@ -22,7 +22,8 @@ form > input {
     font-weight: bold;
 }
 body {
-    background-color: #222831 !important;
+    background-color: black !important;
+    
 }
 a {
     text-decoration: none;
@@ -204,6 +205,66 @@ a {
           text-decoration: none;
         }
   }
+
+  /*=READ NOW=*/
+.btn {
+    line-height: 20px;
+    height: 60px;
+    text-align: center;
+    text-style:bold
+    width: 120px;
+    cursor: pointer;
+    background-color:dodgerblue;
+  }
+  .btn-two {
+    color: white;
+    transition: all 0.5s;
+    position: relative;
+  }
+  .btn-two span {
+    transition: all 0.5s;
+  }
+  .btn-two::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    opacity: 0;
+    transition: all 1s;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-top-color: dodgerblue;
+    border-bottom-color: dodgerblue;
+    transform: scale(0.1, 1);
+    
+  }
+  .btn-two:hover span {
+    letter-spacing: 2px;
+  }
+  .btn-two:hover::before {
+    opacity: 1; 
+    transform: scale(1, 1); 
+  }
+  .btn-two::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition: all 0.3s;
+    background-color: rgba(255,255,255,0.1);
+  }
+  .btn-two:hover::after {
+    opacity: 0; 
+    transform: scale(0.1, 1);
+  }
 {% endblock %}
 
 {% block title %}
@@ -213,7 +274,7 @@ a {
 
 {% block content %}
     <div class="image-first">
-        <img src="/media/bg-sec.jpg" style="width: 100%" alt="background">
+        <img src="/media/background.png" style="width: 100%; " alt="background">
         <div class="top-right">
             <div class="row">
                 <div class="col-6"></div>
@@ -225,17 +286,17 @@ a {
                     </p>
                     <div class="row">
                         <div class="col">
-                            <a href="{% url 'app:list_cves' page=1 %}"><button style="width: 100%" class="btn btn-one"><b>FIND NOW</b></button></a>
+                            <a href="{% url 'app:list_cves' page=1 %}"><button style="width: 100%" class="btn btn-two"><b style="color:white;">FIND NOW</b></button></a>
                         </div>
                         <div class="col">
-                            <a href="/"><button style="width: 100%" class="btn btn-one"><b>LEARN MORE</b></button></a>
+                            <a href="/"><button style="width: 100%" class="btn btn-two"><b style="color:white;">LEARN MORE</b></button></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container" >
         <div class="form-find-cve">
             <h1><b style="color: dodgerblue">FIND</b> <b>YOUR</b> <b style="color: dodgerblue">CVE</b></h1>
             <i>Find your CVE...</i>
