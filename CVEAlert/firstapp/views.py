@@ -147,10 +147,10 @@ def get_detail_cves(request, pk):
     return render(request, 'firstapp/detail_cve.html' , context=context)
 
 def create_cve_view(request):
-     return render(request, 'create_cves.html')
+     return render(request, 'firstapp/create_cves.html')
 
 def create_affect_view(request):
-     return render(request, 'create_affected.html')
+     return render(request, 'firstapp/create_affected.html')
 
 def get_tele_notifi(request):
 
