@@ -1,7 +1,9 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
-from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions , Products_Versions , Follow_Affected
+from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions , Products_Versions , Follow_Affected 
+from accounts.models import NotiUser
+from .forms import CVEform,AffectedForm
 from django.db.models import F, DateTimeField , ExpressionWrapper
 from django.db.models.functions import Cast
 # Create your views here.
@@ -147,10 +149,28 @@ def get_detail_cves(request, pk):
     return render(request, 'firstapp/detail_cve.html' , context=context)
 
 def create_cve_view(request):
-     return render(request, 'firstapp/create_cves.html')
+    form =CVEform()
+    if request.method == 'POST':
+        form = CVEform(request.POST or None, request.FILES)
+        if form.is_valid():
+            data  = form.save(commit=True)
+        return HttpResponseRedirect(reverse('app:list_cves'))
+    context = {
+         'form':form
+    }
+    return render(request, 'firstapp/create_cves.html', context=context)
 
 def create_affect_view(request):
-     return render(request, 'firstapp/create_affected.html')
+    form = AffectedForm()
+    if request.method == 'POST':
+        form = AffectedForm(request.POST)
+        if form.is_valid():
+            data = form.save(commit=True)
+            return HttpResponseRedirect(reverse('app:home'))
+        context ={
+          'form':form
+     }
+    return render(request, 'firstapp/create_affected.html',context=context)
 
 def get_tele_notifi(request):
 
