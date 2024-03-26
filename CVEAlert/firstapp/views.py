@@ -55,10 +55,11 @@ def get_list_CVE(request, page):
     page_obj.affected = affected
     if request.method == 'POST' and 'search_focus' in request.POST and 'products' in request.POST:
              product_Name = request.POST['search_focus']
-             products = Products.objects.filter(name__in=product_Name)
-    if request.method == 'POST' and 'search_focus' in request.POST and 'vendors' in request.POST:
+             affected = Affected.objects.filter(product__in = product_Name)
+    elif request.method == 'POST' and 'search_focus' in request.POST and 'vendors' in request.POST:
              vendors_Name = request.POST['search_focus']
-             vendors = Vendors.objects.filter(name__in=vendors_Name)   
+             affected = Affected.objects.filter(vendor__in=vendors_Name)   
+    page_obj.affected = affected
     # print(unique_year_List)
     context={
         "page": {
