@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import UserProfile
+from .models import UserProfile, NotiUser
 
 class UserProfileSignUpForm(UserCreationForm):
 	email = forms.EmailField(required=True, label='Email', widget=forms.TextInput(attrs={'placeholder': 'Email'}))
@@ -30,3 +30,9 @@ class EditProfile(forms.ModelForm):
 				'phone_number',
 				'email_profile'
 			)
+
+class CreateNotification(forms.ModelForm):
+
+	class Meta:
+		model = NotiUser
+		fields = '__all__'
