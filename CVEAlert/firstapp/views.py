@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
-from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions , Products_Versions 
+from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions , Products_Versions , Follow_Affected
 from django.db.models import F, DateTimeField , ExpressionWrapper
 from django.db.models.functions import Cast
 # Create your views here.
@@ -109,6 +109,25 @@ def get_detail_cves(request, pk):
     except References.DoesNotExist:
          refrences = None
 
+    if request.method == 'POST':
+        affect_id = request.POST['follow_affect']
+        if affect_id == 'null':
+             msg = 'need affected info !'
+        else:
+            try:
+                  check = Follow_Affected.objects.get(user=request,affect_id=affect_id)
+            except:
+                 check = None
+            
+            if check:
+                 msg = 'You had follow this Affected'
+            else:
+                 follow_affect = Follow_Affected.objects.create(user=request.user, affect_id=affect_id)
+                 follow_affect.save
+                 msg = "u have tracked successfully!"
+    else:
+         msg = ""
+       
     context = {
          'detail_cve': detail_cve,
          'products' : products,
@@ -120,7 +139,8 @@ def get_detail_cves(request, pk):
          'solutions' : solutions,
          'descriptions' : descriptions,
          'refrences' : refrences,
-         'cvssv31' : cvssv31
+         'cvssv31' : cvssv31,
+         'alert-msg' : msg 
 
     }
 
