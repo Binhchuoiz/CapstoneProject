@@ -167,7 +167,7 @@ def create_affect_view(request):
         if form.is_valid():
             data = form.save(commit=True)
             return HttpResponseRedirect(reverse('app:home'))
-        context ={
+    context ={
           'form':form
      }
     return render(request, 'firstapp/create_affected.html',context=context)
