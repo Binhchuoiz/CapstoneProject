@@ -128,6 +128,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'app:tele_noti' %}"><i class="fa-solid fa-bell"></i> Notification</a>
                     </li>
+                    {% comment %} {% if user.is_superuser %} {% endcomment %}
+                    <li content="nav-item">
+                        <a class="nav-link" href="{% url 'app:create_affected' %}"><b>Create Affected</b></a>
+                    </li>
+                    <li content="nav-item">
+                        <a class="nav-link" href="{% url 'app:create_cve' %}"><b>Create CVE</b></a>
+                    </li>
+                    {% comment %} {% endif %} {% endcomment %}
                 </ul>
                 <!--ms-md-auto chia navbar 2 phia-->
                 <ul class="navbar-nav ms-md-auto">

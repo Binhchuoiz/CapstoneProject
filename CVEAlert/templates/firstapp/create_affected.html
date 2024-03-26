@@ -1,7 +1,75 @@
 {% extends 'navbar.html' %}
 
 {% block css %}
+    a {
+    text-decoration: none;
+    color: black;
+    }
+    input, textarea, select {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+    }
 
+    /*=Create Affected=*/
+    .btn {
+        line-height: 20px;
+        height: 50px;
+        text-align: center;
+        text-style:bold
+        cursor: pointer;
+        background-color:dodgerblue;
+      }
+      .btn-one {
+        color: white;
+        transition: all 0.5s;
+        position: relative;
+      }
+      .btn-one span {
+        transition: all 0.5s;
+      }
+      .btn-one::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        opacity: 0;
+        transition: all 1s;
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-top-style: solid;
+        border-bottom-style: solid;
+        border-top-color: dodgerblue;
+        border-bottom-color: dodgerblue;
+        transform: scale(0.1, 1);
+        
+      }
+      .btn-one:hover span {
+        letter-spacing: 2px;
+      }
+      .btn-one:hover::before {
+        opacity: 1; 
+        transform: scale(1, 1); 
+      }
+      .btn-one::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        transition: all 0.3s;
+        background-color: rgba(255,255,255,0.1);
+      }
+      .btn-one:hover::after {
+        opacity: 0; 
+        transform: scale(0.1, 1);
+      }
 {% endblock %}
 
 {% block title %}
@@ -9,5 +77,22 @@
 {% endblock %}
 
 {% block content %}
-   
+    <div class="container">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-8">
+                <h2><b style="color: dodgerblue">CREATE</b><b> AFFECTED</b></h2>
+               <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label for="cve_id">CVE ID: </label>
+                    <input type="text" name="cve_id" maxlength="40" id="cve_id">
+                    <label for="Product">Product: </label>
+                    <input type="text" name="Product" maxlength="50" id="Product">
+                    <label for="Vendor">Vendor:</label>
+                    <input type="text" name="Vendor" maxlength="20" id="Vendor" >
+                    <button type="submit" class="btn btn-one"><b>Create Affected!</b></button>
+                </form> 
+            </div>
+        </div>
+    </div>
 {% endblock %}
