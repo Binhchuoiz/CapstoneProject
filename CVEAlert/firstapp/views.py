@@ -28,6 +28,10 @@ def get_list_CVE(request, page):
     unique_Year = set(year)
     unique_year_List = list(unique_Year)
     unique_year_List.sort()
+    if request.method == 'POST':
+        selected_years = request.POST.getlist('filter_year')
+        if selected_years:
+            listCVE = CVE.objects.filter(year__in=selected_years)
     if request.method == 'POST':  
         if 'search_focus' in request.POST:
             id_cve= request.POST['search_focus']
