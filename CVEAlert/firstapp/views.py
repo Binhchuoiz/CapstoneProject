@@ -154,7 +154,7 @@ def create_cve_view(request):
         form = CVEform(request.POST or None, request.FILES)
         if form.is_valid():
             data  = form.save(commit=True)
-        return HttpResponseRedirect(reverse('app:list_cves'))
+        return HttpResponseRedirect(reverse('app:home'))
     context = {
          'form':form
     }
@@ -169,8 +169,8 @@ def create_affect_view(request):
             return HttpResponseRedirect(reverse('app:home'))
         context ={
           'form':form
-     }
-    return render(request, 'firstapp/create_affected.html',context=context)
+        }
+    return render(request, 'firstapp/create_affected.html', context=context)
 
 def get_tele_notifi(request):
 
