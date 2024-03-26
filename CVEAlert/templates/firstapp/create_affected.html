@@ -77,12 +77,12 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container" style="margin:80px">
         <div class="row">
             <div class="col-4"></div>
             <div class="col-8">
                 <h2><b style="color: dodgerblue">CREATE</b><b> AFFECTED</b></h2>
-               <form method="post" enctype="multipart/form-data">
+               {% comment %} <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <label for="cve_id">CVE ID: </label>
                     <input type="text" name="cve_id" maxlength="40" id="cve_id">
@@ -91,7 +91,12 @@
                     <label for="Vendor">Vendor:</label>
                     <input type="text" name="Vendor" maxlength="20" id="Vendor" >
                     <button type="submit" class="btn btn-one"><b>Create Affected!</b></button>
-                </form> 
+                </form>  {% endcomment %}
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button type="submit" class="btn btn-one">Create new CVE</button>
+                </form>
             </div>
         </div>
     </div>
