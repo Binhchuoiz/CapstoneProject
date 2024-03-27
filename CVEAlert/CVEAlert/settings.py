@@ -30,7 +30,8 @@ INSTALLED_APPS = [
     'firstapp',
     'accounts',
     'crispy_forms',
-    'crispy_bootstrap5'
+    'crispy_bootstrap5',
+    'CVEAlert'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'

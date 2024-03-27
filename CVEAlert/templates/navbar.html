@@ -134,8 +134,16 @@
                     </li>
                     <li content="nav-item">
                         <a class="nav-link" href="{% url 'app:create_cve' %}"><b>Create CVE</b></a>
+                       
                     </li>
                     {% comment %} {% endif %} {% endcomment %}
+                    {% comment %} <a{% if user.is_superuser %} href="http://127.0.0.1:8000/admin/" {% else %}href="{% url 'app:home' %}" {% endif %}>Test</a> {% endcomment %}
+                    {% if user.is_superuser %}
+                    <li content="nav-item">
+                        <a class="nav-link" href= "http://127.0.0.1:8000/admin/" ><b>ADMIN</b></a>
+                       
+                    </li>
+                    {% endif %}
                 </ul>
                 <!--ms-md-auto chia navbar 2 phia-->
                 <ul class="navbar-nav ms-md-auto">

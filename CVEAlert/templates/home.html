@@ -778,7 +778,7 @@ font-family: monospace;
             background-size: cover;">
                             <div class="overlay"></div>
                             <div class="page-title  home text-center example2" style="margin:150px; margin-top:220px;">
-                              <span class="heading-page" style="font-size: 50px; color:black;"> <b>LET'S FIND</b>
+                              <span class="heading-page" style="font-size: 50px; color:black;"> <b>LET'S FIND </b>
                               </span>
                                 <p class="mt20" style="color:black;"><b>Technology-based CVE Search, Vulnerabilities and CVEs Suggested based on the technology you are
                                   tracking!</b></p>
@@ -830,7 +830,7 @@ font-family: monospace;
                                                         <span class="icon">
                                                             <i class="fa fa-list"></i>
                                                         </span>
-                                                        <span class="title">List CVE</span>
+                                                        <span class="title">List CVE </span>
                                                     </span>
                                                     <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#black"></path></svg>
                                                 </a>
@@ -982,6 +982,7 @@ font-family: monospace;
         <div class="form-find-cve">
             <h1><b style="color: dodgerblue">FIND</b> <b>YOUR</b> <b style="color: dodgerblue">CVE</b></h1>
             <i>Find your CVE...</i>
+            
             <form method="post">
                 {% csrf_token %}
                 <input type="text" name="id_cve" style="width: 100%" placeholder="Find CVE-ID">
@@ -991,7 +992,8 @@ font-family: monospace;
         <div class="row" style="margin-bottom:30px;">
             <a style="text-decoration: none;" href="{% url 'app:list_cves' page=1 %}">
                 <h2 style="color: white;">
-                    <div class="rectangle"></div>&nbsp;<b style="color: white;">List CVEs</b>
+                    <div class="rectangle"></div>&nbsp;<b style="color: white;">List CVEs </b>
+                    
                     <a href="{% url 'app:list_cves' page=1 %}" ></a>
                 </h2>
             </a>
