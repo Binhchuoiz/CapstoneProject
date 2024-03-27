@@ -168,9 +168,9 @@
         <div class="col">
             <h3>QUICK LINKS</h3>
             <p>Go fast to your destination</p>
-            <a href="{% url 'app:home' %}"><p style="color: royalblue" >Home</p></a>
-            <a href="{% url 'app:list_cves' page=1 %}" ><p style="color: royalblue" >Finding</p></a>
-            <a href="{% url 'accounts:profile' %}"><p style="color: royalblue" >Profile</p></a> 
+            <a href="{% url 'app:home' %}"><p style="color: dodgerblue" >Home</p></a>
+            <a href="{% url 'app:list_cves' page=1 %}" ><p style="color: dodgerblue" >Finding</p></a>
+            <a {% if user.is_authenticated %} href="{% url 'accounts:profile' %}" {% else %}href="{% url 'accounts:login' %}" {% endif %}><p style="color: dodgerblue" >Profile</p></a> 
         </div>
         <div class="col icon-social" style="width: 80%" >
             <h3 style="margin-left:80px; margin-bottom:20px">ABOUT</h3>
