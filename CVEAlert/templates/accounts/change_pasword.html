@@ -2,15 +2,76 @@
 
 
 {% block css %}
-
+    .form-change-pass > input {
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    }
+    .form-change-pass > button {
+    width: 50%;
+    }
+    .list-page-profile > p > a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    }
+    .list-page-profile > p > .active {
+    color: dodgerblue;
+    }
+    body {
+    background-color: white !important;
+    }
+    .alert-msg {
+        background-color: #f76f6f;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        border-color: red;
+    }
 {% endblock %}
 
 
 {% block title %}
-    abcxyz
+    Change Password
 {% endblock %}
 
 
 {% block content %}
-
+<div class="container" style="padding: 20px;">
+    <div class="row">
+        <div class="col-4 list-page-profile">
+            <p>
+                <a href="{% url 'accounts:profile' %}">Personal Info</a>
+            </p>
+            <p>
+                <a class="active" href="{% url 'accounts:change_password' pk=request.user.pk %}">Password</a>
+            </p>
+            <p>
+                <a href="{% url 'accounts:list_affect' page=1 %}">Affected Followed</a>
+            </p>
+            <p>
+                <a href="{% url 'accounts:notification' %}">Setting Notification</a>
+            </p>
+        </div>
+        <div class="col-6">
+            <h2>Change Password</h2>
+            <form method="post" class="form-change-pass">
+                {% csrf_token %}
+                <label for="old_password">
+                    Old Password
+                </label>
+                <input type="password" name="old_password" id="old_password"/><br>
+                <label for="password1">
+                    New Password
+                </label>
+                <input type="password" name="your_news_password1" id="password1"/><br>
+                <label for="password2">
+                    Confirm Password
+                </label>
+                <input type="password" name="your_news_password2" id="password2"/><br>
+                <button type="submit" class="btn btn-primary">SAVE</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
