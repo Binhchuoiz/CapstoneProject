@@ -103,6 +103,12 @@
         }
         }
 
+        @media screen and (min-width: 1600px) {
+            ul.example1 {
+              display: none;
+            }
+          }
+
         {% block css %}
 
         {% endblock %}
@@ -121,8 +127,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    {% comment %} <a{% if user.is_superuser %} href="http://127.0.0.1:8000/admin/" {% else %}href="{% url 'app:home' %}" {% endif %}>Test</a> {% endcomment %}
+                <ul class="navbar-nav example1">
+                   
                     {% if user.is_superuser %}
                     <li content="nav-item">
                         <a class="nav-link" href= "http://127.0.0.1:8000/admin/" ><b>ADMIN</b></a>
