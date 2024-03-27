@@ -69,6 +69,7 @@ def get_list_CVE(request, page):
 			'current': page_obj.number,
 			'next': page_obj.number + 1 if page_obj.number + 1 < paginator.num_pages else paginator.num_pages,
 		},
+        'len_page': paginator.num_pages,
         'paginator': paginator,
         'page_obj' : page_obj,
         'products' : products,
