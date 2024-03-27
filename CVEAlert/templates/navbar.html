@@ -122,25 +122,17 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'app:list_cves' page=1 %}"><i class="fa-solid fa-list"></i> List CVEs</a>
+                    {% comment %} <a{% if user.is_superuser %} href="http://127.0.0.1:8000/admin/" {% else %}href="{% url 'app:home' %}" {% endif %}>Test</a> {% endcomment %}
+                    {% if user.is_superuser %}
+                    <li content="nav-item">
+                        <a class="nav-link" href= "http://127.0.0.1:8000/admin/" ><b>ADMIN</b></a>
+                       
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'app:tele_noti' %}"><i class="fa-solid fa-bell"></i> Notification</a>
-                    </li>
-                    {% comment %} {% if user.is_superuser %} {% endcomment %}
                     <li content="nav-item">
                         <a class="nav-link" href="{% url 'app:create_affected' %}"><b>Create Affected</b></a>
                     </li>
                     <li content="nav-item">
                         <a class="nav-link" href="{% url 'app:create_cve' %}"><b>Create CVE</b></a>
-                       
-                    </li>
-                    {% comment %} {% endif %} {% endcomment %}
-                    {% comment %} <a{% if user.is_superuser %} href="http://127.0.0.1:8000/admin/" {% else %}href="{% url 'app:home' %}" {% endif %}>Test</a> {% endcomment %}
-                    {% if user.is_superuser %}
-                    <li content="nav-item">
-                        <a class="nav-link" href= "http://127.0.0.1:8000/admin/" ><b>ADMIN</b></a>
                        
                     </li>
                     {% endif %}
