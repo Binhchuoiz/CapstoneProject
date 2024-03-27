@@ -82,8 +82,28 @@ def list_affect_view(request):
 	return render(request, 'accounts/list_affect.html')
 
 @login_required
-def change_password_view(request):
-	return render(request, 'accounts/change_password.html')
+def change_password_view(request,pk):
+	mess = ""
+	if request.method == 'POST' and 'your_new_password1' in request.POST:
+		cur_user = models.User.objects.get(pk=pk)
+		old_pass = request.POST['old_password']
+		new_pass = request.POST['new_pass']
+		new_pass_conf = request.POST['new pass1']
+		print("--check", cur_user.check_password(old_pass))
+		if not cur_user.check_password(old_pass):
+			mess = "wrong old password , please try again!"
+		elif new_pass != new_pass_conf :
+			mess = "new password u input is not identical , please try again!"
+		else:
+			cur_user.set_password(new_pass)
+			cur_user.save
+			mess = "u have changed password succesfully"
+			return HttpResponseRedirect(reverse('app:home'))
+		
+	context = {
+		'mess' : mess
+	}
+	return render(request, 'accounts/change_password.html', context=context)
 
 def notification_user_view(request):
 	return render(request, 'accounts/notification_user.html')

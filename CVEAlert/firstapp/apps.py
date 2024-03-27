@@ -7,3 +7,5 @@ class FirstappConfig(AppConfig):
 
     def ready(self) :
         import CVEAlert.signals
+        #always run script
+        #import firstapp.scripts

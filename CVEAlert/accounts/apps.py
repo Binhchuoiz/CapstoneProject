@@ -9,3 +9,5 @@ class AccountsConfig(AppConfig):
 
     def ready(self) :
         import CVEAlert.signals
+        #always run scripts
+        #import firstapp.scripts
