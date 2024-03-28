@@ -126,6 +126,51 @@
     border-radius:5px;
   }
 
+  /*= NOTIFICATIONS=*/
+  @import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+
+span{
+  position: relative;
+  display: inline-flex;
+  width: -10px;
+  height: 55px;
+  margin: 0 5px;
+  perspective: 1000px;
+}
+span a{
+  font-size: 15px;
+  letter-spacing: 1px;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform .25s;
+  
+}
+span a:before,
+span a:after{
+  position: absolute;
+  content: "Get Notify now!";
+  height: 60px;
+  width: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid black;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+span a:before{
+  color: #fff;
+  background: #000;
+  transform: rotateY(0deg) translateZ(25px);
+}
+span a:after{
+  color: #000;
+  transform: rotateX(90deg) translateZ(25px);
+}
+span a:hover{
+  transform: translateZ(-25px) rotateX(-90deg);
+}
+
 
 {% endblock %}
 
@@ -148,6 +193,9 @@
                     <button type="submit" class="btn btn-one">
                         <i class="fas fa-search"></i>
                     </button>
+                    <div>
+                        <span><a href="{% url 'app:tele_noti' %}"></a></span>
+                </div>
                 </div>
             </form>
         </div>
@@ -159,7 +207,7 @@
         </br>
     </br>
 </br>
-</br>
+
             <h3><b><u>FINDING METHODS</u></b></h3>
         </br>
             <h3>FIND BY: </h3>
@@ -191,7 +239,10 @@
 
 
             </form>
-            
+        </br>
+    </br>
+</br>
+
         </div>
         <div class="col-9 ">
             <h2 style="font-size: 35px; text-align:center"><b><u>List CVEs</u></b></h2>
@@ -224,14 +275,17 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             {% endfor %}
             </br>
+           
             <div class="pagination pagination-style-one m-t-20">
               <a href="{% url 'app:list_cves' page=page.prev %}?filter_year={{ selected_year }}">< Pre</a>
               <a style="color:white">Page {{ page.current }} of {{ len_page }}</a>
               <a href="{% url 'app:list_cves' page=page.next %}?filter_year={{ selected_year }}">Next ></a>
           </div>
+          
         </div>   
     </div>
 </div>
