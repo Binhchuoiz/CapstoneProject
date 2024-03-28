@@ -96,6 +96,16 @@ def get_list_CVE(request, page):
     # print(listCVE)
     return render(request, 'firstapp/list_cves.html', context=context)   
 
+
+
+
+
+def get_list_Products(request):
+     return render(request, 'firstapp/list_products.html')   
+
+
+
+
 def get_detail_cves(request, pk):
     detail_cve = CVE.objects.get(pk=pk)
     affected = Affected.objects.filter(con_id=detail_cve.id)

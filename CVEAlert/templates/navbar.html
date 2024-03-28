@@ -103,11 +103,11 @@
         }
         }
 
-        @media screen and (min-width: 1600px) {
+        {% comment %} @media screen and (min-width: 1600px) {
             ul.example1 {
               display: none;
             }
-          }
+          } {% endcomment %}
 
         {% block css %}
 
@@ -128,7 +128,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav example1">
-                   
+                    
                     {% if user.is_superuser %}
                     <li content="nav-item">
                         <a class="nav-link" href= "http://127.0.0.1:8000/admin/" ><b>ADMIN</b></a>
@@ -142,6 +142,12 @@
                        
                     </li>
                     {% endif %}
+                    <li content="nav-item">
+                        <a class="nav-link" href="{% url 'app:list_cves' page=1 %}"><b><i class="fa-solid fa-list"></i> List CVEs  </b></a>
+                    </li>
+                    <li content="nav-item">
+                        <a class="nav-link" href="{% url 'app:list_products' %}"><b><i class="fa-solid fa-list"></i> List Products  </b></a>
+                    </li>
                 </ul>
                 <!--ms-md-auto chia navbar 2 phia-->
                 <ul class="navbar-nav ms-md-auto">
