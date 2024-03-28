@@ -40,14 +40,16 @@ def get_list_CVE(request, page):
             listCVE = CVE.objects.filter(year__in=selected_years)
             page = 1
         if 'search_focus' in request.POST:
-            id_cve = request.POST['search_focus']
-            listCVE = listCVE.filter(cve_id__contains=id_cve)
+            search_focus = request.POST['search_focus']
+            listCVE = listCVE.filter(cve_id__contains=search_focus)
             page = 1
-            search_focus = id_cve
     else:
+        search_focus = request.GET.get('search_focus', None)
         selected_year = request.GET.get('filter_year', None)
         if selected_year:
             listCVE = listCVE.filter(year=selected_year)
+        if search_focus:
+            listCVE = listCVE.filter(cve_id__contains=search_focus)
         search_focus = request.GET.get('search_focus', None)
     per_page = request.GET.get("per_page", 10)
     paginator = Paginator(listCVE, per_page)
