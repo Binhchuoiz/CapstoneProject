@@ -128,7 +128,7 @@
                     <a href="{% url 'accounts:profile' %}">Personal Info</a>
                 </p>
                 <p class="link">
-                    <a href="{% url 'accounts:change_password'%}">Password</a>
+                    <a href="{% url 'accounts:change_password' pk=user.pk%}">Password</a>
                 </p>
                 <p class="link">
                     <a href="{% url 'accounts:list_affect'%}">Affected Followed</a>

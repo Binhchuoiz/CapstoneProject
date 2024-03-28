@@ -117,19 +117,20 @@
     <div class="container" style="padding: 70px;">
         <div class="row">
             <div class="col-4 list-page-profile">
-                <p class = "link">
-                    <a class="{% if '/account/profile/' == request.path %}active{% endif %}"
-                       href="{% url 'accounts:profile' %}">Personal Info</a>
-                </p>
-                <p class = "link">
-                    <a href="{% url 'accounts:change_password' %}">Password</a>
-                </p >
-                <p class = "link">
-                    <a href="{% url 'accounts:list_affect' %}">Affected Followed</a>
-                </p >
-                <p class = "link">
-                    <a href="{% url 'accounts:notification' %}">Setting Notification</a>
-                </p>
+              <p class="link">
+                <a class="{% if '/account/profile/' == request.path %}active{% endif %}"
+                   href="{% url 'accounts:profile' %}">Personal Info</a>
+            </p>
+            <p class="link">
+                <a class="{% if '/account/change-password/' in request.path %}active{% endif %}"
+                   href="{% url 'accounts:change_password' pk=profile.user.pk %}">Password</a>
+            </p>
+            <p class="link">
+                <a href="{% url 'accounts:list_affect' %}">Affected Followed</a>
+            </p>
+            <p class="link">
+                <a href="{% url 'accounts:notification' %}">Setting Notification</a>
+            </p>
             </div>
             <div class="col-6">
                 <form method="post" class="form-edit-profile" enctype="multipart/form-data">

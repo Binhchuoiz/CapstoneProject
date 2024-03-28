@@ -58,7 +58,6 @@ def get_logout(request):
 
 @login_required
 def profile_detail_view(request):
-	profile = models.UserProfile.objects.get(user=request.user)
 	form = forms.EditProfile()
 	profile = models.UserProfile.objects.get(user=request.user)
 	if request.method == 'POST':
@@ -82,7 +81,7 @@ def list_affect_view(request):
 	return render(request, 'accounts/list_affect.html')
 
 @login_required
-def change_password_view(request,pk):
+def change_password_view(request, pk):
 	mess = ""
 	if request.method == 'POST' and 'your_new_password1' in request.POST:
 		cur_user = models.User.objects.get(pk=pk)
@@ -93,11 +92,11 @@ def change_password_view(request,pk):
 		if not cur_user.check_password(old_pass):
 			mess = "wrong old password , please try again!"
 		elif new_pass != new_pass_conf :
-			mess = "new password u input is not identical , please try again!"
+			mess = "new password you input is not identical , please try again!"
 		else:
 			cur_user.set_password(new_pass)
 			cur_user.save
-			mess = "u have changed password succesfully"
+			mess = "you have changed password succesfully"
 			return HttpResponseRedirect(reverse('app:home'))
 		
 	context = {
