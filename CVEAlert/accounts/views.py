@@ -97,7 +97,7 @@ def change_password_view(request, pk):
 			cur_user.set_password(new_pass)
 			cur_user.save
 			mess = "you have changed password succesfully"
-			return HttpResponseRedirect(reverse('app:home'))
+			return HttpResponseRedirect(reverse('accounts:login'))
 		
 	context = {
 		'mess' : mess
