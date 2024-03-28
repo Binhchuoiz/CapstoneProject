@@ -32,20 +32,28 @@ def get_list_CVE(request, page):
     unique_year_List.sort()
     
     selected_year = None
+    search_focus = None
     if request.method == 'POST':
         selected_years = request.POST.getlist('filter_year')
         if selected_years:
             selected_year = selected_years[0]  
             listCVE = CVE.objects.filter(year__in=selected_years)
+            page = 1
         if 'search_focus' in request.POST:
             id_cve = request.POST['search_focus']
             listCVE = listCVE.filter(cve_id__contains=id_cve)
+            page = 1
+            search_focus = id_cve
     else:
         selected_year = request.GET.get('filter_year', None)
         if selected_year:
             listCVE = listCVE.filter(year=selected_year)
+<<<<<<< HEAD
     
     
+=======
+        search_focus = request.GET.get('search_focus', None)
+>>>>>>> 65a4e5730c83f3c4138da3dd9cbc308e9c690655
     per_page = request.GET.get("per_page", 10)
     paginator = Paginator(listCVE, per_page)
     page_obj = paginator.get_page(page)
@@ -85,6 +93,7 @@ def get_list_CVE(request, page):
         'affected': affected,
         'unique_year': unique_year_List,
         'selected_year': selected_year,
+        'search_focus': search_focus,
     }
 
     # print(listCVE)
