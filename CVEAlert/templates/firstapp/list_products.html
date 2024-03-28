@@ -197,18 +197,23 @@ input:checked{
 }
 
 main:after{
-content: "Products select: " counter(checkBox-counter) "";
+content: "Number of Products Selected: " counter(checkBox-counter) ;
 display: block;
 position: absolute; /*fixed*/
-margin:15px;
+margin:-15px;
 }
 
+input.largerCheckbox {
+  width: 30px;
+  height: 25px;
+  margin-top:10px;
+}
 
 {% endblock %}
 
 
 {% block title %}
-    List CVEs
+    List Products
 {% endblock %}
 
 
@@ -223,7 +228,7 @@ margin:15px;
           <form method="post">
               {% csrf_token %}
               <div class="input-group">
-                  <input name="search_focus" type="search" class="form-control" placeholder="Search CVE ID..."/>
+                  <input name="search_focus" type="search" class="form-control" placeholder="Find product..."/>
                   <button type="submit" class="btn btn-one">
                       <i class="fas fa-search"></i>
                   </button>
@@ -266,7 +271,13 @@ margin:15px;
             <div class="col" >
                 <div class="card h-100" style="border-width:2px; border-color:black">
                     <div class="card-body">
+                       <!--Thêm logic hiển thị product vào check box-->
+                      <div>
+                        <input type="checkbox" value="test"name="laptop" id="result" class="largerCheckbox">
+                        <label for="follow"><i>Check for follow this product!</i></label><br>
+                       </div> 
                         <div class="card-body" style="padding: 30px;">
+                         
                             <p class="card-text">
                                 <b> Product Name:</b> "Test"
                             </p>
@@ -276,13 +287,6 @@ margin:15px;
                             {% comment %} <a href="#" class="cta">
                               <button class="btn btn-one"> <b style= "color: dodgerblue"> READ </b>NOW</button>
                             </a>  {% endcomment %}
-                             <!--Thêm logic check box-->
-                              <div>
-                                <input type="checkBox" >
-                              </div>  
-                              
-                              
-                              
                           </div>  
                     </div>
                   </div>
@@ -297,19 +301,38 @@ margin:15px;
             <a href="{% if selected_year %}{% url 'app:list_cves' page=page.next %}?filter_year={{ selected_year }}{% if search_focus %}&search_focus={{ search_focus }}{% endif %}{% elif search_focus %}{% url 'app:list_cves' page=page.next %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_cves' page=page.next %}{% endif %}">Next ></a>
         </div> {% endcomment %}
          <!--Thêm logic để follow-->
-        <div class="card h-10" style="border-width:2px; border-color:black">
+         <div class="card h-10" style="border-width:2px; border-color:black; margin-top:50px; width:515px;">
           <div class="card-body" style="padding: 30px;">
-              <p class="card-text">
-                <b><main></main></b>
+              <p class="card-text" >
+                <main></main>
+                
               </p>
-              <p class="card-text" style="margin-left:150px; ">
-              <button class="btn btn-one"> <b style= "color: dodgerblue;"> FOLLOW </b><b> THOSE</b><b style= "color: dodgerblue;"> PRODUCTS</b><b> NOW</b></button> 
+              <p class="card-text" style="margin-left:-20px; width:100px;margin-top:50px;">
+              <hr>
+              <button class="btn btn-one" onclick="getValue()"> <b> CHECK</button> 
+              </br>
+              <hr>
+              <button class="btn btn-one"> <b style= "color: dodgerblue;"> FOLLOW </b><b> THOSE</b><b style= "color: dodgerblue;"> PRODUCTS</b><b> NOW</b></button>
             </p>
             </div>
-    </div>
+          </div> 
       </div>   
       
   </div>
   
 </div>
+<script>
+  function getValue() {
+      let checkboxes =
+          document.getElementsByName('laptop');
+      let result = "";
+      for (var i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].checked) {
+              result += "+ " + checkboxes[i].value + "</br>";
+          }
+        }
+    document.write("<p> You have selected : </br>"
+          + result + "</p>"); 
+  }
+</script> 
 {% endblock %}

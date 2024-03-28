@@ -172,6 +172,41 @@ span a:hover{
 }
 
 
+{% comment %} /*Check Box*/
+body{
+  counter-reset: checkBox-counter 0 ;
+  
+}
+
+div{
+counter-reset: checkBox-length;
+
+
+input[type="checkBox"]:after{
+  counter-increment: checkBox-length;
+  content: counter(checkBox-length);
+  position: relative;
+  top: 15px;
+  
+}
+input:checked{
+   counter-increment: checkBox-counter;
+   
+}
+}
+
+main:after{
+content: "Number of Products Selected: " counter(checkBox-counter) ;
+display: block;
+position: absolute; /*fixed*/
+margin:-15px;
+}
+
+input.largerCheckbox {
+  width: 40px;
+  height: 40px;
+} {% endcomment %}
+
 {% endblock %}
 
 
@@ -272,6 +307,10 @@ span a:hover{
                                  <a href="{% url 'app:detail_cves' pk=cve.pk %}" class="cta">
                                     <button class="btn btn-one"> <b style= "color: dodgerblue"> READ </b>NOW</button>
                                 </a> 
+                                {% comment %} <div>
+                                  <input type="checkbox" value="{{ cve.cve_id }}"name="laptop" id="result" class="largerCheckbox">
+                                  
+                                </div>  {% endcomment %}
                             </div>
                         </div>
                     </div>
@@ -285,8 +324,34 @@ span a:hover{
               <a style="color:white">Page {{ page.current }} of {{ len_page }}</a>
               <a href="{% if selected_year %}{% url 'app:list_cves' page=page.next %}?filter_year={{ selected_year }}{% if search_focus %}&search_focus={{ search_focus }}{% endif %}{% elif search_focus %}{% url 'app:list_cves' page=page.next %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_cves' page=page.next %}{% endif %}">Next ></a>
           </div>
-          
+          {% comment %} <div class="card h-10" style="border-width:2px; border-color:black">
+            <div class="card-body" style="padding: 30px;">
+                <p class="card-text">
+                  <main></main>
+                </p>
+                <p class="card-text" style="margin-left:0px; width:100px;margin-top:50px;">
+                <button class="btn btn-one" onclick="getValue()"> <b style= "color: dodgerblue;"> CHECK</button> 
+              </p>
+              </div>
+      </div> {% endcomment %}
         </div>   
     </div>
 </div>
+
+{% comment %} <script>
+  function getValue() {
+      let checkboxes =
+          document.getElementsByName('laptop');
+      let result = "";
+      for (var i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].checked) {
+              result += "+ " + checkboxes[i].value + "</br>";
+          }
+      }
+
+   
+    document.write("<p> You have selected : </br>"
+          + result + "</p>"); 
+  }
+</script> {% endcomment %}
 {% endblock %}
