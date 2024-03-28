@@ -47,7 +47,7 @@ def get_sign_up(request):
 			user = form.save()
 			create_profile = models.UserProfile.objects.create(user=user)
 			create_profile.save()
-			return HttpResponseRedirect(reverse('app:home'))
+			return HttpResponseRedirect(reverse('accounts:login'))
 		
 	return render(request, 'accounts/sign_up.html', {'form': form})
 

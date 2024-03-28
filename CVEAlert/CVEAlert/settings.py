@@ -80,6 +80,7 @@ WSGI_APPLICATION = 'CVEAlert.wsgi.application'
 #         'PORT': '3306',
 #     }
 # }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',

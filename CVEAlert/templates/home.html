@@ -2,6 +2,8 @@
 
 
 {% block css %}
+
+/*FORM*/
 .form-find-cve {
     background-color: white;
     padding: 25px;
@@ -21,6 +23,9 @@ form > input {
     padding: 15px 30px 15px 30px;
     font-weight: bold;
 }
+
+
+/*Body*/
 body {
     background-color: black !important;
     
@@ -39,6 +44,9 @@ a {
     color: white;
     
 }
+
+
+/*RECTANGLE*/
 .rectangle {
     height: 44px;
     width: 15px;
@@ -46,6 +54,7 @@ a {
     float:left;
     border-radius: 4px;
 }
+
 
 /*=CARD TITLE1=*/
   .card-title1{
@@ -72,6 +81,7 @@ a {
           text-decoration: none;
         }
   }
+
 
 /*=READ NOW=*/
 .btn {
@@ -132,6 +142,8 @@ a {
     opacity: 0; 
     transform: scale(0.1, 1);
   }
+
+
   /*=CARD TITLE2=*/
   .card-title2{
       a {
@@ -157,6 +169,7 @@ a {
           text-decoration: none;
         }
   }
+
 
   /*=READ NOW=*/
 .btn {
@@ -219,9 +232,7 @@ a {
   }
 
 
-
-  /*================================================================================*/
-
+ /*background element*/
 /*
  *  Reset bootstrap's default style
  */
@@ -725,30 +736,7 @@ font-family: monospace;
 }
 
 
-
-
-
-@media only screen and (max-width: 767px)
-{
-.hexagon-item {
-    float: none;
-    margin: 0 auto 50px;
-}
-  .hexagon-item:first-child {
-    margin-left: auto;
-}
-  
-  .page-home .hexagon-item:nth-last-child(1), .page-home .hexagon-item:nth-last-child(2), .page-home .hexagon-item:nth-last-child(3) {
-    -webkit-transform: rotate(30deg) translate(0px, 0px);
-    -moz-transform: rotate(30deg) translate(0px, 0px);
-    -ms-transform: rotate(30deg) translate(0px, 0px);
-    -o-transform: rotate(30deg) translate(0px, 0px);
-    transform: rotate(30deg) translate(0px, 0px);
-}
-  
-}
-
-
+/*****************************/
 
 {% endblock %}
 
@@ -1111,6 +1099,19 @@ font-family: monospace;
                 {% else %}
                     <p style="color: white">There are currently no CVEs matches with your selection!</p>
                 {% endif %}
+                <section class="scrollport">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </section>
             </div>
         </div>
     </div>
