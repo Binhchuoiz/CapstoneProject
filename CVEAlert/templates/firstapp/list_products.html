@@ -44,7 +44,7 @@ a {
       line-height: 20px;
       height: 60px;
       text-align: center;
-      width: 120px;
+      width: 300px;
       cursor: pointer;
       background-color:black;
     }
@@ -173,6 +173,37 @@ transform: translateZ(-25px) rotateX(-90deg);
   
 
 
+/*Check Box*/
+body{
+  counter-reset: checkBox-counter 0 ;
+  
+}
+
+div{
+counter-reset: checkBox-length;
+
+
+input[type="checkBox"]:after{
+  counter-increment: checkBox-length;
+  content: counter(checkBox-length);
+  position: relative;
+  top: 15px;
+  
+}
+input:checked{
+   counter-increment: checkBox-counter;
+   
+}
+}
+
+main:after{
+content: "Products select: " counter(checkBox-counter) "";
+display: block;
+position: absolute; /*fixed*/
+margin:15px;
+}
+
+
 {% endblock %}
 
 
@@ -182,6 +213,8 @@ transform: translateZ(-25px) rotateX(-90deg);
 
 
 {% block content %}
+
+
 <div class="container">
   <div class="row" style="margin-top: 30px; margin-bottom: 30px;">
       <div class="col-3">
@@ -194,23 +227,21 @@ transform: translateZ(-25px) rotateX(-90deg);
                   <button type="submit" class="btn btn-one">
                       <i class="fas fa-search"></i>
                   </button>
-                  <div>
+                  {% comment %} <div>
                       <span><a href="{% url 'app:tele_noti' %}"></a></span>
-              </div>
+              </div> {% endcomment %}
               </div>
           </form>
       </div>
 
   </div>
   <div class="row" style="margin-top: 30px;">
-      {# Hiển thị filter year#}
       <div class="col-3 " >
       </br>
-  </br>
-</br>
-
+      </br>
+      </br>
           <h3><b><u>CHECK PRODUCTS</u></b></h3>
-        </br>
+            </br>
           <form method="post">
               <select name="products" class="custom-select">
                   {% comment %} {% for it in unique_year %}
@@ -219,37 +250,44 @@ transform: translateZ(-25px) rotateX(-90deg);
                   <b> <option value="products">test</option></b>
               </select>
               <hr>
+             
           </br>
               <button type="submit" class="btn btn-one" style="width:100%"><b>FIND</b></button>
           </form>
       </br>
-  </br>
-</br>
-
-      </div>
-      <div class="col-9 ">
-          <h2 style="font-size: 35px; text-align:center"><b><u>List CVEs</u></b></h2>
-        
-          {% comment %} {% for cve in page_obj %} {% endcomment %}
       </br>
-              <div class="col" >
-                  <div class="card h-100" style="border-width:2px; border-color:black">
-                      <div class="card-body">
-                          <div class="card-body" style="padding: 30px;">
-                              <p class="card-text">
-                                  <b> Product Name:</b> "Test"
-                              </p>
-                              <p class="card-text">
-                                  <b> Product Version: </b>"Test"
-                              </p>
-                               <a href="#" class="cta">
-                                  <button class="btn btn-one"> <b style= "color: dodgerblue"> READ </b>NOW</button>
-                              </a> 
-                          </div>
-                      </div>
+      </br>
+      </div>
+      
+      <div class="col-9 ">
+          <h2 style="font-size: 35px; text-align:center"><b><u>List Products</u></b></h2>
+          {% comment %} {% for cve in page_obj %} {% endcomment %}
+          </br>
+            <div class="col" >
+                <div class="card h-100" style="border-width:2px; border-color:black">
+                    <div class="card-body">
+                        <div class="card-body" style="padding: 30px;">
+                            <p class="card-text">
+                                <b> Product Name:</b> "Test"
+                            </p>
+                            <p class="card-text">
+                                <b> Product Version: </b>"Test"
+                            </p>
+                            {% comment %} <a href="#" class="cta">
+                              <button class="btn btn-one"> <b style= "color: dodgerblue"> READ </b>NOW</button>
+                            </a>  {% endcomment %}
+                             <!--Thêm logic check box-->
+                              <div>
+                                <input type="checkBox" >
+                              </div>  
+                              
+                              
+                              
+                          </div>  
+                    </div>
                   </div>
-                  
-              </div>
+            </div>
+            
           {% comment %} {% endfor %} {% endcomment %}
           {% comment %} </br>
          
@@ -258,8 +296,20 @@ transform: translateZ(-25px) rotateX(-90deg);
             <a style="color:white">Page {{ page.current }} of {{ len_page }}</a>
             <a href="{% if selected_year %}{% url 'app:list_cves' page=page.next %}?filter_year={{ selected_year }}{% if search_focus %}&search_focus={{ search_focus }}{% endif %}{% elif search_focus %}{% url 'app:list_cves' page=page.next %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_cves' page=page.next %}{% endif %}">Next ></a>
         </div> {% endcomment %}
-        
+         <!--Thêm logic để follow-->
+        <div class="card h-10" style="border-width:2px; border-color:black">
+          <div class="card-body" style="padding: 30px;">
+              <p class="card-text">
+                <b><main></main></b>
+              </p>
+              <p class="card-text" style="margin-left:150px; ">
+              <button class="btn btn-one"> <b style= "color: dodgerblue;"> FOLLOW </b><b> THOSE</b><b style= "color: dodgerblue;"> PRODUCTS</b><b> NOW</b></button> 
+            </p>
+            </div>
+    </div>
       </div>   
+      
   </div>
+  
 </div>
 {% endblock %}
