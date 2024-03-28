@@ -96,22 +96,15 @@ def get_list_CVE(request, page):
     # print(listCVE)
     return render(request, 'firstapp/list_cves.html', context=context)   
 
-# def get_filter_Year(request):
-#     if request.method == 'POST':
-#         selected_years = request.POST.getlist('filter_year')
-#         if selected_years:
-#             selected_year = selected_years[0]  
-#             listCVE = CVE.objects.filter(year__in=selected_years)
-#         if 'search_focus' in request.POST:
-#             id_cve = request.POST['search_focus']
-#             listCVE = listCVE.filter(cve_id__contains=id_cve)
-#     else:
-#         selected_year = request.GET.get('filter_year', None)
-#         if selected_year:
-#             listCVE = listCVE.filter(year=selected_year)
-    
-     
-     
+
+
+
+
+def get_list_Products(request):
+     return render(request, 'firstapp/list_products.html')   
+
+
+
 
 def get_detail_cves(request, pk):
     detail_cve = CVE.objects.get(pk=pk)
