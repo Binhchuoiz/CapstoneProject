@@ -197,7 +197,7 @@ input:checked{
 }
 
 main:after{
-content: "Number of Products Selected: " counter(checkBox-counter) ;
+content: "Number of products you selected : " counter(checkBox-counter) ;
 display: block;
 position: absolute; /*fixed*/
 margin:-15px;
@@ -368,7 +368,10 @@ margin:-15px;
           </br>
             <div class="col" >
                 <div class="card h-100" style="border-width:2px; border-color:black">
-                    <div class="card-body">
+                  <div class="card-body">
+                    <h3 class="card-title">
+                      <a href="#">PRODUCT</a>
+                  </h3>  
                        <!--Thêm logic hiển thị product vào check box-->
                        <div class="checkbox-wrapper-4" style="height:20px;">
                         <input class="inp-cbx" id="morning" type="checkbox" value="test" name="laptop"/>
