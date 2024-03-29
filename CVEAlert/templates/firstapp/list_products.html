@@ -173,15 +173,30 @@ input:checked{
 }
 
 main:after{
-content: "Number of products you selected : " counter(checkBox-counter) ;
+content: "List Your Selected : " counter(checkBox-counter) ;
 display: block;
 position: absolute; /*fixed*/
 margin:-15px;
 }
 
 
+input.largerCheckbox {
+  width: 30px;
+  height: 20px;
+}
 
 
+@media screen and (max-width: 1000px) {
+  div.example1 {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  div.example2 {
+    display: none;
+  }
+}
 
 {% endblock %}
 
@@ -210,6 +225,7 @@ margin:-15px;
               </div> 
               </div>
           </form>
+          <!--Thêm logic để link đến các key word-->
           <div class="letterlist" style="margin:30px;">
             <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> A  </a></button>
             <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> B  </a></button>
@@ -242,29 +258,7 @@ margin:-15px;
   </div>
   <div class="row" style="margin-top: 30px;">
       <div class="col-3 " >
-      </br>
-      </br>
-      </br>
-          <h3><b><u>CHECK PRODUCTS</u></b></h3>
-            </br>
-          <form method="post">
-            {% csrf_token %}
-              <select name="products" class="custom-select">
-                  {% comment %} {% for it in unique_year %}
-                  <b> <option value="{{ it }}">{{ it }}</option></b>
-                  {% endfor %} {% endcomment %}
-                  {% for p in page_obj %}
-                  <b> <option value=" {{ p.name }}"> {{ p.name }}</option></b>
-                  {% endfor %}
-              </select>
-              <hr>
-             
-          </br>
-              <button type="submit" class="btn btn-one" style="width:100%"><b>FIND</b></button>
-          </form>
-      </br>
-      </br>
-      </br>
+      
       </div>
       
       <div class="col-9 ">
@@ -277,10 +271,9 @@ margin:-15px;
                     <h3 class="card-title">
                       <a href="#" ><b>{{ p.name }}</b></a>
                   </h3>  
-                       <!--Thêm logic hiển thị product vào check box-->
-                       <div  style="height:20px;">
-                        <input type="checkbox" id="morning" value="{{ p.name }}">
-                        <label   style="height:28px;"><i>Check for follow this product!</i>
+                       <div  style="height:30px;">
+                        <input type="checkbox" id="morning" value="{{ p.name }}" class="largerCheckbox">
+                        <label   ><i style="font-size:17px; ">"Check for follow this product!"</i>
                       </div>
                         <div class="card-body" style="padding: 30px;">
                          
@@ -290,9 +283,6 @@ margin:-15px;
                             <p class="card-text">
                                 <b> Product Version: </b>"Test"
                             </p>
-                            {% comment %} <a href="#" class="cta">
-                              <button class="btn btn-one"> <b style= "color: dodgerblue"> READ </b>NOW</button>
-                            </a>  {% endcomment %}
                           </div>  
                     </div>
                   </div>
@@ -306,65 +296,61 @@ margin:-15px;
             <a style="color:white">Page {{ page.current }} of {{ paginator.num_pages }}</a>
             <a href="{% url 'app:list_products' page=page.next %}">Next ></a>
         </div>
-         <!--Thêm logic để follow-->
-         <div class="card h-10" style="border-width:2px; border-color:black; margin-top:50px; width:515px;">
-          <div class="card-body" style="padding: 30px;">
-              <p class="card-text" >
-                <main></main>
-              </br>
-                <p id="demo"></p>
-              </p>
-              <p class="card-text" style="margin-left:-20px; width:100px;margin-top:50px;">
-              <hr>
-              <button class="btn btn-one" onclick="myFunction()"> <b> CHECK</button> 
-                {% comment %} <button class="btn btn-one" onclick="myFunction()">Try it</button> {% endcomment %}
-              </br> 
-              <hr>
-              <button class="btn btn-one"> <b style= "color: dodgerblue;"> FOLLOW </b><b> THOSE</b><b style= "color: dodgerblue;"> PRODUCTS</b><b> NOW</b></button>
-            </p>
-            </div>
-          </div> 
+        
       </div>   
       
   </div>
   
 </div>
+ <!--Thêm logic để follow-->
+ <div class="card h-10 example1" style="border-width:2px; border-color:black; margin-top:50px; width:425px;  margin-left:50px; bottom:2665px; ">
+  <div class="card-body" style="padding: 30px;">
+    <h3 class="card-title">
+      <a href="#" ><b>FOLLOW PRODUCTS</b></a>
+  </h3> 
+  <hr>
+  </br>
+      <p class="card-text" >
+        <main></main>
+      </br>
+        <p id="demo1"></p>
+      </p>
+      <p class="card-text" style="margin-left:-20px; width:30px;margin-top:50px;">
+      <hr>
+      <button class="btn btn-one" onclick="myFunction1()" style="width:100px;"> <b> CHECK</button> 
+      </br> 
+      <hr>
+      <button class="btn btn-one" style="width:100px;">  <b style= "color: dodgerblue;">FOLLOW </b><b> NOW</b></button>
+    </p>
+    </div>
+  </div> 
 
- {% comment %} <script>
-  function getValue() {
-      let checkboxes =
-          document.getElementsByName('laptop');
-      let result = "";
-      for (var i = 0; i < checkboxes.length; i++) {
-          if (checkboxes[i].checked) {
-              result += "+ " + checkboxes[i].value + "</br>";
-          }
-        }
-  document.body.append("<p> You have selected : </br>"
-          + result + "</p>");
-  }
-</script>    {% endcomment %}
-
-
-
-{% comment %} <script>
-  function myFunction() {
-    // Kiểm tra checkbox đã được chọn hay chưa
-    if (document.getElementById("morning").checked) {
-      // Lấy giá trị của checkbox
-      var x = document.getElementById("morning").value;
-      // Hiển thị giá trị
-      document.getElementById("demo").innerHTML ="+ " + x;
-    } else { 
-      // Hiển thị thông báo nếu checkbox chưa được chọn
-      document.getElementById("demo").innerHTML = "<b>Please select products!</b>";
-    }
-  }
-  </script>  {% endcomment %}
-
-
+<!--Chia hiển thị màn hình-->
+  
+  <!--Thêm logic để follow-->
+ <div class="card h-10 example2" style="border-width:2px; border-color:black; margin-top:50px; width:225px;  margin-left:50px; bottom:2665px; ">
+  <div class="card-body" style="padding: 30px;">
+    <h3 class="card-title">
+      <a href="#" ><b>FOLLOW PRODUCTS</b></a>
+  </h3> 
+  <hr>
+  </br>
+      <p class="card-text" >
+        <main></main>
+      </br>
+        <p id="demo2"></p>
+      </p>
+      <p class="card-text" style="margin-left:-20px; width:30px;margin-top:50px;">
+      <hr>
+      <button class="btn btn-one" onclick="myFunction2()" style="width:100px;"> <b> CHECK</button> 
+      </br> 
+      <hr>
+      <button class="btn btn-one" style="width:100px;">  <b style= "color: dodgerblue;">FOLLOW </b><b> NOW</b></button>
+    </p>
+    </div>
+  </div> 
   <script>
-    function myFunction() {
+    function myFunction1() {
       // Lấy tất cả các checkbox được chọn
       var checkboxes = document.querySelectorAll("input[type='checkbox']:checked");
       // Tạo danh sách để lưu trữ giá trị
@@ -374,9 +360,23 @@ margin:-15px;
         values.push(checkboxes[i].value);
       }
       // Hiển thị danh sách giá trị
-      document.getElementById("demo").innerHTML = values.join(" ; ");
+      document.getElementById("demo1").innerHTML = values.join(" ; ");
     }
     </script>
+    <script>
+      function myFunction2() {
+        // Lấy tất cả các checkbox được chọn
+        var checkboxes = document.querySelectorAll("input[type='checkbox']:checked");
+        // Tạo danh sách để lưu trữ giá trị
+        var values = [];
+        // Lặp qua từng checkbox và lấy giá trị
+        for (var i = 0; i < checkboxes.length; i++) {
+          values.push(checkboxes[i].value);
+        }
+        // Hiển thị danh sách giá trị
+        document.getElementById("demo2").innerHTML = values.join(" ; ");
+      }
+      </script>
 
 
 {% endblock %}

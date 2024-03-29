@@ -1,40 +1,7 @@
 {% extends 'navbar.html' %}
 
 {% block css %}
-    .form-edit-profile > input {
-    width: 100%;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    }
-    .form-edit-profile > button {
-    width: 100%;
-    }
-    body {
-    background-color: white !important;
-    }
-    .form-edit-avatar {
-    text-align: center;
-    }
-    .list-page-profile > p > a {
-    color: black;
-    text-decoration: none;
-    font-weight: bold;
-    }
-    .list-page-profile > p > .active {
-    color: dodgerblue;
-    }
-    .button-paing {
-        padding-left: 10px;
-        padding-right: 10px;
-        margin: 10px;
-        border-radius: 5px;
-    }
-    .pagination {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
+   
 {% endblock %}
 
 
@@ -44,65 +11,6 @@
 
 
 {% block content %}
-    <div class="container" style="padding: 20px;">
-        <div class="row">
-            <div class="col-4 list-page-profile">
-                <p>
-                    <a class="{% if '/account/profile/' == request.path %}active{% endif %}"
-                       href="{% url 'accounts:profile' %}">Personal Info</a>
-                    </p>
-                    <p>
-                        <a class="{% if 'account/change-password/' in request.path %}active{% endif %}"
-                        href="{% url 'accounts:change-password' pk=request.path %}">Password</a>
-                    </p>
-                    <p>
-                        <a class="{% if 'account/list-affect/' in request.path %}active{% endif %}"
-                        href="{% url 'accounts:list-affected' page=1 %}">Affected Followed</a>
-                    </p>
-                    <p>
-                        <a href="{% url 'accounts:notification' %}">Setting Notification</a>
-                    <p>
-                    <hr>
-                    <h3>FINDING METHODS</h3>
-                    <hr>
-                    <form method="post">
-                        {% csrf_token %}
-                        <h3>PRODUCT</h3>
-                        <hr>
-                        {% for vender in list_vender %}
-                            <input type="checkbox" id="vender_filter" name="vender_filter" value="{{ vender }}">
-                            <label for="vender_filter">{{ vender }}</label>
-                        {% endfor %}
-                            <input type="checkbox" id="product_filter" name="product_filter" value="{{ vender }}">
-                            <label for="product_filter">Product</label>
-                        {% endfor %}
-                        <hr>
-                        <button class="btn-btn-dark">Find</button>
-                    </form>
-                </div>
-                <div class="col-6">
-                    <div class="list-group">
-                        <a href ="#" class="list-group-item list-group-item-action active" aria-current="true">
-                            List Affected! You have Followed
-                        </a>
-                        {% for it in list_followed %}
-                            <div class="card mb-3">
-                                <div class="card-body" style="padding: 20px;">
-                                    <h5 class="card-title">CVE ID: {{ it.affected.cve }}</h5>
-                                    <p class="card-text">Product: {{ it.affected.product }}</p>
-                                    <p class="card-text">Vender: {{ it.affected.vender }}</p>
-                                </div>
-                            <div>
-                        {% endfor %}
-                    </div>
-                    <div class="pagination">
-                        <a href="{% url 'account:list_affect' page=page.prev %}"><button class="button-paging"><<Prev</button></a>
-                        <button class="button-paging">Page {{ page.current }} of {{ len_page }}</button>
-                        <a href="{% url 'account:list_affect' page=page.next %}"><button class="button-paging">Next>></button></a>
-                    </div>
-                </div>
-            </div>
-            <hr>
-    </div>
+    
     
 {% endblock %}
