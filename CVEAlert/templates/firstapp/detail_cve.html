@@ -281,19 +281,17 @@ a:hover::before {
             </div>
         </div>
         <div class="col-4">
-            <div class="box-info">
+            <div class="box-info" style="margin-top:65px;">
                 <div class="title-box">
                     <h2><b style="font-size: 28px;">CVE Informations</b></h2>
                 </div>
-                <div class="content-box">
+                <div class="content-box" >
                     <form method="post">
                         {% csrf_token %}
-                            <p class="alert-msg">You have been follow this affect</p>
                         <p><b>CVE ID:</b> {{ detail_cve.cve_id }}</p>
                         <p><b>Published Date:</b> {{ detail_cve.date_publish }}</p>
                             <input name="follow_affect" value="null" style="display: none">
                             <input name="follow_affect" value="null" style="display: none">
-                        <button class="btn btn-one"><b>Follow News Now</b></button>
                     </form>
                 </div>
             </div>
