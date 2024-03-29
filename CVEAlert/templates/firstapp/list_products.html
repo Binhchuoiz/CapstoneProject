@@ -317,7 +317,6 @@ margin:-15px;
 
 {% block content %}
 
-
 <div class="container">
   <div class="row" style="margin-top: 30px; margin-bottom: 30px;">
       <div class="col-3">
@@ -375,7 +374,8 @@ margin:-15px;
                   </h3>  
                        <!--Thêm logic hiển thị product vào check box-->
                        <div class="checkbox-wrapper-4" style="height:20px;">
-                        <input class="inp-cbx" id="morning" type="checkbox" value="test" name="laptop"/>
+                        {% comment %} <input class="inp-cbx" id="morning" type="checkbox" value="test" name="laptop"/> {% endcomment %}
+                        <input class="inp-cbx" type="checkbox" id="morning" value="test">
                         <label class="cbx" for="morning"  style="height:28px;"><span>
                         <svg width="12px" height="10px">
                           <use xlink:href="#check-4"></use>
@@ -401,7 +401,7 @@ margin:-15px;
                     </div>
                   </div>
             </div>
-            
+      
           {% comment %} {% endfor %} {% endcomment %}
           {% comment %} </br>
          
@@ -415,12 +415,14 @@ margin:-15px;
           <div class="card-body" style="padding: 30px;">
               <p class="card-text" >
                 <main></main>
-                
+              </br>
+                <p id="demo"></p>
               </p>
               <p class="card-text" style="margin-left:-20px; width:100px;margin-top:50px;">
               <hr>
-              <button class="btn btn-one" onclick="getValue()"> <b> CHECK</button> 
-              </br>
+              <button class="btn btn-one" onclick="myFunction()"> <b> CHECK</button> 
+                {% comment %} <button class="btn btn-one" onclick="myFunction()">Try it</button> {% endcomment %}
+              </br> 
               <hr>
               <button class="btn btn-one"> <b style= "color: dodgerblue;"> FOLLOW </b><b> THOSE</b><b style= "color: dodgerblue;"> PRODUCTS</b><b> NOW</b></button>
             </p>
@@ -431,7 +433,8 @@ margin:-15px;
   </div>
   
 </div>
-<script>
+
+ {% comment %} <script>
   function getValue() {
       let checkboxes =
           document.getElementsByName('laptop');
@@ -441,8 +444,27 @@ margin:-15px;
               result += "+ " + checkboxes[i].value + "</br>";
           }
         }
-    document.write("<p> You have selected : </br>"
-          + result + "</p>"); 
+  document.body.append("<p> You have selected : </br>"
+          + result + "</p>");
   }
-</script> 
+</script>    {% endcomment %}
+
+
+
+<script>
+  function myFunction() {
+    // Kiểm tra checkbox đã được chọn hay chưa
+    if (document.getElementById("morning").checked) {
+      // Lấy giá trị của checkbox
+      var x = document.getElementById("morning").value;
+      // Hiển thị giá trị
+      document.getElementById("demo").innerHTML ="+ " + x;
+    } else { 
+      // Hiển thị thông báo nếu checkbox chưa được chọn
+      document.getElementById("demo").innerHTML = "<b>Please select products!</b>";
+    }
+  }
+  </script>
+
+
 {% endblock %}
