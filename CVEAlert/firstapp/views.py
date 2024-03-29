@@ -224,3 +224,29 @@ def get_about(request):
 
 def get_list_definations(request):	
 	return render(request, 'firstapp/list_definations.html')
+
+
+def get_cve_definations(request):	
+	return render(request, 'firstapp/Definations/cve.html')
+
+def get_cvss_definations(request):	
+	return render(request, 'firstapp/Definations/cvss.html')
+
+def get_cvss_compare(request):	
+	return render(request, 'firstapp/Definations/comparecvss.html')
+
+def get_base_definations(request):	
+	return render(request, 'firstapp/Definations/base.html')
+
+
+def get_temporal_definations(request):	
+	return render(request, 'firstapp/Definations/temporal.html')
+
+def get_environmental_definations(request):	
+	return render(request, 'firstapp/Definations/environmental.html')
+
+def get_difference_definations(request):	
+	return render(request, 'firstapp/Definations/difference.html')
+
+def get_type_definations(request):	
+	return render(request, 'firstapp/Definations/product_and_vendor.html')

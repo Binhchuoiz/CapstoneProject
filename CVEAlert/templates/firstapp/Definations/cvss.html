@@ -1,0 +1,552 @@
+{% extends 'navbar.html' %}
+
+{% block css %}
+    a {
+    text-decoration: none;
+    color: black;
+    }
+    input, textarea {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+    }
+    img {
+        width: 100%;
+        height: auto;
+    }
+    .img-cve {
+    padding: 20px;
+    border-radius: 30px;
+    width: 100%;
+    height: auto;
+    }
+    .box-info {
+    {#        border-radius: 30px;#}
+    {#        border-color: black;#}
+    {#        background-color: lightgray;#}
+    {#        padding: 20px;#}
+    margin-bottom: 20px;
+    margin-top: 20px;
+    }
+    .title-box > * {
+    padding: 10px;
+    background-color: black !important;
+    color: white !important;
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px !important;
+    margin: 0;
+    }
+    .content-box {
+    background-color: lightgray !important;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin: 0;
+    padding: 10px;
+    }
+    .base-score {
+    background-color: black !important;
+    color: white !important;
+    padding: 10px;
+    border-radius: 10px;
+    }
+    .alert-msg {
+    background-color: lightgreen;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border-color: red;
+    }
+
+    /*=READ NOW=*/
+    .btn {
+        line-height: 20px;
+        height: 50px;
+        text-align: center;
+        text-style:bold
+        cursor: pointer;
+        background-color:black;
+      }
+      .btn-one {
+        color: white;
+        transition: all 0.5s;
+        position: relative;
+      }
+      .btn-one span {
+        transition: all 0.5s;
+      }
+      .btn-one::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        opacity: 0;
+        transition: all 1s;
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-top-style: solid;
+        border-bottom-style: solid;
+        border-top-color: black;
+        border-bottom-color: black;
+        transform: scale(0.1, 1);
+        
+      }
+      .btn-one:hover span {
+        letter-spacing: 2px;
+      }
+      .btn-one:hover::before {
+        opacity: 1; 
+        transform: scale(1, 1); 
+      }
+      .btn-one::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        transition: all 0.3s;
+        background-color: rgba(255,255,255,0.1);
+      }
+      .btn-one:hover::after {
+        opacity: 0; 
+        transform: scale(0.1, 1);
+      }
+      /*=Link list=*/
+      .list{
+          a {
+              box-shadow: inset 0 0 0 0 black;
+              color: black;
+                padding: 0 .25rem;
+                margin: 0 -.25rem;
+                left:10%;
+                border-radius: 5px;
+              transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+            }
+            a:hover {
+              color: white;
+              box-shadow: inset 200px 0 0 0 black;;
+            }
+            
+            /* Presentational styles */
+            a {
+              color: black;
+              font-size: 19px;
+              font-weight: 500;
+              line-height: 0;
+              text-decoration: none;
+            }
+      }
+    
+    
+    
+      /*=arrow=*/
+    .arrow {
+        position: absolute;
+        top: 19%;
+        left: 14%;
+        transform: translate(-50%, -50%);
+        transform: rotate(90deg);
+        cursor: pointer;
+    }
+    
+    .arrow span {
+        display: block;
+        width: 1vw;
+        height: 1vw;
+        border-bottom: 5px solid black;
+        border-right: 5px solid black;
+        transform: rotate(45deg);
+        margin: -10px;
+        animation: animate 2s infinite;
+    }
+    
+    .arrow span:nth-child(2) {
+        animation-delay: -0.2s;
+    }
+    
+    .arrow span:nth-child(3) {
+        animation-delay: -0.4s;
+    }
+    
+    @keyframes animate {
+        0% {
+            opacity: 0;
+            transform: rotate(45deg) translate(-20px, -20px);
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: rotate(45deg) translate(20px, 20px);
+        }
+    }
+
+    /*=CARD TITLE1=*/
+  .card-title1{
+      a {
+          box-shadow: inset 0 0 0 0 black;
+          color: black;
+            padding: 0 .25rem;
+            margin: 0 -.25rem;
+            border-radius: 5px;
+          transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+        }
+        a:hover {
+          color: white;
+          box-shadow: inset 200px 0 0 0 black;;
+        }
+        
+        /* Presentational styles */
+        a {
+          color: black;
+          font-family: 'Poppins', sans-serif;
+          font-size: 23px;
+          font-weight: 600;
+          line-height: 0;
+          text-decoration: none;
+        }
+  }
+
+
+  /*= NOTIFICATIONS=*/
+  @import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+
+span{
+  position: relative;
+  display: inline-flex;
+  width: -10px;
+  height: 55px;
+  margin: 0 5px;
+  perspective: 1000px;
+}
+span a{
+  font-size: 15px;
+  font-style:bold;
+  letter-spacing: 1px;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform .25s;
+  
+}
+span a:before,
+span a:after{
+  position: absolute;
+  content: "Register for your notifications now!";
+  height: 55px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid black;
+  box-sizing: border-box;
+  border-radius: 5px;
+  text-align:center;  
+}
+span a:before{
+  color: #fff;
+  background: #000;
+  transform: rotateY(0deg) translateZ(25px);
+}
+span a:after{
+  color: #000;
+  transform: rotateX(90deg) translateZ(25px);
+}
+span a:hover{
+  transform: translateZ(-25px) rotateX(-90deg);
+}
+
+    
+
+
+
+  
+  .our-team {
+    padding: 30px 0 40px;
+    margin-bottom: 30px;
+    background-color: #f7f5ec;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .our-team .picture {
+    display: inline-block;
+    height: 130px;
+    width: 130px;
+    margin-bottom: 50px;
+    z-index: 1;
+    position: relative;
+  }
+  
+  .our-team .picture::before {
+    content: "";
+    width: 100%;
+    height: 0;
+    border-radius: 50%;
+    background-color: #1369ce;
+    position: absolute;
+    bottom: 135%;
+    right: 0;
+    left: 0;
+    opacity: 0.9;
+    transform: scale(3);
+    transition: all 0.3s linear 0s;
+  }
+  
+  .our-team:hover .picture::before {
+    height: 100%;
+  }
+  
+  .our-team .picture::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #1369ce;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+  
+  .our-team .picture img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    transform: scale(1);
+    transition: all 0.9s ease 0s;
+  }
+  
+  .our-team:hover .picture img {
+    box-shadow: 0 0 0 14px #f7f5ec;
+    transform: scale(0.7);
+  }
+  
+  .our-team .title {
+    display: block;
+    font-size: 15px;
+    color: #4e5052;
+    text-transform: capitalize;
+  }
+  
+  .our-team .social {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #1369ce;
+    position: absolute;
+    bottom: -100px;
+    left: 0;
+    transition: all 0.5s ease 0s;
+  }
+  
+  .our-team:hover .social {
+    bottom: 0;
+  }
+  
+  .our-team .social li {
+    display: inline-block;
+  }
+  
+  .our-team .social li a {
+    display: block;
+    padding: 10px;
+    font-size: 17px;
+    color: white;
+    transition: all 0.3s ease 0s;
+    text-decoration: none;
+  }
+  
+  .our-team .social li a:hover {
+    color: #1369ce;
+    background-color: #f7f5ec;
+  }
+  
+
+  /*=URL=*/
+.url{
+    a {
+    color: blue;
+      position: relative;
+      text-decoration: none;
+    }
+    
+    a::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-radius: 4px;
+      background-color: #18272F;
+      bottom: 0;
+      left: 0;
+      transform-origin: right;
+      transform: scaleX(0);
+      transition: transform .3s ease-in-out;
+    }
+}
+
+a:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+{% endblock %}
+
+{% block title %}
+CVSS DEFINATIONS
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="margin-top: 100px; margin-bottom: 200px">
+        <p class="list"><a href={% url 'app:list_defination' %}>RETURN LIST DEF</a></p>
+    <div class="arrow">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+        <div class="row">
+            <div class="col-8">
+                <h1><b ><u>What Is a CVSS?</u></b></h1>
+                <img src="/media/cvssv4.png" style="width: 100%; height: 500px; object-fit: cover; margin-top: 50px;margin-bottom: 50px; border-radius:10px;">
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">What is CVSS?</b></h2>
+                    </div>
+                    <div class="content-box">
+<p>The Common Vulnerability Scoring System (aka CVSS Scores) provides a numerical (0-10) representation of the severity of an information security vulnerability. CVSS scores are commonly used by infosec teams as part of a vulnerability management program to provide a point of comparison between vulnerabilities, and to prioritize remediation of vulnerabilities.</p>
+<p>CVSS is an open framework maintained by the Forum of Incident Response and Security Teams (FIRST), a US-based nonprofit with over 500 member organizations globally. While rating vulnerabilities based on an open, standardized methodology is powerful, it’s also important to recognize the drawbacks and limitations of CVSS in order to ensure that it’s being applied appropriately in your organization..</p>
+<h2 class="url"><a href={% url 'app:cvss_comparation'%}>CVSSv2 vs CVSSv3</a> </h2>
+<p>CVSS is now on its third major version (v3.1), which was designed to address some of the shortcomings in its predecessor, v2. Most notably, version 3 introduces the looks at the privileges required to exploit a vulnerability, as well as the ability for an attacker to propagate across systems (“scope”) after exploiting a vulnerability.</p>                   
+</div>
+                </div>
+
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">CVSS Score Metrics</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <p class="url">A CVSS score is composed of three sets of metrics (<a href={% url 'app:base' %} >Base</a>, <a href={% url 'app:temporal' %}>Temporal</a>,<a href={% url 'app:environmental' %}> Environmental)</a>, each of which have an underlying scoring component.</p>
+                      <img src="/media/CVSS-Score-Metrics-Blog.png">
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">CVSS Base Metrics</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <p class="url">Base Factors represent characteristics of the vulnerability itself. These characteristics do not change over time, and are not dependent on real world exploitability or on compensating factors that an enterprise has put into place to prohibit exploit. Public rankings of severity, such as those listed in NIST’s National Vulnerability Database <a href="https://nvd.nist.gov/general/news/change-timeline">(NVD) </a>refer exclusively to Base CVSS scores.</p>
+                      <p>The easy availability of Base CVSS scores provides a seductive starting point for patching prioritization, but is of limited use as it does not account for real world exploits, availability of patches, or other environmental or mitigating controls that your organization has put into place.</p>
+                      <p class="url"><a href={% url 'app:base' %} >CVSS Base Metrics</a> are comprised of three subscore elements – Exploitability, Scope, and Impact.</p>
+                    <p><b>Exploitability</b> – Exploitability metrics are made up of characteristics of the vulnerable component, with Exploitability being made up of four further sub-components.</p>
+                    <p>  &emsp;+ <i>Attack Vector</i> – this score varies based on the level of access required to exploit a vulnerability. The score will be higher for exploits that can be executed remotely (i.e. outside of a company’s network) than for exploits that require physical presence (i.e. must have access to a physical port on an appliance or access to a local network inside of a private data center).</p>
+                    <p>&emsp;+ <i>Attack Complexity</i> – this score varies based on the factors outside of the attacker’s control that are required to exploit the vulnerability. The score will be higher for exploits that require additional work on the attacker’s part, such as theft of a shared secret key or a man-in-the-middle attack, than for an attack that requires no such additional effort.</p>
+                    <p>&emsp;+ <i>Privileges Required</i> – this score varies based on the privileges required for the attacker to conduct the exploit. A vulnerability that requires administrative privileges to exploit will have a higher score than an exploit that requires no authentication or escalated privileges on the attacker’s part.</p>
+                    <p>&emsp;+ <i>User Interaction</i> – this score varies based on whether the attacker must recruit either a willing or unwitting participant in order to complete their task. The score will be higher if the attacker can operate autonomously, with no participation from a user.</p>
+                    <p><b>Scope</b> – Scope relates to whether a vulnerability in one component can propagate to other components. The scope score is higher if propagation is possible. Examples of scope include ability to access and exploit the underlying operating system after exploiting a vulnerability in a software application, or an attacker accessing a backend database after successfully exploiting a vulnerability in a web server.</p>
+                    <p><b>Impact</b> – Impact focuses on the actual outcome that an attacked can achieve as a result of exploiting the vulnerability in question. Impact metrics are comprised of three sub-metrics – Confidentiality, Integrity, and Availability.</p>
+                    <p>&emsp;+ <i>Confidentiality</i> – this score varies on the amount of data that the attacker gains access to. It will be higher if all data on the impacted system is accessible by the attacker, lower if no data is accessible. </p>
+                    <p>&emsp;+ <i>Integrity</i> – this score varies based on the ability of the attacker to alter or change data on the impacted system. If complete, or severely consequential modifications to data are possible, this score will be high.</p>
+                    <p>&emsp;+ <i>Availability</i> – this score varies based on the loss of availability of the exploited system. The score will be high if the system is no longer accessible or usable for authorized users as a result of the attack.</p>
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">CVSS Temporal Metrics</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <p class="url"><a href={% url 'app:temporal' %}>CVSS Temporal Metrics</a> are exactly as they sound – metrics related to a vulnerability that change over time. These metrics measure the current exploitability of the vulnerability, as well as the availability of remediating controls, such as a patch. Subcomponents of Temporal Metrics include Exploit Code Maturity, Remediation Level, and Report Confidence.</p>
+                      <p>&emsp;+ <i>Exploit Code Maturity</i> – Until a method exists to exploit a vulnerability, it is relatively benign. As with most software, code available to conduct an exploit can mature, becoming more stable and more widely available over time. As this happens, the score on this subcomponent will increase.</p>
+                      <p>&emsp;+ <i>Remediation Level</i> – When a vulnerability is first discovered, there might not be a patch or other workaround available. Over time, workarounds, temporary fixes, and ultimately official patches become available, lowering the vulnerability score as remediation is improved.</p>
+                      <p>&emsp;+ <i>Report Confidence </i>– Confidence measures the level of validation demonstrating that a vulnerability is both real and exploitable.</p>
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">CVSS Environmental Metrics</b></h2>
+                    </div>
+                    <div class="content-box">
+                        <p class="url"><a href={% url 'app:environmental' %}>CVSS Environmental Metrics</a> allow the organization to modify the Base CVSS based on Security Requirements and modifications of Base Metrics.</p>
+                    <p>&emsp;+ <i>Security Requirements</i> – Security Requirements characterize the criticality of the asset in question. Mission critical data or assets get a higher score than less important assets. For example, a vulnerability identified in a database of all customer data would get a higher score than a vulnerability identified in a non-privileged user’s workstation. </p>
+                    <p>&emsp;+ <i>Modified Base Metrics</i> – An organization may choose to modify values of the Base CVSS Metrics based on mitigations that they have put into place. For example, “air gapping” a server, or removing any external network connections, will prohibit and attacker from being able to exploit a vulnerability that might otherwise be accessible remotely. The result is that the Attack Vector Base Metric is reduced in this instance.</p>
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">CVSS Qualitative Ratings</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <p> It is sometimes useful, especially for purposes of discussion with less technical stakeholders, to map the 0-10 CVSS scores to qualitative ratings. FIRST maps CVSS scores to these qualitative ratings as follows:</p>
+                    <img src="/media/Screenshot 2024-03-29 163422.png">
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;" class="url">What is the Difference between <a href={% url 'app:difference' %}> CVSS and CVE? </a></b></h2>
+                    </div>
+                    <div class="content-box">
+                      <p  class="url"> <a href={% url 'app:cve' %} >CVE</a> stands for Common Vulnerability Enumeration, which is a unique identifier for each vulnerability listed in the NIST NVD. CVSS provides an indication of the severity of each CVE.</p>
+                    <p>The CVE format is as follows:
+                        <b>"CVE-[4 Digit Year]-[Sequential Identifier]" </b></p>
+                        <p>For example, the CVE for the Heartbleed vulnerability is: CVE-2014-0160 </p>
+                        <p> Which means that it was the 160th vulnerability categorized in the NVD in 2014. Its Base CVSS Score is 7.5 (High).</p>
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Limitations of CVSS</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <p>As we’ve already discussed, publicly available CVSS scores are Base Scores only. They represent the severity of a vulnerability, but do not reflect the risk that the vulnerability poses to your environment. In other words, CVSS answers the question, “Is this dangerous?”, but not, “Is this dangerous to my company?”</p>
+                      <p>Given the large (and growing) number of vulnerabilities facing the typical organization, effective vulnerability management must account for not only the Base Score, but Temporal and Environmental Factors as well. For this part, FIRST provides the framework, but NIST can’t help you with tailoring your CVSS score to these factors, as they require first-hand knowledge of business criticality of the assets, identification of mitigating controls, use of the asset in question, and current real-world exploitability of the vulnerability. Maximizing efficiency of your security team requires a risk-based approach to vulnerability management that accounts for these factors.</p>
+                    </div>
+                </div>
+                
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">LEARN MORE...</b></h2>
+                    </div>
+                    <div class="content-box">
+                
+                </div>
+            </div>
+            </div>
+            <div class="col-4">
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Box Informations</b></h2>
+                    </div>
+                    <div class="content-box">
+                        <p>Service: CVSS Definations</p>
+                        <p>Published: 2024-20-3</p>
+                        <p>Updated: 2024-26-3</p>
+                        <span><a {% if user.is_authenticated %} href="{% url 'accounts:notification' %}" {% else %} href="{% url 'accounts:login' %}" {% endif %}></a></span>
+                    </div>
+                </div>
+                <br>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Asking for information</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <form method="post"  action="mailto:binhndhe161032@gmail.com">
+                        {% csrf_token %}
+                        <input type="text" name="your_name" placeholder="Your Name"><br>
+                        <input type="text" name="email_address" placeholder="Email Address"><br>
+                        <input type="text" name="phone_number" placeholder="Phone Number"><br>
+                        <textarea name="message" placeholder="Message" rows="5"></textarea><br>
+                        <button type="submit" value="Send" class="btn btn-one" style="width: 100%"><b>Sent</b></button>
+                    </form>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

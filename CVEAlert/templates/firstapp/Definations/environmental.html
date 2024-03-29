@@ -1,0 +1,521 @@
+{% extends 'navbar.html' %}
+
+{% block css %}
+    a {
+    text-decoration: none;
+    color: black;
+    }
+    input, textarea {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+    }
+    img {
+        width: 100%;
+        height: auto;
+    }
+    .img-cve {
+    padding: 20px;
+    border-radius: 30px;
+    width: 100%;
+    height: auto;
+    }
+    .box-info {
+    {#        border-radius: 30px;#}
+    {#        border-color: black;#}
+    {#        background-color: lightgray;#}
+    {#        padding: 20px;#}
+    margin-bottom: 20px;
+    margin-top: 20px;
+    }
+    .title-box > * {
+    padding: 10px;
+    background-color: black !important;
+    color: white !important;
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px !important;
+    margin: 0;
+    }
+    .content-box {
+    background-color: lightgray !important;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin: 0;
+    padding: 10px;
+    }
+    .base-score {
+    background-color: black !important;
+    color: white !important;
+    padding: 10px;
+    border-radius: 10px;
+    }
+    .alert-msg {
+    background-color: lightgreen;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border-color: red;
+    }
+
+    /*=READ NOW=*/
+    .btn {
+        line-height: 20px;
+        height: 50px;
+        text-align: center;
+        text-style:bold
+        cursor: pointer;
+        background-color:black;
+      }
+      .btn-one {
+        color: white;
+        transition: all 0.5s;
+        position: relative;
+      }
+      .btn-one span {
+        transition: all 0.5s;
+      }
+      .btn-one::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        opacity: 0;
+        transition: all 1s;
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-top-style: solid;
+        border-bottom-style: solid;
+        border-top-color: black;
+        border-bottom-color: black;
+        transform: scale(0.1, 1);
+        
+      }
+      .btn-one:hover span {
+        letter-spacing: 2px;
+      }
+      .btn-one:hover::before {
+        opacity: 1; 
+        transform: scale(1, 1); 
+      }
+      .btn-one::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        transition: all 0.3s;
+        background-color: rgba(255,255,255,0.1);
+      }
+      .btn-one:hover::after {
+        opacity: 0; 
+        transform: scale(0.1, 1);
+      }
+      /*=Link list=*/
+      .list{
+          a {
+              box-shadow: inset 0 0 0 0 black;
+              color: black;
+                padding: 0 .25rem;
+                margin: 0 -.25rem;
+                left:10%;
+                border-radius: 5px;
+              transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+            }
+            a:hover {
+              color: white;
+              box-shadow: inset 200px 0 0 0 black;;
+            }
+            
+            /* Presentational styles */
+            a {
+              color: black;
+              font-size: 19px;
+              font-weight: 500;
+              line-height: 0;
+              text-decoration: none;
+            }
+      }
+    
+    
+    
+      /*=arrow=*/
+    .arrow {
+        position: absolute;
+        top: 19%;
+        left: 14%;
+        transform: translate(-50%, -50%);
+        transform: rotate(90deg);
+        cursor: pointer;
+    }
+    
+    .arrow span {
+        display: block;
+        width: 1vw;
+        height: 1vw;
+        border-bottom: 5px solid black;
+        border-right: 5px solid black;
+        transform: rotate(45deg);
+        margin: -10px;
+        animation: animate 2s infinite;
+    }
+    
+    .arrow span:nth-child(2) {
+        animation-delay: -0.2s;
+    }
+    
+    .arrow span:nth-child(3) {
+        animation-delay: -0.4s;
+    }
+    
+    @keyframes animate {
+        0% {
+            opacity: 0;
+            transform: rotate(45deg) translate(-20px, -20px);
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: rotate(45deg) translate(20px, 20px);
+        }
+    }
+
+    /*=CARD TITLE1=*/
+  .card-title1{
+      a {
+          box-shadow: inset 0 0 0 0 black;
+          color: black;
+            padding: 0 .25rem;
+            margin: 0 -.25rem;
+            border-radius: 5px;
+          transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+        }
+        a:hover {
+          color: white;
+          box-shadow: inset 200px 0 0 0 black;;
+        }
+        
+        /* Presentational styles */
+        a {
+          color: black;
+          font-family: 'Poppins', sans-serif;
+          font-size: 23px;
+          font-weight: 600;
+          line-height: 0;
+          text-decoration: none;
+        }
+  }
+
+
+  /*= NOTIFICATIONS=*/
+  @import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+
+span{
+  position: relative;
+  display: inline-flex;
+  width: -10px;
+  height: 55px;
+  margin: 0 5px;
+  perspective: 1000px;
+}
+span a{
+  font-size: 15px;
+  font-style:bold;
+  letter-spacing: 1px;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform .25s;
+  
+}
+span a:before,
+span a:after{
+  position: absolute;
+  content: "Register for your notifications now!";
+  height: 55px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid black;
+  box-sizing: border-box;
+  border-radius: 5px;
+  text-align:center;  
+}
+span a:before{
+  color: #fff;
+  background: #000;
+  transform: rotateY(0deg) translateZ(25px);
+}
+span a:after{
+  color: #000;
+  transform: rotateX(90deg) translateZ(25px);
+}
+span a:hover{
+  transform: translateZ(-25px) rotateX(-90deg);
+}
+
+    
+
+
+
+  
+  .our-team {
+    padding: 30px 0 40px;
+    margin-bottom: 30px;
+    background-color: #f7f5ec;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .our-team .picture {
+    display: inline-block;
+    height: 130px;
+    width: 130px;
+    margin-bottom: 50px;
+    z-index: 1;
+    position: relative;
+  }
+  
+  .our-team .picture::before {
+    content: "";
+    width: 100%;
+    height: 0;
+    border-radius: 50%;
+    background-color: #1369ce;
+    position: absolute;
+    bottom: 135%;
+    right: 0;
+    left: 0;
+    opacity: 0.9;
+    transform: scale(3);
+    transition: all 0.3s linear 0s;
+  }
+  
+  .our-team:hover .picture::before {
+    height: 100%;
+  }
+  
+  .our-team .picture::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #1369ce;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+  
+  .our-team .picture img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    transform: scale(1);
+    transition: all 0.9s ease 0s;
+  }
+  
+  .our-team:hover .picture img {
+    box-shadow: 0 0 0 14px #f7f5ec;
+    transform: scale(0.7);
+  }
+  
+  .our-team .title {
+    display: block;
+    font-size: 15px;
+    color: #4e5052;
+    text-transform: capitalize;
+  }
+  
+  .our-team .social {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #1369ce;
+    position: absolute;
+    bottom: -100px;
+    left: 0;
+    transition: all 0.5s ease 0s;
+  }
+  
+  .our-team:hover .social {
+    bottom: 0;
+  }
+  
+  .our-team .social li {
+    display: inline-block;
+  }
+  
+  .our-team .social li a {
+    display: block;
+    padding: 10px;
+    font-size: 17px;
+    color: white;
+    transition: all 0.3s ease 0s;
+    text-decoration: none;
+  }
+  
+  .our-team .social li a:hover {
+    color: #1369ce;
+    background-color: #f7f5ec;
+  }
+  
+
+  /*=URL=*/
+.url{
+    a {
+    color: blue;
+      position: relative;
+      text-decoration: none;
+    }
+    
+    a::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-radius: 4px;
+      background-color: #18272F;
+      bottom: 0;
+      left: 0;
+      transform-origin: right;
+      transform: scaleX(0);
+      transition: transform .3s ease-in-out;
+    }
+}
+
+a:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+{% endblock %}
+
+{% block title %}
+Environmental CVSS Scores
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="margin-top: 100px; margin-bottom: 200px">
+        <p class="list"><a href={% url 'app:list_defination' %}>RETURN LIST DEF</a></p>
+    <div class="arrow">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+        <div class="row">
+            <div class="col-8">
+                <h1><b ><u>Environmental CVSS Scores</u></b></h1>
+                <img src="/media/figure-1-3-550x229.png" style="width: 100%;  object-fit: cover; margin-top: 50px;margin-bottom: 50px; border-radius:10px;">
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Defining CVSS Scores</b></h2>
+                    </div>
+                    <div class="content-box">
+                        <p >Common Vulnerability Scoring System (CVSS) scores are industry standard measures of the severity of a software vulnerability. They are an integral part of many vulnerability assessment programs, and used to compare one vulnerability to another, and as part of a decision making process to decide what to patch or fix, and when.</p>
+                        <p>There are three metric groups that make up every CVSS score – Base, Temporal, and Environmental. Every component has several subcomponents.</p>
+                        <img src = "/media/metric-groups-that-make-up-every-CVSS-score-2-768x432.png">
+                        <p>Base Metrics are static attributes inherent in each vulnerability. These metrics do not vary based on actions taken by adversaries, vendors, or enterprises. These metrics are the primary factor in public CVSS scores, such as those listed in the National Vulnerability Database, which is maintained by the National Institute of Standards and Technology.</p>
+                        <p>Temporal Metrics are, well, temporal. These metrics change over time, primarily as a result of activity by both adversaries and software vendors. These metrics apply across all enterprises equally. Adversaries creating, distributing, and using exploit code are a major factor in Temporal Metrics. Vendors creating and distributing, as well as enterprises applying, software patches are the other major factor in Temporal Metrics.</p>
+                        <p>Environmental Metrics, the focus of this article, apply to the specific environment in which a vulnerability exists. These metrics are, by definition, specific to each enterprise.</p>
+                    </div>
+                </div>
+
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">CVSS Environmental Metrics</b></h2>
+                    </div>
+                    <div class="content-box">
+                     <p>Environmental Metrics are essentially modifiers to the Base, or static, metric group. These are designed to account for the aspects of an enterprise that might increase or decrease the net severity of a vulnerability. Environmental metrics are made up of Modified Base Metrics and of Security Requirements.</p>
+                    <h2>Modified Base Metrics</h2>
+                    <p>If an organization has compensating controls or mitigation measures in place, those efforts are meant to reduce the ability or likelihood that a vulnerability will be exploited. For example, a server protected by a firewall, or an unused server that has been shutoff, are both of lower likelihood of breach than a server that is publicly exposed to the internet.</p>
+                    <p>Modifying base metrics is as simple as it sounds. The enterprise makes a qualitative judgement on the impact to each of the base metric factors, and reduces, or increases, the corresponding score as a result NIST’s CVSS Scoring Calculator provides a quick and easy way to demonstrate the impact of modifying these attributes.</p>
+                    <h2>Security Requirements</h2>
+                    <p>Security Requirements are an indicator of business criticality of an asset, measured in terms of Confidentiality, Integrity, and Availability, the elements of the well-known CIA Triad. For review:
+<br>
+<br> +    Confidentiality is the ability to hide information from unauthorized users.
+<br>  +           Integrity is the ability to protect information from being changed from the original.
+<br>   +         Availability is the accessibility of the information to authorized users as needed.
+<br>                 
+<br>       If any one or more of these factors is more important than expected, the enterprise would raise the score for that corresponding area.
+<br>                  
+<br>       Security Requirements are assigned one of four values.
+<br>                  
+<br> +          Not Defined (X) – this value has no impact on the overall Environmental Score and is typically reserved for situations where there is insufficient information to assign a value.
+<br>  +         High (H) – Impact resulting from loss of Confidentiality, Integrity, or Availability would be catastrophic to the enterprise.
+<br>   +        Medium (M) – Impact resulting from loss of Confidentiality, Integrity, or Availability would have a serious adverse impact on the enterprise.
+<br>    +       Low (L) – Impact resulting from loss of Confidentiality, Integrity, or Availability would have a limited or isolated impact on the enterprise.
+                    </p>
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Impact of Environmental Metrics</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <p>Here is an example of Environmental Metrics in action. We start with a vulnerability with a very high CVSS score, as indicated by the combination of Base and Temporal Metrics:</p>
+                      <img src="/media/environmental-metrics-1.png">
+                      <p>Then, without changing any of those metrics, we apply very aggressive environmental controls to mitigate the vulnerability substantially:</p>
+                      <img src="/media/environmental-metrics-2-1024x209.png">
+                      <p>You can see that neither the Base Score, nor the Temporal Score change at all, yet the Overall CVSS Score was reduced from a staggering 9.9 (Critical) to a 3.2 (Low).</p>
+                      <p>This is an extreme example, but nonetheless illustrative of the need to include Environmental Factors with your Vulnerability Assessment and Vulnerability Management programs, in addition to the widely published Base, and sometimes published Temporal, scores.</p>
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Operationalizing CVSS Scores</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <p>As discussed previously, published CVSS scores are typically comprised of Base Metrics only. This is a useful starting point, but really only answers the question, “Can this do damage?”, when you really need to answer, “Can this do damage to my company?” In order to ensure that you’re not being misled by CVSS scores, you need to ensure that you’re accounting for Temporal and Environmental factors as well. This is key to successfully operationalizing CVSS scores in your vulnerability management program.</p>
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">LEARN MORE...</b></h2>
+                    </div>
+                    <div class="content-box">
+                
+                </div>
+            </div>
+            </div>
+            <div class="col-4">
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Box Informations</b></h2>
+                    </div>
+                    <div class="content-box">
+                        <p>Service: Environmental CVSS Scores</p>
+                        <p>Published: 2024-20-3</p>
+                        <p>Updated: 2024-26-3</p>
+                        <span><a {% if user.is_authenticated %} href="{% url 'accounts:notification' %}" {% else %} href="{% url 'accounts:login' %}" {% endif %}></a></span>
+                    </div>
+                </div>
+                <br>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Asking for information</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <form method="post"  action="mailto:binhndhe161032@gmail.com">
+                        {% csrf_token %}
+                        <input type="text" name="your_name" placeholder="Your Name"><br>
+                        <input type="text" name="email_address" placeholder="Email Address"><br>
+                        <input type="text" name="phone_number" placeholder="Phone Number"><br>
+                        <textarea name="message" placeholder="Message" rows="5"></textarea><br>
+                        <button type="submit" value="Send" class="btn btn-one" style="width: 100%"><b>Sent</b></button>
+                    </form>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

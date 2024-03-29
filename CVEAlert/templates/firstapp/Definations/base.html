@@ -1,0 +1,571 @@
+{% extends 'navbar.html' %}
+
+{% block css %}
+    a {
+    text-decoration: none;
+    color: black;
+    }
+    input, textarea {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+    }
+    img {
+        width: 100%;
+        height: auto;
+    }
+    .img-cve {
+    padding: 20px;
+    border-radius: 30px;
+    width: 100%;
+    height: auto;
+    }
+    .box-info {
+    {#        border-radius: 30px;#}
+    {#        border-color: black;#}
+    {#        background-color: lightgray;#}
+    {#        padding: 20px;#}
+    margin-bottom: 20px;
+    margin-top: 20px;
+    }
+    .title-box > * {
+    padding: 10px;
+    background-color: black !important;
+    color: white !important;
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px !important;
+    margin: 0;
+    }
+    .content-box {
+    background-color: lightgray !important;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin: 0;
+    padding: 10px;
+    }
+    .base-score {
+    background-color: black !important;
+    color: white !important;
+    padding: 10px;
+    border-radius: 10px;
+    }
+    .alert-msg {
+    background-color: lightgreen;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border-color: red;
+    }
+
+    /*=READ NOW=*/
+    .btn {
+        line-height: 20px;
+        height: 50px;
+        text-align: center;
+        text-style:bold
+        cursor: pointer;
+        background-color:black;
+      }
+      .btn-one {
+        color: white;
+        transition: all 0.5s;
+        position: relative;
+      }
+      .btn-one span {
+        transition: all 0.5s;
+      }
+      .btn-one::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        opacity: 0;
+        transition: all 1s;
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-top-style: solid;
+        border-bottom-style: solid;
+        border-top-color: black;
+        border-bottom-color: black;
+        transform: scale(0.1, 1);
+        
+      }
+      .btn-one:hover span {
+        letter-spacing: 2px;
+      }
+      .btn-one:hover::before {
+        opacity: 1; 
+        transform: scale(1, 1); 
+      }
+      .btn-one::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        transition: all 0.3s;
+        background-color: rgba(255,255,255,0.1);
+      }
+      .btn-one:hover::after {
+        opacity: 0; 
+        transform: scale(0.1, 1);
+      }
+      /*=Link list=*/
+      .list{
+          a {
+              box-shadow: inset 0 0 0 0 black;
+              color: black;
+                padding: 0 .25rem;
+                margin: 0 -.25rem;
+                left:10%;
+                border-radius: 5px;
+              transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+            }
+            a:hover {
+              color: white;
+              box-shadow: inset 200px 0 0 0 black;;
+            }
+            
+            /* Presentational styles */
+            a {
+              color: black;
+              font-size: 19px;
+              font-weight: 500;
+              line-height: 0;
+              text-decoration: none;
+            }
+      }
+    
+    
+    
+      /*=arrow=*/
+    .arrow {
+        position: absolute;
+        top: 19%;
+        left: 14%;
+        transform: translate(-50%, -50%);
+        transform: rotate(90deg);
+        cursor: pointer;
+    }
+    
+    .arrow span {
+        display: block;
+        width: 1vw;
+        height: 1vw;
+        border-bottom: 5px solid black;
+        border-right: 5px solid black;
+        transform: rotate(45deg);
+        margin: -10px;
+        animation: animate 2s infinite;
+    }
+    
+    .arrow span:nth-child(2) {
+        animation-delay: -0.2s;
+    }
+    
+    .arrow span:nth-child(3) {
+        animation-delay: -0.4s;
+    }
+    
+    @keyframes animate {
+        0% {
+            opacity: 0;
+            transform: rotate(45deg) translate(-20px, -20px);
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: rotate(45deg) translate(20px, 20px);
+        }
+    }
+
+    /*=CARD TITLE1=*/
+  .card-title1{
+      a {
+          box-shadow: inset 0 0 0 0 black;
+          color: black;
+            padding: 0 .25rem;
+            margin: 0 -.25rem;
+            border-radius: 5px;
+          transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+        }
+        a:hover {
+          color: white;
+          box-shadow: inset 200px 0 0 0 black;;
+        }
+        
+        /* Presentational styles */
+        a {
+          color: black;
+          font-family: 'Poppins', sans-serif;
+          font-size: 23px;
+          font-weight: 600;
+          line-height: 0;
+          text-decoration: none;
+        }
+  }
+
+
+  /*= NOTIFICATIONS=*/
+  @import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+
+span{
+  position: relative;
+  display: inline-flex;
+  width: -10px;
+  height: 55px;
+  margin: 0 5px;
+  perspective: 1000px;
+}
+span a{
+  font-size: 15px;
+  font-style:bold;
+  letter-spacing: 1px;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform .25s;
+  
+}
+span a:before,
+span a:after{
+  position: absolute;
+  content: "Register for your notifications now!";
+  height: 55px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid black;
+  box-sizing: border-box;
+  border-radius: 5px;
+  text-align:center;  
+}
+span a:before{
+  color: #fff;
+  background: #000;
+  transform: rotateY(0deg) translateZ(25px);
+}
+span a:after{
+  color: #000;
+  transform: rotateX(90deg) translateZ(25px);
+}
+span a:hover{
+  transform: translateZ(-25px) rotateX(-90deg);
+}
+
+    
+
+
+
+  
+  .our-team {
+    padding: 30px 0 40px;
+    margin-bottom: 30px;
+    background-color: #f7f5ec;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .our-team .picture {
+    display: inline-block;
+    height: 130px;
+    width: 130px;
+    margin-bottom: 50px;
+    z-index: 1;
+    position: relative;
+  }
+  
+  .our-team .picture::before {
+    content: "";
+    width: 100%;
+    height: 0;
+    border-radius: 50%;
+    background-color: #1369ce;
+    position: absolute;
+    bottom: 135%;
+    right: 0;
+    left: 0;
+    opacity: 0.9;
+    transform: scale(3);
+    transition: all 0.3s linear 0s;
+  }
+  
+  .our-team:hover .picture::before {
+    height: 100%;
+  }
+  
+  .our-team .picture::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #1369ce;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+  
+  .our-team .picture img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    transform: scale(1);
+    transition: all 0.9s ease 0s;
+  }
+  
+  .our-team:hover .picture img {
+    box-shadow: 0 0 0 14px #f7f5ec;
+    transform: scale(0.7);
+  }
+  
+  .our-team .title {
+    display: block;
+    font-size: 15px;
+    color: #4e5052;
+    text-transform: capitalize;
+  }
+  
+  .our-team .social {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #1369ce;
+    position: absolute;
+    bottom: -100px;
+    left: 0;
+    transition: all 0.5s ease 0s;
+  }
+  
+  .our-team:hover .social {
+    bottom: 0;
+  }
+  
+  .our-team .social li {
+    display: inline-block;
+  }
+  
+  .our-team .social li a {
+    display: block;
+    padding: 10px;
+    font-size: 17px;
+    color: white;
+    transition: all 0.3s ease 0s;
+    text-decoration: none;
+  }
+  
+  .our-team .social li a:hover {
+    color: #1369ce;
+    background-color: #f7f5ec;
+  }
+  
+
+  /*=URL=*/
+.url{
+    a {
+    color: blue;
+      position: relative;
+      text-decoration: none;
+    }
+    
+    a::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-radius: 4px;
+      background-color: #18272F;
+      bottom: 0;
+      left: 0;
+      transform-origin: right;
+      transform: scaleX(0);
+      transition: transform .3s ease-in-out;
+    }
+}
+
+a:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+{% endblock %}
+
+{% block title %}
+CVSS Base Score Explained
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="margin-top: 100px; margin-bottom: 200px">
+        <p class="list"><a href={% url 'app:list_defination' %}>RETURN LIST DEF</a></p>
+    <div class="arrow">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+        <div class="row">
+            <div class="col-8">
+                <h1><b ><u>CVSS Base Score Explained</u></b></h1>
+                <img src="/media/Untitled-design-2023-09-04T145117.617.png" style="width: 100%; height: 800px; object-fit: cover; margin-top: 50px;margin-bottom: 50px; border-radius:10px;">
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Defining CVSS Scores</b></h2>
+                    </div>
+                    <div class="content-box">
+                    <p class ="url">If you ask any infosec pro at random how they measure the severity of software vulnerabilities, chances are they’ll say that they use Common Vulnerability Scoring System <a href={% url 'app:cvss' %}>(CVSS) scores</a>. CVSS Scores are a mainstay in most vulnerability management programs as the primary metric by which one vulnerability is compared with another for purposes of prioritization.</p>
+                    <p>There are three metric groups that make up every CVSS score – Base, Temporal, and Environmental. Every component has several subcomponents.</p>
+                    <img src = "/media/metric-groups-that-make-up-every-CVSS-score-2-768x432.png">
+                    <p>The metric group meant to show how a vulnerability changes in severity as a result of actions taken by software vendors and by adversaries is the Temporal Metric group. If a new patch is made available by the software vendor, the Temporal score goes down. If adversaries create and distribute easy-to-use exploit code, the Temporal score goes up.</p>
+                    <p>The metric group meant to show how the severity of a vulnerability changes due to specific aspects of an organization is the Environmental Metric group.</p>
+                    <p>The metric group meant to show the attributes inherent in a vulnerability that do not change over time is the Base Metric group, the focus of this article.</p>
+                    </div>
+                </div>
+
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">CVSS Base Metrics</b></h2>
+                    </div>
+                    <div class="content-box">
+                     <p>Base Metric Group represent characteristics of the vulnerability itself. These characteristics do not change over time, and are not dependent on real world exploitability or on compensating factors that an enterprise has put into place to prohibit exploit.</p>
+                     <p>When looking up a CVSS score for a vulnerability in a third party system like NIST’s National Vulnerability Database, the reported score is almost always the CVSS Base Score. Public rankings of severity, such as those listed in NIST’s National Vulnerability Database (NVD) refer exclusively to Base CVSS scores.</p>
+                     <img src ="/media/Screenshot 2024-03-29 171010.png">
+                     <p>CVSS Base Metrics have three sub-groupings 
+
+                     </br> + Exploitability Metrics
+                    </br> +  Impact Metrics
+                </br> + Scope.
+                    </p>
+                    <h2>Exploitability Metrics</h2>
+                    <p>Exploitability Metrics relate specifically to the thing that is vulnerable, without regard for any specific configuration or other compensating controls. Exploitability Metrics have four components – Attack Vector, Attack Complexity, Privileges Required and User Interaction</p>
+                    <h2>Attack Vector</h2>
+                    <p>Attack vector is an indicator of the level of access required for an attacker to exploit the vulnerability. A vulnerability that requires physical access to a target system is much more difficult to exploit than one that can be remotely exploited over the Internet.
+                    </br> 
+                    </br>    The Attack Vector metric is scored in one of four levels:
+                    </br>   
+                    </br> +     Network (N) – Vulnerabilities with this rating are remotely exploitable, from one or more hops away, up to, and including, remote exploitation over the Internet.
+                        </br> +     Adjacent (A) – A vulnerability with this rating requires network adjacency for exploitation. The attack must be launched from the same physical or logical network.
+                        </br> +     Local (L) – Vulnerabilities with this rating are not exploitable over a network. The attacker must access the system locally, remotely (via protocol like SSH or RDP), or requires use of social engineering or other techniques to trick an unsuspecting user to help initiate the exploit.
+                        </br> +      Physical (P) – In this type of attack, the adversary must physically interact with the target system.
+                        </p>
+                    <h2>Attack Complexity</h2>
+                    <p>This metric indicates conditions beyond the attacker’s control that must exist in order to exploit the vulnerability. Most commonly, this refers to either required user interaction, or specific configurations of the target system.
+                    </br> 
+                    </br>     The Attack Complexity metric is scored as either Low or High:
+                    </br>   
+                    </br> +      Low (L) – There are no specific pre-conditions required for exploitation.
+                        </br> +      High (H) – There are conditions beyond the attackers control for successful attack. For this type of attack, the attacker must complete some number of preparatory steps in order to get access. This might include gather reconnaissance data, overcoming mitigations, or becoming a man-in-the-middle.
+                        </p>
+                    <h2>Privileges Required</h2>
+                    <p>This metric is exactly as it sounds, describing the level of privileges, or access, an attacker must have before successful exploit.
+                    </br> 
+                    </br>     Privileges requires falls under three ratings:
+                    </br>   
+                    </br> +      None (N) – There is no privilege or special access required to conduct the attack.
+                        </br> +      Low (L) – The attacker requires basic, “user” level privileges to leverage the exploit.
+                        </br> +     High (H) – Administrative or similar access privileges are required for successful attack.
+                        </p>
+                    <h2>User Interaction</h2>
+                    <p>The User Interaction metric describes whether a user, other than the attacker, is required to do anything or participate in exploitation of the vulnerability.
+                    </br> 
+                    </br>    User Interaction is a yes/no metric:
+                    </br>  
+                    </br> +     None (N) – No user interaction is required.
+                </br> +    Required (R) – A user must complete some steps for the exploit to succeed. For example, a user might be required to install some software.
+                        </p>
+                    <h2>Impact Metrics</h2>
+                    <p>Impact Metrics measure the impact to the well known CIA Triad (Confidentiality, Integrity, Availability) of the impacted system. In other words, what is the final negative outcome that occurs as a result of exploitation.</p>
+                    <h2>Confidentiality</h2>
+                    <p>Confidentiality refers to the disclosure of sensitive information to authorized and unauthorized users, with the goal being that only authorized users are able to access the target data.
+                    </br> 
+                    </br>      Confidentiality has three metric values:
+                    </br>     
+                    </br> +       High (H) – the attacker has full access to all resources in the impacted system, including highly sensitive information such as encryption keys.
+                </br> +      Low (L) – the attacker has partial access to information, with no control over what, specifically, they are able to access.
+            </br> +      None (N) – no data is accessible to unauthorized users as a result of the exploit.
+                        </p>
+                    <h2>Integrity</h2>
+                    <p>Integrity refers to whether the protected information has been tampered with or changed in any way. If there is no way for an attacker to alter the accuracy or completeness of the information, integrity has been maintained.
+                    </br>  
+                    </br>     Integrity has three metric values:
+                    </br>  
+                </br> +    None (N) – there is no loss of the integrity of any information.
+            </br> +     Low (L) – A limited amount of information might be tampered with or modified, but there is no serious impact on the protected system.
+        </br> +     High (H) – The attacker can modify any/all information on the target system, resulting in a complete loss of integrity.
+                        </p>
+                    <h2>Availability</h2>
+                    <p>Information needs to be accessible as needed. If an attack renders information unavailable, such as when a system crashes or through a DDOS attack, availability is negatively impacted.
+                    </br> 
+                    </br>    Availability has one of three metric values:
+                </br>  
+                    </br> +   None (N) – there is no loss of availability
+                </br> +   Low (L) – Availability might be intermittently limited, or performance might be negatively impacted, as a result of a successful attack.
+            </br> +    High (H) – There is a complete loss of availability of the impacted system or information.
+                        </p>
+                    <h2>Scope</h2>
+                    <p>The scope metric is a determination on whether a vulnerability in one system or component can have carry over impact on another system or component. According to FIRST, “a security authority is a mechanism (e.g., an application, an operating system, firmware, a sandbox environment) that defines and enforces access control in terms of how certain subjects/actors (e.g., human users, processes) can access certain restricted objects/resources (e.g., files, CPU, memory) in a controlled manner. All the subjects and objects under the jurisdiction of a single security authority are considered to be under one security scope. If a vulnerability in a vulnerable component can affect a component which is in a different security scope than the vulnerable component, a Scope change occurs.“
+                    </br> 
+                    </br> Scope has two possible ratings – changed or unchanged:
+                </br> 
+                    </br> + Changed (C) – An exploited vulnerability can have carry over impact on another system.
+                </br> +    Unchanged (U) – The exploited vulnerability is limited in damage to only the local security authority.
+                        </p>
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Operationalizing CVSS Scores</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <p class="url">As discussed previously, published CVSS scores are typically comprised of Base Metrics only. This is a useful starting point, but really only answers the question, “Is it possible for this to do damage?”, when you really need to answer, “Can this do damage to my company?” In order to ensure that you’re not being misled by CVSS scores, you need to ensure that you’re accounting for <a href={% url 'app:temporal' %}>Temporal</a> and <a href={% url 'app:environmental' %}>Environmental</a> factors as well. This is key to successfully operationalizing <a href={% url 'app:cvss' %}>CVSS scores</a> in your vulnerability management program.</p>
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">LEARN MORE...</b></h2>
+                    </div>
+                    <div class="content-box">
+                
+                </div>
+            </div>
+            </div>
+            <div class="col-4">
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Box Informations</b></h2>
+                    </div>
+                    <div class="content-box">
+                        <p>Service: CVSS Base Score Explained</p>
+                        <p>Published: 2024-20-3</p>
+                        <p>Updated: 2024-26-3</p>
+                        <span><a {% if user.is_authenticated %} href="{% url 'accounts:notification' %}" {% else %} href="{% url 'accounts:login' %}" {% endif %}></a></span>
+                    </div>
+                </div>
+                <br>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Asking for information</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <form method="post"  action="mailto:binhndhe161032@gmail.com">
+                        {% csrf_token %}
+                        <input type="text" name="your_name" placeholder="Your Name"><br>
+                        <input type="text" name="email_address" placeholder="Email Address"><br>
+                        <input type="text" name="phone_number" placeholder="Phone Number"><br>
+                        <textarea name="message" placeholder="Message" rows="5"></textarea><br>
+                        <button type="submit" value="Send" class="btn btn-one" style="width: 100%"><b>Sent</b></button>
+                    </form>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

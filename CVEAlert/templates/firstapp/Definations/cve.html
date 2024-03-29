@@ -1,0 +1,548 @@
+{% extends 'navbar.html' %}
+
+{% block css %}
+    a {
+    text-decoration: none;
+    color: black;
+    }
+    input, textarea {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+    }
+    img {
+        width: 100%;
+        height: auto;
+    }
+    .img-cve {
+    padding: 20px;
+    border-radius: 30px;
+    width: 100%;
+    height: auto;
+    }
+    .box-info {
+    {#        border-radius: 30px;#}
+    {#        border-color: black;#}
+    {#        background-color: lightgray;#}
+    {#        padding: 20px;#}
+    margin-bottom: 20px;
+    margin-top: 20px;
+    }
+    .title-box > * {
+    padding: 10px;
+    background-color: black !important;
+    color: white !important;
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px !important;
+    margin: 0;
+    }
+    .content-box {
+    background-color: lightgray !important;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin: 0;
+    padding: 10px;
+    }
+    .base-score {
+    background-color: black !important;
+    color: white !important;
+    padding: 10px;
+    border-radius: 10px;
+    }
+    .alert-msg {
+    background-color: lightgreen;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border-color: red;
+    }
+
+    /*=READ NOW=*/
+    .btn {
+        line-height: 20px;
+        height: 50px;
+        text-align: center;
+        text-style:bold
+        cursor: pointer;
+        background-color:black;
+      }
+      .btn-one {
+        color: white;
+        transition: all 0.5s;
+        position: relative;
+      }
+      .btn-one span {
+        transition: all 0.5s;
+      }
+      .btn-one::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        opacity: 0;
+        transition: all 1s;
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-top-style: solid;
+        border-bottom-style: solid;
+        border-top-color: black;
+        border-bottom-color: black;
+        transform: scale(0.1, 1);
+        
+      }
+      .btn-one:hover span {
+        letter-spacing: 2px;
+      }
+      .btn-one:hover::before {
+        opacity: 1; 
+        transform: scale(1, 1); 
+      }
+      .btn-one::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        transition: all 0.3s;
+        background-color: rgba(255,255,255,0.1);
+      }
+      .btn-one:hover::after {
+        opacity: 0; 
+        transform: scale(0.1, 1);
+      }
+      /*=Link list=*/
+      .list{
+          a {
+              box-shadow: inset 0 0 0 0 black;
+              color: black;
+                padding: 0 .25rem;
+                margin: 0 -.25rem;
+                left:10%;
+                border-radius: 5px;
+              transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+            }
+            a:hover {
+              color: white;
+              box-shadow: inset 200px 0 0 0 black;;
+            }
+            
+            /* Presentational styles */
+            a {
+              color: black;
+              font-size: 19px;
+              font-weight: 500;
+              line-height: 0;
+              text-decoration: none;
+            }
+      }
+    
+    
+    
+      /*=arrow=*/
+    .arrow {
+        position: absolute;
+        top: 19%;
+        left: 14%;
+        transform: translate(-50%, -50%);
+        transform: rotate(90deg);
+        cursor: pointer;
+    }
+    
+    .arrow span {
+        display: block;
+        width: 1vw;
+        height: 1vw;
+        border-bottom: 5px solid black;
+        border-right: 5px solid black;
+        transform: rotate(45deg);
+        margin: -10px;
+        animation: animate 2s infinite;
+    }
+    
+    .arrow span:nth-child(2) {
+        animation-delay: -0.2s;
+    }
+    
+    .arrow span:nth-child(3) {
+        animation-delay: -0.4s;
+    }
+    
+    @keyframes animate {
+        0% {
+            opacity: 0;
+            transform: rotate(45deg) translate(-20px, -20px);
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: rotate(45deg) translate(20px, 20px);
+        }
+    }
+
+    /*=CARD TITLE1=*/
+  .card-title1{
+      a {
+          box-shadow: inset 0 0 0 0 black;
+          color: black;
+            padding: 0 .25rem;
+            margin: 0 -.25rem;
+            border-radius: 5px;
+          transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+        }
+        a:hover {
+          color: white;
+          box-shadow: inset 200px 0 0 0 black;;
+        }
+        
+        /* Presentational styles */
+        a {
+          color: black;
+          font-family: 'Poppins', sans-serif;
+          font-size: 23px;
+          font-weight: 600;
+          line-height: 0;
+          text-decoration: none;
+        }
+  }
+
+
+  /*= NOTIFICATIONS=*/
+  @import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+
+span{
+  position: relative;
+  display: inline-flex;
+  width: -10px;
+  height: 55px;
+  margin: 0 5px;
+  perspective: 1000px;
+}
+span a{
+  font-size: 15px;
+  font-style:bold;
+  letter-spacing: 1px;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform .25s;
+  
+}
+span a:before,
+span a:after{
+  position: absolute;
+  content: "Register for your notifications now!";
+  height: 55px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid black;
+  box-sizing: border-box;
+  border-radius: 5px;
+  text-align:center;  
+}
+span a:before{
+  color: #fff;
+  background: #000;
+  transform: rotateY(0deg) translateZ(25px);
+}
+span a:after{
+  color: #000;
+  transform: rotateX(90deg) translateZ(25px);
+}
+span a:hover{
+  transform: translateZ(-25px) rotateX(-90deg);
+}
+
+    
+
+
+
+  
+  .our-team {
+    padding: 30px 0 40px;
+    margin-bottom: 30px;
+    background-color: #f7f5ec;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .our-team .picture {
+    display: inline-block;
+    height: 130px;
+    width: 130px;
+    margin-bottom: 50px;
+    z-index: 1;
+    position: relative;
+  }
+  
+  .our-team .picture::before {
+    content: "";
+    width: 100%;
+    height: 0;
+    border-radius: 50%;
+    background-color: #1369ce;
+    position: absolute;
+    bottom: 135%;
+    right: 0;
+    left: 0;
+    opacity: 0.9;
+    transform: scale(3);
+    transition: all 0.3s linear 0s;
+  }
+  
+  .our-team:hover .picture::before {
+    height: 100%;
+  }
+  
+  .our-team .picture::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #1369ce;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+  
+  .our-team .picture img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    transform: scale(1);
+    transition: all 0.9s ease 0s;
+  }
+  
+  .our-team:hover .picture img {
+    box-shadow: 0 0 0 14px #f7f5ec;
+    transform: scale(0.7);
+  }
+  
+  .our-team .title {
+    display: block;
+    font-size: 15px;
+    color: #4e5052;
+    text-transform: capitalize;
+  }
+  
+  .our-team .social {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #1369ce;
+    position: absolute;
+    bottom: -100px;
+    left: 0;
+    transition: all 0.5s ease 0s;
+  }
+  
+  .our-team:hover .social {
+    bottom: 0;
+  }
+  
+  .our-team .social li {
+    display: inline-block;
+  }
+  
+  .our-team .social li a {
+    display: block;
+    padding: 10px;
+    font-size: 17px;
+    color: white;
+    transition: all 0.3s ease 0s;
+    text-decoration: none;
+  }
+  
+  .our-team .social li a:hover {
+    color: #1369ce;
+    background-color: #f7f5ec;
+  }
+  
+
+  /*=URL=*/
+.url{
+    a {
+    color: blue;
+      position: relative;
+      text-decoration: none;
+    }
+    
+    a::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-radius: 4px;
+      background-color: #18272F;
+      bottom: 0;
+      left: 0;
+      transform-origin: right;
+      transform: scaleX(0);
+      transition: transform .3s ease-in-out;
+    }
+}
+
+a:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+{% endblock %}
+
+{% block title %}
+CVE DEFINATIONS
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="margin-top: 100px; margin-bottom: 200px">
+        <p class="list"><a href={% url 'app:list_defination' %}>RETURN LIST DEF</a></p>
+    <div class="arrow">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+        <div class="row">
+            <div class="col-8">
+                <h1><b ><u>What Is a CVE?</u></b></h1>
+                <img src="/media/CVE.jpg" style="width: 100%; height: 500px; object-fit: cover; margin-top: 50px;margin-bottom: 50px; border-radius:10px;">
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">DESCRIPTION</b></h2>
+                    </div>
+                    <div class="content-box">
+                    <p class="url">Common Vulnerabilities and Exposures (CVE) is a database of publicly disclosed information security issues. A CVE number uniquely identifies one vulnerability from the list. CVE provides a convenient, reliable way for vendors, enterprises, academics, and all other interested parties to exchange information about cyber security issues. Enterprises typically use CVE, and corresponding <a href={% url 'app:cvss' %}>CVSS scores</a>, for planning and prioritization in their vulnerability management programs.</p>
+                    <p>First launched in 1999, CVE is managed and maintained by the National Cybersecurity FFRDC (Federally Funded Research and Development Center), operated by the MITRE Corporation. CVE is sponsored by the US Federal Government, with both the US Department of Homeland Security (DHS) and the Cybersecurity and Infrastructure Security Agency (CISA) contributing operating funds. CVE is publicly available and free for anyone to use.</p>
+                </div>
+                </div>
+
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Difference Between a Vulnerability and an Exposure</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <p>A <b>vulnerability </b> is a weakness which can be exploited to gain unauthorized access to or perform unauthorized actions on a computer system. Vulnerabilities can allow attackers to get direct access to a system or a network, run code, install malware, and access internal systems to steal, destroy, or modify sensitive data. . If it goes undetected, it could allow an attacker to pose as a super-user or system administrator with full access privileges.</p>
+                  <p>An <b>exposure</b> is a mistake that gives an attacker access to a system or network. Exposures can allow attackers to access personally identifiable information (PII) and exfiltrate it. Some of the biggest data breaches were caused by accidental exposure rather than sophisticated cyber attacks.</p>
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">CVE Background</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <p>Before CVE was started in 1999, it was very difficult to share data on vulnerabilities across different databases and tools. Each vendor maintained their own database, with their own identification system and different sets of attributes for each vulnerability. CVE ensures that every tool can exchange data with other tools, while also providing a mechanism by which different tools, such as vulnerability scanners, can be compared.</p>
+                    <p>While some may question whether publicly disclosing vulnerabilities makes it easier for hackers to exploit those vulnerabilities, it is generally accepted that the benefits outweigh the risks. CVE includes only publicly known security exposures and vulnerabilities. This means that hackers could get their hands on data related to the CVE whether it is in the CVE list or not. Additionally, details of a CVE are often withheld from the vulnerability list until the corresponding vendor can issue a patch or other fix, ensuring that enterprises can protect themselves once the information is made public. Additionally, information sharing across the cybersecurity industry can help speed mitigations, as well as ensure that all organizations are protected more quickly than if left to identify and find resolutions to CVEs on their own.</p>
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">How Are CVEs Determined?</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <p>CVE IDs are assigned to flaws that meet a specific set of criteria. They must be fixed independently of any other bugs, they must be acknowledged by the vendor as having a negative impact on security, and they must be affecting only one codebase. Flaws that impact more than one product get separate CVEs.</p>
+                      <img src="/media/what-is-a-CVE-1024x655.png">
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Understanding CVE Identifiers</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <p>Every CVE is assigned a number known as a CVE Identifier. CVE identifiers are assigned by one of around 100 CVE Numbering Authorities (CNAs). CNAs include IT vendors, research organizations like universities, security companies, and even MITRE themselves.</p>
+                      <p>A CVE identifier takes the form of CVE-[Year]-[Number]. Year represents the year in which the vulnerability was reported. The number is a sequential number assigned by the CNA.</p>
+                      <p>For example, CVE-2019-0708, corresponds to a flaw in Microsoft’s Remote Desktop Protocol (RDP) implementation. While CVE-2019-0709 might not sound familiar, you might recognize the common name given to this CVE, BlueKeep. Infamous CVEs, like BlueKeep, that get a lot of enterprise (and press) attention commonly get an informal nickname as an easy way to remember the vulnerability in question. A select few CVEs even get their own cool custom logo or graphic (often designed by the marketing teams at the vendor or organization looking to publicize information on the vulnerability to attract journalist interest):</p>
+                      <img src="/media/weaponized-bluekeep-exploit-released-showcase_image-1-a-13051.jpg">
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Benefits of CVEs</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <p>Sharing CVE details is beneficial to all organizations it allows organizations to set a baseline for evaluating the coverage of their security tools. CVE numbers allow organizations to see what each tool covers and how appropriate they are for your organization.</p>
+                      <p>By using the CVE ID for a particular vulnerability or exposure, organizations can quickly and accurately obtain information about it from a variety of information sources and coordinate their efforts to prioritize and address these vulnerabilities to their organizations more secure.</p>
+                      <p>Security advisories can use CVE vulnerability details to search for known attack signatures to identify particular vulnerability exploits</p>
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Who Reports CVEs?</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <p>Anyone can report a CVE to a CNA. Most commonly, researchers, white hat hackers, and vendors find and submit CVE reports to one of the CNAs. Many vendors actively encourage people to seek out vulnerabilities as a “free” way to improve upon the security posture of their products. In fact, many even offer bug bounties and other forms of contests and prizes to encourage the community to test, and find the flaws in, the security of their products.</p>
+                      <p>The full list of CNAs includes many household names, including MITRE, Adobe, Apple, CERT, Cisco, Dell, Facebook, Google, IBM, Intel, and more.</p>
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">How Many CVEs Are There?</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <p>There are thousands of new CVEs every year. Since the CVE program was started in 1999, over 130,000 CVE Identifiers have been issued. Over the last few years, there have been 12,000-15,000 new CVEs annually.</p>
+                    <p>Large software vendors with many products represent a large portion of the reported CVEs. Microsoft and Oracle, for example, each have over 6000 reported CVEs across their many product lines. In fact, the top 50 software vendors represent more than half of all CVEs issued since the inception of the CVE program.</p>
+                <img src="/media/CVEs-over-time-1024x712.png">    
+                </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">What are the Limitations of CVE?</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <p>CVE is not meant to be a vulnerability database, so (by design) it does not contain some of the information needed to run a comprehensive vulnerability management program. In addition to the CVE identifier, the CVE entry includes only a brief description of the security vulnerability, and references to more information about the CVE, such as vendor advisories.</p>
+                    <p class="url"> Additional information on each CVE can be found directly on vendor websites, as well as in the NIST National Vulnerability Database<a href="https://nvd.nist.gov/"> (NVD)</a>. The NVD provides CVSS Based Scores, fix information, and other important details often needed by information security teams that want to mitigate the vulnerability or assess its overall priority.</p>
+                    
+                    <p>Additionally, CVE represents vulnerabilities in unpatched software only. While traditional vulnerability management programs viewed unpatched software as the primary issue for resolution, modern, risk-based approaches to vulnerability management recognize that there are many types of “vulnerabilities” introducing risk to an organization, all of which need to be identified and mitigated. Many of these do not fit the definition of a CVE and cannot be found in the CVE security list.</P>
+                    
+                    </div>
+                </div>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">LEARN MORE...</b></h2>
+                    </div>
+                    <div class="content-box">
+                
+                </div>
+            </div>
+            </div>
+            <div class="col-4">
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Box Informations</b></h2>
+                    </div>
+                    <div class="content-box">
+                        <p>Service: CVE Definations</p>
+                        <p>Published: 2024-20-3</p>
+                        <p>Updated: 2024-26-3</p>
+                        <span><a {% if user.is_authenticated %} href="{% url 'accounts:notification' %}" {% else %} href="{% url 'accounts:login' %}" {% endif %}></a></span>
+                    </div>
+                </div>
+                <br>
+                <div class="box-info">
+                    <div class="title-box">
+                        <h2><b style="font-size: 28px;">Asking for information</b></h2>
+                    </div>
+                    <div class="content-box">
+                      <form method="post"  action="mailto:binhndhe161032@gmail.com">
+                        {% csrf_token %}
+                        <input type="text" name="your_name" placeholder="Your Name"><br>
+                        <input type="text" name="email_address" placeholder="Email Address"><br>
+                        <input type="text" name="phone_number" placeholder="Phone Number"><br>
+                        <textarea name="message" placeholder="Message" rows="5"></textarea><br>
+                        <button type="submit" value="Send" class="btn btn-one" style="width: 100%"><b>Sent</b></button>
+                    </form>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
