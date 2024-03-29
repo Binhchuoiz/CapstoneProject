@@ -1,0 +1,448 @@
+{% extends 'navbar.html' %}
+
+{% block css %}
+a {
+  text-decoration: none;
+  color: black;
+  }
+  .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  /*=SEARCH BAR=*/
+
+ 
+
+  /*=CARD TITLE=*/
+  .card-title{
+      a {
+          box-shadow: inset 0 0 0 0 black;
+          color: black;
+            padding: 0 .25rem;
+            margin: 0 -.25rem;
+            border-radius: 5px;
+          transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+        }
+        a:hover {
+          color: white;
+          box-shadow: inset 200px 0 0 0 black;;
+        }
+        
+        /* Presentational styles */
+        a {
+          color: black;
+          font-family: 'Poppins', sans-serif;
+          font-size: 23px;
+          font-weight: 600;
+          line-height: 0;
+          text-decoration: none;
+        }
+  }
+  /*=READ NOW=*/
+  .btn {
+      line-height: 20px;
+      height: 60px;
+      text-align: center;
+      width: 300px;
+      cursor: pointer;
+      background-color:black;
+    }
+    .btn-one {
+      color: white;
+      transition: all 0.5s;
+      position: relative;
+    }
+    .btn-one span {
+      transition: all 0.5s;
+    }
+    .btn-one::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      opacity: 0;
+      transition: all 1s;
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+      border-top-style: solid;
+      border-bottom-style: solid;
+      border-top-color: black;
+      border-bottom-color: black;
+      transform: scale(0.1, 1);
+      
+    }
+    .btn-one:hover span {
+      letter-spacing: 2px;
+    }
+    .btn-one:hover::before {
+      opacity: 1; 
+      transform: scale(1, 1); 
+    }
+    .btn-one::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      transition: all 0.3s;
+      background-color: rgba(255,255,255,0.1);
+    }
+    .btn-one:hover::after {
+      opacity: 0; 
+      transform: scale(0.1, 1);
+    }
+    
+
+/*=PAGE=*/
+.pagination-style-one a { 
+  padding: 10px; 
+  margin: 15px;
+  background: black; 
+  color: white; 
+  border-radius: 80%; 
+  box-shadow: 0px 5px 10px 5px rgba(0,0,0,.1);}
+.pagination-style-one a.selected, 
+.pagination-style-one a:hover, 
+.pagination-style-one a:active, 
+.pagination-style-one a:focus { 
+  padding: 15px; 
+  box-shadow: 0px 5px 10px 0px rgba(0,0,0,.5);
+}
+
+.custom-select {
+  position: relative;
+  width: 100%;
+  height:40px;
+  font-size:17px;
+  text-align:center;
+  background-color:white;
+  color:black;
+  border-radius:5px;
+}
+
+/*= NOTIFICATIONS=*/
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+
+span{
+position: relative;
+display: inline-flex;
+width: -10px;
+height: 55px;
+margin: 0 5px;
+perspective: 1000px;
+}
+span a{
+font-size: 15px;
+letter-spacing: 1px;
+transform-style: preserve-3d;
+transform: translateZ(-25px);
+transition: transform .25s;
+
+}
+span a:before,
+span a:after{
+position: absolute;
+content: "Your Followed!";
+height: 60px;
+width: 130px;
+display: flex;
+align-items: center;
+justify-content: center;
+border: 5px solid black;
+box-sizing: border-box;
+border-radius: 5px;
+}
+span a:before{
+color: #fff;
+background: #000;
+transform: rotateY(0deg) translateZ(25px);
+}
+span a:after{
+color: #000;
+transform: rotateX(90deg) translateZ(25px);
+}
+span a:hover{
+transform: translateZ(-25px) rotateX(-90deg);
+}
+  
+
+
+/*Check Box*/
+body{
+  counter-reset: checkBox-counter 0 ;
+  
+}
+
+div{
+counter-reset: checkBox-length;
+
+
+input[type="checkBox"]:after{
+  counter-increment: checkBox-length;
+  content: counter(checkBox-length);
+  position: relative;
+  top: 15px;
+  
+}
+input:checked{
+   counter-increment: checkBox-counter;
+   
+}
+}
+
+main:after{
+content: "Number of products you selected : " counter(checkBox-counter) ;
+display: block;
+position: absolute; /*fixed*/
+margin:-15px;
+}
+
+  .checkbox-wrapper-4 * {
+    box-sizing: border-box;
+  }
+  .checkbox-wrapper-4 .cbx {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    padding: 3px 3px;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    display: inline-block;
+  }
+  .checkbox-wrapper-4 .cbx:not(:last-child) {
+    margin-right: 6px;
+  }
+  .checkbox-wrapper-4 .cbx:hover {
+    background: rgba(0,119,255,0.06);
+  }
+  .checkbox-wrapper-4 .cbx span {
+    float: left;
+    vertical-align: middle;
+    transform: translate3d(0, 0, 0);
+  }
+  .checkbox-wrapper-4 .cbx span:first-child {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    transform: scale(1);
+    border: 1px solid #cccfdb;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 1px rgba(0,16,75,0.05);
+  }
+  .checkbox-wrapper-4 .cbx span:first-child svg {
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 16px;
+    stroke-dashoffset: 16px;
+    transition: all 0.3s ease;
+    transition-delay: 0.1s;
+    transform: translate3d(0, 0, 0);
+  }
+  .checkbox-wrapper-4 .cbx span:last-child {
+    padding-left: 8px;
+    line-height: 18px;
+  }
+  .checkbox-wrapper-4 .cbx:hover span:first-child {
+    border-color: #07f;
+  }
+  .checkbox-wrapper-4 .inp-cbx {
+    position: absolute;
+    visibility: hidden;
+  }
+  .checkbox-wrapper-4 .inp-cbx:checked + .cbx span:first-child {
+    background: #07f;
+    border-color: #07f;
+    animation: wave-4 0.4s ease;
+  }
+  .checkbox-wrapper-4 .inp-cbx:checked + .cbx span:first-child svg {
+    stroke-dashoffset: 0;
+  }
+  .checkbox-wrapper-4 .inline-svg {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  @media screen and (max-width: 640px) {
+    .checkbox-wrapper-4 .cbx {
+      width: 100%;
+      display: inline-block;
+    }
+  }
+  @-moz-keyframes wave-4 {
+    50% {
+      transform: scale(0.9);
+    }
+  }
+  @-webkit-keyframes wave-4 {
+    50% {
+      transform: scale(0.9);
+    }
+  }
+  @-o-keyframes wave-4 {
+    50% {
+      transform: scale(0.9);
+    }
+  }
+  @keyframes wave-4 {
+    50% {
+      transform: scale(0.9);
+    }
+  }
+
+
+
+{% endblock %}
+
+
+{% block title %}
+    List Products
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="container">
+  <div class="row" style="margin-top: 30px; margin-bottom: 30px;">
+      <div class="col-3">
+      </div>
+      <div class="col-9">
+          <form method="post">
+              {% csrf_token %}
+              <div class="input-group">
+                  <input name="search_focus" type="search" class="form-control" placeholder="Find product..."/>
+                  <button type="submit" class="btn btn-one">
+                      <i class="fas fa-search"></i>
+                  </button>
+                  <div>
+                      <span><a href="{% url 'accounts:list_affect' %}"></a></span>
+              </div> 
+              </div>
+          </form>
+      </div>
+
+  </div>
+  <div class="row" style="margin-top: 30px;">
+      <div class="col-3 " >
+      </br>
+      </br>
+      </br>
+          <h3><b><u>CHECK PRODUCTS</u></b></h3>
+            </br>
+          <form method="post">
+            {% csrf_token %}
+              <select name="products" class="custom-select">
+                  {% comment %} {% for it in unique_year %}
+                  <b> <option value="{{ it }}">{{ it }}</option></b>
+                  {% endfor %} {% endcomment %}
+                  <b> <option value="products">test</option></b>
+              </select>
+              <hr>
+             
+          </br>
+              <button type="submit" class="btn btn-one" style="width:100%"><b>FIND</b></button>
+          </form>
+      </br>
+      </br>
+      </br>
+      </div>
+      
+      <div class="col-9 ">
+          <h2 style="font-size: 35px; text-align:center"><b><u>List Products</u></b></h2>
+          {% comment %} {% for cve in page_obj %} {% endcomment %}
+          </br>
+            <div class="col" >
+                <div class="card h-100" style="border-width:2px; border-color:black">
+                  <div class="card-body">
+                    <h3 class="card-title">
+                      <a href="#">PRODUCT</a>
+                  </h3>  
+                       <!--Thêm logic hiển thị product vào check box-->
+                       <div class="checkbox-wrapper-4" style="height:20px;">
+                        <input class="inp-cbx" id="morning" type="checkbox" value="test" name="laptop"/>
+                        <label class="cbx" for="morning"  style="height:28px;"><span>
+                        <svg width="12px" height="10px">
+                          <use xlink:href="#check-4"></use>
+                        </svg></span><span><i>Check for follow this product!</i></span></label>
+                        <svg class="inline-svg">
+                          <symbol id="check-4" viewbox="0 0 12 10">
+                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                          </symbol>
+                        </svg>
+                      </div>
+                        <div class="card-body" style="padding: 30px;">
+                         
+                            <p class="card-text">
+                                <b> Product Name:</b> "Test"
+                            </p>
+                            <p class="card-text">
+                                <b> Product Version: </b>"Test"
+                            </p>
+                            {% comment %} <a href="#" class="cta">
+                              <button class="btn btn-one"> <b style= "color: dodgerblue"> READ </b>NOW</button>
+                            </a>  {% endcomment %}
+                          </div>  
+                    </div>
+                  </div>
+            </div>
+            
+          {% comment %} {% endfor %} {% endcomment %}
+          {% comment %} </br>
+         
+          <div class="pagination pagination-style-one m-t-20">
+            <a href="{% if selected_year %}{% url 'app:list_cves' page=page.prev %}?filter_year={{ selected_year }}{% if search_focus %}&search_focus={{ search_focus }}{% endif %}{% elif search_focus %}{% url 'app:list_cves' page=page.prev %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_cves' page=page.prev %}{% endif %}">< Pre</a>
+            <a style="color:white">Page {{ page.current }} of {{ len_page }}</a>
+            <a href="{% if selected_year %}{% url 'app:list_cves' page=page.next %}?filter_year={{ selected_year }}{% if search_focus %}&search_focus={{ search_focus }}{% endif %}{% elif search_focus %}{% url 'app:list_cves' page=page.next %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_cves' page=page.next %}{% endif %}">Next ></a>
+        </div> {% endcomment %}
+         <!--Thêm logic để follow-->
+         <div class="card h-10" style="border-width:2px; border-color:black; margin-top:50px; width:515px;">
+          <div class="card-body" style="padding: 30px;">
+              <p class="card-text" >
+                <main></main>
+                
+              </p>
+              <p class="card-text" style="margin-left:-20px; width:100px;margin-top:50px;">
+              <hr>
+              <button class="btn btn-one" onclick="getValue()"> <b> CHECK</button> 
+              </br>
+              <hr>
+              <button class="btn btn-one"> <b style= "color: dodgerblue;"> FOLLOW </b><b> THOSE</b><b style= "color: dodgerblue;"> PRODUCTS</b><b> NOW</b></button>
+            </p>
+            </div>
+          </div> 
+      </div>   
+      
+  </div>
+  
+</div>
+<script>
+  function getValue() {
+      let checkboxes =
+          document.getElementsByName('laptop');
+      let result = "";
+      for (var i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].checked) {
+              result += "+ " + checkboxes[i].value + "</br>";
+          }
+        }
+    document.write("<p> You have selected : </br>"
+          + result + "</p>"); 
+  }
+</script> 
+{% endblock %}

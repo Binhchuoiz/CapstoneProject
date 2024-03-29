@@ -6,8 +6,9 @@ from .alert_tele import send_message_telegram
 
 cve_Updated = Signal()
 
-# @receiver(post_save, sender=CVE)
-@receiver(cve_Updated)
-def new_cve_noti(sender, **kwargs):
-        send_message_telegram("new cve created")
+# @receiver(cve_Updated)
+# def new_cve_noti(sender, **kwargs):
+@receiver(post_save, sender=CVE)
+def new_cve_noti(sender, instance, created, **kwargs):        
+        send_message_telegram("New CVE Created!")
     

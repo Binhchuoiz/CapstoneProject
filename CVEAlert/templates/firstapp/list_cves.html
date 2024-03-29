@@ -126,6 +126,86 @@
     border-radius:5px;
   }
 
+  /*= NOTIFICATIONS=*/
+  @import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+
+span{
+  position: relative;
+  display: inline-flex;
+  width: -10px;
+  height: 55px;
+  margin: 0 5px;
+  perspective: 1000px;
+}
+span a{
+  font-size: 15px;
+  letter-spacing: 1px;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform .25s;
+  
+}
+span a:before,
+span a:after{
+  position: absolute;
+  content: "Get Notify now!";
+  height: 60px;
+  width: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid black;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+span a:before{
+  color: #fff;
+  background: #000;
+  transform: rotateY(0deg) translateZ(25px);
+}
+span a:after{
+  color: #000;
+  transform: rotateX(90deg) translateZ(25px);
+}
+span a:hover{
+  transform: translateZ(-25px) rotateX(-90deg);
+}
+
+
+{% comment %} /*Check Box*/
+body{
+  counter-reset: checkBox-counter 0 ;
+  
+}
+
+div{
+counter-reset: checkBox-length;
+
+
+input[type="checkBox"]:after{
+  counter-increment: checkBox-length;
+  content: counter(checkBox-length);
+  position: relative;
+  top: 15px;
+  
+}
+input:checked{
+   counter-increment: checkBox-counter;
+   
+}
+}
+
+main:after{
+content: "Number of Products Selected: " counter(checkBox-counter) ;
+display: block;
+position: absolute; /*fixed*/
+margin:-15px;
+}
+
+input.largerCheckbox {
+  width: 40px;
+  height: 40px;
+} {% endcomment %}
 
 {% endblock %}
 
@@ -148,6 +228,9 @@
                     <button type="submit" class="btn btn-one">
                         <i class="fas fa-search"></i>
                     </button>
+                    <div>
+                        <span><a href="{% url 'app:tele_noti' %}"></a></span>
+                </div>
                 </div>
             </form>
         </div>
@@ -159,7 +242,7 @@
         </br>
     </br>
 </br>
-</br>
+
             <h3><b><u>FINDING METHODS</u></b></h3>
         </br>
             <h3>FIND BY: </h3>
@@ -191,7 +274,10 @@
 
 
             </form>
-            
+        </br>
+    </br>
+</br>
+
         </div>
         <div class="col-9 ">
             <h2 style="font-size: 35px; text-align:center"><b><u>List CVEs</u></b></h2>
@@ -221,18 +307,51 @@
                                  <a href="{% url 'app:detail_cves' pk=cve.pk %}" class="cta">
                                     <button class="btn btn-one"> <b style= "color: dodgerblue"> READ </b>NOW</button>
                                 </a> 
+                                {% comment %} <div>
+                                  <input type="checkbox" value="{{ cve.cve_id }}"name="laptop" id="result" class="largerCheckbox">
+                                  
+                                </div>  {% endcomment %}
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             {% endfor %}
             </br>
+           
             <div class="pagination pagination-style-one m-t-20">
-                <a href="{% url 'app:list_cves' page=page.prev %}">< Pre</a>
-                <a style="color:white">Page {{ page.current }}  of {{ len_page }}</a>
-                <a href="{% url 'app:list_cves' page=page.next %}">Next ></a>
+              <a href="{% if selected_year %}{% url 'app:list_cves' page=page.prev %}?filter_year={{ selected_year }}{% if search_focus %}&search_focus={{ search_focus }}{% endif %}{% elif search_focus %}{% url 'app:list_cves' page=page.prev %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_cves' page=page.prev %}{% endif %}">< Pre</a>
+              <a style="color:white">Page {{ page.current }} of {{ len_page }}</a>
+              <a href="{% if selected_year %}{% url 'app:list_cves' page=page.next %}?filter_year={{ selected_year }}{% if search_focus %}&search_focus={{ search_focus }}{% endif %}{% elif search_focus %}{% url 'app:list_cves' page=page.next %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_cves' page=page.next %}{% endif %}">Next ></a>
+          </div>
+          {% comment %} <div class="card h-10" style="border-width:2px; border-color:black">
+            <div class="card-body" style="padding: 30px;">
+                <p class="card-text">
+                  <main></main>
+                </p>
+                <p class="card-text" style="margin-left:0px; width:100px;margin-top:50px;">
+                <button class="btn btn-one" onclick="getValue()"> <b style= "color: dodgerblue;"> CHECK</button> 
+              </p>
               </div>
+      </div> {% endcomment %}
         </div>   
     </div>
 </div>
+
+{% comment %} <script>
+  function getValue() {
+      let checkboxes =
+          document.getElementsByName('laptop');
+      let result = "";
+      for (var i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].checked) {
+              result += "+ " + checkboxes[i].value + "</br>";
+          }
+      }
+
+   
+    document.write("<p> You have selected : </br>"
+          + result + "</p>"); 
+  }
+</script> {% endcomment %}
 {% endblock %}
