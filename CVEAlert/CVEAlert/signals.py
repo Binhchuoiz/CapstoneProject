@@ -9,7 +9,8 @@ cve_Updated = Signal()
 
 # @receiver(cve_Updated)
 # def new_cve_noti(sender, **kwargs):
-@receiver(post_save, sender=(CVE,Metric))
+@receiver(post_save, sender=CVE)
+@receiver(post_save,sender=Metric)
 def new_cve_noti(sender, instance, created, **kwargs):   
         cve=instance
         try:
@@ -22,5 +23,5 @@ def new_cve_noti(sender, instance, created, **kwargs):
         except Descriptions.DoesNotExist:
                 descriptions = None
         message = reformat_tele_message(cve.cve_id, cvss31, descriptions , cve.id)
-        send_message_telegram("New CVE Created!")
+        send_message_telegram(message)
     
