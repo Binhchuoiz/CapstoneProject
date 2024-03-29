@@ -100,8 +100,23 @@ def get_list_CVE(request, page):
 
 
 
-def get_list_Products(request):
-     return render(request, 'firstapp/list_products.html')   
+def get_list_Products(request, page):
+    list_products = Products.objects.values('name').distinct().order_by('name')
+    per_page = request.GET.get("per_page", 10)
+    paginator = Paginator(list_products, per_page)
+    page_obj = paginator.get_page(page)
+    context = {
+        "page": {
+            'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
+            'current': page_obj.number,
+            'next': page_obj.number + 1 if page_obj.number + 1 < paginator.num_pages else paginator.num_pages,
+        },
+        'len_page': paginator.num_pages,
+        'paginator': paginator,
+        'page_obj': page_obj,
+        'list_products' : list_products,
+    }
+    return render(request, 'firstapp/list_products.html', context=context)   
 
 
 

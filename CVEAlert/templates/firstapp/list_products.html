@@ -364,7 +364,7 @@ margin:-15px;
       
       <div class="col-9 ">
           <h2 style="font-size: 35px; text-align:center"><b><u>List Products</u></b></h2>
-          {% comment %} {% for cve in page_obj %} {% endcomment %}
+          {% for p in page_obj %}
           </br>
             <div class="col" >
                 <div class="card h-100" style="border-width:2px; border-color:black">
@@ -389,7 +389,7 @@ margin:-15px;
                         <div class="card-body" style="padding: 30px;">
                          
                             <p class="card-text">
-                                <b> Product Name:</b> "Test"
+                                <b> Product Name:</b> {{ p.name }}
                             </p>
                             <p class="card-text">
                                 <b> Product Version: </b>"Test"
@@ -402,14 +402,14 @@ margin:-15px;
                   </div>
             </div>
       
-          {% comment %} {% endfor %} {% endcomment %}
-          {% comment %} </br>
+          {% endfor %}
+           </br>
          
           <div class="pagination pagination-style-one m-t-20">
-            <a href="{% if selected_year %}{% url 'app:list_cves' page=page.prev %}?filter_year={{ selected_year }}{% if search_focus %}&search_focus={{ search_focus }}{% endif %}{% elif search_focus %}{% url 'app:list_cves' page=page.prev %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_cves' page=page.prev %}{% endif %}">< Pre</a>
-            <a style="color:white">Page {{ page.current }} of {{ len_page }}</a>
-            <a href="{% if selected_year %}{% url 'app:list_cves' page=page.next %}?filter_year={{ selected_year }}{% if search_focus %}&search_focus={{ search_focus }}{% endif %}{% elif search_focus %}{% url 'app:list_cves' page=page.next %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_cves' page=page.next %}{% endif %}">Next ></a>
-        </div> {% endcomment %}
+            <a href="{% url 'app:list_products' page=page.prev %}">< Pre</a>
+            <a style="color:white">Page {{ page.current }} of {{ paginator.num_pages }}</a>
+            <a href="{% url 'app:list_products' page=page.next %}">Next ></a>
+        </div>
          <!--Thêm logic để follow-->
          <div class="card h-10" style="border-width:2px; border-color:black; margin-top:50px; width:515px;">
           <div class="card-body" style="padding: 30px;">
