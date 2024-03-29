@@ -346,6 +346,7 @@ margin:-15px;
           <h3><b><u>CHECK PRODUCTS</u></b></h3>
             </br>
           <form method="post">
+            {% csrf_token %}
               <select name="products" class="custom-select">
                   {% comment %} {% for it in unique_year %}
                   <b> <option value="{{ it }}">{{ it }}</option></b>
