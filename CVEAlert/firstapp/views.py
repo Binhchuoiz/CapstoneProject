@@ -250,3 +250,18 @@ def get_difference_definations(request):
 
 def get_type_definations(request):	
 	return render(request, 'firstapp/Definations/product_and_vendor.html')
+
+def get_list_statistic(request):	
+	return render(request, 'firstapp/list_statistics.html')
+
+def get_cve_statistic(request):	
+	return render(request, 'firstapp/Statistics/cve_statistic.html')
+
+def get_risk_statistic(request):	
+	return render(request, 'firstapp/Statistics/risk.html')
+
+def get_application_statistic(request):	
+	return render(request, 'firstapp/Statistics/application.html')
+
+def get_cvss_statistic(request):	
+	return render(request, 'firstapp/Statistics/cvss_statistic.html')
