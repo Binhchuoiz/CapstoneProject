@@ -10,7 +10,6 @@ a {
       align-items: center;
       justify-content: center;
   }
-  /*=SEARCH BAR=*/
 
  
 
@@ -212,7 +211,7 @@ input.largerCheckbox {
   <div class="row" style="margin-top: 30px; margin-bottom: 30px;">
       <div class="col-3">
       </div>
-      <div class="col-9">
+      <div class="col-9" >
           <form method="post">
               {% csrf_token %}
               <div class="input-group">
@@ -278,7 +277,7 @@ input.largerCheckbox {
                         <div class="card-body" style="padding: 30px;">
                          
                             <p class="card-text">
-                                <b> Product Name:</b> {{ p.name }}
+                                <b> Product Name:</b> "{{ p.name }}""
                             </p>
                             <p class="card-text">
                                 <b> Product Version: </b>"Test"
