@@ -301,9 +301,10 @@ input.largerCheckbox {
                                     {% for a in page_obj.affected %}
                                         {% if a.con_id == cve.id %}
                                             <p class="card-text"><b> Product:</b> "{{ a.product.name }}"</p>
-                                        {% endif %}
+                                          {% endif %}
                                     {% endfor %}
                                 </p>
+                               
                                  <a href="{% url 'app:detail_cves' pk=cve.pk %}" class="cta">
                                     <button class="btn btn-one"> <b style= "color: dodgerblue"> READ </b>NOW</button>
                                 </a> 
