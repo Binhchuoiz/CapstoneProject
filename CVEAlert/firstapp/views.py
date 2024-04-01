@@ -221,6 +221,12 @@ def get_tele_notifi(request):
 def get_gmail_notifi(request):	
 	return render(request, 'gmail_notifi.html')
 
+
+
+
+
+
+
 def get_about(request):	
 	return render(request, 'firstapp/about.html')
 
