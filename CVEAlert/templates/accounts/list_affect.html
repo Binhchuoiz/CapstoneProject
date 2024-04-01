@@ -1,9 +1,44 @@
 {% extends 'navbar.html' %}
 
 {% block css %}
-   
+    a {
+    text-decoration: none;
+    color: black;
+    }
+    .form-edit-profile > input {
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    }
+    .form-edit-profile > button {
+    width: 50%;
+    }
+    body {
+    background-color: white !important;
+    }
+    .form-edit-avatar {
+    text-align: center;
+    }
+    .list-page-profile > p > a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    }
+    .list-page-profile > p > .active {
+    color: dodgerblue;
+    }
+    .button-paging {
+        padding-left: 10px;
+        padding-right: 10px;
+        margin: 10px;
+        border-radius: 5px;
+    }
+    .pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 {% endblock %}
-
 
 {% block title %}
     List Affected Followed
@@ -11,6 +46,65 @@
 
 
 {% block content %}
-    
-    
+    <div class="container" style="padding: 20px;">
+        <div class="row">
+            <div class="col-3 list-page-profile">
+                <p>
+                    <a class="{% if '/account/profile/' == request.path %}active{% endif %}"
+                       href="{% url 'accounts:profile' %}">Personal Info</a>
+                </p>
+                <p>
+                    <a class="{% if '/account/change-password/' in request.path %}active{% endif %}"
+                       href="{% url 'accounts:change_password' pk=request.user.pk %}">Password</a>
+                </p>
+                <p>
+                    <a class="{% if '/account/list-affect/' in request.path %}active{% endif %}"
+                       href="{% url 'accounts:list_affect'  %}">Affected Followed</a>
+                </p>
+                <p>
+                    <a href="{% url 'accounts:notification' %}">Setting Notification</a>
+                </p>
+            </div>
+            <div class="col-5">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                        List Affected! You have followed
+                    </a>
+                    {% for it in list_fllowed %}
+                        <div class="card mb-3">
+                            <div class="card-body" style="padding: 20px;">
+                                <a href="{% url 'app:detail_cves' pk=it.affected.cve.pk %}"><h5 class="card-title">CVE ID: {{ it.affected.cve }}</h5></a>
+                                <p class="card-text">Product: {{ it.affected.product }}</p>
+                                <p class="card-text">Vender: {{ it.affected.vendor }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+            </div>
+            <div class="col-4">
+                <h3>FINDING METHODS</h3>
+                <hr>
+                <form method="post">
+                    {% csrf_token %}
+                    <h3>VENDER</h3>
+                    <hr>
+                    {% for vender in list_venders %}
+                        <input type="checkbox" id="vender_filter" name="vender_filter" value="{{ vender }}">
+                        <label for="vender_filter">{{ vender }}</label><br>
+                    {% endfor %}
+                    <hr>
+                    <h3>PRODUCT</h3>
+                    <hr>
+                    {% for product in list_products %}
+                        <input type="checkbox" id="product_filter" name="product_filter" value="{{ product }}">
+                        <label for="product_filter">{{ product }}</label><br>
+                    {% endfor %}
+                    <hr>
+                    <button class="btn btn-dark">Find</button>
+                </form>
+            </div>
+        </div>
+        <hr>
+    </div>
 {% endblock %}
