@@ -21,10 +21,10 @@ def new_cve_noti(sender, instance, created, **kwargs):
                 descriptions = Descriptions.objects.get(id=cve.id)
         except Descriptions.DoesNotExist:
                 descriptions = None
-        subscribed_user = Follow_Affected.objects.filter(affected__con=cve).values_list('user_id',flat=True).distinct
+        # subscribed_user = Follow_Affected.objects.filter(affected__con=cve).values_list('user_id',flat=True).distinct()
         message = reformat_tele_message(cve.cve_id, cvss31, descriptions , cve.id)
-        noti_user = NotiUser.objects.filter(user_id__in=subscribed_user)
-        chat_id= noti_user.chat_id
-        token = noti_user.token_bot
-        send_message_telegram(message, token, chat_id)
+        # noti_user = NotiUser.objects.filter(user_id__in=subscribed_user)
+        # chat_id= noti_user.chat_id
+        # token = noti_user.token_bot
+        send_message_telegram(message)
     
