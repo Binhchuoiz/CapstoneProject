@@ -211,6 +211,9 @@ def create_affect_view(request):
         }
     return render(request, 'firstapp/create_affected.html', context=context)
 
+
+
+
 def get_tele_notifi(request):
 	return render(request, 'telegram_notifi.html')
 
