@@ -21,4 +21,4 @@ def send_email(body,to_email):
     with smtplib.SMTP_SSL(smtp_server,port,context=context) as server:
         server.login(sender_email,password)
 
-        server.sendmail(sender_email,to_email,message.as_string)
+        server.sendmail(sender_email,to_email,message.as_string())

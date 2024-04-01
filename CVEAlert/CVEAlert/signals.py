@@ -4,7 +4,7 @@ from django.dispatch import receiver,Signal
 from .alert_tele import send_message_telegram , reformat_tele_message
 from firstapp.models import CVE , CvssV31 , Descriptions , User, Metric ,Follow_Affected
 from accounts.models import NotiUser
-
+from .alert_email import send_email
 cve_Updated = Signal()
 
 # @receiver(cve_Updated)
@@ -27,4 +27,6 @@ def new_cve_noti(sender, instance, created, **kwargs):
         # chat_id= noti_user.chat_id
         # token = noti_user.token_bot
         send_message_telegram(message)
+        send_email(message, "zdemon2002@gmail.com")
+        
     
