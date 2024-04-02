@@ -3,13 +3,19 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-
+from django.http import JsonResponse
+from CVEAlert.chatbot import ask_openai
 
 
 
 from . import forms
 from . import models
 
+status_noti = [
+	('telegram', 'Telegram'),
+	('gmail', 'Gmail'),
+	('all', 'All')
+]
 # Create your views here.
 
 def get_login(request):
@@ -58,9 +64,22 @@ def get_logout(request):
 
 @login_required
 def profile_detail_view(request):
+	try:
+		check_user_notifi = models.NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False
 	form = forms.EditProfile()
 	profile = models.UserProfile.objects.get(user=request.user)
-	if request.method == 'POST':
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
+	elif request.method == 'POST':
 		form = forms.EditProfile(request.POST or None, request.FILES, instance=profile)
 		if form.is_valid():
 			form.save(commit=True)
@@ -69,6 +88,7 @@ def profile_detail_view(request):
 	context= {
 		'profile' : profile,
 		'form' :form,
+		'status': status,
 	}
 
 	return render(request,'accounts/profile.html',context=context)
@@ -82,8 +102,21 @@ def list_affect_view(request):
 
 @login_required
 def change_password_view(request, pk):
+	try:
+		check_user_notifi = models.NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False
 	mess = ""
-	if request.method == 'POST' and 'your_news_password1' in request.POST:
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
+	elif request.method == 'POST' and 'your_news_password1' in request.POST:
 		cur_user = models.User.objects.get(pk=pk)
 		old_pass = request.POST['old_password']
 		new_password = request.POST['your_news_password1']
@@ -100,6 +133,7 @@ def change_password_view(request, pk):
 			return HttpResponseRedirect(reverse('accounts:login'))
 	context = {
 		'mess' : mess,
+		'status': status,
 	}
 	return render(request, 'accounts/change_password.html', context=context)
 
@@ -108,27 +142,35 @@ def notification_user_view(request):
 		check_user_notifi = models.NotiUser.objects.get(user=request.user)
 		if not check_user_notifi.status:
 			status = False
+		else:
+			status = True
 	except:
 			status = False
 	form = forms.CreateNotification()
 	data_noti = models.NotiUser.objects.get(user_id= request.user.id)
-	if request.method == 'POST'in request.POST:
-		status =request.POST['status']
-		email_address =request.POST['email_address']
-		token_bot =request.POST['token_bot']
-		chat_id =request.POST['chat_id']
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
+	elif request.method == 'POST':
+		status = request.POST['status']
+		email_address = request.POST['email_address']
+		token_bot = request.POST['token_bot']
+		chat_id = request.POST['chat_id']
 
 		data_noti.status = status
 		data_noti.email_address = email_address
 		data_noti.token_bot = token_bot
-		data_noti,chat_id = chat_id
+		data_noti.chat_id = chat_id
 		data_noti.save()
+
 		return HttpResponseRedirect(reverse('accounts:profile'))
-	
 	context ={
 		'user' : request.user,
 		'form' : form,
 		'data_noti': data_noti,
+		'status_noti': status_noti,
 		'status' : status
 	}
 	

@@ -6,6 +6,8 @@ from accounts.models import NotiUser
 from .forms import CVEform,AffectedForm
 from django.db.models import F, DateTimeField , ExpressionWrapper
 from django.db.models.functions import Cast
+from django.http import JsonResponse
+from CVEAlert.chatbot import ask_openai
 # Create your views here.
 def get_home(request):
     listCVE = CVE.objects.all().order_by('-date_publish')[:3]
@@ -13,9 +15,11 @@ def get_home(request):
     affected = Affected.objects.filter(con_id__in=cve_ids) 
     products = [a.product for a in affected]
     vendors = [a.vendor for a in affected]
+    
     if request.method == 'POST': 
-            id_cve= request.POST['id_cve']
-            listCVE = CVE.objects.filter(cve_id__contains=id_cve)[:12]
+        id_cve= request.POST['id_cve']
+        listCVE = CVE.objects.filter(cve_id__contains=id_cve)[:12]
+    
     context = {
         'listCVE': listCVE,
         'products': products,

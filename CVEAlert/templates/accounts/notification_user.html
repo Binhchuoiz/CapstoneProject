@@ -138,21 +138,23 @@
                 </p>
             </div>
             <div class="col-6">
-                <form method="post" class="form-edit-profile" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <h2><b>YOUR</b> <b style="color: dodgerblue">NOTIFICATION</b></h2>
-                    <label for="status">Status:</label>
-                    <select name="status" id="status">
-                            <option value=1></option>
-                    </select>
-                    <label for="email_address">Email Address:</label>
-                    <input type="email" name="email_address" id="email_address">
-                    <label for="token_bot">Token Bot:</label>
-                    <input type="text" name="token_bot" id="token_bot" >
-                    <label for="chat_id">Chat ID:</label>
-                    <input type="text" name="chat_id" id="chat_id">
-                    <button type="submit" class="btn btn-one" style="width:100%"><b>SAVE</b></button>
-                </form>
+              <form method="post" class="form-edit-profile" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h2><b>YOUR</b> <b style="color: dodgerblue">NOTIFICATION</b></h2>
+                <label for="status">Status</label>
+                <select name="status" id="status">
+                    {% for it in status_noti %}
+                        <option value="{{ it.0 }}">{{ it.1 }} (current: {{ data_noti.status }})</option>
+                    {% endfor %}
+                </select>
+                <label for="email_address">Email Address</label>
+                <input type="email" name="email_address" id="email_address" value="{{ data_noti.email_address }}">
+                <label for="token_bot">Token Bot</label>
+                <input type="text" name="token_bot" id="token_bot" value="{{ data_noti.token_bot }}">
+                <label for="chat_id">Chat ID</label>
+                <input type="text" name="chat_id" id="chat_id" value="{{ data_noti.chat_id }}">
+                <button type="submit" class="btn btn-one">SAVE</button>
+            </form>
             </div>
         </div>
     </div>
