@@ -10,13 +10,24 @@ from django.http import JsonResponse
 from CVEAlert.chatbot import ask_openai
 # Create your views here.
 def get_home(request):
-    listCVE = CVE.objects.all().order_by('-date_publish')[:3]
+    listCVE = CVE.objects.all().order_by('-date_publish')[:3] 
     cve_ids = [cve.id for cve in listCVE] 
     affected = Affected.objects.filter(con_id__in=cve_ids) 
     products = [a.product for a in affected]
     vendors = [a.vendor for a in affected]
-    
-    if request.method == 'POST': 
+    try:
+        check_user_notifi = NotiUser.objects.get(user=request.user)
+        if not check_user_notifi.status:
+            status = False
+        else:
+            status = True
+    except:
+            status = False
+    if request.method == 'POST' and 'message' in request.POST:
+        message = request.POST['message']
+        response = ask_openai(message)
+        return JsonResponse({'message': message, 'response': response})
+    elif request.method == 'POST': 
         id_cve= request.POST['id_cve']
         listCVE = CVE.objects.filter(cve_id__contains=id_cve)[:12]
     
@@ -25,6 +36,7 @@ def get_home(request):
         'products': products,
         'vendors': vendors,
         'affected': affected,
+		'status': status,
     }
     return render(request, 'home.html', context=context)
 
@@ -37,7 +49,19 @@ def get_list_CVE(request, page):
     
     selected_year = None
     search_focus = None
-    if request.method == 'POST':
+    try:
+        check_user_notifi = NotiUser.objects.get(user=request.user)
+        if not check_user_notifi.status:
+            status = False
+        else:
+            status = True
+    except:
+            status = False
+    if request.method == 'POST' and 'message' in request.POST:
+        message = request.POST['message']
+        response = ask_openai(message)
+        return JsonResponse({'message': message, 'response': response})
+    elif request.method == 'POST':
         selected_years = request.POST.getlist('filter_year')
         if selected_years:
             selected_year = selected_years[0]  
@@ -95,6 +119,7 @@ def get_list_CVE(request, page):
         'unique_year': unique_year_List,
         'selected_year': selected_year,
         'search_focus': search_focus,
+		'status': status,
     }
 
     # print(listCVE)
@@ -109,6 +134,18 @@ def get_list_Products(request, page):
     per_page = request.GET.get("per_page", 10)
     paginator = Paginator(list_products, per_page)
     page_obj = paginator.get_page(page)
+    try:
+        check_user_notifi = NotiUser.objects.get(user=request.user)
+        if not check_user_notifi.status:
+            status = False
+        else:
+            status = True
+    except:
+            status = False
+    if request.method == 'POST' and 'message' in request.POST:
+        message = request.POST['message']
+        response = ask_openai(message)
+        return JsonResponse({'message': message, 'response': response})
     context = {
         "page": {
             'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
@@ -119,6 +156,7 @@ def get_list_Products(request, page):
         'paginator': paginator,
         'page_obj': page_obj,
         'list_products' : list_products,
+		'status': status,
     }
     return render(request, 'firstapp/list_products.html', context=context)   
 
@@ -128,7 +166,6 @@ def get_list_Products(request, page):
 def get_detail_cves(request, pk):
     detail_cve = CVE.objects.get(pk=pk)
     affected = Affected.objects.filter(con_id=detail_cve.id)
-    
     products = [a.product for a in affected]
     products_versions = Products_Versions.objects.filter(product__in=products)
     versions = [p.version for p in products_versions]
@@ -154,7 +191,19 @@ def get_detail_cves(request, pk):
     except References.DoesNotExist:
          refrences = None
 
-    if request.method == 'POST':
+    try:
+        check_user_notifi = NotiUser.objects.get(user=request.user)
+        if not check_user_notifi.status:
+            status = False
+        else:
+            status = True
+    except:
+            status = False
+    if request.method == 'POST' and 'message' in request.POST:
+        message = request.POST['message']
+        response = ask_openai(message)
+        return JsonResponse({'message': message, 'response': response})
+    elif request.method == 'POST':
         affect_id = request.POST['follow_affect']
         if affect_id == 'null':
              msg = 'need affected info !'
@@ -185,45 +234,103 @@ def get_detail_cves(request, pk):
          'descriptions' : descriptions,
          'refrences' : refrences,
          'cvssv31' : cvssv31,
-         'alert-msg' : msg 
+         'alert-msg' : msg,
+		 	'status': status,
 
     }
 
     return render(request, 'firstapp/detail_cve.html' , context=context)
 
 def create_cve_view(request):
-    form =CVEform()
-    if request.method == 'POST':
-        form = CVEform(request.POST or None, request.FILES)
-        if form.is_valid():
-            data  = form.save(commit=True)
-        return HttpResponseRedirect(reverse('app:home'))
-    context = {
-         'form':form
-    }
-    return render(request, 'firstapp/create_cves.html', context=context)
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False
+	form = CVEform()
+	# bot chat
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
+	elif request.method == 'POST':
+		form = AffectedForm(request.POST or None, request.FILES)
+		if form.is_valid():
+			data = form.save(commit=True)
+			return HttpResponseRedirect(reverse('app:home'))
+
+	context = {
+		'form': form,
+		'status': status
+	}
+	return render(request, 'firstapp/create_cves.html', context=context)
+
 
 def create_affect_view(request):
-    form = AffectedForm()
-    if request.method == 'POST':
-        form = AffectedForm(request.POST)
-        if form.is_valid():
-            data = form.save(commit=True)
-            return HttpResponseRedirect(reverse('app:home'))
-    context ={
-          'form':form
-        }
-    return render(request, 'firstapp/create_affected.html', context=context)
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False
+	form = AffectedForm()
+	# bot chat
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
 
+		return JsonResponse({'message': message, 'response': response})
+	elif request.method == 'POST':
+		form = AffectedForm(request.POST)
+		if form.is_valid():
+			data = form.save(commit=True)
+			return HttpResponseRedirect(reverse('app:home'))
 
+	context = {
+		'form': form,
+		'status': status
+	}
+	return render(request, 'firstapp/create_affected.html', context=context)
 
 
 def get_tele_notifi(request):
-	return render(request, 'telegram_notifi.html')
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
+	return render(request, 'telegram_notifi.html', {'status': status})
 
 
-def get_gmail_notifi(request):	
-	return render(request, 'gmail_notifi.html')
+def get_gmail_notifi(request):
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
+	return render(request, 'gmail_notifi.html', {'status': status})
 
 
 
@@ -231,50 +338,170 @@ def get_gmail_notifi(request):
 
 
 
-def get_about(request):	
-	return render(request, 'firstapp/about.html')
+def get_about(request):
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False	
+	return render(request, 'firstapp/about.html', {'status': status})
 
 
-def get_list_definations(request):	
-	return render(request, 'firstapp/list_definations.html')
+def get_list_definations(request):
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False	
+	return render(request, 'firstapp/list_definations.html', {'status': status})
 
 
-def get_cve_definations(request):	
-	return render(request, 'firstapp/Definations/cve.html')
+def get_cve_definations(request):
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False	
+	return render(request, 'firstapp/Definations/cve.html', {'status': status})
 
-def get_cvss_definations(request):	
-	return render(request, 'firstapp/Definations/cvss.html')
+def get_cvss_definations(request):
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False	
+	return render(request, 'firstapp/Definations/cvss.html', {'status': status})
 
-def get_cvss_compare(request):	
-	return render(request, 'firstapp/Definations/comparecvss.html')
+def get_cvss_compare(request):
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False	
+	return render(request, 'firstapp/Definations/comparecvss.html', {'status': status})
 
-def get_base_definations(request):	
-	return render(request, 'firstapp/Definations/base.html')
+def get_base_definations(request):
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False	
+	return render(request, 'firstapp/Definations/base.html', {'status': status})
 
 
 def get_temporal_definations(request):	
-	return render(request, 'firstapp/Definations/temporal.html')
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False
+	return render(request, 'firstapp/Definations/temporal.html', {'status': status})
 
 def get_environmental_definations(request):	
-	return render(request, 'firstapp/Definations/environmental.html')
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False
+	return render(request, 'firstapp/Definations/environmental.html', {'status': status})
 
-def get_difference_definations(request):	
-	return render(request, 'firstapp/Definations/difference.html')
+def get_difference_definations(request):
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False	
+	return render(request, 'firstapp/Definations/difference.html', {'status': status})
 
-def get_type_definations(request):	
-	return render(request, 'firstapp/Definations/product_and_vendor.html')
+def get_type_definations(request):
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False	
+	return render(request, 'firstapp/Definations/product_and_vendor.html', {'status': status})
 
-def get_list_statistic(request):	
-	return render(request, 'firstapp/list_statistics.html')
+def get_list_statistic(request):
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False	
+	return render(request, 'firstapp/list_statistics.html', {'status': status})
 
 def get_cve_statistic(request):	
-	return render(request, 'firstapp/Statistics/cve_statistic.html')
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False
+	return render(request, 'firstapp/Statistics/cve_statistic.html', {'status': status})
 
 def get_risk_statistic(request):	
-	return render(request, 'firstapp/Statistics/risk.html')
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False
+	return render(request, 'firstapp/Statistics/risk.html', {'status': status})
 
 def get_application_statistic(request):	
-	return render(request, 'firstapp/Statistics/application.html')
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False
+	return render(request, 'firstapp/Statistics/application.html', {'status': status})
 
-def get_cvss_statistic(request):	
-	return render(request, 'firstapp/Statistics/cvss_statistic.html')
+def get_cvss_statistic(request):
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+		status = False	
+	return render(request, 'firstapp/Statistics/cvss_statistic.html', {'status': status})

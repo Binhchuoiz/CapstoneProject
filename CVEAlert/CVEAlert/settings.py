@@ -85,9 +85,9 @@ WSGI_APPLICATION = 'CVEAlert.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test2',
+        'NAME': 'test',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'Hanoi123789@',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -96,7 +96,7 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'test',
+#         'NAME': 'test2',
 #         'USER': 'root',
 #         'PASSWORD': '',
 #         'HOST': 'localhost',
