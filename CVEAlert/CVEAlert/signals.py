@@ -18,7 +18,7 @@ def new_cve_noti(sender, instance, created, **kwargs):
                 metric = None
         cvss31 = [m.cvssv31 for m in metric]
         try:
-                descriptions = Descriptions.objects.get(id=cve.id)
+                descriptions = Descriptions.objects.get(con_id=cve.id)
         except Descriptions.DoesNotExist:
                 descriptions = None
         # subscribed_user = Follow_Affected.objects.filter(affected__con=cve).values_list('user_id',flat=True).distinct()
@@ -26,7 +26,10 @@ def new_cve_noti(sender, instance, created, **kwargs):
         # noti_user = NotiUser.objects.filter(user_id__in=subscribed_user)
         # chat_id= noti_user.chat_id
         # token = noti_user.token_bot
-        send_message_telegram(message)
-        send_email(message, "zdemon2002@gmail.com")
+        print(descriptions)
+        print(cvss31)
+        print(message)
+        # send_message_telegram(message)
+        # send_email(message, "zdemon2002@gmail.com")
         
     

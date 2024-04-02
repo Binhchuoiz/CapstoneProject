@@ -15,6 +15,19 @@ def add_data_to_database(data, folder_name):
     if CVE.objects.filter(cve_id=cve_id).exists():
         print(f"CVE with ID {cve_id} already exists in the database.")
         return
+    
+    try:
+        affected = data['containers']['cna']['affected']
+    except KeyError:
+        return
+    try:
+        product = data['containers']['cna']['affected'][0]['product']
+    except KeyError:
+        return
+    if product == 'n/a':
+        return
+
+
 
     cve = CVE.objects.create(
         cve_id=cve_id,
@@ -32,12 +45,14 @@ def add_data_to_database(data, folder_name):
         description_en = data['containers']['cna']['descriptions'][0]['value']
         Descriptions.objects.create(value=description_en, con=cve)
     except (KeyError, IndexError):
+        Descriptions.objects.create(value=None, con=cve)
         pass  # Handle missing key or index error by skipping the creation
 
     try:
         solution_en = data['containers']['cna']['solutions'][0]['value']
         Solutions.objects.create(value=solution_en, con=cve)
     except (KeyError, IndexError):
+        Solutions.objects.create(value=None, con=cve)
         pass  # Handle missing key or index error by skipping the creation
 
     for affected in data['containers']['cna'].get('affected', []):
@@ -47,6 +62,7 @@ def add_data_to_database(data, folder_name):
 
             for version_data in affected.get('versions', []):
                 version, _ = Versions.objects.get_or_create(version=version_data.get('version', ''), status=version_data.get('status', ''))
+                Products_Versions.objects.create(product=product,version=version)
 
             vendor_name = affected.get('vendor')
             if vendor_name:
@@ -63,8 +79,8 @@ def add_data_to_database(data, folder_name):
                 version=cvssV2_0_data.get('version', ''),
                 vector_string=cvssV2_0_data.get('vectorString', ''),
                 base_score=cvssV2_0_data.get('baseScore', ''),
-                con=cve
             )
+        
 
         if 'cvssV3_0' in metric:
             cvssV3_0_data = metric['cvssV3_0']
@@ -73,7 +89,7 @@ def add_data_to_database(data, folder_name):
                 vector_string=cvssV3_0_data.get('vectorString', ''),
                 base_score=cvssV3_0_data.get('baseScore', ''),
                 base_severity=cvssV3_0_data.get('baseSeverity', ''),
-                con=cve
+                
             )
 
         if 'cvssV3_1' in metric:
@@ -83,13 +99,14 @@ def add_data_to_database(data, folder_name):
                 vector_string=cvssV3_1_data.get('vectorString', ''),
                 base_score=cvssV3_1_data.get('baseScore', ''),
                 base_severity=cvssV3_1_data.get('baseSeverity', ''),
-                con=cve
+                
             )
 
     for reference_data in data['containers']['cna'].get('references', []):  # Handle missing key with empty list
         References.objects.create(con=cve, url=reference_data['url'])
 
 def process_cve_folders(cves_folder_path):
+
     if not os.path.isdir(cves_folder_path) or not os.listdir(cves_folder_path):
         print("No subfolders found in the 'cves' directory.")
         return
