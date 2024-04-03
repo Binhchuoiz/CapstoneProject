@@ -356,6 +356,11 @@ def get_about(request):
 			status = True
 	except:
 		status = False	
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/about.html', {'status': status})
 
 
@@ -368,6 +373,11 @@ def get_list_definations(request):
 			status = True
 	except:
 		status = False	
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/list_definations.html', {'status': status})
 
 
@@ -380,6 +390,11 @@ def get_cve_definations(request):
 			status = True
 	except:
 		status = False	
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/Definations/cve.html', {'status': status})
 
 def get_cvss_definations(request):
@@ -391,6 +406,11 @@ def get_cvss_definations(request):
 			status = True
 	except:
 		status = False	
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/Definations/cvss.html', {'status': status})
 
 def get_cvss_compare(request):
@@ -402,6 +422,11 @@ def get_cvss_compare(request):
 			status = True
 	except:
 		status = False	
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/Definations/comparecvss.html', {'status': status})
 
 def get_base_definations(request):
@@ -413,6 +438,11 @@ def get_base_definations(request):
 			status = True
 	except:
 		status = False	
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/Definations/base.html', {'status': status})
 
 
@@ -425,6 +455,11 @@ def get_temporal_definations(request):
 			status = True
 	except:
 		status = False
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/Definations/temporal.html', {'status': status})
 
 def get_environmental_definations(request):	
@@ -436,6 +471,11 @@ def get_environmental_definations(request):
 			status = True
 	except:
 		status = False
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/Definations/environmental.html', {'status': status})
 
 def get_difference_definations(request):
@@ -447,6 +487,11 @@ def get_difference_definations(request):
 			status = True
 	except:
 		status = False	
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/Definations/difference.html', {'status': status})
 
 def get_type_definations(request):
@@ -458,6 +503,11 @@ def get_type_definations(request):
 			status = True
 	except:
 		status = False	
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/Definations/product_and_vendor.html', {'status': status})
 
 def get_list_statistic(request):
@@ -468,7 +518,12 @@ def get_list_statistic(request):
 		else:
 			status = True
 	except:
-		status = False	
+		status = False
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/list_statistics.html', {'status': status})
 
 def get_cve_statistic(request):	
@@ -480,6 +535,11 @@ def get_cve_statistic(request):
 			status = True
 	except:
 		status = False
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/Statistics/cve_statistic.html', {'status': status})
 
 def get_risk_statistic(request):	
@@ -491,6 +551,11 @@ def get_risk_statistic(request):
 			status = True
 	except:
 		status = False
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/Statistics/risk.html', {'status': status})
 
 def get_application_statistic(request):	
@@ -502,6 +567,11 @@ def get_application_statistic(request):
 			status = True
 	except:
 		status = False
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/Statistics/application.html', {'status': status})
 
 def get_cvss_statistic(request):
@@ -513,4 +583,9 @@ def get_cvss_statistic(request):
 			status = True
 	except:
 		status = False	
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/Statistics/cvss_statistic.html', {'status': status})
