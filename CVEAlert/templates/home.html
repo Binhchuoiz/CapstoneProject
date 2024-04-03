@@ -1118,7 +1118,7 @@ font-family: monospace;
     <br>
     <div style="background-color: white !important; color: black !important; padding: 80px; margin-bottom:-50px; margin-top:50px;">
         <div class="container">
-            <a style="text-decoration: none;" href="{% url 'app:tele_noti' %}">
+            <a style="text-decoration: none;" {% if user.is_authenticated %} href="{% url 'app:tele_noti' %}"  {% else %} href="{% url 'accounts:login' %}"    {% endif %}>
                 <h2 style="color: white;">
                     <div class="rectangle"></div>&nbsp;<b>Notification methods</b>
                     <a href="#"></a>
@@ -1132,11 +1132,11 @@ font-family: monospace;
                 <div class="col-md-8">
                   <div class="card-body">
                     <h3 class="card-title1">
-                        <a href="{% url 'app:gmail_noti' %}">Gmail
+                        <a href="{% if user.is_authenticated %} href="{% url 'app:gmail_noti' %}"  {% else %} href="{% url 'accounts:login' %}"    {% endif %}">Gmail
                         </a>
                     </h3>
                     <p class="card-text">"How to receive notifications via Gmail whenever a new CVE is updated."</p>
-                    <a href="{% url 'app:gmail_noti' %}">
+                    <a {% if user.is_authenticated %} href="{% url 'app:gmail_noti' %}"  {% else %} href="{% url 'accounts:login' %}"    {% endif %}>
                         <button class="btn btn-one"><b>READ MORE</b></button>
                     </a>
                   </div>
@@ -1151,12 +1151,12 @@ font-family: monospace;
                 <div class="col-md-8">
                   <div class="card-body">
                     <h3 class="card-title1">
-                        <a href="{% url 'app:tele_noti' %}">Telegram
+                        <a {% if user.is_authenticated %} href="{% url 'app:tele_noti' %}"  {% else %} href="{% url 'accounts:login' %}"    {% endif %}>Telegram
                         </a>
                     </h3>
                     <p class="card-text">"How to receive notifications via Telegram whenever a new CVE is updated."</p>
                     <p class="card-text">
-                        <a href="{% url 'app:tele_noti' %}">
+                        <a {% if user.is_authenticated %} href="{% url 'app:tele_noti' %}"  {% else %} href="{% url 'accounts:login' %}"    {% endif %}>
                             <button class="btn btn-one"><b>READ MORE</b></button>
                         </a>
                   </div>

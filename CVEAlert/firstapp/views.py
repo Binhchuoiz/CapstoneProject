@@ -325,17 +325,26 @@ def get_gmail_notifi(request):
 			status = True
 	except:
 		status = False
+	data_noti = NotiUser.objects.get(user_id=request.user.id)
+	msg = ""
 	if request.method == 'POST' and 'message' in request.POST:
 		message = request.POST['message']
 		response = ask_openai(message)
 
 		return JsonResponse({'message': message, 'response': response})
-	return render(request, 'gmail_notifi.html', {'status': status})
+	elif request.method == 'POST':
+		status = 'gmail'
+		email_address = request.POST['email_notification']
+		data_noti.status = status
+		data_noti.email_address = email_address
+		data_noti.save()
+		msg = "You have successfully set up Gmail notifications"
 
-
-
-
-
+	context = {
+		'msg': msg,
+		'status': status,
+	}
+	return render(request, 'gmail_notifi.html', context=context)
 
 
 def get_about(request):
