@@ -131,8 +131,8 @@
 
           .chatbot-icon {
             position: fixed;
-            bottom: 50px;
-            right: 50px;
+            bottom: 0px;
+            right: 20px;
             max-width: 95px;
             cursor: pointer;
         }
@@ -314,27 +314,6 @@
                         </div>
                     </div>
                 </li>
-                {% for chat in chats %}
-                    {% if chat.user == request.user %}
-                        <li class="message sent">
-                            <div class="message-text">
-                                <div class="message-content-sent">
-                                    {{ chat.message }}
-                                </div>
-                            </div>
-                        </li>
-                        <li class="message received">
-                            <div class="message-text">
-                                <div class="message-sender">
-                                    <b>Alert's Bot</b>
-                                </div>
-                                <div class="message-content-received">
-                                    {{ chat.response }}
-                                </div>
-                            </div>
-                        </li>
-                    {% endif %}
-                {% endfor %}
             </ul>
         </div>
     </div>

@@ -822,7 +822,7 @@ font-family: monospace;
                                                     <div></div>
                                                     <div></div>
                                                 </div>
-                                                <a  class="hex-content" href="{% url 'app:tele_noti' %}">
+                                                <a  class="hex-content" {% if user.is_authenticated %} href="{% url 'app:tele_noti' %}"  {% else %} href="{% url 'accounts:login' %}"    {% endif %}>
                                                     <span class="hex-content-inner">
                                                         <span class="icon">
                                                             <i class="fa fa-bell"></i>
@@ -1132,7 +1132,7 @@ font-family: monospace;
                 <div class="col-md-8">
                   <div class="card-body">
                     <h3 class="card-title1">
-                        <a href="{% if user.is_authenticated %} href="{% url 'app:gmail_noti' %}"  {% else %} href="{% url 'accounts:login' %}"    {% endif %}">Gmail
+                        <a {% if user.is_authenticated %} href="{% url 'app:gmail_noti' %}"  {% else %} href="{% url 'accounts:login' %}"    {% endif %}>Gmail
                         </a>
                     </h3>
                     <p class="card-text">"How to receive notifications via Gmail whenever a new CVE is updated."</p>
