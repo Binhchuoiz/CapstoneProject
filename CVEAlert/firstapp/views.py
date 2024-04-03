@@ -134,6 +134,7 @@ def get_list_Products(request, page):
     per_page = request.GET.get("per_page", 10)
     paginator = Paginator(list_products, per_page)
     page_obj = paginator.get_page(page)
+    
     try:
         check_user_notifi = NotiUser.objects.get(user=request.user)
         if not check_user_notifi.status:
@@ -141,11 +142,28 @@ def get_list_Products(request, page):
         else:
             status = True
     except:
-            status = False
-    if request.method == 'POST' and 'message' in request.POST:
-        message = request.POST['message']
-        response = ask_openai(message)
-        return JsonResponse({'message': message, 'response': response})
+        status = False
+    
+    affected = Affected.objects.filter()
+    
+    if request.method == 'POST':
+        if 'message' in request.POST:
+            message = request.POST['message']
+            response = ask_openai(message)
+            return JsonResponse({'message': message, 'response': response})
+        elif 'follow_affect' in request.POST:
+            affect_id = request.POST['follow_affect']
+            # list_affected = Affected.objects.filter()
+            
+            for aff in affected: 
+                try: 
+                    check = Follow_Affected.objects.get(user=request.user, affected_id=aff.id)
+                except:
+                    check = None
+                if not check:
+                    follow_aff = Follow_Affected.objects.create(user=request.user, affected_id=aff.id)
+                    follow_aff.save()
+    
     context = {
         "page": {
             'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
@@ -155,12 +173,10 @@ def get_list_Products(request, page):
         'len_page': paginator.num_pages,
         'paginator': paginator,
         'page_obj': page_obj,
-        'list_products' : list_products,
-		'status': status,
+        'list_products': list_products,
+        'status': status,
     }
-    return render(request, 'firstapp/list_products.html', context=context)   
-
-
+    return render(request, 'firstapp/list_products.html', context=context)
 
 
 def get_detail_cves(request, pk):
