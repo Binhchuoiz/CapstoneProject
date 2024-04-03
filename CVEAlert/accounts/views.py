@@ -52,7 +52,10 @@ def get_sign_up(request):
 		if form.is_valid():
 			user = form.save()
 			create_profile = models.UserProfile.objects.create(user=user)
+			create_notify_user = models.NotiUser.objects.create(user=user)
 			create_profile.save()
+			create_notify_user.save()
+		
 			return HttpResponseRedirect(reverse('accounts:login'))
 		
 	return render(request, 'accounts/sign_up.html', {'form': form})
@@ -185,6 +188,10 @@ def notification_user_view(request):
 		data_noti.save()
 
 		return HttpResponseRedirect(reverse('accounts:profile'))
+	# print(status)
+	# print(email_address)
+	# print(token_bot)
+	# print(chat_id)
 	context ={
 		'user' : request.user,
 		'form' : form,
@@ -192,6 +199,4 @@ def notification_user_view(request):
 		'status_noti': status_noti,
 		'status' : status
 	}
-	
-	
 	return render(request, 'accounts/notification_user.html',context=context)

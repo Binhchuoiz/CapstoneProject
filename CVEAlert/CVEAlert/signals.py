@@ -23,11 +23,16 @@ def new_cve_noti(sender, instance, created, **kwargs):
                 cvssv31 = None
         # subscribed_user = Follow_Affected.objects.filter(affected__con=cve).values_list('user_id',flat=True).distinct()
         message = reformat_tele_message(cve.cve_id, cvssv31.base_score, descriptions , cve.id)
-        # noti_user = NotiUser.objects.filter(user_id__in=subscribed_user)
-        # chat_id= noti_user.chat_id
-        # token = noti_user.token_bot
-        print(message)
-        # send_message_telegram(message)
-        # send_email(message, "zdemon2002@gmail.com")
+        # for user_id in subscribed_user:
+        list_noti = NotiUser.objects.all()
+        for noti_user in list_noti:
+                if noti_user.status== "telegram" or noti_user.status == "all":
+                        if   noti_user.token_bot and noti_user.chat_id:
+                                chat_id = noti_user.chat_id
+                                token = noti_user.token_bot
+                        send_message_telegram(message,token,chat_id)
+                        if noti_user.status == "gmail" or noti_user.status=="all":
+                                if noti_user.email_address:
+                                        send_email(message, noti_user.email_address)
         
     
