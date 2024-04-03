@@ -110,13 +110,30 @@
           } {% endcomment %}
 
 
+          .chat-container {
+            width: 450px;
+            position: fixed;
+            display: block;
+            right: 0px;
+            bottom: 150px;
+            height: 600px;
+            z-index: 999;
+            border-radius: 10px;
+            background: #fff;
+            border: 2px solid black;
+            transform: translateY(calc(100% + 180px));
+            transition: .5s all;
+        }
+
+        .chat-container.active {
+            transform: none;
+        }
 
           .chatbot-icon {
             position: fixed;
-            bottom: 20px;
+            bottom: 50px;
             right: 50px;
-            max-width: 80px;
-            height: auto;
+            max-width: 95px;
             cursor: pointer;
         }
 
@@ -137,7 +154,7 @@
         }
 
         .messages-list {
-            padding-left: 0;
+            padding-left: 10px;
         }
 
         .message {
@@ -154,11 +171,17 @@
             background-color: #1E90FF;
             align-self: flex-end;
             border-radius: 15px;
-            left: 110px;
+            left: 150px;
             max-width: 250px;
             position: relative;
+        }
 
-
+        .message-content-sent {
+            color: white;
+            line-break: auto;
+            width: 350px;
+            font-style: unset;
+            font-size: large;
         }
 
         .received {
@@ -166,8 +189,14 @@
             align-self: flex-start;
             border-radius: 15px;
             max-width: 350px;
+        }
 
-
+        .message-content-received {
+            color: black;
+            line-break: auto;
+            width: 350px;
+            font-style: unset;
+            font-size: large;
         }
 
         .message-form {
@@ -183,46 +212,6 @@
 
         .btn-send {
             border-radius: 15px;
-        }
-
-        .chat-container {
-            width: 450px;
-            position: fixed;
-            display: block;
-            right: 0px;
-            bottom: 150px;
-            height: 600px;
-            z-index: 999;
-            border-radius: 10px;
-            background: #fff;
-            border: 2px solid #015884;
-            transform: translateX(calc(100% + 20px));
-            transition: .1s all;
-        }
-
-        .chat-container.active {
-            transform: none;
-        }
-
-        .message-content-sent {
-            color: white;
-            line-break: auto;
-            width: 350px;
-            font-style: unset;
-            font-size: large;
-        }
-
-        .message-content-received {
-            color: black;
-            line-break: auto;
-            width: 350px;
-            font-style: unset;
-            font-size: large;
-        }
-
-        .card-header{
-
-            
         }
         {% block css %}
 
@@ -303,8 +292,6 @@
             <div class="chatbot-icon-popup">
                 <img src="/media/chatbot.png" alt="Chatbot Icon"><b
                     style="font-size: large; font-style: unset;"> Alert's Bot</b>
-
-              
             </div>
             <div style="padding: 5px;">
                 {% if not status %}
@@ -313,21 +300,20 @@
                 {% endif %}
             </div>
         </div>
+
         <div class="card-body messages-box --bs-card-spacer-y --bs-card-spacer-x --bs-card-color" style="with:100%;">
-
             <ul class="list-unstyled messages-list">
-
                 <li class="message received">
                     <div class="message-text">
                         <div class="message-sender">
                             <b style="font-size: large; font-style: unset;">Alert's Bot</b>
                         </div>
                         <div class="message-content">
-                            Hi! I am your AI Chatbot, you can ask me anything.
+                            Hello there!
+                            How can I help you today. 
                         </div>
                     </div>
                 </li>
-
                 {% for chat in chats %}
                     {% if chat.user == request.user %}
                         <li class="message sent">
@@ -338,7 +324,6 @@
                                 </div>
                             </div>
                         </li>
-
                         <li class="message received">
                             <div class="message-text">
                                 <div class="message-sender">
@@ -351,9 +336,7 @@
                         </li>
                     {% endif %}
                 {% endfor %}
-
             </ul>
-
         </div>
     </div>
     <form class="message-form" method="post">
