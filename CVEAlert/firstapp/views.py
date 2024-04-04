@@ -129,8 +129,11 @@ def get_list_CVE(request, page):
 
 
 
-def get_list_Products(request, page):
-    list_products = Products.objects.values('name').distinct().order_by('name')
+def get_list_Products(request, page, letter=None):
+    if letter:
+        list_products = Products.objects.filter(name__istartswith=letter).order_by('name')
+    else:
+        list_products = Products.objects.all().order_by('name')
     per_page = request.GET.get("per_page", 10)
     paginator = Paginator(list_products, per_page)
     page_obj = paginator.get_page(page)
@@ -150,7 +153,7 @@ def get_list_Products(request, page):
             message = request.POST['message']
             response = ask_openai(message)
             return JsonResponse({'message': message, 'response': response})
-        elif 'follow_affect' in request.POST:
+        elif 'selected_products' in request.POST:
             selected_products = request.POST.getlist('selected_products')
             user = request.user
             affected = Affected.objects.filter(product_id__in=selected_products)

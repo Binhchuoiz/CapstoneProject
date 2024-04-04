@@ -226,32 +226,12 @@ input.largerCheckbox {
           </form>
           <!--Thêm logic để link đến các key word-->
           <div class="letterlist" style="margin:30px;">
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> A  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> B  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> C  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> D  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> E  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> F  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> G  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> H  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> I  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> J  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> L  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> M  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> N  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> O  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> P  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> Q  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> R  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> S  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> T  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> U  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> V  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> W  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> X  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> Y  </a></button>
-            <button style="background-color:black; width:30px; height:30px;"><a href="#" title="List of software or hardware products" style="color:white"> Z  </a></button>
-            </div>
+            {% for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
+                <button style="background-color:black; width:30px; height:30px;">
+                    <a href="{% url 'app:list_products_letter' page=1 letter=letter %}" title="List of software or hardware products" style="color:white">{{ letter }}</a>
+                </button>
+            {% endfor %}
+        </div>
       </div>
 
   </div>
