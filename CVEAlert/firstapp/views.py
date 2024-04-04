@@ -130,11 +130,15 @@ def get_list_CVE(request, page):
 
 
 
-def get_list_Products(request, page, letter=None):
-    if letter:
+def get_list_Products(request, page):
+    letter=None
+    list_products = Products.objects.all().order_by('name')
+    if request.method == 'POST':
+        letter = request.POST.get('letter')
+        if letter:
+            list_products = Products.objects.filter(name__istartswith=letter).order_by('name')
+    elif letter:
         list_products = Products.objects.filter(name__istartswith=letter).order_by('name')
-    else:
-        list_products = Products.objects.all().order_by('name')
     per_page = request.GET.get("per_page", 10)
     paginator = Paginator(list_products, per_page)
     page_obj = paginator.get_page(page)
@@ -174,6 +178,7 @@ def get_list_Products(request, page, letter=None):
         'page_obj': page_obj,
         'list_products': list_products,
         'status': status,
+		'letter': letter,
     }
     return render(request, 'firstapp/list_products.html', context=context)
 

@@ -226,11 +226,12 @@ input.largerCheckbox {
           </form>
           <!--Thêm logic để link đến các key word-->
           <div class="letterlist" style="margin:30px;">
-            {% for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
-                <button style="background-color:black; width:30px; height:30px;">
-                    <a href="{% url 'app:list_products_letter' page=1 letter=letter %}" title="List of software or hardware products" style="color:white">{{ letter }}</a>
-                </button>
-            {% endfor %}
+            <form method="post">
+              {% csrf_token %}
+              {% for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
+                  <button type="submit" name="letter" value="{{ letter }}" style="background-color:black; width:30px; height:30px; color:white;">{{ letter }}</button>
+              {% endfor %}
+          </form>
         </div>
       </div>
 
@@ -270,10 +271,10 @@ input.largerCheckbox {
           {% endfor %}
            </br>
          
-          <div class="pagination pagination-style-one m-t-20">
-            <a href="{% url 'app:list_products' page=page.prev %}">< Pre</a>
+           <div class="pagination pagination-style-one m-t-20">
+            <a href="{% if letter %}{% url 'app:list_products' page=page.prev %}?letter={{ letter }}{% else %}{% url 'app:list_products' page=page.prev %}{% endif %}">< Pre</a>
             <a style="color:white">Page {{ page.current }} of {{ paginator.num_pages }}</a>
-            <a href="{% url 'app:list_products' page=page.next %}">Next ></a>
+            <a href="{% if letter %}{% url 'app:list_products' page=page.next %}?letter={{ letter }}{% else %}{% url 'app:list_products' page=page.prev %}{% endif %}">Next ></a>
         </div>
         
       </div>   
