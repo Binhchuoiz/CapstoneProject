@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.http import JsonResponse
 from CVEAlert.chatbot import ask_openai
-
+import requests
 
 
 from . import forms
@@ -179,14 +179,14 @@ def notification_user_view(request):
 		status = request.POST['status']
 		email_address = request.POST['email_address']
 		token_bot = request.POST['token_bot']
-		chat_id = request.POST['chat_id']
+		chat_id = get_chat_id(token_bot)
 
 		data_noti.status = status
 		data_noti.email_address = email_address
 		data_noti.token_bot = token_bot
 		data_noti.chat_id = chat_id
 		data_noti.save()
-
+		print(chat_id)
 		return HttpResponseRedirect(reverse('accounts:profile'))
 	# print(status)
 	# print(email_address)
@@ -200,3 +200,13 @@ def notification_user_view(request):
 		'status' : status
 	}
 	return render(request, 'accounts/notification_user.html',context=context)
+
+def get_chat_id(bot_token):
+    url_updates = f"https://api.telegram.org/bot{bot_token}/getUpdates"
+    response = requests.get(url_updates)
+    data = response.json()
+    chat_id = None
+    if data["ok"]:
+        if data["result"]:
+            chat_id = data["result"][0]["message"]["chat"]["id"]
+    return chat_id
