@@ -271,8 +271,8 @@ input.largerCheckbox {
                       <a href="#" ><b>{{ p.name }}</b></a>
                   </h3>  
                        <div  style="height:30px;">
-                        <input type="checkbox" id="morning" value="{{ p.name }}" class="largerCheckbox">
-                        <label   ><i style="font-size:17px; ">"Check for follow this product!"</i>
+                        <input type="checkbox" id="morning" name="selected_products" value="{{ p.name }}" class="largerCheckbox">
+                          <label for="morning"><i style="font-size:17px;">Check for follow this product!</i></label>
                       </div>
                         <div class="card-body" style="padding: 30px;">
                          
@@ -319,7 +319,10 @@ input.largerCheckbox {
       <button class="btn btn-one" onclick="myFunction1()" style="width:100px;"> <b> CHECK</button> 
       </br> 
       <hr>
-      <button class="btn btn-one" style="width:100px;">  <b style= "color: dodgerblue;">FOLLOW </b><b> NOW</b></button>
+      <form action="{% url 'app:list_products' page=1 %}" method="post">
+        {% csrf_token %}
+      <button type="submit" class="btn btn-one" style="width:100px;">  <b style= "color: dodgerblue;">FOLLOW </b><b> NOW</b></button>
+      </form>
     </p>
     </div>
   </div> 
@@ -344,7 +347,10 @@ input.largerCheckbox {
       <button class="btn btn-one" onclick="myFunction2()" style="width:100px;"> <b> CHECK</button> 
       </br> 
       <hr>
-      <button class="btn btn-one" style="width:100px;">  <b style= "color: dodgerblue;">FOLLOW </b><b> NOW</b></button>
+      <form action="{% url 'app:list_products' page=1 %}" method="post">
+        {% csrf_token %}
+      <button type="submit" class="btn btn-one" style="width:100px;">  <b style= "color: dodgerblue;">FOLLOW </b><b> NOW</b></button>
+      </form>
     </p>
     </div>
   </div> 

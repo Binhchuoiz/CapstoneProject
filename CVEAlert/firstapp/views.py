@@ -144,7 +144,6 @@ def get_list_Products(request, page):
     except:
         status = False
     
-    affected = Affected.objects.filter()
     
     if request.method == 'POST':
         if 'message' in request.POST:
@@ -152,17 +151,12 @@ def get_list_Products(request, page):
             response = ask_openai(message)
             return JsonResponse({'message': message, 'response': response})
         elif 'follow_affect' in request.POST:
-            affect_id = request.POST['follow_affect']
-            # list_affected = Affected.objects.filter()
-            
-            for aff in affected: 
-                try: 
-                    check = Follow_Affected.objects.get(user=request.user, affected_id=aff.id)
-                except:
-                    check = None
-                if not check:
-                    follow_aff = Follow_Affected.objects.create(user=request.user, affected_id=aff.id)
-                    follow_aff.save()
+            selected_products = request.POST.getlist('selected_products')
+            user = request.user
+            affected = Affected.objects.filter(product_id__in=selected_products)
+            for a in affected:
+                Follow_Affected.objects.get_or_create(user=user, affected=affected)
+
     
     context = {
         "page": {
@@ -219,24 +213,6 @@ def get_detail_cves(request, pk):
         message = request.POST['message']
         response = ask_openai(message)
         return JsonResponse({'message': message, 'response': response})
-    elif request.method == 'POST':
-        affect_id = request.POST['follow_affect']
-        if affect_id == 'null':
-             msg = 'need affected info !'
-        else:
-            try:
-                  check = Follow_Affected.objects.get(user=request,affect_id=affect_id)
-            except:
-                 check = None
-            
-            if check:
-                 msg = 'You had follow this Affected'
-            else:
-                 follow_affect = Follow_Affected.objects.create(user=request.user, affect_id=affect_id)
-                 follow_affect.save
-                 msg = "u have tracked successfully!"
-    else:
-         msg = ""
        
     context = {
          'detail_cve': detail_cve,
@@ -250,7 +226,6 @@ def get_detail_cves(request, pk):
          'descriptions' : descriptions,
          'refrences' : refrences,
          'cvssv31' : cvssv31,
-         'alert-msg' : msg,
 		 	'status': status,
 
     }
