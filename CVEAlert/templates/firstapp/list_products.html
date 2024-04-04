@@ -304,6 +304,7 @@ input.largerCheckbox {
   {% endif %}
       <form action="{% url 'app:list_products' page=1 %}" method="post">
         {% csrf_token %}
+        <input type="hidden" id="selected_products_localstorage" name="selected_products_localstorage">
       <button type="submit" class="btn btn-one" style="width:100px;"  onclick="followAll1()">  <b style= "color: dodgerblue;">FOLLOW </b><b> NOW</b></button>
       </form>
     </p>
@@ -335,6 +336,7 @@ input.largerCheckbox {
   {% endif %}
       <form method="post">
         {% csrf_token %}
+        <input type="hidden" id="selected_products_localstorage" name="selected_products_localstorage">
       <button type="submit" class="btn btn-one" style="width:100px;"  onclick="followAll2()">  <b style= "color: dodgerblue;" >FOLLOW </b><b> NOW</b></button>
       </form>
     </p>
@@ -385,7 +387,7 @@ input.largerCheckbox {
         
           // Lưu trữ danh sách giá trị vào Local Storage
           localStorage.setItem("selected_checkboxes", JSON.stringify(values));
-        
+          document.getElementById("selected_products_localstorage").value = JSON.stringify(values);
           // Hiển thị thông báo
           alert("Đã lưu trữ giá trị checkbox!");
         }

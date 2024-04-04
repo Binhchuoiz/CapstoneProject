@@ -8,6 +8,7 @@ from django.db.models import F, DateTimeField , ExpressionWrapper
 from django.db.models.functions import Cast
 from django.http import JsonResponse
 from CVEAlert.chatbot import ask_openai
+import json
 # Create your views here.
 def get_home(request):
     listCVE = CVE.objects.all().order_by('-date_publish')[:3] 
@@ -153,12 +154,14 @@ def get_list_Products(request, page, letter=None):
             message = request.POST['message']
             response = ask_openai(message)
             return JsonResponse({'message': message, 'response': response})
-        elif 'selected_products' in request.POST:
-            selected_products = request.POST.getlist('selected_products')
+        elif 'selected_products_localstorage' in request.POST:
             user = request.user
-            affected = Affected.objects.filter(product_id__in=selected_products)
+            selected_products_localstorage = json.loads(request.POST.get('selected_products_localstorage'))
+            products = Products.objects.filter(name__in=selected_products_localstorage)          
+            affected = Affected.objects.filter(product__in=products)
             for a in affected:
-                Follow_Affected.objects.get_or_create(user=user, affected=affected)
+                Follow_Affected.objects.get_or_create(user=user, affected=a)
+            return redirect('app:list_products', page=1)
 
     
     context = {
