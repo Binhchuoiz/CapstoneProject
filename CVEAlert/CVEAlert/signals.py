@@ -24,12 +24,12 @@ def new_cve_noti(sender, instance, created, **kwargs):
                 cvssv31 = None
         print("invoked2")
         subscribed_users = []
-        affected_entities = Affected.objects.get(con_id=cve.id)
+        affected_entities = Affected.objects.filter(con=cve).first()
         if affected_entities:
-                print("Number of affected entities:")
+                print("Number of affected entities:",affected_entities.id)
         follow_affected = Follow_Affected.objects.filter(affected=affected_entities)
-        if follow_affected:
-                print("Number of affected follow:",follow_affected.count())
+        
+        print("Number of affected follow:",follow_affected.count())
         # for affected_entity in affected_entities:
         subscribed_users += follow_affected.values_list('user_id', flat=True).distinct()
         print(subscribed_users)
