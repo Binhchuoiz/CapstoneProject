@@ -1,5 +1,5 @@
-#src:https://www.youtube.com/watch?v=q5HiD5PNuck
-#api platform: https://platform.openai.com/usage
+#tham khao: src:https://www.youtube.com/watch?v=q5HiD5PNuck
+#get api key: api platform: https://platform.openai.com/usage
 import openai
 
 openai_api_key ="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"
