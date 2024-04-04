@@ -52,6 +52,7 @@
 .btn {
     line-height: 20px;
     height: 50px;
+    width:100px;
     text-align: center;
     text-style:bold
     cursor: pointer;
@@ -135,17 +136,23 @@
             </div>
             <div class="col-5">
                 <div class="list-group">
-                    <p href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                        List Affected! You have followed
-                    </p>
+                  <h2><b>YOUR</b> <b style="color: dodgerblue">AFFECTED</b></h2>
                     
                 </div>
                 
             </div>
             <div class="col-4">
-                <h3>FINDING METHODS</h3>
+                <h3><b>FINDING METHODS</b></h3>
                 <hr>
-                
+                <form method="post">
+                  {% csrf_token %}
+                  <h3>PRODUCT</h3>
+                  <hr>
+                      <input type="checkbox" id="product_filter" name="product_filter" value="test">
+                      <label for="test"></label>Test<br>
+                  <hr>
+                  <button class="btn btn-one"><b>FIND</b></button>
+              </form>
             </div>
         </div>
        
