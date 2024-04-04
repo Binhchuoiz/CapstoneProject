@@ -105,9 +105,9 @@ class Metric(models.Model):
     def __str__(self):
         return self.con
     
-class Follow_Affected(models.Model):
+class Follow_Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follow_user', blank=True, default=None)
-    affected = models.ForeignKey(Affected, on_delete=models.CASCADE, related_name='follow_affected', blank=True, default=None)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='follow_product', blank=True, default=None)
 
     def __str__(self):
         return self.user

@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
-from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions , Products_Versions , Follow_Affected 
+from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions , Products_Versions , Follow_Product
 from accounts.models import NotiUser
 from .forms import CVEform,AffectedForm
 from django.db.models import F, DateTimeField , ExpressionWrapper
@@ -157,10 +157,9 @@ def get_list_Products(request, page, letter=None):
         elif 'selected_products_localstorage' in request.POST:
             user = request.user
             selected_products_localstorage = json.loads(request.POST.get('selected_products_localstorage'))
-            products = Products.objects.filter(name__in=selected_products_localstorage)          
-            affected = Affected.objects.filter(product__in=products)
-            for a in affected:
-                Follow_Affected.objects.get_or_create(user=user, affected=a)
+            products = Products.objects.filter(name__in=selected_products_localstorage)
+            for p in products:
+                Follow_Product.objects.get_or_create(user=user, product=p)
             return redirect('app:list_products', page=1)
 
     
