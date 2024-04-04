@@ -2,7 +2,7 @@
 #get api key: api platform: https://platform.openai.com/usage
 import openai
 
-openai_api_key ="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"
+openai_api_key ="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"
 openai.api_key = openai_api_key
 
 

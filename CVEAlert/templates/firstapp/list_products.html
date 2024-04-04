@@ -302,11 +302,19 @@ input.largerCheckbox {
       {% if msg %}
       <p class="alert-msg">{{ msg }}</p>
   {% endif %}
+  {% if user.is_authenticated %}
       <form action="{% url 'app:list_products' page=1 %}" method="post">
         {% csrf_token %}
         <input type="hidden" id="selected_products_localstorage" name="selected_products_localstorage">
       <button type="submit" class="btn btn-one" style="width:100px;"  onclick="followAll1()">  <b style= "color: dodgerblue;">FOLLOW </b><b> NOW</b></button>
       </form>
+      {% else %}
+      <form action="{% url 'accounts:login' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" id="selected_products_localstorage" name="selected_products_localstorage">
+      <button type="submit" class="btn btn-one" style="width:100px;" >  <b style= "color: dodgerblue;">FOLLOW </b><b> NOW</b></button>
+      </form>
+      {% endif %}
     </p>
     </div>
   </div> 
@@ -334,11 +342,19 @@ input.largerCheckbox {
       {% if msg %}
       <p class="alert-msg">{{ msg }}</p>
   {% endif %}
-      <form method="post">
+  {% if user.is_authenticated %}
+      <form action="{% url 'app:list_products' page=1 %}" method="post">
         {% csrf_token %}
         <input type="hidden" id="selected_products_localstorage" name="selected_products_localstorage">
-      <button type="submit" class="btn btn-one" style="width:100px;"  onclick="followAll2()">  <b style= "color: dodgerblue;" >FOLLOW </b><b> NOW</b></button>
+      <button type="submit" class="btn btn-one" style="width:100px;"  onclick="followAll1()">  <b style= "color: dodgerblue;">FOLLOW </b><b> NOW</b></button>
       </form>
+      {% else %}
+      <form action="{% url 'accounts:login' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" id="selected_products_localstorage" name="selected_products_localstorage">
+      <button type="submit" class="btn btn-one" style="width:100px;" >  <b style= "color: dodgerblue;">FOLLOW </b><b> NOW</b></button>
+      </form>
+      {% endif %}
     </p>
     </div>
   </div> 
@@ -389,7 +405,7 @@ input.largerCheckbox {
           localStorage.setItem("selected_checkboxes", JSON.stringify(values));
           document.getElementById("selected_products_localstorage").value = JSON.stringify(values);
           // Hiển thị thông báo
-          alert("Đã lưu trữ giá trị checkbox!");
+          {% comment %} alert("Đã lưu trữ giá trị checkbox!"); {% endcomment %}
         }
       </script>
       <script>
@@ -409,7 +425,7 @@ input.largerCheckbox {
           localStorage.setItem("selected_checkboxes", JSON.stringify(values));
         
           // Hiển thị thông báo
-          alert("Đã lưu trữ giá trị checkbox!");
+          {% comment %} alert("Đã lưu trữ giá trị checkbox!"); {% endcomment %}
         }
       </script>
 
