@@ -405,7 +405,7 @@ input.largerCheckbox {
           localStorage.setItem("selected_checkboxes", JSON.stringify(values));
           document.getElementById("selected_products_localstorage").value = JSON.stringify(values);
           // Hiển thị thông báo
-          alert("Đã lưu trữ giá trị checkbox!");
+          {% comment %} alert("Đã lưu trữ giá trị checkbox!"); {% endcomment %}
         }
       </script>
       <script>
@@ -425,7 +425,7 @@ input.largerCheckbox {
           localStorage.setItem("selected_checkboxes", JSON.stringify(values));
         
           // Hiển thị thông báo
-          alert("Đã lưu trữ giá trị checkbox!");
+          {% comment %} alert("Đã lưu trữ giá trị checkbox!"); {% endcomment %}
         }
       </script>
 
