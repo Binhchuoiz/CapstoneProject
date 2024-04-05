@@ -294,7 +294,7 @@ List CVEs by Product Followed
                                 </p>
                                 <p class="card-text">
                                   {% for i in listCVE.affected_cve %}
-                                        {% if i.con_id == i.id %}
+                                        {% if i.con_id == l.id %}
                                             <p class="card-text"><b> Product:</b> "{{ i.product.name }}"</p>
                                           {% endif %}
                                     {% endfor %}
