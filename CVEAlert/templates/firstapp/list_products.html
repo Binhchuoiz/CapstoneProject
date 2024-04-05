@@ -258,7 +258,7 @@ input.largerCheckbox {
                         <div class="card-body" style="padding: 30px;">
                          
                             <p class="card-text">
-                                <b> Product Name:</b> "{{ p.name }}""
+                                <b> Product Name:</b> "{{ p.name }}"
                             <!-- </p>
                             <p class="card-text">
                                 <b> Product Version: </b>"Test"
@@ -274,7 +274,7 @@ input.largerCheckbox {
            <div class="pagination pagination-style-one m-t-20">
             <a href="{% if letter %}{% url 'app:list_products' page=page.prev %}?letter={{ letter }}{% else %}{% url 'app:list_products' page=page.prev %}{% endif %}">< Pre</a>
             <a style="color:white">Page {{ page.current }} of {{ paginator.num_pages }}</a>
-            <a href="{% if letter %}{% url 'app:list_products' page=page.next %}?letter={{ letter }}{% else %}{% url 'app:list_products' page=page.prev %}{% endif %}">Next ></a>
+            <a href="{% if letter %}{% url 'app:list_products' page=page.next %}?letter={{ letter }}{% else %}{% url 'app:list_products' page=page.next %}{% endif %}">Next ></a>
         </div>
         
       </div>   

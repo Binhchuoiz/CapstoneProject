@@ -122,6 +122,7 @@ def list_product_view(request):
 	affected = Affected.objects.filter(product_id__in=list_product_ids)
 	affected_con_id = [a.id for a in affected]
 	listCVE = CVE.objects.filter(id__in=affected_con_id)
+	# product_cve
 
 
 	context = {

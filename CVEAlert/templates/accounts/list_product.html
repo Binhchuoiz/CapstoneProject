@@ -56,7 +56,7 @@
     text-align: center;
     text-style:bold
     cursor: pointer;
-    background-color:dodgerblue;
+    background-color:black;
   }
   .btn-one {
     color: white;
@@ -80,8 +80,8 @@
     border-bottom-width: 1px;
     border-top-style: solid;
     border-bottom-style: solid;
-    border-top-color: dodgerblue;
-    border-bottom-color: dodgerblue;
+    border-top-color: black;
+    border-bottom-color: black;
     transform: scale(0.1, 1);
     
   }
@@ -137,20 +137,45 @@
             <div class="col-5">
                 <div class="list-group">
                   <h2><b>YOUR</b> <b style="color: dodgerblue">PRODUCT</b></h2>
+                  
+                  {% for it in list_products %}
+                  <div class="card mb-3">
+                   
+                      <div class="card-body" style="padding: 20px;">
+                          <a href="#"><h5 class="card-title"> <b>{{ it.name }}</b></h5></a>
+                          <p class="card-text">Product: "{{ it.name }}"</p>
+                          <button class="btn btn-one" style=" width:120px;"; ><b>UNFOLLOW </b></button>
+                      </div>
                     
+                  </div>
+
+                  {% comment %} {% for it in listCVE %}
+                        <div class="card mb-3">
+                            <div class="card-body" style="padding: 20px;">
+                                <a href="#"><h5 class="card-title">{{  it.cve_id }}</h5></a>
+                               {% for i in list_products %}
+                                <p class="card-text">Product: {{i.name}}</p>
+                                {% endfor %} 
+                                <p class="card-text">Vender: </p>
+                            </div>
+                        </div>
+                    {% endfor %} {% endcomment %}
+                 
+                {% endfor %}
                 </div>
                 
             </div>
-            <div class="col-4">
+             <div class="col-4">
                 <h3><b>FINDING METHODS</b></h3>
                 <hr>
                 <form method="post">
                   {% csrf_token %}
                   <h3>PRODUCT</h3>
-                  <hr>
-                      <input type="checkbox" id="product_filter" name="product_filter" value="test">
-                      <label for="test"></label>Test<br>
-                  <hr>
+                  {% for product in list_products %}
+                  <input type="checkbox" id="product_filter" name="product_filter" value="{{ product }}">
+                  <label for="product_filter">{{ product }}</label><br>
+                {% endfor %}
+                <hr>
                   <button class="btn btn-one"><b>FIND</b></button>
               </form>
             </div>
