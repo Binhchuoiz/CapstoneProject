@@ -249,7 +249,9 @@ input.largerCheckbox {
                 <div class="card h-100" style="border-width:2px; border-color:black">
                   <div class="card-body">
                     <h3 class="card-title">
-                      <a href="{% url 'app:list_cves' page=1 %}" ><b>{{ p.name }}</b></a>
+                      <form  method="post">
+                      <a href="{% url 'accounts:list_cve_by_product'  %}" ><b>{{ p.name }}</b></a>
+                      </form>
                   </h3>  
                        <div  style="height:30px;">
                         <input type="checkbox" id="morning" name="selected_products" value="{{ p.name }}" class="largerCheckbox">

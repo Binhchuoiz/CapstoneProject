@@ -132,6 +132,13 @@ def list_product_view(request):
 	}
 	return render(request, 'accounts/list_product.html',context=context)
 
+#Thêm hàm tại đây!
+def list_cve_by_product_view(request):
+	return render(request, 'accounts/list_cve_by_product.html')
+
+
+
+
 @login_required
 def change_password_view(request, pk):
 	try:

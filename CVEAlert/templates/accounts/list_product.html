@@ -144,7 +144,7 @@
                       <div class="card-body" style="padding: 20px;">
                           <a href="#"><h5 class="card-title"> <b>{{ it.name }}</b></h5></a>
                           <p class="card-text">Product: "{{ it.name }}"</p>
-                          <button class="btn btn-one" style=" width:120px;"; ><b>UNFOLLOW </b></button>
+                         
                       </div>
                     
                   </div>
@@ -177,9 +177,34 @@
                 {% endfor %}
                 <hr>
                   <button class="btn btn-one"><b>FIND</b></button>
+                  <form  method="post">
+                    {% csrf_token %}
+                    <input type="hidden" id="selected_products_localstorage" name="selected_products_localstorage">
+                  <button type="submit" class="btn btn-one" style="width:130px;"  onclick="followAll1()">  <b >UNFOLLOW </b></button>
+                  </form>
               </form>
             </div>
         </div>
        
     </div>
+    <script>
+      function followAll1() {
+        // Lấy tất cả các checkbox được chọn
+        var checkboxes = document.querySelectorAll("input[type='checkbox']:checked");
+      
+        // Tạo danh sách để lưu trữ giá trị
+        var values = [];
+      
+        // Lặp qua từng checkbox và lấy giá trị
+        for (var i = 0; i < checkboxes.length; i++) {
+          values.push(checkboxes[i].value);
+        }
+      
+        // Lưu trữ danh sách giá trị vào Local Storage
+        localStorage.setItem("selected_checkboxes", JSON.stringify(values));
+        document.getElementById("selected_products_localstorage").value = JSON.stringify(values);
+        // Hiển thị thông báo
+        {% comment %} alert("Đã lưu trữ giá trị checkbox!"); {% endcomment %}
+      }
+    </script>
 {% endblock %}

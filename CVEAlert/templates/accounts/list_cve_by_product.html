@@ -1,0 +1,352 @@
+{% extends 'navbar.html' %}
+
+{% block css %}
+    a {
+    text-decoration: none;
+    color: black;
+    }
+    .pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    /*=SEARCH BAR=*/
+
+   
+
+    /*=CARD TITLE=*/
+    .card-title{
+        a {
+            box-shadow: inset 0 0 0 0 black;
+            color: black;
+              padding: 0 .25rem;
+              margin: 0 -.25rem;
+              border-radius: 5px;
+            transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+          }
+          a:hover {
+            color: white;
+            box-shadow: inset 200px 0 0 0 black;;
+          }
+          
+          /* Presentational styles */
+          a {
+            color: black;
+            font-family: 'Poppins', sans-serif;
+            font-size: 23px;
+            font-weight: 600;
+            line-height: 0;
+            text-decoration: none;
+          }
+    }
+    /*=READ NOW=*/
+    .btn {
+        line-height: 20px;
+        height: 60px;
+        text-align: center;
+        width: 120px;
+        cursor: pointer;
+        background-color:black;
+      }
+      .btn-one {
+        color: white;
+        transition: all 0.5s;
+        position: relative;
+      }
+      .btn-one span {
+        transition: all 0.5s;
+      }
+      .btn-one::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        opacity: 0;
+        transition: all 1s;
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-top-style: solid;
+        border-bottom-style: solid;
+        border-top-color: black;
+        border-bottom-color: black;
+        transform: scale(0.1, 1);
+        
+      }
+      .btn-one:hover span {
+        letter-spacing: 2px;
+      }
+      .btn-one:hover::before {
+        opacity: 1; 
+        transform: scale(1, 1); 
+      }
+      .btn-one::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        transition: all 0.3s;
+        background-color: rgba(255,255,255,0.1);
+      }
+      .btn-one:hover::after {
+        opacity: 0; 
+        transform: scale(0.1, 1);
+      }
+      
+
+/*=PAGE=*/
+.pagination-style-one a { 
+    padding: 10px; 
+    margin: 15px;
+    background: black; 
+    color: white; 
+    border-radius: 80%; 
+    box-shadow: 0px 5px 10px 5px rgba(0,0,0,.1);}
+.pagination-style-one a.selected, 
+.pagination-style-one a:hover, 
+.pagination-style-one a:active, 
+.pagination-style-one a:focus { 
+    padding: 15px; 
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,.5);
+}
+
+.custom-select {
+    position: relative;
+    width: 100%;
+    height:40px;
+    font-size:17px;
+    text-align:center;
+    background-color:white;
+    color:black;
+    border-radius:5px;
+  }
+
+  /*= NOTIFICATIONS=*/
+  @import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+
+span{
+  position: relative;
+  display: inline-flex;
+  width: -10px;
+  height: 55px;
+  margin: 0 5px;
+  perspective: 1000px;
+}
+span a{
+  font-size: 15px;
+  letter-spacing: 1px;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform .25s;
+  
+}
+span a:before,
+span a:after{
+  position: absolute;
+  content: "Get Notify now!";
+  height: 60px;
+  width: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid black;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+span a:before{
+  color: #fff;
+  background: #000;
+  transform: rotateY(0deg) translateZ(25px);
+}
+span a:after{
+  color: #000;
+  transform: rotateX(90deg) translateZ(25px);
+}
+span a:hover{
+  transform: translateZ(-25px) rotateX(-90deg);
+}
+
+
+{% comment %} /*Check Box*/
+body{
+  counter-reset: checkBox-counter 0 ;
+  
+}
+
+div{
+counter-reset: checkBox-length;
+
+
+input[type="checkBox"]:after{
+  counter-increment: checkBox-length;
+  content: counter(checkBox-length);
+  position: relative;
+  top: 15px;
+  
+}
+input:checked{
+   counter-increment: checkBox-counter;
+   
+}
+}
+
+main:after{
+content: "Number of Products Selected: " counter(checkBox-counter) ;
+display: block;
+position: absolute; /*fixed*/
+margin:-15px;
+}
+
+input.largerCheckbox {
+  width: 40px;
+  height: 40px;
+} {% endcomment %}
+
+{% endblock %}
+
+
+{% block title %}
+List CVEs by Product Followed
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row" style="margin-top: 30px; margin-bottom: 30px;">
+        <div class="col-3">
+        </div>
+        <div class="col-9">
+            <form method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input name="search_focus" type="search" class="form-control" placeholder="Search CVE ID..."/>
+                    <button type="submit" class="btn btn-one">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <div>
+                        <span><a href="{% url 'app:tele_noti' %}"></a></span>
+                </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div class="row" style="margin-top: 30px;">
+        {# Hiển thị filter year#}
+        <div class="col-3 " >
+        </br>
+    </br>
+</br>
+
+            <h3><b><u>FINDING METHODS</u></b></h3>
+  
+          
+            <form method="post">
+                {% csrf_token %}
+            </br>
+                <h3>PUBLISHED YEARS:</h3>
+                <hr>
+                {% comment %} {% for it in unique_year %}
+                    <input type="checkbox" id="years" name="filter_year" value="{{ it }}">
+                    <label for="years">{{ it }}</label><br>
+                {% endfor %}  {% endcomment %}
+                <select name="filter_year" class="custom-select">
+                    {% for it in unique_year %}
+                    <b> <option value="{{ it }}">{{ it }}</option></b>
+                    {% endfor %}
+                </select>
+                <hr>
+            </br>
+
+
+                <button type="submit" class="btn btn-one" style="width:100%"><b>FIND</b></button>
+
+
+            </form>
+        </br>
+    </br>
+</br>
+
+        </div>
+        <div class="col-9 ">
+            <h2 style="font-size: 35px; text-align:center"><b><u>List CVEs by Product Followed</u></b></h2>
+          
+            {% for cve in page_obj %}
+        </br>
+                <div class="col" >
+                    <div class="card h-100" style="border-width:2px; border-color:black">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <a href="{% url 'app:detail_cves' pk=cve.pk %}">{{ cve.cve_id }}</a>
+                            </h3>
+                            <div class="card-body" style="padding: 30px;">
+                                <p class="card-text">
+                                    <b> Year:</b> "{{ cve.year }}"
+                                </p>
+                                <p class="card-text">
+                                    <b> Publish Date: </b>"{{ cve.date_publish }}"
+                                </p>
+                                <p class="card-text">
+                                    {% for a in page_obj.affected %}
+                                        {% if a.con_id == cve.id %}
+                                            <p class="card-text"><b> Product:</b> "{{ a.product.name }}"</p>
+                                          {% endif %}
+                                    {% endfor %}
+                                </p>
+                               
+                                 <a href="{% url 'app:detail_cves' pk=cve.pk %}" class="cta">
+                                    <button class="btn btn-one"> <b style= "color: dodgerblue"> READ </b>NOW</button>
+                                </a> 
+                                {% comment %} <div>
+                                  <input type="checkbox" value="{{ cve.cve_id }}"name="laptop" id="result" class="largerCheckbox">
+                                  
+                                </div>  {% endcomment %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            {% endfor %}
+            </br>
+           
+            {% comment %} <div class="pagination pagination-style-one m-t-20">
+              <a href="{% if selected_year %}{% url 'app:list_cves' page=page.prev %}?filter_year={{ selected_year }}{% if search_focus %}&search_focus={{ search_focus }}{% endif %}{% elif search_focus %}{% url 'app:list_cves' page=page.prev %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_cves' page=page.prev %}{% endif %}">< Pre</a>
+              <a style="color:white">Page {{ page.current }} of {{ len_page }}</a>
+              <a href="{% if selected_year %}{% url 'app:list_cves' page=page.next %}?filter_year={{ selected_year }}{% if search_focus %}&search_focus={{ search_focus }}{% endif %}{% elif search_focus %}{% url 'app:list_cves' page=page.next %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_cves' page=page.next %}{% endif %}">Next ></a>
+          </div> {% endcomment %}
+          {% comment %} <div class="card h-10" style="border-width:2px; border-color:black">
+            <div class="card-body" style="padding: 30px;">
+                <p class="card-text">
+                  <main></main>
+                </p>
+                <p class="card-text" style="margin-left:0px; width:100px;margin-top:50px;">
+                <button class="btn btn-one" onclick="getValue()"> <b style= "color: dodgerblue;"> CHECK</button> 
+              </p>
+              </div>
+      </div> {% endcomment %}
+        </div>   
+    </div>
+</div>
+
+{% comment %} <script>
+  function getValue() {
+      let checkboxes =
+          document.getElementsByName('laptop');
+      let result = "";
+      for (var i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].checked) {
+              result += "+ " + checkboxes[i].value + "</br>";
+          }
+      }
+
+   
+    document.write("<p> You have selected : </br>"
+          + result + "</p>"); 
+  }
+</script> {% endcomment %}
+{% endblock %}
