@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.http import JsonResponse
 from CVEAlert.chatbot import ask_openai
 import requests
+import json
 
 
 from . import forms
@@ -122,6 +123,12 @@ def list_product_view(request):
 	affected = Affected.objects.filter(product_id__in=list_product_ids)
 	affected_con_id = [a.id for a in affected]
 	listCVE = CVE.objects.filter(id__in=affected_con_id)
+	if 'selected_products_localstorage' in request.POST:
+		selected_products_localstorage = json.loads(request.POST.get('selected_products_localstorage'))
+		products = Products.objects.filter(name__in=selected_products_localstorage)
+		for p in products:
+			Follow_Product.objects.filter(user=user, product=p).delete()
+		page = 1
 	# product_cve
 
 

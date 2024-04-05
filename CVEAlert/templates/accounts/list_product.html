@@ -189,6 +189,8 @@
     </div>
     <script>
       function followAll1() {
+        // Xoá dữ liệu cũ trong Local Storage
+        localStorage.removeItem('selected_products_localstorage');
         // Lấy tất cả các checkbox được chọn
         var checkboxes = document.querySelectorAll("input[type='checkbox']:checked");
       
