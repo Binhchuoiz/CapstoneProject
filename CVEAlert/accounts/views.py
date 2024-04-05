@@ -141,7 +141,28 @@ def list_product_view(request):
 
 #Thêm hàm tại đây!
 def list_cve_by_product_view(request):
-	return render(request, 'accounts/list_cve_by_product.html')
+	listCVE = []
+	if request.method == 'POST':
+		if 'search_product' in request.POST:
+			search_product = json.loads(request.POST.get('search_product'))
+			product = Products.objects.filter(name__contains=search_product)
+			product_id = [p.id for p in product]
+			affected = Affected.objects.filter(product_id__in=product_id)
+			affected_con_id = [a.con_id for a in affected]
+			listCVE = CVE.objects.filter(id__in=affected_con_id)
+	cve_ids = [cve.id for cve in listCVE]
+	affected_cve = Affected.objects.filter(con_id__in=cve_ids)
+	products_cve = {}
+	for a in affected_cve:
+		if a.con_id in products_cve:
+			products_cve[a.con_id].append(a.product)
+		else:
+			products_cve[a.con_id] = [a.product]
+	listCVE.affected_cve = affected_cve
+	context = {
+		'listCVE': listCVE,
+	}
+	return render(request, 'accounts/list_cve_by_product.html', context=context)
 
 
 

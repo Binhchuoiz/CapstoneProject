@@ -276,25 +276,28 @@ List CVEs by Product Followed
         <div class="col-9 ">
             <h2 style="font-size: 35px; text-align:center"><b><u>List CVEs by Product Followed</u></b></h2>
           
-          
+            {% for l in listCVE %}
         </br>
+
                 <div class="col" >
                     <div class="card h-100" style="border-width:2px; border-color:black">
                         <div class="card-body">
                             <h3 class="card-title">
-                                <a href="#">test</a>
+                                <a href="#">{{ l.cve_id }}</a>
                             </h3>
                             <div class="card-body" style="padding: 30px;">
                                 <p class="card-text">
-                                    <b> Year:</b> "test"
+                                    <b> Year:</b> {{ l.year }}
                                 </p>
                                 <p class="card-text">
-                                    <b> Publish Date: </b>"test"
+                                    <b> Publish Date: </b>{{ l.date_publish }}
                                 </p>
                                 <p class="card-text">
-                                 
-                                            <p class="card-text"><b> Product:</b> "test"</p>
-                             
+                                  {% for i in listCVE.affected_cve %}
+                                        {% if i.con_id == i.id %}
+                                            <p class="card-text"><b> Product:</b> "{{ i.product.name }}"</p>
+                                          {% endif %}
+                                    {% endfor %}
                                 </p>
                                
                                  <a href="#" class="cta">
@@ -308,7 +311,7 @@ List CVEs by Product Followed
                 </div>
        
             </br>
-           
+            {% endfor %}
         </div>   
     </div>
 </div>
