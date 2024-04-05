@@ -10,6 +10,7 @@ import requests
 
 from . import forms
 from . import models
+from firstapp.models import Products, Follow_Product, Affected, CVE
 
 status_noti = [
 	('telegram', 'Telegram'),
@@ -100,7 +101,7 @@ def profile_detail_view(request):
 
 
 
-def list_affect_view(request):
+def list_product_view(request):
 	try:
 		check_user_notifi = models.NotiUser.objects.get(user=request.user)
 		if not check_user_notifi.status:
@@ -114,13 +115,21 @@ def list_affect_view(request):
 		response = ask_openai(message)
 
 		return JsonResponse({'message': message, 'response': response})
-	
+	user = request.user
+	list_follow = Follow_Product.objects.filter(user=user)
+	list_product_ids = [follow.product_id for follow in list_follow]
+	list_products = Products.objects.filter(id__in=list_product_ids)
+	affected = Affected.objects.filter(product_id__in=list_product_ids)
+	affected_con_id = [a.id for a in affected]
+	listCVE = CVE.objects.filter(id__in=affected_con_id)
 
 
 	context = {
 		'status': status,
+		'list_products': list_products,
+		'listCVE': listCVE,
 	}
-	return render(request, 'accounts/list_affect.html',context=context)
+	return render(request, 'accounts/list_product.html',context=context)
 
 @login_required
 def change_password_view(request, pk):

@@ -127,8 +127,8 @@
                        href="{% url 'accounts:change_password' pk=request.user.pk %}">Password</a>
                 </p>
                 <p class="link">
-                    <a class="{% if '/account/list-affect/' in request.path %}active{% endif %}"
-                       href="{% url 'accounts:list_affect'  %}">Affected Followed</a>
+                    <a class="{% if '/account/list-product/' in request.path %}active{% endif %}"
+                       href="{% url 'accounts:list_product'  %}">Product Followed</a>
                 </p>
                 <p class="link">
                     <a href="{% url 'accounts:notification' %}">Setting Notification</a>
@@ -136,7 +136,7 @@
             </div>
             <div class="col-5">
                 <div class="list-group">
-                  <h2><b>YOUR</b> <b style="color: dodgerblue">AFFECTED</b></h2>
+                  <h2><b>YOUR</b> <b style="color: dodgerblue">PRODUCT</b></h2>
                     
                 </div>
                 

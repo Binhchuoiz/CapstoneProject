@@ -97,13 +97,13 @@ def get_list_CVE(request, page):
             products[a.con_id] = [a.product]
             vendors[a.con_id] = [a.vendor]
     page_obj.affected = affected
-    if request.method == 'POST' and 'search_focus' in request.POST and 'products' in request.POST:
-             product_Name = request.POST['search_focus']
-             affected = Affected.objects.filter(product__in = product_Name)
-    elif request.method == 'POST' and 'search_focus' in request.POST and 'vendors' in request.POST:
-             vendors_Name = request.POST['search_focus']
-             affected = Affected.objects.filter(vendor__in=vendors_Name)   
-    page_obj.affected = affected
+    # if request.method == 'POST' and 'search_focus' in request.POST and 'products' in request.POST:
+    #          product_Name = request.POST['search_focus']
+    #          affected = Affected.objects.filter(product__in = product_Name)
+    # elif request.method == 'POST' and 'search_focus' in request.POST and 'vendors' in request.POST:
+    #          vendors_Name = request.POST['search_focus']
+    #          affected = Affected.objects.filter(vendor__in=vendors_Name)   
+    # page_obj.affected = affected
     # print(unique_year_List)
     context = {
         "page": {
@@ -132,16 +132,14 @@ def get_list_CVE(request, page):
 
 def get_list_Products(request, page):
     letter=None
+    search_focus=None
     list_products = Products.objects.all().order_by('name')
     if request.method == 'POST':
         letter = request.POST.get('letter')
         if letter:
             list_products = Products.objects.filter(name__istartswith=letter).order_by('name')
     elif letter:
-        list_products = Products.objects.filter(name__istartswith=letter).order_by('name')
-    per_page = request.GET.get("per_page", 10)
-    paginator = Paginator(list_products, per_page)
-    page_obj = paginator.get_page(page)
+        list_products = Products.objects.filter(name__istartswith=letter).order_by('name')   
     
     try:
         check_user_notifi = NotiUser.objects.get(user=request.user)
@@ -158,14 +156,29 @@ def get_list_Products(request, page):
             message = request.POST['message']
             response = ask_openai(message)
             return JsonResponse({'message': message, 'response': response})
+        elif 'search_focus' in request.POST:
+            search_focus = request.POST['search_focus']
+            list_products = list_products.filter(name__contains=search_focus)
+            page=1
         elif 'selected_products_localstorage' in request.POST:
             user = request.user
             selected_products_localstorage = json.loads(request.POST.get('selected_products_localstorage'))
             products = Products.objects.filter(name__in=selected_products_localstorage)
             for p in products:
                 Follow_Product.objects.get_or_create(user=user, product=p)
-            return redirect('app:list_products', page=1)
-
+            page=1
+    else:
+        search_focus = request.GET.get('search_focus', None)
+        if search_focus:
+            list_products = list_products.filter(name__contains=search_focus)
+        search_focus = request.GET.get('search_focus', None)
+    per_page = request.GET.get("per_page", 10)
+    paginator = Paginator(list_products, per_page)
+    page_obj = paginator.get_page(page)
+    list_product_ids = [p.id for p in page_obj]
+    affected = Affected.objects.filter(product_id__in=list_product_ids)
+    affected_con_id = [a.id for a in affected]
+    listCVE = CVE.objects.filter(id__in=affected_con_id)
     
     context = {
         "page": {
@@ -179,6 +192,8 @@ def get_list_Products(request, page):
         'list_products': list_products,
         'status': status,
 		'letter': letter,
+		'search_focus': search_focus,
+        'listCVE': listCVE,
     }
     return render(request, 'firstapp/list_products.html', context=context)
 

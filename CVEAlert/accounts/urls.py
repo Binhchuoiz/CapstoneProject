@@ -9,6 +9,6 @@ urlpatterns = [
     path('log-out/', views.get_logout, name='log_out'),
     path('change-password/<int:pk>/', views.change_password_view, name='change_password'),
     path('profile/', views.profile_detail_view, name='profile'),
-    path('list-affect', views.list_affect_view, name='list_affect'),
+    path('list-product', views.list_product_view, name='list_product'),
 	path('notification/', views.notification_user_view, name='notification'),
 ]
