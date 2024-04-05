@@ -249,9 +249,11 @@ input.largerCheckbox {
                 <div class="card h-100" style="border-width:2px; border-color:black">
                   <div class="card-body">
                     <h3 class="card-title">
-                      <form  method="post">
-                      <a href="{% url 'accounts:list_cve_by_product'  %}" ><b>{{ p.name }}</b></a>
-                      </form>
+                      {% csrf_token %}
+                      <form method="post" id="product_form">
+                        
+                        <a href="{% url 'accounts:list_cve_by_product'  %}" class="product-link"><b>{{ p.name }}</b></a>
+                    </form>
                   </h3>  
                        <div  style="height:30px;">
                         <input type="checkbox" id="morning" name="selected_products" value="{{ p.name }}" class="largerCheckbox">
@@ -361,6 +363,27 @@ input.largerCheckbox {
     </p>
     </div>
   </div> 
+  <script>
+    localStorage.removeItem('search_product');
+    // Lấy tất cả các thẻ 'a' có class 'product-link'
+    const productLinks = document.querySelectorAll('.product-link');
+
+    // Lặp qua từng thẻ 'a'
+    productLinks.forEach(link => {
+        // Lắng nghe sự kiện click
+        link.addEventListener('click', function(event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+
+            const productName = this.innerText; // Lấy tên sản phẩm từ nội dung của thẻ 'a'
+
+            // Lưu giá trị vào local storage với khóa là "search_product"
+            localStorage.setItem('search_product', productName);
+
+            // Gửi form
+            document.getElementById('product_form').submit();
+        });
+    });
+</script>
   <script>
     function myFunction1() {
       // Lấy tất cả các checkbox được chọn
