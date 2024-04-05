@@ -249,9 +249,8 @@ input.largerCheckbox {
                 <div class="card h-100" style="border-width:2px; border-color:black">
                   <div class="card-body">
                     <h3 class="card-title">
-                      {% csrf_token %}
-                      <form method="post" id="product_form">
-                        
+                      <form action="{% url 'accounts:list_cve_by_product'  %}" id="product_form">
+                        {% csrf_token %}
                         <a href="{% url 'accounts:list_cve_by_product'  %}" class="product-link"><b>{{ p.name }}</b></a>
                     </form>
                   </h3>  

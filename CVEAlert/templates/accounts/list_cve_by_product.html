@@ -276,77 +276,42 @@ List CVEs by Product Followed
         <div class="col-9 ">
             <h2 style="font-size: 35px; text-align:center"><b><u>List CVEs by Product Followed</u></b></h2>
           
-            {% for cve in page_obj %}
+          
         </br>
                 <div class="col" >
                     <div class="card h-100" style="border-width:2px; border-color:black">
                         <div class="card-body">
                             <h3 class="card-title">
-                                <a href="{% url 'app:detail_cves' pk=cve.pk %}">{{ cve.cve_id }}</a>
+                                <a href="#">test</a>
                             </h3>
                             <div class="card-body" style="padding: 30px;">
                                 <p class="card-text">
-                                    <b> Year:</b> "{{ cve.year }}"
+                                    <b> Year:</b> "test"
                                 </p>
                                 <p class="card-text">
-                                    <b> Publish Date: </b>"{{ cve.date_publish }}"
+                                    <b> Publish Date: </b>"test"
                                 </p>
                                 <p class="card-text">
-                                    {% for a in page_obj.affected %}
-                                        {% if a.con_id == cve.id %}
-                                            <p class="card-text"><b> Product:</b> "{{ a.product.name }}"</p>
-                                          {% endif %}
-                                    {% endfor %}
+                                 
+                                            <p class="card-text"><b> Product:</b> "test"</p>
+                             
                                 </p>
                                
-                                 <a href="{% url 'app:detail_cves' pk=cve.pk %}" class="cta">
+                                 <a href="#" class="cta">
                                     <button class="btn btn-one"> <b style= "color: dodgerblue"> READ </b>NOW</button>
                                 </a> 
-                                {% comment %} <div>
-                                  <input type="checkbox" value="{{ cve.cve_id }}"name="laptop" id="result" class="largerCheckbox">
-                                  
-                                </div>  {% endcomment %}
+                               
                             </div>
                         </div>
                     </div>
                     
                 </div>
-            {% endfor %}
+       
             </br>
            
-            {% comment %} <div class="pagination pagination-style-one m-t-20">
-              <a href="{% if selected_year %}{% url 'app:list_cves' page=page.prev %}?filter_year={{ selected_year }}{% if search_focus %}&search_focus={{ search_focus }}{% endif %}{% elif search_focus %}{% url 'app:list_cves' page=page.prev %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_cves' page=page.prev %}{% endif %}">< Pre</a>
-              <a style="color:white">Page {{ page.current }} of {{ len_page }}</a>
-              <a href="{% if selected_year %}{% url 'app:list_cves' page=page.next %}?filter_year={{ selected_year }}{% if search_focus %}&search_focus={{ search_focus }}{% endif %}{% elif search_focus %}{% url 'app:list_cves' page=page.next %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_cves' page=page.next %}{% endif %}">Next ></a>
-          </div> {% endcomment %}
-          {% comment %} <div class="card h-10" style="border-width:2px; border-color:black">
-            <div class="card-body" style="padding: 30px;">
-                <p class="card-text">
-                  <main></main>
-                </p>
-                <p class="card-text" style="margin-left:0px; width:100px;margin-top:50px;">
-                <button class="btn btn-one" onclick="getValue()"> <b style= "color: dodgerblue;"> CHECK</button> 
-              </p>
-              </div>
-      </div> {% endcomment %}
         </div>   
     </div>
 </div>
 
-{% comment %} <script>
-  function getValue() {
-      let checkboxes =
-          document.getElementsByName('laptop');
-      let result = "";
-      for (var i = 0; i < checkboxes.length; i++) {
-          if (checkboxes[i].checked) {
-              result += "+ " + checkboxes[i].value + "</br>";
-          }
-      }
 
-   
-    document.write("<p> You have selected : </br>"
-          + result + "</p>"); 
-  }
-</script> {% endcomment %}
 {% endblock %}
