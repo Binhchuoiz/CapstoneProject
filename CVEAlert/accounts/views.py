@@ -204,6 +204,7 @@ def change_password_view(request, pk):
 	return render(request, 'accounts/change_password.html', context=context)
 
 def notification_user_view(request):
+    message=""
     try:
         check_user_notifi = models.NotiUser.objects.get(user=request.user)
         if not check_user_notifi.status:
@@ -212,7 +213,7 @@ def notification_user_view(request):
             status = True
     except:
         status = False
-
+    
     form = forms.CreateNotification()
     data_noti = models.NotiUser.objects.get(user_id=request.user.id)
     if request.method == 'POST' and 'message' in request.POST:
@@ -225,7 +226,7 @@ def notification_user_view(request):
         email_address = request.POST['email_address']
         token_bot = request.POST['token_bot']
         chat_id = get_chat_id(token_bot)
-
+        
         
             # Chat ID retrieved successfully
         data_noti.status = status
@@ -249,7 +250,7 @@ def notification_user_view(request):
         'form': form,
         'data_noti': data_noti,
         'status': status,  
-		'message': message
+		'message': message,
     }
     return render(request, 'accounts/notification_user.html', context=context)
 
