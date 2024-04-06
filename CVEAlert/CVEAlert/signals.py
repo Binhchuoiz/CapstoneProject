@@ -2,7 +2,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver,Signal
 
 from .alert_tele import send_message_telegram , reformat_tele_message
-from firstapp.models import CVE , CvssV31 , Descriptions , User, Metric ,Follow_Product,Affected
+from firstapp.models import CVE , CvssV31 , Descriptions , User, Metric ,Follow_Product,Affected,CvssV20,CvssV30
 from accounts.models import NotiUser
 from .alert_email import send_email
 # cve_Updated = Signal()
@@ -22,6 +22,14 @@ def new_cve_noti(sender, instance, created, **kwargs):
                 cvssv31 = CvssV31.objects.get(id=metric)
         except:
                 cvssv31 = None
+        try:
+                cvssv30 = CvssV30.objects.get(id=metric)
+        except:
+                cvssv30 = None
+        try:
+                cvssv20 = CvssV20.objects.get(id=metric)
+        except:
+                cvssv20 = None
         print("invoked2")
         affected_entities = Affected.objects.filter(con=cve).first()
         if affected_entities:
@@ -32,7 +40,7 @@ def new_cve_noti(sender, instance, created, **kwargs):
         # for affected_entity in affected_entities:
         subscribed_users = NotiUser.objects.filter(user__in= Follow_products.values_list('user',flat=True))
         print(subscribed_users)
-        message = reformat_tele_message(cve.cve_id, cvssv31, descriptions, cve.id)
+        message = reformat_tele_message(cve.cve_id,cvssv20,cvssv30, cvssv31, descriptions, cve.id)
         for user in subscribed_users:
                 print(user.status)
                 print(user.chat_id)

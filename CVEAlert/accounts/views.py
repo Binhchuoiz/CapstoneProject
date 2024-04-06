@@ -204,6 +204,7 @@ def change_password_view(request, pk):
 	return render(request, 'accounts/change_password.html', context=context)
 
 def notification_user_view(request):
+    
     try:
         check_user_notifi = models.NotiUser.objects.get(user=request.user)
         if not check_user_notifi.status:
@@ -212,7 +213,7 @@ def notification_user_view(request):
             status = True
     except:
         status = False
-
+    message=""
     form = forms.CreateNotification()
     data_noti = models.NotiUser.objects.get(user_id=request.user.id)
     if request.method == 'POST' and 'message' in request.POST:
