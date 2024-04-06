@@ -189,13 +189,13 @@ def change_password_view(request, pk):
 		new_password_conf = request.POST['your_news_password2']
 		print("--check", cur_user.check_password(old_pass))
 		if not cur_user.check_password(old_pass):
-			mess = 'Bạn nhập mật khẩu cũ không đúng, vui lòng nhập lại!'
+			mess = 'You entered the wrong old passwrod , please try again!'
 		elif new_password != new_password_conf:
-			mess = "Mật khẩu mới bạn nhập không trùng nhau, vui lòng thử lại!!"
+			mess = "The password you inputted does not match , please try again!"
 		else:
 			cur_user.set_password(new_password)
 			cur_user.save()
-			mess = "Bạn đã thay đổi mật khẩu thành công!"
+			mess = "You have changed password successfully"
 			return HttpResponseRedirect(reverse('accounts:login'))
 	context = {
 		'mess' : mess,
@@ -204,55 +204,46 @@ def change_password_view(request, pk):
 	return render(request, 'accounts/change_password.html', context=context)
 
 def notification_user_view(request):
-    
-    try:
-        check_user_notifi = models.NotiUser.objects.get(user=request.user)
-        if not check_user_notifi.status:
-            status = False
-        else:
-            status = True
-    except:
-        status = False
-    message=""
-    form = forms.CreateNotification()
-    data_noti = models.NotiUser.objects.get(user_id=request.user.id)
-    if request.method == 'POST' and 'message' in request.POST:
-        message = request.POST['message']
-        response = ask_openai(message)
+	try :
+		check_user_notifi = models.NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+			status = False
+	form = forms.CreateNotification()
+	data_noti = models.NotiUser.objects.get(user_id= request.user.id)
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
 
-        return JsonResponse({'message': message, 'response': response})
-    elif request.method == 'POST':
-        status = request.POST['status']
-        email_address = request.POST['email_address']
-        token_bot = request.POST['token_bot']
-        chat_id = get_chat_id(token_bot)
+		return JsonResponse({'message': message, 'response': response})
+	elif request.method == 'POST':
+		status = request.POST['status']
+		email_address = request.POST['email_address']
+		token_bot = request.POST['token_bot']
+		chat_id = get_chat_id(token_bot)
 
-        
-            # Chat ID retrieved successfully
-        data_noti.status = status
-        data_noti.email_address = email_address
-        data_noti.token_bot = token_bot
-        data_noti.save()
-        if chat_id:
-            data_noti.chat_id = chat_id
-            data_noti.save()
-            message = "Chat_id retrieve successfully"
-            # print(data_noti.email_address)
-            # print(chat_id)
-        else:
-            # Handle the case when chat ID retrieval fails
-            message = "Failed to retrieve chat_id"
+		data_noti.status = status
+		data_noti.email_address = email_address
+		data_noti.token_bot = token_bot
+		data_noti.chat_id = chat_id
+		data_noti.save()
+		# print(chat_id)
+		return HttpResponseRedirect(reverse('accounts:profile'))
+	
+	context ={
+		'user' : request.user,
+		'form' : form,
+		'data_noti': data_noti,
+		'status_noti': status_noti,
+		'status' : status
+	}
 
-        return HttpResponseRedirect(reverse('accounts:profile'))
-
-    context = {
-        'user': request.user,
-        'form': form,
-        'data_noti': data_noti,
-        'status': status,  
-		'message': message
-    }
-    return render(request, 'accounts/notification_user.html', context=context)
+	
+	return render(request, 'accounts/notification_user.html',context=context)
+  
 
 def get_chat_id(bot_token):
     url_updates = f"https://api.telegram.org/bot{bot_token}/getUpdates"

@@ -138,6 +138,9 @@
                 </p>
             </div>
             <div class="col-6">
+              {% comment %} {% if message %} 
+              <p class="alert-msg">{{ message }}</p>
+              {% endif %} {% endcomment %}
               <form method="post" class="form-edit-profile" enctype="multipart/form-data">
                 {% csrf_token %}
                 <h2><b>YOUR</b> <b style="color: dodgerblue">NOTIFICATION</b></h2>
