@@ -168,7 +168,11 @@
                   <div class="card mb-3">
                       <div class="card-body" style="padding: 20px;">
                         <h5 class="card-title">
-                          <a href="{% url 'accounts:list_cve_by_product'  %}"> <b>{{ it.name }}</b></a>
+                          <form method="post" action="{% url 'accounts:list_cve_by_product'  %}" id="search_product_form">
+                            {% csrf_token %}
+                            <input type="hidden" name="search_product" id="search_product_input">
+                            <a href="{% url 'accounts:list_cve_by_product'  %}" class="product-link"><b>{{ it.name }}</b></a>
+                        </form>   
                         </h5>
                       </br>
                     
@@ -216,6 +220,30 @@
         </div>
        
     </div>
+    <script>
+      localStorage.removeItem('search_product');
+      // Lấy tất cả các thẻ 'a' có class 'product-link'
+      const productLinks = document.querySelectorAll('.product-link');
+  
+      // Lặp qua từng thẻ 'a'
+      productLinks.forEach(link => {
+          // Lắng nghe sự kiện click
+          link.addEventListener('click', function(event) {
+              event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+  
+              const productName = this.innerText; // Lấy tên sản phẩm từ nội dung của thẻ 'a'
+  
+              // Lưu giá trị vào local storage với khóa là "search_product"
+              localStorage.setItem('search_product', JSON.stringify(productName));
+  
+              // Đặt giá trị cho input trong form
+              document.getElementById('search_product_input').value = JSON.stringify(productName);
+  
+              // Submit form
+              document.getElementById('search_product_form').submit();
+          });
+      });
+  </script>
     <script>
       function followAll1() {
         // Xoá dữ liệu cũ trong Local Storage
