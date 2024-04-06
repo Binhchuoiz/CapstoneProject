@@ -34,9 +34,9 @@ def new_cve_noti(sender, instance, created, **kwargs):
         print(subscribed_users)
         message = reformat_tele_message(cve.cve_id, cvssv31, descriptions, cve.id)
         for user in subscribed_users:
-                # print(user.status)
-                # print(user.chat_id)
-                # print(user.token_bot)
+                print(user.status)
+                print(user.chat_id)
+                print(user.token_bot)
                 if user.status == "telegram" :
                                 if   user.token_bot and user.chat_id:
                                         # print(user.chat_id)
