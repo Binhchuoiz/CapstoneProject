@@ -114,7 +114,6 @@ def list_product_view(request):
 	if request.method == 'POST' and 'message' in request.POST:
 		message = request.POST['message']
 		response = ask_openai(message)
-
 		return JsonResponse({'message': message, 'response': response})
 	user = request.user
 	list_follow = Follow_Product.objects.filter(user=user)
