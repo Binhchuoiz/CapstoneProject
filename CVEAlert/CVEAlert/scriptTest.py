@@ -188,7 +188,7 @@ def read_json_files(folder_path, folder_name):
 
 # Specify the path to the directory containing JSON files
 # cves_folder_path = r"E:\IAP104\cvelistV5-main\cves"
-cves_folder_path = r"D:\Đồ án\test\test"
+cves_folder_path = r"D:\Đồ án\cvelistV5\cves"
 cves_folder_path = os.path.normpath(cves_folder_path)
 
 try:
