@@ -140,6 +140,20 @@ def list_product_view(request):
 
 #Thêm hàm tại đây!
 def list_cve_by_product_view(request):
+	try :
+		check_user_notifi = models.NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status:
+			status = False
+		else:
+			status = True
+	except:
+			status = False
+
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
 	listCVE = []
 	if request.method == 'POST':
 		if 'search_product' in request.POST:
@@ -160,6 +174,7 @@ def list_cve_by_product_view(request):
 	listCVE.affected_cve = affected_cve
 	context = {
 		'listCVE': listCVE,
+		'status':status,
 	}
 	return render(request, 'accounts/list_cve_by_product.html', context=context)
 
@@ -229,6 +244,7 @@ def notification_user_view(request):
 		data_noti.email_address = email_address
 		data_noti.token_bot = token_bot
 		data_noti.chat_id = chat_id
+		#print(chat_id)
 		data_noti.save()
 		return HttpResponseRedirect(reverse('accounts:profile'))
 	
