@@ -39,7 +39,7 @@ def get_home(request):
         'affected': affected,
 		'status': status,
     }
-    return render(request, 'home.html', context=context)
+    return render(request, 'index.html', context=context)
 
 def get_list_CVE(request, page):
     listCVE = CVE.objects.all().order_by('date_publish')

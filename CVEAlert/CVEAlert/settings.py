@@ -87,22 +87,27 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'test',
         'USER': 'root',
-        'PASSWORD': 'Hanoi123789@',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
     }
 }
 
+
+
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'test',
-#         'USER': 'root',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
+#         'NAME': 'defaultdb',
+#         'USER': 'avnadmin',
+#         'PASSWORD': 'AVNS_IDnM8mJteaEzMW9X_5f',
+#         'HOST': 'mysql-195c0d0a-okthichiatay77-7f88.a.aivencloud.com',
+#         'PORT': '15475',
 #     }
 # }
+
+
 
 # DATABASES = {
 # 'default': {
