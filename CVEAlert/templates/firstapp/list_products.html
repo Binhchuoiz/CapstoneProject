@@ -300,9 +300,9 @@ input.largerCheckbox {
            </br>
          
            <div class="pagination pagination-style-one m-t-20">
-            <a href="{% if letter %}{% url 'app:list_products' page=page.prev %}?letter={{ letter }}{% else %}{% url 'app:list_products' page=page.prev %}{% endif %}">< Pre</a>
-            <a style="color:white">Page {{ page.current }} of {{ paginator.num_pages }}</a>
-            <a href="{% if letter %}{% url 'app:list_products' page=page.next %}?letter={{ letter }}{% else %}{% url 'app:list_products' page=page.next %}{% endif %}">Next ></a>
+            <a href="{% if letter %}{% url 'app:list_products' page=page.prev %}?letter={{ letter }}{% if search_focus %}&search_focus={{ search_focus }}{% endif %}{% elif search_focus %}{% url 'app:list_products' page=page.prev %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_products' page=page.prev %}{% endif %}">< Pre</a>
+            <a style="color:white">Page {{ page.current }} of {{ len_page }}</a>
+            <a href="{% if letter %}{% url 'app:list_products' page=page.next %}?letter={{ letter }}{% if search_focus %}&search_focus={{ search_focus }}{% endif %}{% elif search_focus %}{% url 'app:list_products' page=page.next %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_products' page=page.next %}{% endif %}">Next ></a>
         </div>
         
       </div>   

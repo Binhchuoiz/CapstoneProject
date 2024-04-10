@@ -79,7 +79,6 @@ def get_list_CVE(request, page):
             listCVE = listCVE.filter(year=selected_year)
         if search_focus:
             listCVE = listCVE.filter(cve_id__contains=search_focus)
-        search_focus = request.GET.get('search_focus', None)
     per_page = request.GET.get("per_page", 10)
     paginator = Paginator(listCVE, per_page)
     page_obj = paginator.get_page(page)
@@ -134,12 +133,6 @@ def get_list_Products(request, page):
     letter=None
     search_focus=None
     list_products = Products.objects.all().order_by('name')
-    if request.method == 'POST':
-        letter = request.POST.get('letter')
-        if letter:
-            list_products = Products.objects.filter(name__istartswith=letter).order_by('name')
-    elif letter:
-        list_products = Products.objects.filter(name__istartswith=letter).order_by('name')   
     
     try:
         check_user_notifi = NotiUser.objects.get(user=request.user)
@@ -152,6 +145,10 @@ def get_list_Products(request, page):
     
     
     if request.method == 'POST':
+        letter = request.POST.get('letter')
+        if letter:
+            list_products = Products.objects.filter(name__istartswith=letter).order_by('name')
+            page=1
         if 'message' in request.POST:
             message = request.POST['message']
             response = ask_openai(message)
@@ -168,10 +165,12 @@ def get_list_Products(request, page):
                 Follow_Product.objects.get_or_create(user=user, product=p)
             page=1
     else:
+        letter = request.GET.get('letter', None)
         search_focus = request.GET.get('search_focus', None)
         if search_focus:
             list_products = list_products.filter(name__contains=search_focus)
-        search_focus = request.GET.get('search_focus', None)
+        if letter:
+            list_products = Products.objects.filter(name__istartswith=letter).order_by('name')
     per_page = request.GET.get("per_page", 10)
     paginator = Paginator(list_products, per_page)
     page_obj = paginator.get_page(page)
