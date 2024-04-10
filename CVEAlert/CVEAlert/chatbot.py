@@ -1,9 +1,10 @@
 #tham khao: src:https://www.youtube.com/watch?v=q5HiD5PNuck
 #get api key: api platform: https://platform.openai.com/usage
 import openai
+import os
 
-openai_api_key ="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"
-openai.api_key = openai_api_key
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 def ask_openai(message):
