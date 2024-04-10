@@ -155,7 +155,7 @@ def get_list_Products(request, page):
             return JsonResponse({'message': message, 'response': response})
         elif 'search_focus' in request.POST:
             search_focus = request.POST['search_focus']
-            list_products = list_products.filter(name__contains=search_focus)
+            list_products = list_products.filter(name__icontains=search_focus)
             page=1
         elif 'selected_products_localstorage' in request.POST:
             user = request.user
@@ -168,7 +168,7 @@ def get_list_Products(request, page):
         letter = request.GET.get('letter', None)
         search_focus = request.GET.get('search_focus', None)
         if search_focus:
-            list_products = list_products.filter(name__contains=search_focus)
+            list_products = list_products.filter(name__icontains=search_focus)
         if letter:
             list_products = Products.objects.filter(name__istartswith=letter).order_by('name')
     per_page = request.GET.get("per_page", 10)

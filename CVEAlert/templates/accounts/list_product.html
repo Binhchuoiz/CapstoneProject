@@ -209,7 +209,7 @@
                   <label for="product_filter">{{ product }}</label><br>
                 {% endfor %}
                 <hr>
-                  <button class="btn btn-one"><b>FIND</b></button>
+                  <!-- <button class="btn btn-one"><b>FIND</b></button> -->
                   <form  method="post">
                     {% csrf_token %}
                     <input type="hidden" id="selected_products_localstorage" name="selected_products_localstorage">
