@@ -275,6 +275,8 @@ a:hover::before {
                     {% for m in metric %}
                         {% if m.con_id == detail_cve.id %}
                             <span style="float: right">{{ m.cvssv31.base_score }}</span>
+                            <p class="base-score"><b style="font-size: 20px;">Base severity </b>
+                            <span style="float: right">{{ m.cvssv31.base_severity }}</span>
                         {% endif %}
                     {% endfor %}
                 </p>
