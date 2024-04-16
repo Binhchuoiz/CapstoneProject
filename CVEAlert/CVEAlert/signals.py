@@ -19,7 +19,7 @@ def new_cve_noti(sender, instance, created, **kwargs):
         except Descriptions.DoesNotExist:
                 descriptions = None    
         try:
-                cvssv31 = CvssV31.objects.get(id=metric.cvssv31_id)
+                cvssv31 = CvssV31.objects.get(id=metric.cvssv31_id)  
         except:
                 cvssv31 = None
         try:
