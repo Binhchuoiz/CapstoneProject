@@ -40,7 +40,6 @@ def new_cve_noti(sender, instance, created, **kwargs):
         message = format_cve_alert_telegram(product.name, cve.cve_id,cvssv20.base_score,cvssv30.base_score, cvssv31.base_score, cve.id)
         subscribed_users = NotiUser.objects.filter(user__in= Follow_products.values_list('user',flat=True))
         # print(subscribed_users)
-        
         for user in subscribed_users:
                 
                 if user.status == "telegram" :

@@ -8,7 +8,7 @@ def send_email(body,to_email):
 
     smtp_server = "smtp.gmail.com"
     port = 465
-    sender_email = "hienvdhe161853@fpt.edu.vn"
+    sender_email = "cvealertsystem@gmail.com"
     password = "pjvr dtiv kfpy rilu"
     message = MIMEMultipart()
     message["From"] = sender_email
