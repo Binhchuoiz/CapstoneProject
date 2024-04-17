@@ -9,7 +9,7 @@ def send_email(body,to_email):
     smtp_server = "smtp.gmail.com"
     port = 465
     sender_email = "cvealertsystem@gmail.com"
-    password = "pjvr dtiv kfpy rilu"
+    password = "gkot jsnr hfdj ntqf"
     message = MIMEMultipart()
     message["From"] = sender_email
     message["To"] =to_email
