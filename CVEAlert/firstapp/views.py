@@ -96,6 +96,14 @@ def get_list_CVE(request, page):
             products[a.con_id] = [a.product]
             vendors[a.con_id] = [a.vendor]
     page_obj.affected = affected
+    metric = Metric.objects.filter(con_id__in=cve_ids)
+    cvss_v31 = {}
+    for m in metric:
+        if m.con_id in cvss_v31:
+            cvss_v31[m.con_id].append(m.cvssv31)
+        else:
+            cvss_v31[m.con_id] = [m.cvssv31]
+    page_obj.metric = metric
     context = {
         "page": {
             'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,

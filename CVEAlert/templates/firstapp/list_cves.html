@@ -298,6 +298,19 @@ input.largerCheckbox {
                                           {% endif %}
                                     {% endfor %}
                                 </p>
+                                <p class="card-text">
+                                  {% for m in page_obj.metric %}
+                                      {% if m.con_id == cve.id %}
+                                          {% if m.cvssv31.base_score is not none and m.cvssv31.base_severity is not none %}
+                                              <p class="card-text">
+                                                  <b>CVSS_v31 Score:</b> 
+                                                  {{ m.cvssv31.base_score }}
+                                                  {{ m.cvssv31.base_severity }}
+                                              </p>
+                                          {% endif %}
+                                      {% endif %}
+                                  {% endfor %}
+                              </p>
                                
                                  <a href="{% url 'app:detail_cves' pk=cve.pk %}" class="cta">
                                     <button class="btn btn-one"> <b style= "color: dodgerblue"> READ </b>NOW</button>
