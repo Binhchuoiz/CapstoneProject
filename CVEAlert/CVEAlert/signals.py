@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver,Signal
 
-from .alert_tele import send_message_telegram , reformat_tele_message
+from .alert_tele import send_message_telegram , format_cve_alert_telegram
 from firstapp.models import CVE , CvssV31 , Descriptions , User, Metric ,Follow_Product,Affected,CvssV20,CvssV30 , Products
 from accounts.models import NotiUser
 from .alert_email import send_email
@@ -37,10 +37,9 @@ def new_cve_noti(sender, instance, created, **kwargs):
                 Follow_products = Follow_Product.objects.filter(product=affected_entities.product)
         product = Products.objects.filter(id__in=Follow_products).first()
         # print("Number of affected follow:",Follow_products.count())
-        
+        message = format_cve_alert_telegram(product.name, cve.cve_id,cvssv20.base_score,cvssv30.base_score, cvssv31.base_score, cve.id)
         subscribed_users = NotiUser.objects.filter(user__in= Follow_products.values_list('user',flat=True))
         # print(subscribed_users)
-        message = reformat_tele_message(product.name, cve.cve_id,cvssv20.base_score,cvssv30.base_score, cvssv31.base_score, descriptions, cve.id)
         for user in subscribed_users:
                 
                 if user.status == "telegram" :
@@ -53,10 +52,10 @@ def new_cve_noti(sender, instance, created, **kwargs):
                                         send_email(message, user.email_address)
                 if user.status == "all":
                         if   user.token_bot and user.chat_id:
-                                       
+                                        
                                         send_message_telegram(message,user.token_bot,user.chat_id)
                         if user.email_address:
-                                       
+                                        
                                         send_email(message, user.email_address)
 
         

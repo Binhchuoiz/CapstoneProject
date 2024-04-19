@@ -244,7 +244,7 @@ def notification_user_view(request):
 		data_noti.email_address = email_address
 		data_noti.token_bot = token_bot
 		data_noti.chat_id = chat_id
-		#print(chat_id)
+		print(chat_id)
 		data_noti.save()
 		return HttpResponseRedirect(reverse('accounts:profile'))
 	
