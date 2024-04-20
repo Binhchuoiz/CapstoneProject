@@ -17,7 +17,7 @@ def format_cve_alert_telegram(product, title, cvssv20, cvssv30, cvssv31, pk):
         if score is None:
             return None
         score = float(score)
-        if score < 3.9:
+        if score <= 3.9:
             return "low"
         elif 4 <= score <= 6.9:
             return "medium"

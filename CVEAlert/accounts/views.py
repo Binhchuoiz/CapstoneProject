@@ -127,6 +127,7 @@ def list_product_view(request):
 		products = Products.objects.filter(name__in=selected_products_localstorage)
 		for p in products:
 			Follow_Product.objects.filter(user=user, product=p).delete()
+			return HttpResponseRedirect(reverse('accounts:list_product'))
 		page = 1
 	# product_cve
 
@@ -183,40 +184,44 @@ def list_cve_by_product_view(request):
 
 @login_required
 def change_password_view(request, pk):
-	try:
-		check_user_notifi = models.NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
-			status = False
-		else:
-			status = True
-	except:
-		status = False
-	mess = ""
-	if request.method == 'POST' and 'message' in request.POST:
-		message = request.POST['message']
-		response = ask_openai(message)
+    try:
+        check_user_notifi = models.NotiUser.objects.get(user=request.user)
+        if not check_user_notifi.status:
+            status = False
+        else:
+            status = True
+    except:
+        status = False
+    mess = ""
+    if request.method == 'POST' and 'message' in request.POST:
+        message = request.POST['message']
+        response = ask_openai(message)
+        return JsonResponse({'message': message, 'response': response})
+    elif request.method == 'POST' and 'your_news_password1' in request.POST:
+        cur_user = models.User.objects.get(pk=pk)
+        old_pass = request.POST['old_password']
+        new_password = request.POST['your_news_password1']
+        new_password_conf = request.POST['your_news_password2']
+        
+        # New password validation
+        if len(new_password) < 8:
+            mess = "The password must be at least 8 characters long."
 
-		return JsonResponse({'message': message, 'response': response})
-	elif request.method == 'POST' and 'your_news_password1' in request.POST:
-		cur_user = models.User.objects.get(pk=pk)
-		old_pass = request.POST['old_password']
-		new_password = request.POST['your_news_password1']
-		new_password_conf = request.POST['your_news_password2']
-		print("--check", cur_user.check_password(old_pass))
-		if not cur_user.check_password(old_pass):
-			mess = 'You entered the wrong old passwrod , please try again!'
-		elif new_password != new_password_conf:
-			mess = "The password you inputted does not match , please try again!"
-		else:
-			cur_user.set_password(new_password)
-			cur_user.save()
-			mess = "You have changed password successfully"
-			return HttpResponseRedirect(reverse('accounts:login'))
-	context = {
-		'mess' : mess,
-		'status': status,
-	}
-	return render(request, 'accounts/change_password.html', context=context)
+        elif not cur_user.check_password(old_pass):
+            mess = 'You entered the wrong old password, please try again!'
+        elif new_password != new_password_conf:
+            mess = "The passwords you inputted do not match, please try again!"
+        else:
+            cur_user.set_password(new_password)
+            cur_user.save()
+            mess = "You have changed your password successfully."
+            return HttpResponseRedirect(reverse('accounts:login'))
+    context = {
+        'mess': mess,
+        'status': status,
+    }
+    return render(request, 'accounts/change_password.html', context=context)
+
 
 def notification_user_view(request):
 	try :
@@ -246,7 +251,7 @@ def notification_user_view(request):
 		data_noti.chat_id = chat_id
 		print(chat_id)
 		data_noti.save()
-		return HttpResponseRedirect(reverse('accounts:profile'))
+		return HttpResponseRedirect(reverse('accounts:notification'))
 	
 	context ={
 		'user' : request.user,
