@@ -256,62 +256,62 @@ def get_detail_cves(request, pk):
 
     return render(request, 'firstapp/detail_cve.html' , context=context)
 
-def create_cve_view(request):
-	try:
-		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
-			status = False
-		else:
-			status = True
-	except:
-		status = False
-	form = CVEform()
-	# bot chat
-	if request.method == 'POST' and 'message' in request.POST:
-		message = request.POST['message']
-		response = ask_openai(message)
+# def create_cve_view(request):
+# 	try:
+# 		check_user_notifi = NotiUser.objects.get(user=request.user)
+# 		if not check_user_notifi.status:
+# 			status = False
+# 		else:
+# 			status = True
+# 	except:
+# 		status = False
+# 	form = CVEform()
+# 	# bot chat
+# 	if request.method == 'POST' and 'message' in request.POST:
+# 		message = request.POST['message']
+# 		response = ask_openai(message)
 
-		return JsonResponse({'message': message, 'response': response})
-	elif request.method == 'POST':
-		form = AffectedForm(request.POST or None, request.FILES)
-		if form.is_valid():
-			data = form.save(commit=True)
-			return HttpResponseRedirect(reverse('app:home'))
+# 		return JsonResponse({'message': message, 'response': response})
+# 	elif request.method == 'POST':
+# 		form = AffectedForm(request.POST or None, request.FILES)
+# 		if form.is_valid():
+# 			data = form.save(commit=True)
+# 			return HttpResponseRedirect(reverse('app:home'))
 
-	context = {
-		'form': form,
-		'status': status
-	}
-	return render(request, 'firstapp/create_cves.html', context=context)
+# 	context = {
+# 		'form': form,
+# 		'status': status
+# 	}
+# 	return render(request, 'firstapp/create_cves.html', context=context)
 
 
-def create_affect_view(request):
-	try:
-		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
-			status = False
-		else:
-			status = True
-	except:
-		status = False
-	form = AffectedForm()
-	# bot chat
-	if request.method == 'POST' and 'message' in request.POST:
-		message = request.POST['message']
-		response = ask_openai(message)
+# def create_affect_view(request):
+# 	try:
+# 		check_user_notifi = NotiUser.objects.get(user=request.user)
+# 		if not check_user_notifi.status:
+# 			status = False
+# 		else:
+# 			status = True
+# 	except:
+# 		status = False
+# 	form = AffectedForm()
+# 	# bot chat
+# 	if request.method == 'POST' and 'message' in request.POST:
+# 		message = request.POST['message']
+# 		response = ask_openai(message)
 
-		return JsonResponse({'message': message, 'response': response})
-	elif request.method == 'POST':
-		form = AffectedForm(request.POST)
-		if form.is_valid():
-			data = form.save(commit=True)
-			return HttpResponseRedirect(reverse('app:home'))
+# 		return JsonResponse({'message': message, 'response': response})
+# 	elif request.method == 'POST':
+# 		form = AffectedForm(request.POST)
+# 		if form.is_valid():
+# 			data = form.save(commit=True)
+# 			return HttpResponseRedirect(reverse('app:home'))
 
-	context = {
-		'form': form,
-		'status': status
-	}
-	return render(request, 'firstapp/create_affected.html', context=context)
+# 	context = {
+# 		'form': form,
+# 		'status': status
+# 	}
+# 	return render(request, 'firstapp/create_affected.html', context=context)
 
 
 def get_tele_notifi(request):

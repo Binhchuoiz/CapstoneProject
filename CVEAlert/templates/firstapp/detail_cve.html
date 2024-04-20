@@ -247,11 +247,11 @@ a:hover::before {
                                 <p><b>- Product name:</b> {{ a.product.name }}</p>
                                 <p><b>- Vendor name: </b>{{ a.vendor.name }}</p>
                             {% endif %}
-                            {% for p in products_versions %} 
+                            {% comment %} {% for p in products_versions %} 
                                 {% if p.product_id == a.product.id %}
                                     <p><b>+ Version:</b> {{ p.version.version }}</p>
                                 {% endif %}
-                            {% endfor %}
+                            {% endfor %} {% endcomment %}
                 </br>
                         {% endfor %}
                 </div>
