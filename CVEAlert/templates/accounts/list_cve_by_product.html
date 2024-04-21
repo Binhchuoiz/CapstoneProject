@@ -207,6 +207,7 @@ input.largerCheckbox {
   height: 40px;
 } {% endcomment %}
 
+
 {% endblock %}
 
 
@@ -219,6 +220,7 @@ List CVEs by Product Followed
 <div class="container">
     <div class="row" style="margin-top: 30px; margin-bottom: 30px;">
         <div class="col-3">
+          {% comment %} <p class="list"><a href={% url 'app:list_products' page=1 %} style="font-size:20px">< Return list products</a></p> {% endcomment %}
         </div>
         <div class="col-9">
             <form method="post">
