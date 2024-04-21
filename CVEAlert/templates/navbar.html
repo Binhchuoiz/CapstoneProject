@@ -234,7 +234,7 @@
                 <ul class="navbar-nav example1">
                     
                     {% if user.is_superuser %}
-                    <li content="nav-item">
+                    {% comment %} <li content="nav-item">
                         <a class="nav-link" href= "http://127.0.0.1:8000/admin/" ><b>ADMIN</b></a>
                        
                     </li>
@@ -244,7 +244,7 @@
                     <li content="nav-item">
                         <a class="nav-link" href="{% url 'app:create_cve' %}"><b>Create CVE</b></a>
                        
-                    </li>
+                    </li> {% endcomment %}
                     {% endif %}
                     <li content="nav-item">
                         <a class="nav-link" href="{% url 'app:list_cves' page=1 %}"><b><i class="fa-solid fa-list"></i> List CVEs  </b></a>
