@@ -229,7 +229,7 @@ input.largerCheckbox {
                         <i class="fas fa-search"></i>
                     </button>
                     <div>
-                        <span><a href="{% url 'app:tele_noti' %}"></a></span>
+                        <span><a {% if user.is_authenticated %} href="{% url 'app:tele_noti' %}"  {% else %} href="{% url 'accounts:login' %}"    {% endif %}></a></span>
                 </div>
                 </div>
             </form>
