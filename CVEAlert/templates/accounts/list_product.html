@@ -152,9 +152,9 @@
                     <a class="{% if '/account/change-password/' in request.path %}active{% endif %}"
                        href="{% url 'accounts:change_password' pk=request.user.pk %}">Password</a>
                 </p>
-                <p class="link">
-                    <a class="{% if '/account/list-product/' in request.path %}active{% endif %}"
-                       href="{% url 'accounts:list_product'  %}">Products Followed</a>
+                <p class="link" >
+                    <a style="color:dodgerblue;" class="{% if '/account/list-product/' in request.path %}active{% endif %}"
+                       href="{% url 'accounts:list_product'  %} ">Products Followed</a>
                 </p>
                 <p class="link">
                     <a href="{% url 'accounts:notification' %}">Setting Notification</a>
