@@ -396,6 +396,34 @@ a:hover::before {
   transform-origin: left;
   transform: scaleX(1);
 }
+
+/*=URL=*/
+.url{
+    a {
+        color: blue;
+      position: relative;
+      text-decoration: none;
+    }
+    
+    a::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-radius: 4px;
+      background-color: #18272F;
+      bottom: 0;
+      left: 0;
+      transform-origin: right;
+      transform: scaleX(0);
+      transition: transform .3s ease-in-out;
+    }
+}
+
+a:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
 {% endblock %}
 
 {% block title %}
@@ -480,8 +508,16 @@ Environmental CVSS Scores
                     <div class="title-box">
                         <h2><b style="font-size: 28px;">LEARN MORE...</b></h2>
                     </div>
-                    <div class="content-box">
-                
+                    <div class="content-box url">
+                      + <a href="{% url 'app:cve' %}"> What Is a CVE?</a></br>
+                      + <a href="{% url 'app:cvss' %}"> What Is a CVSS?</a></br>
+                      + <a href="{% url 'app:cvss_comparation' %}"> CVSS v2 vs CVSS v3</a></br>
+                      + <a href="{% url 'app:base' %}"> CVSS Base Score Explained</a></br>
+                      + <a href="{% url 'app:temporal' %}">  Temporal CVSS Scores</a></br>
+                      + <a href="{% url 'app:environmental' %}">  Environmental CVSS Scores</a></br>
+                      + <a href="{% url 'app:difference' %}">    What is the difference between CVE and CVSS?</a></br>
+                      + <a href="{% url 'app:type' %}">  Product and Vendor of CVE</a></br>
+                      
                 </div>
             </div>
             </div>
