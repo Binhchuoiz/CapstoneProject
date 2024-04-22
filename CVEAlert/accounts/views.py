@@ -71,7 +71,7 @@ def get_logout(request):
 def profile_detail_view(request):
 	try:
 		check_user_notifi = models.NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -105,7 +105,7 @@ def profile_detail_view(request):
 def list_product_view(request):
 	try:
 		check_user_notifi = models.NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -143,7 +143,7 @@ def list_product_view(request):
 def list_cve_by_product_view(request):
 	try :
 		check_user_notifi = models.NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -186,7 +186,7 @@ def list_cve_by_product_view(request):
 def change_password_view(request, pk):
     try:
         check_user_notifi = models.NotiUser.objects.get(user=request.user)
-        if not check_user_notifi.status:
+        if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
             status = False
         else:
             status = True
@@ -226,7 +226,7 @@ def change_password_view(request, pk):
 def notification_user_view(request):
 	try :
 		check_user_notifi = models.NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True

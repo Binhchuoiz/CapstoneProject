@@ -18,7 +18,7 @@ def get_home(request):
     vendors = [a.vendor for a in affected]
     try:
         check_user_notifi = NotiUser.objects.get(user=request.user)
-        if not check_user_notifi.status:
+        if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
             status = False
         else:
             status = True
@@ -52,7 +52,7 @@ def get_list_CVE(request, page):
     search_focus = None
     try:
         check_user_notifi = NotiUser.objects.get(user=request.user)
-        if not check_user_notifi.status:
+        if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
             status = False
         else:
             status = True
@@ -136,7 +136,7 @@ def get_list_Products(request, page):
     
     try:
         check_user_notifi = NotiUser.objects.get(user=request.user)
-        if not check_user_notifi.status:
+        if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
             status = False
         else:
             status = True
@@ -227,7 +227,7 @@ def get_detail_cves(request, pk):
 
     try:
         check_user_notifi = NotiUser.objects.get(user=request.user)
-        if not check_user_notifi.status:
+        if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
             status = False
         else:
             status = True
@@ -317,7 +317,7 @@ def get_detail_cves(request, pk):
 def get_tele_notifi(request):
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -334,7 +334,7 @@ def get_tele_notifi(request):
 def get_gmail_notifi(request):
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -365,7 +365,7 @@ def get_gmail_notifi(request):
 def get_about(request):
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -382,7 +382,7 @@ def get_about(request):
 def get_list_definations(request):
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -399,7 +399,7 @@ def get_list_definations(request):
 def get_cve_definations(request):
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -415,7 +415,7 @@ def get_cve_definations(request):
 def get_cvss_definations(request):
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -431,7 +431,7 @@ def get_cvss_definations(request):
 def get_cvss_compare(request):
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -447,7 +447,7 @@ def get_cvss_compare(request):
 def get_base_definations(request):
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -464,7 +464,7 @@ def get_base_definations(request):
 def get_temporal_definations(request):	
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -480,7 +480,7 @@ def get_temporal_definations(request):
 def get_environmental_definations(request):	
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -496,7 +496,7 @@ def get_environmental_definations(request):
 def get_difference_definations(request):
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -512,7 +512,7 @@ def get_difference_definations(request):
 def get_type_definations(request):
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -528,7 +528,7 @@ def get_type_definations(request):
 def get_list_statistic(request):
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -544,7 +544,7 @@ def get_list_statistic(request):
 def get_cve_statistic(request):	
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -560,7 +560,7 @@ def get_cve_statistic(request):
 def get_risk_statistic(request):	
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -576,7 +576,7 @@ def get_risk_statistic(request):
 def get_application_statistic(request):	
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
@@ -592,7 +592,7 @@ def get_application_statistic(request):
 def get_cvss_statistic(request):
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status:
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
 			status = False
 		else:
 			status = True
