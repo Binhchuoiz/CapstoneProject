@@ -5,7 +5,7 @@ import json5
 os.environ['DJANGO_SETTINGS_MODULE'] = 'CVEAlert.settings'
 django.setup()
 
-from firstapp.models import CVE, Descriptions, Products, Versions, Affected, References, ProblemTypes, Metric
+from firstapp.models import CVE, Descriptions, Products, Versions, Affected, References, ProblemTypes, Metrics
 
 def add_data_to_database(data):
     cve_id = data['cveMetadata']['cveId']
@@ -39,7 +39,7 @@ def add_data_to_database(data):
 
     try:
         affected_data = data['containers']['cna']['affected'][0]
-        product_name = affected_data['product']
+        product_name = affected_data.get('product') or affected_data.get('packageName')  # Check for both keys
         if product_name == 'n/a':
             print(f"Skipping file for CVE {cve_id} because product is 'n/a'")
             return
