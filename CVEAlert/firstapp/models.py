@@ -19,7 +19,7 @@ class CVE(models.Model):
 class Descriptions(models.Model):
     con = models.ForeignKey(CVE, on_delete=models.CASCADE, related_name='description_cves', blank=True, default=None)
     value = models.CharField(max_length=9000, default="", null=True)
-    lang = models.CharField(max_length=10, default="en")  # Add language field
+    # lang = models.CharField(max_length=10, default="en")  # Add language field
 
     def __str__(self):
         return self.value
@@ -42,7 +42,7 @@ class ProblemTypes(models.Model):
     con = models.ForeignKey(CVE, on_delete=models.CASCADE, related_name='problemtypes_cves', blank=True, default=None)
     cwe_id = models.CharField(max_length=255, default="", null=True)  # Update field name
     description = models.CharField(max_length=9000, default="", null=True)
-    lang = models.CharField(max_length=10, default="en")  # Add language field
+    # lang = models.CharField(max_length=10, default="en")  # Add language field
 
     def __str__(self):
         return self.cwe_id
@@ -74,7 +74,7 @@ class Vendors(models.Model):
     def __str__(self):
         return self.name
     
-class ProductsVersions(models.Model):  # Renamed from Products_Versions
+class Products_Versions(models.Model):
     con = models.ForeignKey(CVE, on_delete=models.CASCADE, related_name='productversion_cves', blank=True, default=None)
     product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='product_version', blank=True, default=None)
     version = models.ForeignKey(Versions, on_delete=models.CASCADE, related_name='version_product', blank=True, default=None)

@@ -5,7 +5,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] ='CVEAlert.settings'
 django.setup()
 
 import json
-from firstapp.models import CVE, Descriptions, Versions, Solutions, Metric, CvssV20, CvssV30, CvssV31, References, Affected, Products, Vendors, Products_Versions, Exploits, Platforms, ProblemTypes, Workaround
+from firstapp.models import CVE, Descriptions, Versions, Solutions, Metric, CvssV20, CvssV30, CvssV31, References, Affected, Products, Vendors, Products_Versions, Exploits, ProblemTypes, Workaround
 
 
 def add_data_to_database(data, folder_name):
