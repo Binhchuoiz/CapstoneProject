@@ -82,18 +82,18 @@ class ProductsVersions(models.Model):  # Renamed from Products_Versions
     def __str__(self):
         return self.product.name  # Return product name instead of object
     
-class Platforms(models.Model):
-    con = models.ForeignKey(CVE, on_delete=models.CASCADE, related_name='platforms_cves', blank=True, default=None)
-    value = models.CharField(max_length=9000, default="", null=True)
+# class Platforms(models.Model):
+#     con = models.ForeignKey(CVE, on_delete=models.CASCADE, related_name='platforms_cves', blank=True, default=None)
+#     value = models.CharField(max_length=9000, default="", null=True)
 
-    def __str__(self):
-        return self.value
+#     def __str__(self):
+#         return self.value
 
 class Affected(models.Model):
     con = models.ForeignKey(CVE, on_delete=models.CASCADE, related_name='affected_cves', blank=True, default=None)
     product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='product_vendor', blank=True, default=None)
     vendor = models.ForeignKey(Vendors, on_delete=models.CASCADE, related_name='vendor_product', blank=True, default=None)
-    platform = models.ForeignKey(Platforms, on_delete=models.CASCADE, related_name='affected_platform', blank=True, default=None)
+    # platform = models.ForeignKey(Platforms, on_delete=models.CASCADE, related_name='affected_platform', blank=True, default=None)
 
     def __str__(self):
         return self.product.name  # Return product name instead of object
