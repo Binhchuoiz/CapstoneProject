@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
-from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions , Products_Versions , Follow_Product
+from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions , ProductsVersions , FollowProduct , FollowCVE
 from accounts.models import NotiUser
 from .forms import CVEform,AffectedForm
 from django.db.models import F, DateTimeField , ExpressionWrapper
