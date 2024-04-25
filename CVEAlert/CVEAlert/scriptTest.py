@@ -33,9 +33,8 @@ def add_data_to_database(data, folder_name):
             date_reserved=data['cveMetadata'].get('dateReserved', None),  # Handle missing key with None
             date_publish=data['cveMetadata'].get('datePublished', None),  # Handle missing key with None
             date_update=data['cveMetadata'].get('dateUpdated', None),  # Handle missing key with None
-            assigner_Org_Id=data['cveMetadata'].get('assignerOrgId', ''),  # Handle missing key with default value
-            provider_Metadata=data['containers']['cna'].get('providerMetadata', {}).get('orgId', ''),  # Handle nested missing key with default value
-            assignerShortName=data['cveMetadata'].get('assignerShortName', None),
+            assigner_org_id=data['cveMetadata'].get('assignerOrgId', ''),  # Handle missing key with default value
+            assigner_short_name=data['cveMetadata'].get('assignerShortName', None),
             title=data['containers']['cna'].get('title', None)
         )
 
