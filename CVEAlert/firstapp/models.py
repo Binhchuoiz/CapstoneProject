@@ -154,4 +154,11 @@ class Follow_Product(models.Model):
 
     def __str__(self):
         return self.user
+    
+class Follow_CVE(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_cve', blank=True, default=None)
+    con = models.ForeignKey(CVE, on_delete=models.CASCADE, related_name='follow_cve', blank=True, default=None)
+
+    def __str__(self):
+        return self.user
 # Create your models here.
