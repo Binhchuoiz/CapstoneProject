@@ -11,7 +11,7 @@ import json
 
 from . import forms
 from . import models
-from firstapp.models import Products, FollowProduct, Affected, CVE , FollowCVE
+from firstapp.models import Products, Follow_Product, Affected, CVE , Follow_CVE
 
 status_noti = [
 	('telegram', 'Telegram'),

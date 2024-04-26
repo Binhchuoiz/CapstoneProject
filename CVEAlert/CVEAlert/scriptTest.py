@@ -67,15 +67,15 @@ def add_data_to_database(data, folder_name):
             pass
 
         i=0
-        problemTypes = data['containers']['cna']['problemTypes']
-        for p in problemTypes:
+        # problemTypes = data['containers']['cna']['problemTypes']
+        for p in data['containers']['cna']['problemTypes']:
             try:
-                cweId = data['containers']['cna']['problemTypes'][i]['descriptions']['cweId']
-                description = data['containers']['cna']['problemTypes'][i]['descriptions']['description']
-                p, _ = ProblemTypes.objects.get_or_create(cweId=cweId, description=description, con=cve)
+                cwe_id = p['descriptions'][i].get('cweId')
+                description = p['descriptions'][i]['description']
+                ProblemTypes.objects.create(cwe_id=cwe_id, description=description, con=cve)
                 i+=1
             except (KeyError, IndexError):
-                p, _ = ProblemTypes.objects.get_or_create(cweId=None, description=None, con=cve)
+                ProblemTypes.objects.create(cwe_id=None, description=None, con=cve)
                 pass
 
         i=0
@@ -87,19 +87,21 @@ def add_data_to_database(data, folder_name):
             if product == 'n/a':
                 return
             else:
-                j=0
                 product, _ = Products.objects.get_or_create(name=product)
-                for version in affected:
+                j=0
+                for versions in data['containers']['cna']['affected'][i]['versions']:
                     try:
-                        version = data['containers']['cna']['affected'][i]['versions'][j]['version']
+                        version = versions['version']
+                        print(version)
                     except (KeyError, IndexError):
                         version = None
                         version_status = None
+                        print(version)
                         version_obj, _ = Versions.objects.get_or_create(version=version, status=version_status)
                         Products_Versions.objects.create(con=cve, version=version_obj, product=product)
                         break
                     try:
-                        version_status = data['containers']['cna']['affected'][i]['versions'][j]['status']
+                        version_status = versions[j]['status']
                     except (KeyError, IndexError):
                         version_status = None
                     version_obj, _ = Versions.objects.get_or_create(version=version, status=version_status)
@@ -136,18 +138,18 @@ def add_data_to_database(data, folder_name):
                     cvssV3_0_base_severity = None
                 
                 if 'cvssV3_1' in metric:
-                    attackComplexity = metric['cvssV3_1'].get['attackComplexity']
-                    attackVector = metric['cvssV3_1'].get['attackVector']
-                    availabilityImpact = metric['cvssV3_1'].get['availabilityImpact']
-                    confidentialityImpact = metric['cvssV3_1'].get['confidentialityImpact']
-                    integrityImpact = metric['cvssV3_1'].get['integrityImpact']
-                    privilegesRequired = metric['cvssV3_1'].get['privilegesRequired']
-                    scope = metric['cvssV3_1'].get['scope']
-                    userInteraction = metric['cvssV3_1'].get['userInteraction']
-                    cvssV3_1_version = metric['cvssV3_1'].get['version']
-                    cvssV3_1_base_score = metric['cvssV3_1'].get['baseScore']
-                    cvssV3_1_vector = metric['cvssV3_1'].get['vectorString']
-                    cvssV3_1_base_severity = metric['cvssV3_1'].get['baseSeverity']
+                    attackComplexity = metric['cvssV3_1'].get('attackComplexity')
+                    attackVector = metric['cvssV3_1'].get('attackVector')
+                    availabilityImpact = metric['cvssV3_1'].get('availabilityImpact')
+                    confidentialityImpact = metric['cvssV3_1'].get('confidentialityImpact')
+                    integrityImpact = metric['cvssV3_1'].get('integrityImpact')
+                    privilegesRequired = metric['cvssV3_1'].get('privilegesRequired')
+                    scope = metric['cvssV3_1'].get('scope')
+                    userInteraction = metric['cvssV3_1'].get('userInteraction')
+                    cvssV3_1_version = metric['cvssV3_1'].get('version')
+                    cvssV3_1_base_score = metric['cvssV3_1'].get('baseScore')
+                    cvssV3_1_vector = metric['cvssV3_1'].get('vectorString')
+                    cvssV3_1_base_severity = metric['cvssV3_1'].get('baseSeverity')
                 else: 
                     attackComplexity = None
                     attackVector = None
@@ -243,7 +245,7 @@ def read_json_files(folder_path, folder_name):
                     continue
 
 # Specify the path to the directory containing JSON files
-cves_folder_path = r"E:\IAP104\cvelistV5-main\cves"
+cves_folder_path = r"E:\IAP104\cvelistV5-main\test"
 
 # 
 

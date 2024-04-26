@@ -148,14 +148,14 @@ class Metric(models.Model):
     def __str__(self):
         return str(self.con.id)  # Return CVE ID as string
 
-class FollowProduct(models.Model):  # Renamed from Follow_Product
+class Follow_Product(models.Model):  # Renamed from Follow_Product
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follow_user', blank=True, default=None)
     product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='follow_product', blank=True, default=None)
 
     def __str__(self):
         return self.user.username  # Return username
     
-class FollowCVE(models.Model):  # Renamed from Follow_CVE
+class Follow_CVE(models.Model):  # Renamed from Follow_CVE
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_cve', blank=True, default=None)
     con = models.ForeignKey(CVE, on_delete=models.CASCADE, related_name='follow_cve', blank=True, default=None)
 
