@@ -70,9 +70,10 @@ def add_data_to_database(data, folder_name):
         # problemTypes = data['containers']['cna']['problemTypes']
         for p in data['containers']['cna']['problemTypes']:
             try:
-                cwe_id = p['descriptions'][i].get('cweId')
-                description = p['descriptions'][i]['description']
-                ProblemTypes.objects.create(cwe_id=cwe_id, description=description, con=cve)
+                for d in p['descriptions']:
+                    cwe_id = d.get('cweId')
+                    description = d.get('description')
+                    ProblemTypes.objects.create(cwe_id=cwe_id, description=description, con=cve)
                 i+=1
             except (KeyError, IndexError):
                 ProblemTypes.objects.create(cwe_id=None, description=None, con=cve)
@@ -92,11 +93,9 @@ def add_data_to_database(data, folder_name):
                 for versions in data['containers']['cna']['affected'][i]['versions']:
                     try:
                         version = versions['version']
-                        print(version)
                     except (KeyError, IndexError):
                         version = None
                         version_status = None
-                        print(version)
                         version_obj, _ = Versions.objects.get_or_create(version=version, status=version_status)
                         Products_Versions.objects.create(con=cve, version=version_obj, product=product)
                         break
