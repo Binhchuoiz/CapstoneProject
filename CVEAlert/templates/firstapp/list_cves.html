@@ -269,6 +269,7 @@ input.largerCheckbox {
         </form>
           <p>------------------------------------------------</p>
           <form method="post">
+            {% csrf_token %}
                 <h2>SORT ITEMS:</h2>
                 <hr>
                 <select name="" class="custom-select">
@@ -286,6 +287,7 @@ input.largerCheckbox {
         </br>
       </form>
         <form method="post">
+          {% csrf_token %}
         <p>------------------------------------------------</p>
             <h2>BY DATE PUBLISHED:</h2>
                 <hr>
@@ -303,6 +305,7 @@ input.largerCheckbox {
         </br>
       </form>
         <form method="post">
+          {% csrf_token %}
         <p>------------------------------------------------</p>
             <h2>BY DATE UPDATED:</h2>
                 <hr>
@@ -319,6 +322,7 @@ input.largerCheckbox {
         </br>
          </form>
         <form method="post">
+          {% csrf_token %}
         <p>------------------------------------------------</p>
           <h2>CVSS SCORES:</h2>
                 <hr>
