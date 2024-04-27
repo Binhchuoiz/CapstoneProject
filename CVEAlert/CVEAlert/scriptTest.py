@@ -1,11 +1,12 @@
 import os
 import django
+import json
 
-os.environ['DJANGO_SETTINGS_MODULE'] ='CVEAlert.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'CVEAlert.settings'
 django.setup()
 
-import json
 from firstapp.models import CVE, Descriptions, Versions, Solutions, Metric, CvssV20, CvssV30, CvssV31, References, Affected, Products, Vendors, Products_Versions, Exploits, ProblemTypes, Workaround
+
 
 
 def add_data_to_database(data, folder_name):
@@ -44,41 +45,40 @@ def add_data_to_database(data, folder_name):
             Descriptions.objects.create(value=description_en, con=cve)
         except (KeyError, IndexError):
             Descriptions.objects.create(value=None, con=cve)
-            pass  # Handle missing key or index error by skipping the creation
 
         try:
             solution_en = data['containers']['cna']['solutions'][0]['value']
             Solutions.objects.create(value=solution_en, con=cve)
         except (KeyError, IndexError):
             Solutions.objects.create(value=None, con=cve)
-            pass  # Handle missing key or index error by skipping the creation
 
         try:
             exploit_en = data['containers']['cna']['exploits'][0]['value']
             Exploits.objects.create(value=exploit_en, con=cve)
         except (KeyError, IndexError):
             Exploits.objects.create(value=None, con=cve)
-            pass
 
         try:
             workaround_en = data['containers']['cna']['workarounds'][0]['value']
             Workaround.objects.create(value=workaround_en, con=cve)
         except (KeyError, IndexError):
             Workaround.objects.create(value=None, con=cve)
-            pass
 
-        i=0
-        # problemTypes = data['containers']['cna']['problemTypes']
-        for p in data['containers']['cna']['problemTypes']:
-            try:
-                for d in p['descriptions']:
-                    cwe_id = d.get('cweId')
-                    description = d.get('description')
-                    ProblemTypes.objects.create(cwe_id=cwe_id, description=description, con=cve)
-                i+=1
-            except (KeyError, IndexError):
-                ProblemTypes.objects.create(cwe_id=None, description=None, con=cve)
-                pass
+        # Handle 'problemTypes' key
+        try:
+            problem_types = data['containers']['cna'].get('problemTypes', [])
+            for p in problem_types:
+                try:
+                    for d in p['descriptions']:
+                        cwe_id = d.get('cweId')
+                        description = d.get('description')
+                        ProblemTypes.objects.create(cwe_id=cwe_id, description=description, con=cve)
+                except (KeyError, IndexError):
+                    ProblemTypes.objects.create(cwe_id=None, description=None, con=cve)
+                    continue
+        except KeyError:
+            print("No 'problemTypes' found in the JSON data.")
+            pass
 
         i=0
         for product in affected:
@@ -114,6 +114,7 @@ def add_data_to_database(data, folder_name):
                 vendor, _ = Vendors.objects.get_or_create(name=vendor)
                 Affected.objects.create(con=cve, product=product, vendor=vendor)
             i+=1
+        
         try:
             metrics = data['containers']['cna']['metrics']
             for metric in metrics:
@@ -248,7 +249,6 @@ def read_json_files(folder_path, folder_name):
 cves_folder_path = r"D:\Đồ án\cvelistV5\cves"
 
 # 
-
 
 cves_folder_path = os.path.normpath(cves_folder_path)
 
