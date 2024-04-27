@@ -23,6 +23,7 @@ def add_data_to_database(data, folder_name):
     except KeyError:
         return
     if product == 'n/a':
+        print(f"CVE isnt eligible")
         return
     else:
         cve = CVE.objects.create(
@@ -244,7 +245,7 @@ def read_json_files(folder_path, folder_name):
                     continue
 
 # Specify the path to the directory containing JSON files
-cves_folder_path = r"E:\IAP104\cvelistV5-main\test"
+cves_folder_path = r"D:\Đồ án\cvelistV5\cves"
 
 # 
 

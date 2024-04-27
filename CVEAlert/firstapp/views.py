@@ -4,8 +4,8 @@ from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
 from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions , Products_Versions , Follow_Product , Follow_CVE
 from accounts.models import NotiUser
 from .forms import CVEform,AffectedForm
-from django.db.models import F, DateTimeField , ExpressionWrapper
-from django.db.models.functions import Cast
+from django.db.models import F, DateTimeField , ExpressionWrapper , Value , CharField , Case , When , Q , Count
+from django.db.models.functions import Cast 
 from django.http import JsonResponse
 from CVEAlert.chatbot import ask_openai
 import json
@@ -41,6 +41,9 @@ def get_home(request):
     }
     return render(request, 'index.html', context=context)
 
+
+from django.db.models import F, Value, CharField, Case, When
+
 def get_list_CVE(request, page):
     listCVE = CVE.objects.all().order_by('date_publish')
     year = CVE.objects.values_list('year', flat=True)
@@ -58,11 +61,8 @@ def get_list_CVE(request, page):
             status = True
     except:
             status = False
-    if request.method == 'POST' and 'message' in request.POST:
-        message = request.POST['message']
-        response = ask_openai(message)
-        return JsonResponse({'message': message, 'response': response})
-    elif request.method == 'POST':
+            
+    if request.method == 'POST':
         selected_years = request.POST.getlist('filter_year')
         if selected_years:
             selected_year = selected_years[0]  
@@ -72,6 +72,45 @@ def get_list_CVE(request, page):
             search_focus = request.POST['search_focus']
             listCVE = listCVE.filter(cve_id__contains=search_focus)
             page = 1
+            
+        # Sorting based on CVSS versions (v31, v30, v20) or date fields
+        sort_order = request.POST.get('sort_order')
+        sort_by = request.POST.get('sort_by')
+        cvss_score_field = Case(
+            When(metric_cve__cvssv31__isnull=False, then=F('metric_cve__cvssv31__base_score')),
+            When(metric_cve__cvssv30__isnull=False, then=F('metric_cve__cvssv30__base_score')),
+            When(metric_cve__cvssv20__isnull=False, then=F('metric_cve__cvssv20__base_score')),
+            default=Value(''), output_field=CharField(),
+        )
+        if sort_order in ['asc', 'desc']:
+            if sort_by == 'cvss':
+                if sort_order == 'asc':
+                    listCVE = listCVE.annotate(cvss_score=cvss_score_field).order_by('cvss_score')
+                else:
+                    listCVE = listCVE.annotate(cvss_score=cvss_score_field).order_by('-cvss_score')
+            elif sort_by == 'date_publish':
+                if sort_order == 'asc':
+                    listCVE = listCVE.order_by('date_publish')
+                else:
+                    listCVE = listCVE.order_by('-date_publish')
+            elif sort_by == 'date_update':
+                if sort_order == 'asc':
+                    listCVE = listCVE.order_by('date_update')
+                else:
+                    listCVE = listCVE.order_by('-date_update')
+        
+        # Filter CVEs based on minimum and maximum CVSS scores
+        cvss_min = request.POST.get('cvss_min')
+        cvss_max = request.POST.get('cvss_max')
+        if cvss_min and cvss_max:
+            cvss_min = float(cvss_min)
+            cvss_max = float(cvss_max)
+            listCVE = listCVE.filter(
+                (Q(metric_cve__cvssv31__base_score__gte=cvss_min) & Q(metric_cve__cvssv31__base_score__lte=cvss_max)) |
+                (Q(metric_cve__cvssv30__base_score__gte=cvss_min) & Q(metric_cve__cvssv30__base_score__lte=cvss_max)) |
+                (Q(metric_cve__cvssv20__base_score__gte=cvss_min) & Q(metric_cve__cvssv20__base_score__lte=cvss_max))
+            )
+        
     else:
         search_focus = request.GET.get('search_focus', None)
         selected_year = request.GET.get('filter_year', None)
@@ -79,6 +118,7 @@ def get_list_CVE(request, page):
             listCVE = listCVE.filter(year=selected_year)
         if search_focus:
             listCVE = listCVE.filter(cve_id__contains=search_focus)
+    
     per_page = request.GET.get("per_page", 10)
     paginator = Paginator(listCVE, per_page)
     page_obj = paginator.get_page(page)
@@ -119,19 +159,22 @@ def get_list_CVE(request, page):
         'unique_year': unique_year_List,
         'selected_year': selected_year,
         'search_focus': search_focus,
-		'status': status,
+        'status': status,
     }
 
-    # print(listCVE)
-    return render(request, 'firstapp/list_cves.html', context=context)   
+    return render(request, 'firstapp/list_cves.html', context=context)
+
 
 
 
 
 
 def get_list_Products(request, page):
-    letter=None
-    search_focus=None
+   from django.db.models import Count
+
+def get_list_Products(request, page):
+    letter = None
+    search_focus = None
     list_products = Products.objects.all().order_by('name')
     
     try:
@@ -143,12 +186,11 @@ def get_list_Products(request, page):
     except:
         status = False
     
-    
     if request.method == 'POST':
         letter = request.POST.get('letter')
         if letter:
             list_products = Products.objects.filter(name__istartswith=letter).order_by('name')
-            page=1
+            page = 1
         if 'message' in request.POST:
             message = request.POST['message']
             response = ask_openai(message)
@@ -156,14 +198,14 @@ def get_list_Products(request, page):
         elif 'search_focus' in request.POST:
             search_focus = request.POST['search_focus']
             list_products = list_products.filter(name__icontains=search_focus)
-            page=1
+            page = 1
         elif 'selected_products_localstorage' in request.POST:
             user = request.user
             selected_products_localstorage = json.loads(request.POST.get('selected_products_localstorage'))
             products = Products.objects.filter(name__in=selected_products_localstorage)
             for p in products:
                 Follow_Product.objects.get_or_create(user=user, product=p)
-            page=1
+            page = 1
     else:
         letter = request.GET.get('letter', None)
         search_focus = request.GET.get('search_focus', None)
@@ -171,13 +213,13 @@ def get_list_Products(request, page):
             list_products = list_products.filter(name__icontains=search_focus)
         if letter:
             list_products = Products.objects.filter(name__istartswith=letter).order_by('name')
+    
+    # Count the number of CVEs related to each product
+    # list_products = list_products.annotate(num_cves=Count('id__con', distinct=True))
+    
     per_page = request.GET.get("per_page", 10)
     paginator = Paginator(list_products, per_page)
     page_obj = paginator.get_page(page)
-    list_product_ids = [p.id for p in page_obj]
-    affected = Affected.objects.filter(product_id__in=list_product_ids)
-    affected_con_id = [a.id for a in affected]
-    listCVE = CVE.objects.filter(id__in=affected_con_id)
     
     context = {
         "page": {
@@ -190,11 +232,11 @@ def get_list_Products(request, page):
         'page_obj': page_obj,
         'list_products': list_products,
         'status': status,
-		'letter': letter,
-		'search_focus': search_focus,
-        'listCVE': listCVE,
+        'letter': letter,
+        'search_focus': search_focus,
     }
     return render(request, 'firstapp/list_products.html', context=context)
+
 
 
 def get_detail_cves(request, pk):
