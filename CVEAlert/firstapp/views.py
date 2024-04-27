@@ -169,8 +169,6 @@ def get_list_CVE(request, page):
 
 
 
-def get_list_Products(request, page):
-   from django.db.models import Count
 
 def get_list_Products(request, page):
     letter = None
