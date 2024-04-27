@@ -266,7 +266,9 @@ input.largerCheckbox {
               </br>
             </br>
           </br>
+        </form>
           <p>------------------------------------------------</p>
+          <form method="post">
                 <h2>SORT ITEMS:</h2>
                 <hr>
                 <select name="" class="custom-select">
@@ -282,6 +284,8 @@ input.largerCheckbox {
             <button id="sort-descending" onclick=""  type="submit" class="btn btn-one" style="width:100%"> <b>Descending</b></button>
           </br>
         </br>
+      </form>
+        <form method="post">
         <p>------------------------------------------------</p>
             <h2>BY DATE PUBLISHED:</h2>
                 <hr>
@@ -297,6 +301,8 @@ input.largerCheckbox {
 
           </br>
         </br>
+      </form>
+        <form method="post">
         <p>------------------------------------------------</p>
             <h2>BY DATE UPDATED:</h2>
                 <hr>
@@ -311,22 +317,13 @@ input.largerCheckbox {
             <button id="sort-ascending" onclick=""  type="submit" class="btn btn-one" style="width:100%"> <b>FIND</b></button>
           </br>
         </br>
+         </form>
+        <form method="post">
         <p>------------------------------------------------</p>
           <h2>CVSS SCORES:</h2>
                 <hr>
-                <select name="" class="custom-select">
-                  <b> <option value="0">0</option></b>
-                  <b> <option value="1">1</option></b>
-                  <b> <option value="2">2</option></b>
-                  <b> <option value="3">3</option></b>
-                  <b> <option value="4">4</option></b>
-                  <b> <option value="5">5</option></b>
-                  <b> <option value="6">6</option></b>
-                  <b> <option value="7">7</option></b>
-                  <b> <option value="8">8</option></b>
-                  <b> <option value="9">9</option></b>
-                  <b> <option value="10">10</option></b>
-              </select>
+                <input type="cvss" id="html" placeholder="Enter the range of CVSS scores " style="width:100%">
+                <label for="cvss"></label><br>
             </br>
             <hr>
             <button id="sort-ascending" onclick=""  type="submit" class="btn btn-one" style="width:100%"> <b>FIND</b></button>
