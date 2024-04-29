@@ -19,6 +19,16 @@ def add_data_to_database(data, folder_name, json_filepath):
     except KeyError:
         return
 
+    for product_data in affected:
+        product_name = product_data.get('product')
+        if product_name == 'n/a':
+            return
+
+    try:
+        metrics = data['containers']['cna']['metrics']
+    except KeyError:
+        return
+    
     cve = CVE.objects.create(
         cve_id=cve_id,
         year=folder_name,
@@ -35,7 +45,7 @@ def add_data_to_database(data, folder_name, json_filepath):
     for product_data in affected:
         product_name = product_data.get('product')
         if product_name == 'n/a':
-            continue
+            return
         
         product, _ = Products.objects.get_or_create(name=product_name)
 
