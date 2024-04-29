@@ -225,7 +225,7 @@ transition: transform .25s;
 span a:before,
 span a:after{
 position: absolute;
-content: "Register for your notifications now!";
+content: "Click here to see how to read an CVE! ";
 height: 55px;
 width: 180px;
 display: flex;
@@ -340,7 +340,7 @@ transform: translateZ(-25px) rotateX(-90deg);
                         <p><b>Published Date:</b> {{ detail_cve.date_publish }}</p>
                             <input name="follow_affect" value="null" style="display: none">
                             <input name="follow_affect" value="null" style="display: none">
-                        <span><a {% if user.is_authenticated %} href="{% url 'accounts:notification' %}" {% else %} href="{% url 'accounts:login' %}" {% endif %}></a></span>   
+                        <span><a href="{% url 'app:guidelines' %}" ></a></span>   
                     </form>
                 </div>
             </div>
