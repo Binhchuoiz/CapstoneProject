@@ -1,6 +1,7 @@
 import os
 import django
 import json
+# from datetime import datetime
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'CVEAlert.settings'
 django.setup()
@@ -39,7 +40,8 @@ def add_data_to_database(data, folder_name, json_filepath):
         date_update=data['cveMetadata'].get('dateUpdated', None),
         assigner_org_id=data['cveMetadata'].get('assignerOrgId', ''),
         assigner_short_name=data['cveMetadata'].get('assignerShortName', None),
-        title=data['containers']['cna'].get('title', None)
+        title=data['containers']['cna'].get('title', None),
+        # date_import = datetime.now()
     )
 
     for product_data in affected:

@@ -225,6 +225,8 @@ def get_list_Products(request, page):
         listCVE = CVE.objects.filter(id__in=affected_con_id)
         count = listCVE.count()
         counts.append((item, count))
+    for c in counts:
+        print(c)
     context = {
         "page": {
             'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,

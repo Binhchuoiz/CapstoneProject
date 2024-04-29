@@ -12,6 +12,7 @@ class CVE(models.Model):
     assigner_org_id = models.CharField(max_length=255, default="", null=True)
     assigner_short_name = models.CharField(max_length=900, default="", null=True)
     title = models.CharField(max_length=9000, default="", null=True)
+    # date_import = models.DateTimeField(max_length=255, default="", null=True)
 
     def __str__(self):
         return self.cve_id
