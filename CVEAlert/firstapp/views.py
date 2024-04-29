@@ -240,6 +240,7 @@ def get_list_Products(request, page):
         'status': status,
         'letter': letter,
         'search_focus': search_focus,
+        'counts': counts,
     }
     return render(request, 'firstapp/list_products.html', context=context)
 
