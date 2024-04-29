@@ -18,6 +18,7 @@ def add_data_to_database(data, folder_name, json_filepath):
     try:
         affected = data['containers']['cna']['affected']
     except KeyError:
+        print(f"CVE with ID {cve_id} has no products")
         return
 
     for product_data in affected:
@@ -28,6 +29,7 @@ def add_data_to_database(data, folder_name, json_filepath):
     try:
         metrics = data['containers']['cna']['metrics']
     except KeyError:
+        print(f"CVE with ID {cve_id} has no metrics")
         return
     
     cve = CVE.objects.create(
@@ -213,7 +215,7 @@ def read_json_files(folder_path, folder_name):
 
 
 # Specify the path to the directory containing JSON files
-cves_folder_path = r"E:\IAP104\cvelistV5-main\test"
+cves_folder_path = r"D:\Đồ án\cves"
 
 cves_folder_path = os.path.normpath(cves_folder_path)
 
