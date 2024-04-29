@@ -82,22 +82,21 @@ def get_list_CVE(request, page):
             When(metric_cve__cvssv20__isnull=False, then=F('metric_cve__cvssv20__base_score')),
             default=Value(''), output_field=CharField(),
         )
-        if sort_order in ['asc', 'desc']:
-            if sort_by == 'cvss':
-                if sort_order == 'asc':
-                    listCVE = listCVE.annotate(cvss_score=cvss_score_field).order_by('cvss_score')
-                else:
-                    listCVE = listCVE.annotate(cvss_score=cvss_score_field).order_by('-cvss_score')
-            elif sort_by == 'date_publish':
-                if sort_order == 'asc':
-                    listCVE = listCVE.order_by('date_publish')
-                else:
-                    listCVE = listCVE.order_by('-date_publish')
-            elif sort_by == 'date_update':
-                if sort_order == 'asc':
-                    listCVE = listCVE.order_by('date_update')
-                else:
-                    listCVE = listCVE.order_by('-date_update')
+        if sort_by == 'cvss':
+            if sort_order == 'asc':
+                listCVE = listCVE.annotate(cvss_score=cvss_score_field).order_by('cvss_score')
+            else:
+                listCVE = listCVE.annotate(cvss_score=cvss_score_field).order_by('-cvss_score')
+        elif sort_by == 'date_publish':
+            if sort_order == 'asc':
+                listCVE = listCVE.order_by('date_publish')
+            else:
+                listCVE = listCVE.order_by('-date_publish')
+        elif sort_by == 'date_update':
+            if sort_order == 'asc':
+                listCVE = listCVE.order_by('date_update')
+            else:
+                listCVE = listCVE.order_by('-date_update')
         
         # Filter CVEs based on minimum and maximum CVSS scores
         cvss_min = request.POST.get('cvss_min')

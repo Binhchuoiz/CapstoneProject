@@ -272,17 +272,18 @@ input.largerCheckbox {
             {% csrf_token %}
                 <h2>SORT ITEMS:</h2>
                 <hr>
-                <select name="" class="custom-select">
+                <select name="sort_by" class="custom-select">
                   <b> <option value="date-published">DATE PUBLISHED</option></b>
                   <b> <option value="date-update">DATE UPDATE</option></b>
                   <b> <option value="cvss">CVSS </option></b>
               </select>
             </br>
             <hr>
-            <button id="sort-ascending" onclick=""  type="submit" class="btn btn-one" style="width:100%"> <b>Ascending</b></button>
-          </br>
-        </br>
-            <button id="sort-descending" onclick=""  type="submit" class="btn btn-one" style="width:100%"> <b>Descending</b></button>
+            <button name="sort_order" value="asc" id="asc" type="submit" class="btn btn-one" style="width:100%"> <b>Ascending</b></button>
+            </br>
+            </br>
+            <button name="sort_order" value="desc" id="desc" type="submit" class="btn btn-one" style="width:100%"> <b>Descending</b></button>
+
           </br>
         </br>
       </form>
