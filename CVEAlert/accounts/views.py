@@ -173,9 +173,11 @@ def list_cve_by_product_view(request):
 		else:
 			products_cve[a.con_id] = [a.product]
 	listCVE.affected_cve = affected_cve
+	count = listCVE.count()
 	context = {
 		'listCVE': listCVE,
 		'status':status,
+		'count' : count,
 	}
 	return render(request, 'accounts/list_cve_by_product.html', context=context)
 

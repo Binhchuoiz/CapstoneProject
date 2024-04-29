@@ -213,11 +213,18 @@ def get_list_Products(request, page):
     
     # Count the number of CVEs related to each product
     # list_products = list_products.annotate(num_cves=Count('id__con', distinct=True))
-    
+    counts=[]
     per_page = request.GET.get("per_page", 10)
     paginator = Paginator(list_products, per_page)
     page_obj = paginator.get_page(page)
-    
+    for item in page_obj:
+        product = Products.objects.filter(name__contains=item)
+        product_id = [p.id for p in product]
+        affected = Affected.objects.filter(product_id__in=product_id)
+        affected_con_id = [a.con_id for a in affected]
+        listCVE = CVE.objects.filter(id__in=affected_con_id)
+        count = listCVE.count()
+        counts.append((item, count))
     context = {
         "page": {
             'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
