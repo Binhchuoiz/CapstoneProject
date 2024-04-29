@@ -461,6 +461,22 @@ def get_cve_definations(request):
 		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/Definations/cve.html', {'status': status})
 
+def get_cwe_definations(request):
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
+			status = False
+		else:
+			status = True
+	except:
+		status = False	
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
+	return render(request, 'firstapp/Definations/cwe.html', {'status': status})
+
 def get_cvss_definations(request):
 	try:
 		check_user_notifi = NotiUser.objects.get(user=request.user)
@@ -653,3 +669,37 @@ def get_cvss_statistic(request):
 
 		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/Statistics/cvss_statistic.html', {'status': status})
+
+
+def get_list_problems(request):
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
+			status = False
+		else:
+			status = True
+	except:
+		status = False	
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
+	return render(request, 'firstapp/list_problems.html', {'status': status})
+
+
+def get_guidelines(request):
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
+			status = False
+		else:
+			status = True
+	except:
+		status = False	
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
+	return render(request, 'firstapp/guidelines.html', {'status': status})

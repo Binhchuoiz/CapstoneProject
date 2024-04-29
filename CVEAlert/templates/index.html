@@ -822,17 +822,17 @@ font-family: monospace;
                                                     <div></div>
                                                     <div></div>
                                                 </div>
-                                                <a  class="hex-content" {% if user.is_authenticated %} href="{% url 'app:tele_noti' %}"  {% else %} href="{% url 'accounts:login' %}"    {% endif %}>
+                                                <a  class="hex-content"  href="{% url 'app:list_problems' %}" >
                                                     <span class="hex-content-inner">
                                                         <span class="icon">
-                                                            <i class="fa fa-bell"></i>
+                                                            <i class="fa fa-list"></i>
                                                         </span>
-                                                        <span class="title">Notification</span>
+                                                        <span class="title">List Problems</span>
                                                     </span>
                                                     <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#black"></path></svg>
                                                 </a>    
                                             </div>
-                                            {% if user.is_authenticated %}
+                                           
                                             <div class="hexagon-item">
                                                 <div class="hex-item">
                                                     <div></div>
@@ -845,42 +845,18 @@ font-family: monospace;
                                                     <div></div>
                                                 </div>
                                                 
-                                                <a  class="hex-content"href="{% url 'accounts:profile' %}" >
+                                                <a  class="hex-content"{% if user.is_authenticated %} href="{% url 'app:tele_noti' %}"  {% else %} href="{% url 'accounts:login' %}"    {% endif %} >
                                                    
                                                     <span class="hex-content-inner">
                                                         <span class="icon">
-                                                            <i class="fa fa-user"></i>
+                                                            <i class="fa fa-bell"></i>
                                                         </span>
-                                                        <span class="title">Profile</span>
+                                                        <span class="title">Notification</span>
                                                     </span>
                                                     <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#black"></path></svg>
                                                 </a>
                                             </div>
-                                            {% else %}
-                                            <div class="hexagon-item">
-                                              <div class="hex-item">
-                                                  <div></div>
-                                                  <div></div>
-                                                  <div></div>
-                                              </div>
-                                              <div class="hex-item">
-                                                  <div></div>
-                                                  <div></div>
-                                                  <div></div>
-                                              </div>
-                                              
-                                              <a  class="hex-content" href="{% url 'accounts:login' %}" >
-                                                 
-                                                  <span class="hex-content-inner">
-                                                      <span class="icon">
-                                                          <i class="fa fa-user-plus"></i>
-                                                      </span>
-                                                      <span class="title">Login</span>
-                                                  </span>
-                                                  <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#black"></path></svg>
-                                              </a>
-                                          </div>
-                                            {% endif %}
+                                           
                                             {% if not user.is_superuser %}
                                             <div class="hexagon-item">
                                               <div class="hex-item">
@@ -935,12 +911,12 @@ font-family: monospace;
                                                   <div></div>
                                                   <div></div>
                                               </div>
-                                              <a  class="hex-content" href={% url 'app:list_statistic'%}>
+                                              <a  class="hex-content" href={% url 'app:guidelines'%}>
                                                   <span class="hex-content-inner">
                                                       <span class="icon">
                                                           <i class=" fa fa-bar-chart"></i>
                                                       </span>
-                                                      <span class="title">STATISTICS</span>
+                                                      <span class="title">GUIDELINES</span>
                                                   </span>
                                                   <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#black"></path></svg>
                                               </a>
