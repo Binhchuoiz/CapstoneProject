@@ -32,8 +32,8 @@
     padding: 10px;
     }
     .base-score {
-    background-color: black !important;
-    color: white !important;
+    background-color: white ;
+    color: black !important;
     padding: 10px;
     border-radius: 10px;
     }
@@ -250,6 +250,42 @@ transform: translateZ(-25px) rotateX(-90deg);
 }
 
 
+.accordion {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 22px;
+    transition: 0.4s;
+  }
+  
+  .active, .accordion:hover {
+    background-color: black;
+  }
+  
+  .accordion:after {
+    content: '\002B';
+    color: white;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+  }
+  
+  .active:after {
+    content: "\2212";
+  }
+  
+  .panel {
+    padding: 0 18px;
+    background-color: black ;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+  }
 {% endblock %}
 
 
@@ -316,17 +352,7 @@ transform: translateZ(-25px) rotateX(-90deg);
                     {% endfor %}
                 </div>
             </div>
-            <div class="box-info">
-                <p class="base-score"><b style="font-size: 20px;">BASE SCORE V3.1 </b>
-                    {% for m in metric %}
-                        {% if m.con_id == detail_cve.id %}
-                            <span style="float: right">{{ m.cvssv31.base_score }}</span>
-                            <p class="base-score"><b style="font-size: 20px;">Base severity </b>
-                            <span style="float: right">{{ m.cvssv31.base_severity }}</span>
-                        {% endif %}
-                    {% endfor %}
-                </p>
-            </div>
+            
         </div>
         <div class="col-4">
             <div class="box-info" style="margin-top:65px;">
@@ -338,6 +364,11 @@ transform: translateZ(-25px) rotateX(-90deg);
                         {% csrf_token %}
                         <p><b>CVE ID:</b> {{ detail_cve.cve_id }}</p>
                         <p><b>Published Date:</b> {{ detail_cve.date_publish }}</p>
+                        <p><b>Date Update: </b> {{ detail_cve.date_update }}</p>
+                        <p><b> Date Reserved:</b> {{ detail_cve.date_reserved }}</p>
+                        <p><b>Data Version:</b> {{ detail_cve.data_version }}</p>
+                        <p><b>Organization ID: </b> {{ detail_cve.assigner_org_id }}</p>
+                        <p><b>Short name:</b> {{ detail_cve.assigner_short_name }}</p>
                             <input name="follow_affect" value="null" style="display: none">
                             <input name="follow_affect" value="null" style="display: none">
                         <span><a href="{% url 'app:guidelines' %}" ></a></span>   
@@ -345,21 +376,127 @@ transform: translateZ(-25px) rotateX(-90deg);
                 </div>
             </div>
             <br>
-            <div class="box-info">
-                <div class="title-box">
-                    <h2><b style="font-size: 28px;">Asking for information</b></h2>
-                </div>
-                <div class="content-box">
-                    <form method="post"  action="mailto:binhndhe161032@gmail.com">
-                        {% csrf_token %}
-                        <input type="text" name="your_name" placeholder="Your Name"><br>
-                        <input type="text" name="email_address" placeholder="Email Address"><br>
-                        <input type="text" name="phone_number" placeholder="Phone Number"><br>
-                        <textarea name="message" placeholder="Message" rows="5"></textarea><br>
-                        <button type="submit" value="Send" class="btn btn-one" style="width: 100%"><b>Sent</b></button>
-                    </form>
-                </div>
-            </div>
+                <button class="accordion"><b>CVSS V3.1</b></button>
+                <div class="panel">
+                    {% for m in metric %}
+                    {% if m.con_id == detail_cve.id  and m.cvssv31.base_score != null%}
+                        <span style="float: right">{{ m.cvssv30.base_score }}</span>
+                    </br>
+                        {% comment %} <span style="float: right">{{ m.cvssv20.base_score }}</span> {% endcomment %}
+                        <p class="base-score"> <b style="font-size: 20px;">Base Score: "{{ m.cvssv31.base_score }}"</b>
+                        </p></br>
+                        <p class="base-score"> <b style="font-size: 20px;">Vector String: "{{ m.cvssv31.vector_string }}"</b> 
+                        </p></br>
+                        {% if m.cvssv31.base_score > 0 and m.cvssv31.base_score < 4  %}
+                        <p class="base-score" style="background-color:green"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv31.base_severity }}"</b> 
+                        </p></br>
+                        {% elif m.cvssv31.base_score >= 4 and m.cvssv31.base_score < 7 %}
+                        <p class="base-score" style="background-color:yellow"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv31.base_severity }}"</b> 
+                        </p></br>
+                        {% elif m.cvssv31.base_score >= 7 and m.cvssv31.base_score < 9 %}
+                        <p class="base-score" style="background-color:orange"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv31.base_severity }}"</b> 
+                        </p></br>
+                        {% else %}
+                        <p class="base-score" style="background-color:red"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv31.base_severity }}"</b> 
+                        </p></br>
+                        {% endif %}
+                        <p class="base-score"> <b style="font-size: 20px;">Attack Complexity: "{{ m.cvssv31.attackComplexity }}"</b>
+                        </p></br>
+                        <p class="base-score"> <b style="font-size: 20px;">Attack Vector: "{{ m.cvssv31.attackVector }}"</b>
+                        </p></br>
+                        <p class="base-score"> <b style="font-size: 20px;">Availability Impact: "{{ m.cvssv31.availabilityImpact }}"</b> 
+                        </p></br>
+                        <p class="base-score"> <b style="font-size: 20px;">Confidentiality Impact: "{{ m.cvssv31.confidentialityImpact }}"</b> 
+                        </p></br>
+                        <p class="base-score"> <b style="font-size: 20px;">Integrity Impact: "{{ m.cvssv31.integrityImpact }}"</b>
+                        </p></br>
+                        <p class="base-score"> <b style="font-size: 20px;">Privileges Required: "{{ m.cvssv31.privilegesRequired }}"</b>
+                        </p></br>
+                        <p class="base-score"> <b style="font-size: 20px;">Scope Of: "{{ m.cvssv31.scope }}"</b> 
+                        </p></br>
+                        <p class="base-score"> <b style="font-size: 20px;">User Interaction: "{{ m.cvssv31.userInteraction }}"</b> 
+                        </p></br>
+                        {% else %}   
+                    </br>
+                        <p class="base-score"> <b style="font-size: 20px;"> NOT UPDATED! </b></p>
+                        {% endif %}
+                {% endfor %}
+                </div>      
+            </br>
+                <button class="accordion"><b>CVSS V3.0</b></button>
+                    <div class="panel">
+                        {% for m in metric %}
+                        {% if m.con_id == detail_cve.id  and m.cvssv30.base_score != null%}
+                    </br>
+                            <p class="base-score"> <b style="font-size: 20px;">Base Score: "{{ m.cvssv30.base_score }}"</b> 
+                            </p></br>
+                            <p class="base-score"> <b style="font-size: 20px;">Vector String: "{{ m.cvssv30.vector_string }}"</b> 
+                            </p></br>
+                            {% if m.cvssv30.base_score > 0 and m.cvssv30.base_score < 4  %}
+                            <p class="base-score" style="background-color:green"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv30.base_severity }}"</b> 
+                            </p></br>
+                            {% elif m.cvssv30.base_score >= 4 and m.cvssv30.base_score < 7 %}
+                            <p class="base-score" style="background-color:yellow"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv30.base_severity }}"</b> 
+                            </p></br>
+                            {% elif m.cvssv30.base_score >= 7 and m.cvssv30.base_score < 9 %}
+                            <p class="base-score" style="background-color:orange"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv30.base_severity }}"</b> 
+                            </p></br>
+                            {% else %}
+                            <p class="base-score" style="background-color:red"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv30.base_severity }}"</b> 
+                            </p></br>
+                            {% endif %}
+                        {% else %}   
+                        </br>
+                            <p class="base-score"> <b style="font-size: 20px;"> NOT UPDATED! </b></p>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                </br>
+                    <button class="accordion"><b>CVSS V2.0</b></button>
+                    <div class="panel">
+                        {% for m in metric %}
+                        {% if m.con_id == detail_cve.id  and m.cvssv20.base_score != null%}
+                    </br>
+                            <p class="base-score"> <b style="font-size: 20px;">Base Score: "{{ m.cvssv20.base_score }}"</b> 
+                            </p></br>
+                            <p class="base-score"> <b style="font-size: 20px;">Vector String: "{{ m.cvssv20.vector_string }}"</b> 
+                            </p></br>
+                            {% if m.cvssv20.base_score > 0 and m.cvssv20.base_score < 4  %}
+                            <p class="base-score" style="background-color:green"> <b style="font-size: 20px; ">Base Severity:  "LOW"</b> 
+                            </p></br>
+                            {% elif m.cvssv20.base_score >= 4 and m.cvssv20.base_score < 7 %}
+                            <p class="base-score" style="background-color:yellow"> <b style="font-size: 20px; ">Base Severity:  "MEDIUM"</b> 
+                            </p></br>
+                            {% elif m.cvssv20.base_score >= 7 and m.cvssv20.base_score < 9 %}
+                            <p class="base-score" style="background-color:orange"> <b style="font-size: 20px; ">Base Severity:  "HIGH"</b> 
+                            </p></br>
+                            {% else %}
+                            <p class="base-score" style="background-color:red"> <b style="font-size: 20px; ">Base Severity:  "CRITICAL"</b> 
+                            </p></br>
+                            {% endif %}
+                            {% else %}   
+                        </br>
+                            <p class="base-score"> <b style="font-size: 20px;"> NOT UPDATED! </b></p>
+                           
+                            {% endif %}
+                    {% endfor %}
+                    </div>
+            <script>
+                var acc = document.getElementsByClassName("accordion");
+                var i;
+                
+                for (i = 0; i < acc.length; i++) {
+                  acc[i].addEventListener("click", function() {
+                    this.classList.toggle("active");
+                    var panel = this.nextElementSibling;
+                    if (panel.style.maxHeight) {
+                      panel.style.maxHeight = null;
+                    } else {
+                      panel.style.maxHeight = panel.scrollHeight + "px";
+                    } 
+                  });
+                }
+                </script>
         </div>
     </div>
 </div>

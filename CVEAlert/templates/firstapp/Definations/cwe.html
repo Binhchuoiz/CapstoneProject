@@ -427,7 +427,7 @@ a:hover::before {
 {% endblock %}
 
 {% block title %}
-CVE DEFINITIONS
+CWE DEFINITIONS
 {% endblock %}
 
 {% block content %}
@@ -440,97 +440,43 @@ CVE DEFINITIONS
     </div>
         <div class="row">
             <div class="col-8">
-                <h1><b ><u>What Is a CVE?</u></b></h1>
-                <img src="/media/CVE.jpg" style="width: 100%; height: 500px; object-fit: cover; margin-top: 50px;margin-bottom: 50px; border-radius:10px;">
+                <h1><b ><u>What Is a CWE?</u></b></h1>
+                <img src="/media/image-blog-what-is-cwe.jpg" style="width: 100%; height: 500px; object-fit: cover; margin-top: 50px;margin-bottom: 50px; border-radius:10px;">
                 <div class="box-info">
                     <div class="title-box">
                         <h2><b style="font-size: 28px;">DESCRIPTION</b></h2>
                     </div>
                     <div class="content-box">
-                    <p class="url">Common Vulnerabilities and Exposures (CVE) is a database of publicly disclosed information security issues. A CVE number uniquely identifies one vulnerability from the list. CVE provides a convenient, reliable way for vendors, enterprises, academics, and all other interested parties to exchange information about cyber security issues. Enterprises typically use CVE, and corresponding <a href={% url 'app:cvss' %}>CVSS scores</a>, for planning and prioritization in their vulnerability management programs.</p>
-                    <p>First launched in 1999, CVE is managed and maintained by the National Cybersecurity FFRDC (Federally Funded Research and Development Center), operated by the MITRE Corporation. CVE is sponsored by the US Federal Government, with both the US Department of Homeland Security (DHS) and the Cybersecurity and Infrastructure Security Agency (CISA) contributing operating funds. CVE is publicly available and free for anyone to use.</p>
+                    <p class="url">Common Weakness Enumeration (CWE™) is a community-driven catalog of prevalent software and hardware weaknesses. A "weakness" is a flaw in software, firmware, hardware, or a service component that, under specific conditions, could lead to the introduction of vulnerabilities. The CWE List and its associated classification taxonomy identify and describe weaknesses using CWE identifiers.</p>
                 </div>
                 </div>
 
                 <div class="box-info">
                     <div class="title-box">
-                        <h2><b style="font-size: 28px;">Difference Between a Vulnerability and an Exposure</b></h2>
+                        <h2><b style="font-size: 28px;">Examples</b></h2>
                     </div>
                     <div class="content-box">
-                      <p>A <b>vulnerability </b> is a weakness which can be exploited to gain unauthorized access to or perform unauthorized actions on a computer system. Vulnerabilities can allow attackers to get direct access to a system or a network, run code, install malware, and access internal systems to steal, destroy, or modify sensitive data. . If it goes undetected, it could allow an attacker to pose as a super-user or system administrator with full access privileges.</p>
-                  <p>An <b>exposure</b> is a mistake that gives an attacker access to a system or network. Exposures can allow attackers to access personally identifiable information (PII) and exfiltrate it. Some of the biggest data breaches were caused by accidental exposure rather than sophisticated cyber attacks.</p>
+                      <p>CWE category 121 is for stack-based buffer overflows.</p>
                     </div>
                 </div>
                 <div class="box-info">
                     <div class="title-box">
-                        <h2><b style="font-size: 28px;">CVE Background</b></h2>
+                        <h2><b style="font-size: 28px;">CWE compatibility</b></h2>
                     </div>
                     <div class="content-box">
-                      <p>Before CVE was started in 1999, it was very difficult to share data on vulnerabilities across different databases and tools. Each vendor maintained their own database, with their own identification system and different sets of attributes for each vulnerability. CVE ensures that every tool can exchange data with other tools, while also providing a mechanism by which different tools, such as vulnerability scanners, can be compared.</p>
-                    <p>While some may question whether publicly disclosing vulnerabilities makes it easier for hackers to exploit those vulnerabilities, it is generally accepted that the benefits outweigh the risks. CVE includes only publicly known security exposures and vulnerabilities. This means that hackers could get their hands on data related to the CVE whether it is in the CVE list or not. Additionally, details of a CVE are often withheld from the vulnerability list until the corresponding vendor can issue a patch or other fix, ensuring that enterprises can protect themselves once the information is made public. Additionally, information sharing across the cybersecurity industry can help speed mitigations, as well as ensure that all organizations are protected more quickly than if left to identify and find resolutions to CVEs on their own.</p>
+                      <p>Common Weakness Enumeration (CWE) Compatibility program allows a service or a product to be reviewed and registered as officially "CWE-Compatible" and "CWE-Effective". The program assists organizations in selecting the right software tools and learning about possible weaknesses and their possible impact.</p>
                     </div>
                 </div>
                 <div class="box-info">
                     <div class="title-box">
-                        <h2><b style="font-size: 28px;">How Are CVEs Determined?</b></h2>
+                        <h2><b style="font-size: 28px;">Research, critiques, and new developments</b></h2>
                     </div>
                     <div class="content-box">
-                      <p>CVE IDs are assigned to flaws that meet a specific set of criteria. They must be fixed independently of any other bugs, they must be acknowledged by the vendor as having a negative impact on security, and they must be affecting only one codebase. Flaws that impact more than one product get separate CVEs.</p>
-                      <img src="/media/what-is-a-CVE-1024x655.png">
+                      <p>Some researchers think that ambiguities in CWE can be avoided or reduced.</p>
+                      
                     </div>
                 </div>
-                <div class="box-info">
-                    <div class="title-box">
-                        <h2><b style="font-size: 28px;">Understanding CVE Identifiers</b></h2>
-                    </div>
-                    <div class="content-box">
-                      <p>Every CVE is assigned a number known as a CVE Identifier. CVE identifiers are assigned by one of around 100 CVE Numbering Authorities (CNAs). CNAs include IT vendors, research organizations like universities, security companies, and even MITRE themselves.</p>
-                      <p>A CVE identifier takes the form of CVE-[Year]-[Number]. Year represents the year in which the vulnerability was reported. The number is a sequential number assigned by the CNA.</p>
-                      <p>For example, CVE-2019-0708, corresponds to a flaw in Microsoft’s Remote Desktop Protocol (RDP) implementation. While CVE-2019-0709 might not sound familiar, you might recognize the common name given to this CVE, BlueKeep. Infamous CVEs, like BlueKeep, that get a lot of enterprise (and press) attention commonly get an informal nickname as an easy way to remember the vulnerability in question. A select few CVEs even get their own cool custom logo or graphic (often designed by the marketing teams at the vendor or organization looking to publicize information on the vulnerability to attract journalist interest):</p>
-                      <img src="/media/weaponized-bluekeep-exploit-released-showcase_image-1-a-13051.jpg">
-                    </div>
-                </div>
-                <div class="box-info">
-                    <div class="title-box">
-                        <h2><b style="font-size: 28px;">Benefits of CVEs</b></h2>
-                    </div>
-                    <div class="content-box">
-                      <p>Sharing CVE details is beneficial to all organizations it allows organizations to set a baseline for evaluating the coverage of their security tools. CVE numbers allow organizations to see what each tool covers and how appropriate they are for your organization.</p>
-                      <p>By using the CVE ID for a particular vulnerability or exposure, organizations can quickly and accurately obtain information about it from a variety of information sources and coordinate their efforts to prioritize and address these vulnerabilities to their organizations more secure.</p>
-                      <p>Security advisories can use CVE vulnerability details to search for known attack signatures to identify particular vulnerability exploits</p>
-                    </div>
-                </div>
-                <div class="box-info">
-                    <div class="title-box">
-                        <h2><b style="font-size: 28px;">Who Reports CVEs?</b></h2>
-                    </div>
-                    <div class="content-box">
-                      <p>Anyone can report a CVE to a CNA. Most commonly, researchers, white hat hackers, and vendors find and submit CVE reports to one of the CNAs. Many vendors actively encourage people to seek out vulnerabilities as a “free” way to improve upon the security posture of their products. In fact, many even offer bug bounties and other forms of contests and prizes to encourage the community to test, and find the flaws in, the security of their products.</p>
-                      <p>The full list of CNAs includes many household names, including MITRE, Adobe, Apple, CERT, Cisco, Dell, Facebook, Google, IBM, Intel, and more.</p>
-                    </div>
-                </div>
-                <div class="box-info">
-                    <div class="title-box">
-                        <h2><b style="font-size: 28px;">How Many CVEs Are There?</b></h2>
-                    </div>
-                    <div class="content-box">
-                      <p>There are thousands of new CVEs every year. Since the CVE program was started in 1999, over 130,000 CVE Identifiers have been issued. Over the last few years, there have been 12,000-15,000 new CVEs annually.</p>
-                    <p>Large software vendors with many products represent a large portion of the reported CVEs. Microsoft and Oracle, for example, each have over 6000 reported CVEs across their many product lines. In fact, the top 50 software vendors represent more than half of all CVEs issued since the inception of the CVE program.</p>
-                <img src="/media/CVEs-over-time-1024x712.png">    
-                </div>
-                </div>
-                <div class="box-info">
-                    <div class="title-box">
-                        <h2><b style="font-size: 28px;">What are the Limitations of CVE?</b></h2>
-                    </div>
-                    <div class="content-box">
-                      <p>CVE is not meant to be a vulnerability database, so (by design) it does not contain some of the information needed to run a comprehensive vulnerability management program. In addition to the CVE identifier, the CVE entry includes only a brief description of the security vulnerability, and references to more information about the CVE, such as vendor advisories.</p>
-                    <p class="url"> Additional information on each CVE can be found directly on vendor websites, as well as in the NIST National Vulnerability Database<a href="https://nvd.nist.gov/"> (NVD)</a>. The NVD provides CVSS Based Scores, fix information, and other important details often needed by information security teams that want to mitigate the vulnerability or assess its overall priority.</p>
-                    
-                    <p>Additionally, CVE represents vulnerabilities in unpatched software only. While traditional vulnerability management programs viewed unpatched software as the primary issue for resolution, modern, risk-based approaches to vulnerability management recognize that there are many types of “vulnerabilities” introducing risk to an organization, all of which need to be identified and mitigated. Many of these do not fit the definition of a CVE and cannot be found in the CVE security list.</P>
-                    
-                    </div>
-                </div>
+                
                 <div class="box-info">
                     <div class="title-box">
                         <h2><b style="font-size: 28px;">LEARN MORE...</b></h2>
@@ -545,6 +491,7 @@ CVE DEFINITIONS
                       + <a href="{% url 'app:environmental' %}">  Environmental CVSS Scores</a></br>
                       + <a href="{% url 'app:difference' %}">    What is the difference between CVE and CVSS?</a></br>
                       + <a href="{% url 'app:type' %}">  Product and Vendor of CVE</a></br>
+                      + <a href="{% url 'app:cwe' %}"> What Is a CWE?</a></br>
                       
                 </div>
             </div>
@@ -555,7 +502,7 @@ CVE DEFINITIONS
                         <h2><b style="font-size: 28px;">Box Informations</b></h2>
                     </div>
                     <div class="content-box">
-                        <p>Service: CVE Definitions</p>
+                        <p>Service: CWE Definitions</p>
                         <p>Published: 2024-20-3</p>
                         <p>Updated: 2024-26-3</p>
                         <span><a {% if user.is_authenticated %} href="{% url 'accounts:notification' %}" {% else %} href="{% url 'accounts:login' %}" {% endif %}></a></span>

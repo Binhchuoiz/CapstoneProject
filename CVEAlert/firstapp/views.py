@@ -299,7 +299,7 @@ def get_detail_cves(request, pk):
          'descriptions' : descriptions,
          'refrences' : refrences,
          'cvssv31' : cvssv31,
-		 	'status': status,
+		'status': status,
 
     }
 

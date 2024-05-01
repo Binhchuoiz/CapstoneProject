@@ -290,7 +290,7 @@ input.largerCheckbox {
         <form method="post">
           {% csrf_token %}
         <p>------------------------------------------------</p>
-            <h2>BY DATE PUBLISHED:</h2>
+            <h2>BY DATE IMPORT:</h2>
                 <hr>
                 <select name="" class="custom-select">
                   <b> <option value="today">TODAY</option></b>
@@ -305,23 +305,7 @@ input.largerCheckbox {
           </br>
         </br>
       </form>
-        <form method="post">
-          {% csrf_token %}
-        <p>------------------------------------------------</p>
-            <h2>BY DATE UPDATED:</h2>
-                <hr>
-                <select name="" class="custom-select">
-                  <b> <option value="today">TODAY</option></b>
-                  <b> <option value="yesterday">YESTERDAY</option></b>
-                  <b> <option value="last-7-days">LAST 7 DAYS </option></b>
-                  <b> <option value="last-30-days">LAST 30 DAYS </option></b>
-              </select>
-            </br>
-            <hr>
-            <button id="sort-ascending" onclick=""  type="submit" class="btn btn-one" style="width:100%"> <b>FIND</b></button>
-          </br>
-        </br>
-         </form>
+       
         <form method="post">
           {% csrf_token %}
         <p>------------------------------------------------</p>
