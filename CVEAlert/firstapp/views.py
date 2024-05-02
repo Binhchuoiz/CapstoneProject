@@ -90,16 +90,19 @@ def get_list_CVE(request, page):
                 listCVE = listCVE.annotate(cvss_score=cvss_score_field).order_by('cvss_score')
             else:
                 listCVE = listCVE.annotate(cvss_score=cvss_score_field).order_by('-cvss_score')
+            page = 1
         elif sort_by == 'date_publish':
             if sort_order == 'asc':
                 listCVE = listCVE.order_by('date_publish')
             else:
                 listCVE = listCVE.order_by('-date_publish')
+            page = 1
         elif sort_by == 'date_update':
             if sort_order == 'asc':
                 listCVE = listCVE.order_by('date_update')
             else:
                 listCVE = listCVE.order_by('-date_update')
+            page = 1
         
         # Filter CVEs based on minimum and maximum CVSS scores
         cvss_min = request.POST.get('cvss_min')
@@ -119,10 +122,14 @@ def get_list_CVE(request, page):
         search_focus = request.GET.get('search_focus', None)
         selected_year = request.GET.get('filter_year', None)
         if selected_year:
-            listCVE = listCVE.filter(year__in=selected_year)
+            listCVE = listCVE.filter(year=selected_year)
         if search_focus:
             listCVE = listCVE.filter(cve_id__contains=search_focus)
         if sort_by == 'cvss':
+            cvss_score_field = Case(
+                When(metric_cve__cvssv31__isnull=False, then=F('metric_cve__cvssv31__base_score')),
+                default=Value(999), output_field=FloatField(),  # Set a high value for entries without a CVSS 3.1 score
+            )
             if sort_order == 'asc':
                 listCVE = listCVE.annotate(cvss_score=cvss_score_field).order_by('cvss_score')
             else:
