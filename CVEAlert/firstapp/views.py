@@ -114,12 +114,29 @@ def get_list_CVE(request, page):
             )
         
     else:
+        sort_by = request.GET.get('sort_by', None)
+        sort_order = request.GET.get('sort_order', None)
         search_focus = request.GET.get('search_focus', None)
         selected_year = request.GET.get('filter_year', None)
         if selected_year:
-            listCVE = listCVE.filter(year=selected_year)
+            listCVE = listCVE.filter(year__in=selected_year)
         if search_focus:
             listCVE = listCVE.filter(cve_id__contains=search_focus)
+        if sort_by == 'cvss':
+            if sort_order == 'asc':
+                listCVE = listCVE.annotate(cvss_score=cvss_score_field).order_by('cvss_score')
+            else:
+                listCVE = listCVE.annotate(cvss_score=cvss_score_field).order_by('-cvss_score')
+        if sort_by == 'date_publish':
+            if sort_order == 'asc':
+                listCVE = listCVE.order_by('date_publish')
+            else:
+                listCVE = listCVE.order_by('-date_publish')
+        if sort_by == 'date_update':
+            if sort_order == 'asc':
+                listCVE = listCVE.order_by('date_update')
+            else:
+                listCVE = listCVE.order_by('-date_update')
     
     per_page = request.GET.get("per_page", 10)
     paginator = Paginator(listCVE, per_page)

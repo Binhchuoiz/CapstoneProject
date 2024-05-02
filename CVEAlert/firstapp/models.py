@@ -109,7 +109,7 @@ class References(models.Model):
 class CvssV20(models.Model):
     version = models.CharField(max_length=255, default="", null=True)
     vector_string = models.CharField(max_length=300, default="", null=True)
-    base_score = models.FloatField(default=0.0, null=True)  # Updated default value
+    base_score = models.FloatField(default="", null=True)  # Updated default value
 
     def __str__(self):
         return self.version
@@ -117,7 +117,7 @@ class CvssV20(models.Model):
 class CvssV30(models.Model):
     version = models.CharField(max_length=255, default="", null=True)
     vector_string = models.CharField(max_length=300, default="", null=True)
-    base_score = models.FloatField(default=0.0, null=True)  # Updated default value
+    base_score = models.FloatField(default="", null=True)  # Updated default value
     base_severity = models.CharField(max_length=255, default="", null=True)
 
     def __str__(self):
@@ -134,7 +134,7 @@ class CvssV31(models.Model):
     userInteraction = models.CharField(max_length=255, default="", null=True)
     version = models.CharField(max_length=255, default="", null=True)
     vector_string = models.CharField(max_length=400, default="", null=True)
-    base_score = models.FloatField(default=0.0, null=True)  # Updated default value
+    base_score = models.FloatField(default="", null=True)  # Updated default value
     base_severity = models.CharField(max_length=255, default="", null=True)
 
     def __str__(self):
