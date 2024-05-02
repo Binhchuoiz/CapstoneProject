@@ -72,27 +72,27 @@ WSGI_APPLICATION = 'CVEAlert.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'test2',
-#         'USER': 'root',
-#         'PASSWORD': 'VuDucHien1602',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test4',
+        'NAME': 'test3',
         'USER': 'root',
-        'PASSWORD': 'Bad11224791025@',
+        'PASSWORD': 'VuDucHien1602',
         'HOST': 'localhost',
         'PORT': '3306',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'test4',
+#         'USER': 'root',
+#         'PASSWORD': 'Bad11224791025@',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 
 # DATABASES = {
 #     'default': {

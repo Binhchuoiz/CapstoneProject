@@ -51,12 +51,13 @@ def get_home(request):
 
 
 
+
+
 def get_list_CVE(request, page):
     listCVE = CVE.objects.all().order_by('date_publish')
     year = CVE.objects.values_list('year', flat=True)
     unique_Year = set(year)
-    unique_year_List = list(unique_Year)
-    unique_year_List.sort()
+    unique_year_List = sorted(unique_Year)
     
     selected_year = None
     search_focus = None
@@ -67,8 +68,14 @@ def get_list_CVE(request, page):
         else:
             status = True
     except:
-            status = False
-            
+        status = False
+    cvss_min = request.POST.get('cvss_min')
+    cvss_max = request.POST.get('cvss_max')
+    if cvss_min and cvss_max:
+            cvss_min = float(cvss_min)
+            cvss_max = float(cvss_max)
+            listCVE = listCVE.filter(metric_cve__cvssv31__base_score__gte=cvss_min, 
+                                     metric_cve__cvssv31__base_score__lte=cvss_max)
     if request.method == 'POST':
         selected_years = request.POST.getlist('filter_year')
         if selected_years:
@@ -79,18 +86,19 @@ def get_list_CVE(request, page):
             search_focus = request.POST['search_focus']
             listCVE = listCVE.filter(cve_id__contains=search_focus)
             page = 1
-            
+
         sort_order = request.POST.get('sort_order')
         sort_by = request.POST.get('sort_by')
         if sort_by == 'cvss':
-            cvss_score_field = Case(
-                When(metric_cve__cvssv31__isnull=False, then=F('metric_cve__cvssv31__base_score')),
-                default=Value(999), output_field=FloatField(),  # Set a high value for entries without a CVSS 3.1 score
-            )
-            if sort_order == 'asc':
-                listCVE = listCVE.annotate(cvss_score=cvss_score_field).order_by('cvss_score')
-            else:
-                listCVE = listCVE.annotate(cvss_score=cvss_score_field).order_by('-cvss_score')
+            listCVE = listCVE.annotate(
+                cvss_score=Case(
+                    When(metric_cve__cvssv31__isnull=False, then=F('metric_cve__cvssv31__base_score')),
+                    default=None,  # Ignore entries without a CVSS 3.1 score
+                    output_field=FloatField()
+                )
+            ).exclude(cvss_score__isnull=True)  # Exclude entries without CVSS v3.1
+            order_prefix = '' if sort_order == 'asc' else '-'
+            listCVE = listCVE.order_by(f'{order_prefix}cvss_score')
             page = 1
         elif sort_by == 'date_publish':
             if sort_order == 'asc':
@@ -104,19 +112,7 @@ def get_list_CVE(request, page):
             else:
                 listCVE = listCVE.order_by('-date_update')
             page = 1
-        
-        # Filter CVEs based on minimum and maximum CVSS scores
-        cvss_min = request.POST.get('cvss_min')
-        cvss_max = request.POST.get('cvss_max')
-        if cvss_min and cvss_max:
-            cvss_min = float(cvss_min)
-            cvss_max = float(cvss_max)
-            listCVE = listCVE.filter(
-                (Q(metric_cve__cvssv31__base_score__gte=cvss_min) & Q(metric_cve__cvssv31__base_score__lte=cvss_max)) |
-                (Q(metric_cve__cvssv30__base_score__gte=cvss_min) & Q(metric_cve__cvssv30__base_score__lte=cvss_max)) |
-                (Q(metric_cve__cvssv20__base_score__gte=cvss_min) & Q(metric_cve__cvssv20__base_score__lte=cvss_max))
-            )
-        
+
     else:
         sort_by = request.GET.get('sort_by', None)
         sort_order = request.GET.get('sort_order', None)
@@ -127,31 +123,23 @@ def get_list_CVE(request, page):
         if search_focus:
             listCVE = listCVE.filter(cve_id__contains=search_focus)
         if sort_by == 'cvss':
-            cvss_score_field = Case(
-                When(metric_cve__cvssv31__isnull=False, then=F('metric_cve__cvssv31__base_score')),
-                default=Value(999), output_field=FloatField(),  # Set a high value for entries without a CVSS 3.1 score
-            )
-            if sort_order == 'asc':
-                listCVE = listCVE.annotate(cvss_score=cvss_score_field).order_by('cvss_score')
-            else:
-                listCVE = listCVE.annotate(cvss_score=cvss_score_field).order_by('-cvss_score')
-        if sort_by == 'date_publish':
-            if sort_order == 'asc':
-                listCVE = listCVE.order_by('date_publish')
-            else:
-                listCVE = listCVE.order_by('-date_publish')
-        if sort_by == 'date_update':
-            if sort_order == 'asc':
-                listCVE = listCVE.order_by('date_update')
-            else:
-                listCVE = listCVE.order_by('-date_update')
-    
+            listCVE = listCVE.annotate(
+                cvss_score=Case(
+                    When(metric_cve__cvssv31__isnull=False, then=F('metric_cve__cvssv31__base_score')),
+                    default=None,  # Ignore entries without a CVSS 3.1 score
+                    output_field=FloatField()
+                )
+            ).exclude(cvss_score__isnull=True)  # Exclude entries without CVSS v3.1
+            order_prefix = '' if sort_order == 'asc' else '-'
+            listCVE = listCVE.order_by(f'{order_prefix}cvss_score')
+
+
+
     per_page = request.GET.get("per_page", 10)
     paginator = Paginator(listCVE, per_page)
     page_obj = paginator.get_page(page)
 
     cve_ids = [cve.id for cve in page_obj]
-
     affected = Affected.objects.filter(con_id__in=cve_ids)
     products = {}
     vendors = {}
@@ -163,6 +151,7 @@ def get_list_CVE(request, page):
             products[a.con_id] = [a.product]
             vendors[a.con_id] = [a.vendor]
     page_obj.affected = affected
+
     metric = Metric.objects.filter(con_id__in=cve_ids)
     cvss_v31 = {}
     for m in metric:
@@ -171,7 +160,7 @@ def get_list_CVE(request, page):
         else:
             cvss_v31[m.con_id] = [m.cvssv31]
     page_obj.metric = metric
-    
+
     context = {
         "page": {
             'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
@@ -200,79 +189,39 @@ def get_list_CVE(request, page):
 
 
 
+
+from django.shortcuts import render
+from django.core.paginator import Paginator
+from django.db.models import Count
+
 def get_list_Products(request, page):
-    letter = None
-    search_focus = None
+    letter = request.POST.get('letter') if request.method == 'POST' else request.GET.get('letter')
+    search_focus = request.POST.get('search_focus') if request.method == 'POST' else request.GET.get('search_focus')
+    
     list_products = Products.objects.all().order_by('name')
     
-    try:
-        check_user_notifi = NotiUser.objects.get(user=request.user)
-        if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
-            status = False
-        else:
-            status = True
-    except:
-        status = False
+    if letter:
+        list_products = list_products.filter(name__istartswith=letter)
+    if search_focus:
+        list_products = list_products.filter(name__icontains=search_focus)
     
-    if request.method == 'POST':
-        letter = request.POST.get('letter')
-        if letter:
-            list_products = Products.objects.filter(name__istartswith=letter).order_by('name')
-            page = 1
-        if 'message' in request.POST:
-            message = request.POST['message']
-            response = ask_openai(message)
-            return JsonResponse({'message': message, 'response': response})
-        elif 'search_focus' in request.POST:
-            search_focus = request.POST['search_focus']
-            list_products = list_products.filter(name__icontains=search_focus)
-            page = 1
-        elif 'selected_products_localstorage' in request.POST:
-            user = request.user
-            selected_products_localstorage = json.loads(request.POST.get('selected_products_localstorage'))
-            products = Products.objects.filter(name__in=selected_products_localstorage)
-            for p in products:
-                Follow_Product.objects.get_or_create(user=user, product=p)
-            page = 1
-    else:
-        letter = request.GET.get('letter', None)
-        search_focus = request.GET.get('search_focus', None)
-        if search_focus:
-            list_products = list_products.filter(name__icontains=search_focus)
-        if letter:
-            list_products = Products.objects.filter(name__istartswith=letter).order_by('name')
+    paginator = Paginator(list_products, per_page=10)
+    page_obj = paginator.get_page(page)
     
     # Count the number of CVEs related to each product
-    # list_products = list_products.annotate(num_cves=Count('id__con', distinct=True))
-    counts=[]
-    per_page = request.GET.get("per_page", 10)
-    paginator = Paginator(list_products, per_page)
-    page_obj = paginator.get_page(page)
-    for item in page_obj:
-        product = Products.objects.filter(name__contains=item)
-        product_id = [p.id for p in product]
-        affected = Affected.objects.filter(product_id__in=product_id)
-        affected_con_id = [a.con_id for a in affected]
-        listCVE = CVE.objects.filter(id__in=affected_con_id)
-        count = listCVE.count()
-        counts.append((item, count))
+    counts = []
+    for product in page_obj:
+        cve_count = Affected.objects.filter(product_id=product.id).values('con_id').distinct().count()
+        counts.append((product, cve_count))
+    
     context = {
-        "page": {
-            'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
-            'current': page_obj.number,
-            'next': page_obj.number + 1 if page_obj.number + 1 < paginator.num_pages else paginator.num_pages,
-        },
-        'len_page': paginator.num_pages,
-        'paginator': paginator,
         'page_obj': page_obj,
-        'list_products': list_products,
-        'status': status,
+        'counts': counts,
         'letter': letter,
         'search_focus': search_focus,
-        'counts': counts,
     }
+    
     return render(request, 'firstapp/list_products.html', context=context)
-
 
 
 def get_detail_cves(request, pk):
