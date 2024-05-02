@@ -190,38 +190,80 @@ def get_list_CVE(request, page):
 
 
 
-from django.shortcuts import render
-from django.core.paginator import Paginator
-from django.db.models import Count
 
 def get_list_Products(request, page):
-    letter = request.POST.get('letter') if request.method == 'POST' else request.GET.get('letter')
-    search_focus = request.POST.get('search_focus') if request.method == 'POST' else request.GET.get('search_focus')
-    
+    letter = None
+    search_focus = None
     list_products = Products.objects.all().order_by('name')
     
-    if letter:
-        list_products = list_products.filter(name__istartswith=letter)
-    if search_focus:
-        list_products = list_products.filter(name__icontains=search_focus)
+    try:
+        check_user_notifi = NotiUser.objects.get(user=request.user)
+        if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
+            status = False
+        else:
+            status = True
+    except:
+        status = False
     
-    paginator = Paginator(list_products, per_page=10)
-    page_obj = paginator.get_page(page)
+    if request.method == 'POST':
+        letter = request.POST.get('letter')
+        if letter:
+            list_products = Products.objects.filter(name__istartswith=letter).order_by('name')
+            page = 1
+        if 'message' in request.POST:
+            message = request.POST['message']
+            response = ask_openai(message)
+            return JsonResponse({'message': message, 'response': response})
+        elif 'search_focus' in request.POST:
+            search_focus = request.POST['search_focus']
+            list_products = list_products.filter(name__icontains=search_focus)
+            page = 1
+        elif 'selected_products_localstorage' in request.POST:
+            user = request.user
+            selected_products_localstorage = json.loads(request.POST.get('selected_products_localstorage'))
+            products = Products.objects.filter(name__in=selected_products_localstorage)
+            for p in products:
+                Follow_Product.objects.get_or_create(user=user, product=p)
+            page = 1
+    else:
+        letter = request.GET.get('letter', None)
+        search_focus = request.GET.get('search_focus', None)
+        if search_focus:
+            list_products = list_products.filter(name__icontains=search_focus)
+        if letter:
+            list_products = Products.objects.filter(name__istartswith=letter).order_by('name')
     
     # Count the number of CVEs related to each product
-    counts = []
-    for product in page_obj:
-        cve_count = Affected.objects.filter(product_id=product.id).values('con_id').distinct().count()
-        counts.append((product, cve_count))
-    
+    # list_products = list_products.annotate(num_cves=Count('id__con', distinct=True))
+    counts=[]
+    per_page = request.GET.get("per_page", 10)
+    paginator = Paginator(list_products, per_page)
+    page_obj = paginator.get_page(page)
+    for item in page_obj:
+        product = Products.objects.filter(name__contains=item)
+        product_id = [p.id for p in product]
+        affected = Affected.objects.filter(product_id__in=product_id)
+        affected_con_id = [a.con_id for a in affected]
+        listCVE = CVE.objects.filter(id__in=affected_con_id)
+        count = listCVE.count()
+        counts.append((item, count))
     context = {
+        "page": {
+            'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
+            'current': page_obj.number,
+            'next': page_obj.number + 1 if page_obj.number + 1 < paginator.num_pages else paginator.num_pages,
+        },
+        'len_page': paginator.num_pages,
+        'paginator': paginator,
         'page_obj': page_obj,
-        'counts': counts,
+        'list_products': list_products,
+        'status': status,
         'letter': letter,
         'search_focus': search_focus,
+        'counts': counts,
     }
-    
     return render(request, 'firstapp/list_products.html', context=context)
+
 
 
 def get_detail_cves(request, pk):
