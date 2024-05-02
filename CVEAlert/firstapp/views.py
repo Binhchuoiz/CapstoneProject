@@ -8,6 +8,7 @@ from django.db.models import F, DateTimeField , ExpressionWrapper , Value , Char
 from django.db.models.functions import Cast 
 from django.http import JsonResponse
 from CVEAlert.chatbot import ask_openai
+from django.template import RequestContext
 import json
 # Create your views here.
 def get_home(request):
@@ -191,6 +192,8 @@ def get_list_CVE(request, page):
 
 
 
+
+
 def get_list_Products(request, page):
     letter = None
     search_focus = None
@@ -240,13 +243,16 @@ def get_list_Products(request, page):
     paginator = Paginator(list_products, per_page)
     page_obj = paginator.get_page(page)
     for item in page_obj:
-        product = Products.objects.filter(name__contains=item)
-        product_id = [p.id for p in product]
-        affected = Affected.objects.filter(product_id__in=product_id)
-        affected_con_id = [a.con_id for a in affected]
-        listCVE = CVE.objects.filter(id__in=affected_con_id)
-        count = listCVE.count()
-        counts.append((item, count))
+        if item is not None:  # Corrected indentation for the if statement
+            
+            product = Products.objects.filter(name__contains=item)
+            product_id = [p.id for p in product]
+            if product_id:
+                affected = Affected.objects.filter(product_id__in=product_id)
+                affected_con_id = [a.con_id for a in affected]
+                listCVE = CVE.objects.filter(id__in=affected_con_id)
+                count = listCVE.count()
+                counts.append((item, count))
     context = {
         "page": {
             'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
@@ -262,7 +268,8 @@ def get_list_Products(request, page):
         'search_focus': search_focus,
         'counts': counts,
     }
-    return render(request, 'firstapp/list_products.html', context=context)
+    return render(request, 'firstapp/list_products.html', context=context)  # Removed RequestContext since it's not being used
+
 
 
 

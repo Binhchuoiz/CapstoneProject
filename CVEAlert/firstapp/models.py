@@ -67,7 +67,7 @@ class Products(models.Model):
     name = models.CharField(max_length=3000, default="", null=True)
 
     def __str__(self):
-        return self.name
+         return self.name if self.name is not None else "Unnamed"
     
 class Vendors(models.Model):
     name = models.CharField(max_length=3000, default="", null=True)

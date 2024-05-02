@@ -13,7 +13,7 @@ def ask_openai(message):
         return "Thanks, our creator loves you too!"
     
     if "i love FPT university" in message.lower():
-        return "Thanks, we love this school too , we hope u have a good time and learn from the 4 pillar that is SonNT , TuanVM and 2 more =)))"
+        return "Thanks, we love this school too , we hope u have a good time and learn from the best teacher of the school that is 4 pillar who is SonNT , TuanVM and KhangNT, HaiLT "
 
     # Define the system's role and instructions
     system_prompt = {

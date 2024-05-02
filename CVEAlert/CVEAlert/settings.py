@@ -38,7 +38,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 
 MIDDLEWARE = [
-    'firstapp.middleware.ErrorTo404Middleware',
+    # 'firstapp.middleware.ErrorTo404Middleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
