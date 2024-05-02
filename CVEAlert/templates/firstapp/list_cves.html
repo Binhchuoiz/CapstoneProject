@@ -332,8 +332,8 @@ input.largerCheckbox {
                                         {% if a.con_id == cve.id %}
                                         <form method="post" action="{% url 'accounts:list_cve_by_product'  %}" id="click_product_form">
                                           {% csrf_token %}
-                                          <input type="hidden" name="sclick_product" id="click_product_input">
-                                          <a href="{% url 'accounts:list_cve_by_product'  %}" class="product-link"><b>Product: "{{ a.product.name }}"</b></a>
+                                          <input type="hidden" name="click_product" id="click_product_input">
+                                          <b> Product: </b><a href="{% url 'accounts:list_cve_by_product'  %}" class="product-link"><b> "{{ a.product.name }}"</b></a>
                                         </br>
                                            </p>
                                       </form>
