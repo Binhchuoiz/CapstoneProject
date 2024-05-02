@@ -115,13 +115,11 @@ def add_data_to_database(data, folder_name, json_filepath):
             cvssV2_0_version = cvssV2_0_data.get('version')
             cvssV2_0_base_score = cvssV2_0_data.get('baseScore')
             cvssV2_0_vector = cvssV2_0_data.get('vectorString')
-
             cvssV3_0_data = metric.get('cvssV3_0', {})
             cvssV3_0_version = cvssV3_0_data.get('version')
             cvssV3_0_base_score = cvssV3_0_data.get('baseScore')
             cvssV3_0_vector = cvssV3_0_data.get('vectorString')
             cvssV3_0_base_severity = cvssV3_0_data.get('baseSeverity')
-
             cvssV3_1_data = metric.get('cvssV3_1', {})
             cvssV3_1_version = cvssV3_1_data.get('version')
             cvssV3_1_base_score = cvssV3_1_data.get('baseScore')
@@ -167,10 +165,10 @@ def add_data_to_database(data, folder_name, json_filepath):
                     base_severity=cvssV3_1_base_severity,
                 )
             Metric.objects.create(con=cve, cvssv20=cvssV20_obj, cvssv30=cvssV30_obj, cvssv31=cvssV31_obj)
-
+        if not has_valid_metric:
+            print(f"No valid metric found for CVE {cve_id}. Skipping metric insertion.")
     except KeyError:
         pass
-
     # Handle references
     try:
         references = data['containers']['cna']['references']
@@ -211,7 +209,7 @@ def read_json_files(folder_path, folder_name):
 
 
 # Specify the path to the directory containing JSON files
-cves_folder_path = r"D:\Đồ án\cves\cves"
+cves_folder_path = r"E:\IAP104\cvelistV5-main\cves"
 
 cves_folder_path = os.path.normpath(cves_folder_path)
 
