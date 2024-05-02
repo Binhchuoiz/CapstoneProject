@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
-from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions , Products_Versions , Follow_Product , Follow_CVE
+from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions , Products_Versions , Follow_Product , Follow_CVE , Exploits , Workaround , ProblemTypes
 from accounts.models import NotiUser
 from .forms import CVEform,AffectedForm
 from django.db.models import F, DateTimeField , ExpressionWrapper , Value , CharField , Case , When , Q , Count
@@ -231,8 +231,6 @@ def get_list_Products(request, page):
         listCVE = CVE.objects.filter(id__in=affected_con_id)
         count = listCVE.count()
         counts.append((item, count))
-    for c in counts:
-        print(c)
     context = {
         "page": {
             'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
@@ -256,7 +254,7 @@ def get_detail_cves(request, pk):
     detail_cve = CVE.objects.get(pk=pk)
     affected = Affected.objects.filter(con_id=detail_cve.id)
     products = [a.product for a in affected]
-    products_versions = Products_Versions.objects.filter(product__in=products)
+    products_versions = Products_Versions.objects.filter(con_id=detail_cve.id)
     versions = [p.version for p in products_versions]
     vendors = [a.vendor for a in affected]
      
@@ -275,6 +273,22 @@ def get_detail_cves(request, pk):
         descriptions = Descriptions.objects.get(pk=pk)
     except Descriptions.DoesNotExist:
         descriptions = None
+		
+    try:
+        exploits = Exploits.objects.get(pk=pk)
+    except Exploits.DoesNotExist:
+        exploits = None
+		
+    try:
+        workaround = Workaround.objects.get(pk=pk)
+    except Workaround.DoesNotExist:
+        workaround = None
+		
+    try:
+        problemTypes = ProblemTypes.objects.filter(con_id=pk)
+    except ProblemTypes.DoesNotExist:
+        problemTypes = None  
+
     try:
         refrences = References.objects.filter(con_id=pk)
     except References.DoesNotExist:
@@ -306,6 +320,9 @@ def get_detail_cves(request, pk):
          'refrences' : refrences,
          'cvssv31' : cvssv31,
 		'status': status,
+		'exploits': exploits,
+		'workaround': workaround,
+		'problemTypes': problemTypes,
 
     }
 
