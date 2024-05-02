@@ -169,9 +169,6 @@ def add_data_to_database(data, folder_name, json_filepath):
 
                 Metric.objects.create(con=cve, cvssv20=cvssV20_obj, cvssv30=cvssV30_obj, cvssv31=cvssV31_obj)
 
-        if not has_valid_metric:
-            print(f"No valid metric found for CVE {cve_id}. Skipping metric insertion.")
-
     except KeyError:
         pass
 
