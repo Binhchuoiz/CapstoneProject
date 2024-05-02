@@ -694,10 +694,10 @@ def get_cvss_statistic(request):
 	return render(request, 'firstapp/Statistics/cvss_statistic.html', {'status': status})
 
 
-def get_list_problems(request):
+def get_list_problems(request,page):
     letter = None
     search_focus = None
-    list_products = Products.objects.all().order_by('name')
+    list_problems = ProblemTypes.objects.all()
     try:
         check_user_notifi = NotiUser.objects.get(user=request.user)
         if not check_user_notifi.status or (check_user_notifi.email_address == '' and check_user_notifi.token_bot == ''):
@@ -706,13 +706,40 @@ def get_list_problems(request):
             status = True
     except:
         status = False    
-
+    if request.method =="POST" and 'search_focus' in request.POST:
+            search_focus = request.POST['search_focus']
+            list_problems = list_problems.filter(description__icontains=search_focus)
+            page = 1
     if request.method == 'POST' and 'message' in request.POST:
         message = request.POST['message']
         response = ask_openai(message)
         return JsonResponse({'message': message, 'response': response})
-
-    return render(request, 'firstapp/list_problems.html', {'status': status})
+    counts=[]
+    per_page = request.GET.get("per_page", 10)
+    paginator = Paginator(list_problems, per_page)
+    page_obj = paginator.get_page(page)
+    for item in page_obj:
+        problem = ProblemTypes.objects.filter(description__contains=item)
+        problem_id = [p.con_id for p in problem]
+        listCVE = CVE.objects.filter(id__in=problem_id)
+        count=listCVE.count()
+        counts.append((item, count))
+        print(count)
+    context={
+		  "page": {
+            'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
+            'current': page_obj.number,
+            'next': page_obj.number + 1 if page_obj.number + 1 < paginator.num_pages else paginator.num_pages,
+        },
+		'len_page': paginator.num_pages,
+        'paginator': paginator,
+        'page_obj': page_obj,
+		'list_problems': list_problems,
+        'status': status,
+		'search_focus': search_focus,
+        'counts': counts,
+		}
+    return render(request, 'firstapp/list_problems.html', {'status': status} , context=context)
 
 
 
