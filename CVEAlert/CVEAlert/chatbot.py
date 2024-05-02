@@ -25,7 +25,7 @@ def ask_openai(message):
     messages = [system_prompt] + conversation_history + [{"role": "user", "content": message}]
 
     response = openai.ChatCompletion.create(
-        model="gpt-4.0-turbo",
+        model="gpt-3.5-turbo",
         messages=messages
     )
 

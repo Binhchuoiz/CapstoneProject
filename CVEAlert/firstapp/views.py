@@ -44,6 +44,12 @@ def get_home(request):
 
 from django.db.models import F, Value, CharField, Case, When
 
+from django.db.models import Case, When, Value, CharField, FloatField, Q
+
+from django.db.models import Case, When, Value, FloatField
+
+from django.db.models import Case, When, Value, FloatField
+
 def get_list_CVE(request, page):
     listCVE = CVE.objects.all().order_by('date_publish')
     year = CVE.objects.values_list('year', flat=True)
@@ -73,16 +79,13 @@ def get_list_CVE(request, page):
             listCVE = listCVE.filter(cve_id__contains=search_focus)
             page = 1
             
-        # Sorting based on CVSS versions (v31, v30, v20) or date fields
         sort_order = request.POST.get('sort_order')
         sort_by = request.POST.get('sort_by')
-        cvss_score_field = Case(
-            When(metric_cve__cvssv31__isnull=False, then=F('metric_cve__cvssv31__base_score')),
-            When(metric_cve__cvssv30__isnull=False, then=F('metric_cve__cvssv30__base_score')),
-            When(metric_cve__cvssv20__isnull=False, then=F('metric_cve__cvssv20__base_score')),
-            default=Value(''), output_field=CharField(),
-        )
         if sort_by == 'cvss':
+            cvss_score_field = Case(
+                When(metric_cve__cvssv31__isnull=False, then=F('metric_cve__cvssv31__base_score')),
+                default=Value(999), output_field=FloatField(),  # Set a high value for entries without a CVSS 3.1 score
+            )
             if sort_order == 'asc':
                 listCVE = listCVE.annotate(cvss_score=cvss_score_field).order_by('cvss_score')
             else:
@@ -143,6 +146,7 @@ def get_list_CVE(request, page):
         else:
             cvss_v31[m.con_id] = [m.cvssv31]
     page_obj.metric = metric
+    
     context = {
         "page": {
             'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
@@ -162,6 +166,8 @@ def get_list_CVE(request, page):
     }
 
     return render(request, 'firstapp/list_cves.html', context=context)
+
+
 
 
 
