@@ -1064,7 +1064,35 @@ font-family: monospace;
                                             {% endif %}
                                         {% endfor %}
                                     </p>
-
+                                    <p class="card-text">
+                                      {% for m in page_obj.metric %}
+                                          {% if m.con_id == cve.id %}
+                                              {% if m.cvssv31.base_score is not none and m.cvssv31.base_severity is not none %}
+                                                  <p class="card-text">
+                                                      <b>CVSS V3.1 Score:</b> 
+                                                      {{ m.cvssv31.base_score }}
+                                                      {{ m.cvssv31.base_severity }}
+                                                  </p>
+                                              {% elif m.cvssv30.base_score is not none and m.cvssv30.base_severity is not none  %}
+                                                <p class="card-text">
+                                                  <b>CVSS V3.0 Score:</b> 
+                                                  {{ m.cvssv30.base_score }}
+                                                  {{ m.cvssv30.base_severity }}
+                                              </p>
+                                              {% elif m.cvssv20.base_score is not none and m.cvssv20.base_severity is not none  %}
+                                              <p class="card-text">
+                                                <b>CVSS V2.0 Score:</b> 
+                                                {{ m.cvssv20.base_score }}
+                                                {{ m.cvssv20.base_severity }}
+                                            </p>
+                                            {% else %}
+                                            <p class="card-text">
+                                              <b>CVSS Score: NOT UPDATED!</b> 
+                                          </p>
+                                              {% endif %}
+                                          {% endif %}
+                                      {% endfor %}
+                                  </p>
                                     <a href="{% url 'app:detail_cves' pk=i.pk %}">
                                         <button class="btn btn-one"><b>READ NOW</b></button>
                                     </a>

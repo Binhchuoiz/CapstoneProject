@@ -318,41 +318,6 @@ List CVEs by Product Followed
             <form method="post">
               {% csrf_token %}
             <p>------------------------------------------------</p>
-                <h2>BY DATE PUBLISHED:</h2>
-                    <hr>
-                    <select name="" class="custom-select">
-                      <b> <option value="today">TODAY</option></b>
-                      <b> <option value="yesterday">YESTERDAY</option></b>
-                      <b> <option value="last-7-days">LAST 7 DAYS </option></b>
-                      <b> <option value="last-30-days">LAST 30 DAYS </option></b>
-                  </select>
-                </br>
-                <hr>
-                <button id="sort-ascending" onclick=""  type="submit" class="btn btn-one" style="width:100%"> <b>FIND</b></button>
-    
-              </br>
-            </br>
-          </form>
-            <form method="post">
-              {% csrf_token %}
-            <p>------------------------------------------------</p>
-                <h2>BY DATE UPDATED:</h2>
-                    <hr>
-                    <select name="" class="custom-select">
-                      <b> <option value="today">TODAY</option></b>
-                      <b> <option value="yesterday">YESTERDAY</option></b>
-                      <b> <option value="last-7-days">LAST 7 DAYS </option></b>
-                      <b> <option value="last-30-days">LAST 30 DAYS </option></b>
-                  </select>
-                </br>
-                <hr>
-                <button id="sort-ascending" onclick=""  type="submit" class="btn btn-one" style="width:100%"> <b>FIND</b></button>
-              </br>
-            </br>
-             </form>
-            <form method="post">
-              {% csrf_token %}
-            <p>------------------------------------------------</p>
               <h2>CVSS SCORES:</h2>
                     <hr>
                     <input type="number" id="min" placeholder="Enter the range of CVSS scores 'Min'" style="width:100%" min="0" max="10">
@@ -396,7 +361,7 @@ List CVEs by Product Followed
                                           {% endif %}
                                     {% endfor %}
                                 </p>
-                               
+                                <!--Thêm logic hiển thị điểm và mức độ nghiêm trọng-->
                                  <a href="{% url 'app:detail_cves' pk=l.pk %}" class="cta">
                                     <button class="btn btn-one"> <b style= "color: dodgerblue"> READ </b>NOW</button>
                                 </a> 

@@ -311,10 +311,11 @@ input.largerCheckbox {
         <p>------------------------------------------------</p>
           <h2>CVSS SCORES:</h2>
                 <hr>
-                <input type="number" name="cvss_min" id="min" placeholder="Enter the range of CVSS scores 'Min'" style="width:100%" min="0" max="10">
+                <input type="number" name="cvss_min" id="min" placeholder="Enter the range of CVSS scores 'Min'" style="width:100%" min="0" max="10" required>
                 <label for="cvss_min"></label><br>
-                <input type="number" name="cvss_max" id="max" placeholder="Enter the range of CVSS scores 'Max'" style="width:100%" min="0" max="10">
+                <input type="number" name="cvss_max" id="max" placeholder="Enter the range of CVSS scores 'Max'" style="width:100%" min="0" max="10" required>
                 <label for="cvss_max"></label><br>
+                
             </br>
             <hr>
             <button id="sort-ascending" onclick=""  type="submit" class="btn btn-one" style="width:100%"> <b>FIND</b></button>
@@ -355,10 +356,71 @@ input.largerCheckbox {
                                       {% if m.con_id == cve.id %}
                                           {% if m.cvssv31.base_score is not none and m.cvssv31.base_severity is not none %}
                                               <p class="card-text">
-                                                  <b>CVSS_v31 Score:</b> 
-                                                  {{ m.cvssv31.base_score }}
-                                                  {{ m.cvssv31.base_severity }}
+                                                {% if m.cvssv31.base_score > 0 and m.cvssv31.base_score < 4  %}
+                                                <p  > <b>CVSS V3.1 Score:</b> 
+                                                  "{{ m.cvssv31.base_score }}" - <b style="background-color:green;border-radius:5px;"> LOW </b> 
+                                                </p></br>
+                                                {% elif m.cvssv31.base_score >= 4 and m.cvssv31.base_score < 7 %}
+                                                <p  > <b>CVSS V3.1 Score:</b> 
+                                                  "{{ m.cvssv31.base_score }}" - <b style="background-color:yellow;border-radius:5px;"> MEDIUM </b> 
+                                                </p></br>
+                                                {% elif m.cvssv31.base_score >= 7 and m.cvssv31.base_score < 9 %}
+                                                <p  > <b>CVSS V3.1 Score:</b> 
+                                                  "{{ m.cvssv31.base_score }}" - <b style="background-color:orange;border-radius:5px;" >HIGH </b> 
+                                                </p></br>
+                                                {% else %}
+                                                <p  > <b>CVSS V3.1 Score:</b> 
+                                                  "{{ m.cvssv31.base_score }}" - <b style="background-color:red;border-radius:5px;"> CRITICAL </b> 
+                                                </p></br>
+                                                {% endif %}  
                                               </p>
+                                          {% elif m.cvssv30.base_score is not none and m.cvssv30.base_severity is not none  %}
+                                            <p class="card-text">
+                                              
+                                              {% if m.cvssv30.base_score > 0 and m.cvssv30.base_score < 4  %}
+                                              <p  > <b>CVSS V3.0 Score:</b> 
+                                                "{{ m.cvssv30.base_score }}" - <b style="background-color:green;border-radius:5px;"> LOW </b> 
+                                              </p></br>
+                                              {% elif m.cvssv30.base_score >= 4 and m.cvssv30.base_score < 7 %}
+                                              <p  > <b>CVSS V3.0 Score:</b> 
+                                                "{{ m.cvssv30.base_score }}" - <b style="background-color:yellow;border-radius:5px;"> MEDIUM </b> 
+                                              </p></br>
+                                              {% elif m.cvssv30.base_score >= 7 and m.cvssv30.base_score < 9 %}
+                                              <p  > <b>CVSS V3.0 Score:</b> 
+                                                "{{ m.cvssv30.base_score }}" - <b style="background-color:orange;border-radius:5px;" >HIGH </b> 
+                                              </p></br>
+                                              {% else %}
+                                              <p  > <b>CVSS V3.0 Score:</b> 
+                                                "{{ m.cvssv30.base_score }}" - <b style="background-color:red;border-radius:5px;"> CRITICAL </b> 
+                                              </p></br>
+                                              {% endif %}                                         
+
+                                          </p>
+                                          {% elif m.cvssv20.base_score is not none and m.cvssv20.base_severity is not none  %}
+                                          <p class="card-text">
+                                            {% if m.cvssv20.base_score > 0 and m.cvssv20.base_score < 4  %}
+                                              <p  > <b>CVSS V2.0 Score:</b> 
+                                                "{{ m.cvssv20.base_score }}" - <b style="background-color:green;border-radius:5px;"> LOW </b> 
+                                              </p></br>
+                                              {% elif m.cvssv30.base_score >= 4 and m.cvssv20.base_score < 7 %}
+                                              <p  > <b>CVSS V2.0 Score:</b> 
+                                                "{{ m.cvssv20.base_score }}" - <b style="background-color:yellow;border-radius:5px;"> MEDIUM </b> 
+                                              </p></br>
+                                              {% elif m.cvssv20.base_score >= 7 and m.cvssv20.base_score < 9 %}
+                                              <p  > <b>CVSS V2.0 Score:</b> 
+                                                "{{ m.cvssv20.base_score }}" - <b style="background-color:orange;border-radius:5px;" >HIGH </b> 
+                                              </p></br>
+                                              {% else %}
+                                              <p  > <b>CVSS V2.0 Score:</b> 
+                                                "{{ m.cvssv20.base_score }}" - <b style="background-color:red;border-radius:5px;"> CRITICAL </b> 
+                                              </p></br>
+                                              {% endif %}                                         
+
+                                        </p>
+                                        {% else %}
+                                        <p class="card-text"><b>CVSS Score:</b>
+                                          <b  style="background-color:black; color:white; border-radius:5px; "> NOT UPDATED!</b> 
+                                      </p>
                                           {% endif %}
                                       {% endif %}
                                   {% endfor %}
