@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
 from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions , Products_Versions , Follow_Product , Follow_CVE , Exploits , Workaround , ProblemTypes
 from accounts.models import NotiUser
 from .forms import CVEform,AffectedForm
-from django.db.models import F, DateTimeField , ExpressionWrapper , Value , CharField , Case , When , Q , Count
+from django.db.models import F, DateTimeField , ExpressionWrapper , Value , CharField , Case , When , Q , Count ,FloatField
 from django.db.models.functions import Cast 
 from django.http import JsonResponse
 from CVEAlert.chatbot import ask_openai
@@ -16,6 +16,13 @@ def get_home(request):
     affected = Affected.objects.filter(con_id__in=cve_ids) 
     products = [a.product for a in affected]
     vendors = [a.vendor for a in affected]
+    metric = Metric.objects.filter(con_id__in=cve_ids)
+    cvss_v31 = {}
+    for m in metric:
+        if m.con_id in cvss_v31:
+            cvss_v31[m.con_id].append(m.cvssv31)
+        else:
+            cvss_v31[m.con_id] = [m.cvssv31]
     try:
         check_user_notifi = NotiUser.objects.get(user=request.user)
         if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
@@ -38,17 +45,11 @@ def get_home(request):
         'vendors': vendors,
         'affected': affected,
 		'status': status,
+		'metric':metric
     }
     return render(request, 'index.html', context=context)
 
 
-from django.db.models import F, Value, CharField, Case, When
-
-from django.db.models import Case, When, Value, CharField, FloatField, Q
-
-from django.db.models import Case, When, Value, FloatField
-
-from django.db.models import Case, When, Value, FloatField
 
 def get_list_CVE(request, page):
     listCVE = CVE.objects.all().order_by('date_publish')
