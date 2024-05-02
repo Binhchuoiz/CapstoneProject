@@ -287,24 +287,7 @@ input.largerCheckbox {
           </br>
         </br>
       </form>
-        <form method="post">
-          {% csrf_token %}
-        <p>------------------------------------------------</p>
-            <h2>BY DATE IMPORT:</h2>
-                <hr>
-                <select name="" class="custom-select">
-                  <b> <option value="today">TODAY</option></b>
-                  <b> <option value="yesterday">YESTERDAY</option></b>
-                  <b> <option value="last-7-days">LAST 7 DAYS </option></b>
-                  <b> <option value="last-30-days">LAST 30 DAYS </option></b>
-              </select>
-            </br>
-            <hr>
-            <button id="sort-ascending" onclick=""  type="submit" class="btn btn-one" style="width:100%"> <b>FIND</b></button>
-
-          </br>
-        </br>
-      </form>
+       
        
         <form method="post">
           {% csrf_token %}
@@ -396,13 +379,13 @@ input.largerCheckbox {
                                               {% endif %}                                         
 
                                           </p>
-                                          {% elif m.cvssv20.base_score is not none and m.cvssv20.base_severity is not none  %}
+                                          {% elif m.cvssv20.base_score is not none %}
                                           <p class="card-text">
                                             {% if m.cvssv20.base_score > 0 and m.cvssv20.base_score < 4  %}
                                               <p  > <b>CVSS V2.0 Score:</b> 
                                                 "{{ m.cvssv20.base_score }}" - <b style="background-color:green;border-radius:5px;"> LOW </b> 
                                               </p></br>
-                                              {% elif m.cvssv30.base_score >= 4 and m.cvssv20.base_score < 7 %}
+                                              {% elif m.cvssv20.base_score >= 4 and m.cvssv20.base_score < 7 %}
                                               <p  > <b>CVSS V2.0 Score:</b> 
                                                 "{{ m.cvssv20.base_score }}" - <b style="background-color:yellow;border-radius:5px;"> MEDIUM </b> 
                                               </p></br>

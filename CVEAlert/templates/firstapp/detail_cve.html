@@ -379,8 +379,8 @@ transform: translateZ(-25px) rotateX(-90deg);
                 <button class="accordion"><b>CVSS V3.1</b></button>
                 <div class="panel">
                     {% for m in metric %}
-                    {% if m.con_id == detail_cve.id  and m.cvssv31.base_score != null%}
-                        <span style="float: right">{{ m.cvssv30.base_score }}</span>
+                    {% if m.con_id == detail_cve.id  and m.cvssv31.base_score is not none and m.cvssv31.base_severity is not none%}
+                        <span style="float: right">{{ m.cvssv31.base_score }}</span>
                     </br>
                         {% comment %} <span style="float: right">{{ m.cvssv20.base_score }}</span> {% endcomment %}
                         <p class="base-score"> <b style="font-size: 20px;">Base Score: "{{ m.cvssv31.base_score }}"</b>
@@ -416,10 +416,7 @@ transform: translateZ(-25px) rotateX(-90deg);
                         </p></br>
                         <p class="base-score"> <b style="font-size: 20px;">User Interaction: "{{ m.cvssv31.userInteraction }}"</b> 
                         </p></br>
-                        {% else %}   
-                    </br>
-                        <p class="base-score"> <b style="font-size: 20px;"> NOT UPDATED! </b></p>
-                        {% endif %}
+                    {% endif %}
                 {% endfor %}
                 </div>      
             </br>
@@ -445,9 +442,7 @@ transform: translateZ(-25px) rotateX(-90deg);
                             <p class="base-score" style="background-color:red"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv30.base_severity }}"</b> 
                             </p></br>
                             {% endif %}
-                        {% else %}   
-                        </br>
-                            <p class="base-score"> <b style="font-size: 20px;"> NOT UPDATED! </b></p>
+                        
                         {% endif %}
                     {% endfor %}
                     </div>
@@ -474,9 +469,7 @@ transform: translateZ(-25px) rotateX(-90deg);
                             <p class="base-score" style="background-color:red"> <b style="font-size: 20px; ">Base Severity:  "CRITICAL"</b> 
                             </p></br>
                             {% endif %}
-                            {% else %}   
-                        </br>
-                            <p class="base-score"> <b style="font-size: 20px;"> NOT UPDATED! </b></p>
+                           
                            
                             {% endif %}
                     {% endfor %}
