@@ -330,12 +330,15 @@ input.largerCheckbox {
                                 <p class="card-text">
                                     {% for a in page_obj.affected %}
                                         {% if a.con_id == cve.id %}
-                                        <form method="post" action="{% url 'accounts:list_cve_by_product'  %}" id="click_product_form">
+                                        <form id="click_product_form" method="post" action="{% url 'accounts:list_cve_by_product' %}">
                                           {% csrf_token %}
+                                          <!-- Input ẩn để lưu trữ giá trị productName -->
                                           <input type="hidden" name="click_product" id="click_product_input">
-                                          <b> Product: </b><a href="{% url 'accounts:list_cve_by_product'  %}" class="product-link"><b> "{{ a.product.name }}"</b></a>
-                                        </br>
-                                           </p>
+                                          <!-- Product link -->
+                                          <b>Product: </b>
+                                          <a href="#" class="product-link" data-product-name="{{ a.product.name }}">
+                                              "{{ a.product.name }}"
+                                          </a>
                                       </form>
                                         {% comment %} <a href="{% url 'accounts:list_cve_by_product'  %}" class="product-link"><b> Product:</b> <b>"{{ a.product.name }}"</b></a> {% endcomment %}
                                             {% comment %} <p class="card-text"><b> Product:</b> "{{ a.product.name }}"</p> {% endcomment %}
@@ -347,7 +350,7 @@ input.largerCheckbox {
                                       {% if m.con_id == cve.id %}
                                           {% if m.cvssv31.base_score is not none and m.cvssv31.base_severity is not none %}
                                               <p class="card-text">
-                                                {% if m.cvssv31.base_score >= 0 and m.cvssv31.base_score < 4  %}
+                                                {% if m.cvssv31.base_score > 0 and m.cvssv31.base_score < 4  %}
                                                 <p  > <b>CVSS V3.1 Score:</b> 
                                                   "{{ m.cvssv31.base_score }}" - <b style="background-color:green;border-radius:5px;"> LOW </b> 
                                                 </p></br>
@@ -368,7 +371,7 @@ input.largerCheckbox {
                                           {% elif m.cvssv30.base_score is not none and m.cvssv30.base_severity is not none  %}
                                             <p class="card-text">
                                               
-                                              {% if m.cvssv30.base_score >= 0 and m.cvssv30.base_score < 4  %}
+                                              {% if m.cvssv30.base_score > 0 and m.cvssv30.base_score < 4  %}
                                               <p  > <b>CVSS V3.0 Score:</b> 
                                                 "{{ m.cvssv30.base_score }}" - <b style="background-color:green;border-radius:5px;"> LOW </b> 
                                               </p></br>
@@ -389,7 +392,7 @@ input.largerCheckbox {
                                           </p>
                                           {% elif m.cvssv20.base_score is not none %}
                                           <p class="card-text">
-                                            {% if m.cvssv20.base_score >= 0 and m.cvssv20.base_score < 4  %}
+                                            {% if m.cvssv20.base_score > 0 and m.cvssv20.base_score < 4  %}
                                               <p  > <b>CVSS V2.0 Score:</b> 
                                                 "{{ m.cvssv20.base_score }}" - <b style="background-color:green;border-radius:5px;"> LOW </b> 
                                               </p></br>
@@ -451,22 +454,17 @@ input.largerCheckbox {
     </div>
 </div>
 <script>
-  localStorage.removeItem('click_product');
-  // Lấy tất cả các thẻ 'a' có class 'product-link'
-  const productLinks = document.querySelectorAll('.product-link');
-
-  // Lặp qua từng thẻ 'a'
-  productLinks.forEach(link => {
-      // Lắng nghe sự kiện click
+  // Lắng nghe sự kiện click trên tất cả các thẻ 'a' có class 'product-link'
+  document.querySelectorAll('.product-link').forEach(link => {
       link.addEventListener('click', function(event) {
-          event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+          event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ 'a'
 
-          const productName = this.innerText; // Lấy tên sản phẩm từ nội dung của thẻ 'a'
+          const productName = this.getAttribute('data-product-name'); // Lấy tên sản phẩm từ thuộc tính 'data-product-name' của thẻ 'a'
 
-          // Lưu giá trị vào local storage với khóa là "search_product"
+          // Lưu giá trị vào localStorage với khóa là "click_product"
           localStorage.setItem('click_product', JSON.stringify(productName));
 
-          // Đặt giá trị cho input trong form
+          // Đặt giá trị cho input ẩn trong form
           document.getElementById('click_product_input').value = JSON.stringify(productName);
 
           // Submit form

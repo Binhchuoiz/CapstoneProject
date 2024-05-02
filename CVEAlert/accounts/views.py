@@ -164,6 +164,13 @@ def list_cve_by_product_view(request):
 			affected = Affected.objects.filter(product_id__in=product_id)
 			affected_con_id = [a.con_id for a in affected]
 			listCVE = CVE.objects.filter(id__in=affected_con_id)
+		if 'click_product' in request.POST:
+			search_product = json.loads(request.POST.get('click_product'))
+			product = Products.objects.filter(name__contains=search_product)
+			product_id = [p.id for p in product]
+			affected = Affected.objects.filter(product_id__in=product_id)
+			affected_con_id = [a.con_id for a in affected]
+			listCVE = CVE.objects.filter(id__in=affected_con_id)
 	cve_ids = [cve.id for cve in listCVE]
 	affected_cve = Affected.objects.filter(con_id__in=cve_ids)
 	products_cve = {}
