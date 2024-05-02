@@ -334,9 +334,9 @@ input.largerCheckbox {
                                           {% csrf_token %}
                                           <!-- Input ẩn để lưu trữ giá trị productName -->
                                           <input type="hidden" name="click_product" id="click_product_input">
-                                          <!-- Product link -->
-                                          <b>Product: </b>
                                           <a href="#" class="product-link" data-product-name="{{ a.product.name }}">
+                                          <b>Product: </b>
+                                          
                                               "{{ a.product.name }}"
                                           </a>
                                       </form>
