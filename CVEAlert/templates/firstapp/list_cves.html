@@ -425,9 +425,9 @@ input.largerCheckbox {
             </br>
            
             <div class="pagination pagination-style-one m-t-20">
-              <a href="{% if sort_by %}{% url 'app:list_cves' page=page.prev %}?sort_by={{ sort_by }}{% if sort_order %}&sort_order={{ sort_order }}{% endif %}{% elif selected_year %}{% url 'app:list_cves' page=page.prev %}?filter_year={{ selected_year }}{% elif search_focus %}{% url 'app:list_cves' page=page.prev %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_cves' page=page.prev %}{% endif %}">< Pre</a>
+              <a href="{% if sort_order %}{% url 'app:list_cves' page=page.prev %}?sort_by={{ sort_by }}&sort_order={{ sort_order }}{% elif selected_year %}{% url 'app:list_cves' page=page.prev %}?filter_year={{ selected_year }}{% elif search_focus %}{% url 'app:list_cves' page=page.prev %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_cves' page=page.prev %}{% endif %}">&lt; Pre</a>
               <a style="color:white">Page {{ page.current }} of {{ len_page }}</a>
-              <a href="{% if sort_by %}{% url 'app:list_cves' page=page.next %}?sort_by={{ sort_by }}{% if sort_order %}&sort_order={{ sort_order }}{% endif %}{% elif selected_year %}{% url 'app:list_cves' page=page.next %}?filter_year={{ selected_year }}{% elif search_focus %}{% url 'app:list_cves' page=page.next %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_cves' page=page.next %}{% endif %}">Next ></a>
+              <a href="{% if sort_order %}{% url 'app:list_cves' page=page.next %}?sort_by={{ sort_by }}&sort_order={{ sort_order }}{% elif selected_year %}{% url 'app:list_cves' page=page.next %}?filter_year={{ selected_year }}{% elif search_focus %}{% url 'app:list_cves' page=page.next %}?search_focus={{ search_focus }}{% else %}{% url 'app:list_cves' page=page.next %}{% endif %}">Next &gt;</a>
           </div>
           {% comment %} <div class="card h-10" style="border-width:2px; border-color:black">
             <div class="card-body" style="padding: 30px;">
