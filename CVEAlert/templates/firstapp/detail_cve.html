@@ -350,8 +350,10 @@ transform: translateZ(-25px) rotateX(-90deg);
               <div class="content-box url">
                 <p><b>- Exploits: </b>{{ exploits.value }}</p>
                   {% comment %} <p><b>- ProblemTypes: </b>{{ problemTypes.cwe_id }}</p> {% endcomment %}
-                  {% for p in problemTypes %} 
-                  <p><b>- ProblemTypes Description: </b>{{ p.description }}</p>
+                  {% for p in problemTypes_cve %} 
+                  {% if p.con_id == detail_cve.id %}
+                  <p><b>- ProblemTypes Description: </b>{{ p.problemTypes.description }}</p>
+                  {% endif %}
                   {% endfor %}
               </div>
           </div>

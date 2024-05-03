@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
-from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions , Products_Versions , Follow_Product , Follow_CVE , Exploits , Workaround , ProblemTypes
+from .models import CVE , Affected , References , Metric , CvssV31 , Products , Vendors , Descriptions , Solutions , Products_Versions , Follow_Product , Follow_CVE , Exploits , Workaround , ProblemTypes , ProblemTypes_CVE
 from accounts.models import NotiUser
 from .forms import CVEform,AffectedForm
 from django.db.models import F, DateTimeField , ExpressionWrapper , Value , CharField , Case , When , Q , Count ,FloatField
@@ -280,7 +280,9 @@ def get_detail_cves(request, pk):
     products_versions = Products_Versions.objects.filter(con_id=detail_cve.id)
     versions = [p.version for p in products_versions]
     vendors = [a.vendor for a in affected]
-     
+    problemTypes_cve = ProblemTypes_CVE.objects.filter(con_id=detail_cve.id)
+    problemTypes = [p.problemTypes for p in problemTypes_cve]
+	
     try :
         metric = Metric.objects.filter(con_id=detail_cve.id)
     except :
@@ -306,11 +308,6 @@ def get_detail_cves(request, pk):
         workaround = Workaround.objects.get(pk=pk)
     except Workaround.DoesNotExist:
         workaround = None
-		
-    try:
-        problemTypes = ProblemTypes.objects.filter(con_id=pk)
-    except ProblemTypes.DoesNotExist:
-        problemTypes = None  
 
     try:
         refrences = References.objects.filter(con_id=pk)
@@ -346,6 +343,7 @@ def get_detail_cves(request, pk):
 		'exploits': exploits,
 		'workaround': workaround,
 		'problemTypes': problemTypes,
+		'problemTypes_cve': problemTypes_cve,
 
     }
 
@@ -718,7 +716,6 @@ def get_cvss_statistic(request):
 
 
 def get_list_problems(request,page):
-    letter = None
     search_focus = None
     list_problems = ProblemTypes.objects.all()
     try:
