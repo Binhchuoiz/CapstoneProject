@@ -27,6 +27,6 @@ urlpatterns = [
     path('risk/', get_risk_statistic, name='risk'),
     path('application/', get_application_statistic, name='application'),
     path('cvss-statistic/', get_cvss_statistic, name='cvss_statistic'),
-    path('list-problems/', get_list_problems, name='list_problems'),
+    path('list-problems/<int:page>/', get_list_problems, name='list_problems'),
     path('guidelines/', get_guidelines, name='guidelines'),
 ]
