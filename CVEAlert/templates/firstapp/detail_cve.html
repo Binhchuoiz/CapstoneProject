@@ -328,25 +328,31 @@ transform: translateZ(-25px) rotateX(-90deg);
                             {% if a.con_id == detail_cve.id %}
                                 <p><b>- Product name:</b> {{ a.product.name }}</p>
                                 <p><b>- Vendor name: </b>{{ a.vendor.name }}</p>
-                                <p><b>- Version: </b>{{ versions.version }}</p>
+                               
                             {% endif %}
                             {% comment %} {% for p in products_versions %} 
                                 {% if p.product_id == a.product.id %}
                                     <p><b>+ Version:</b> {{ p.version.version }}</p>
                                 {% endif %}
                             {% endfor %} {% endcomment %}
-                </br>
+                        {% endfor %}
+                        {% for p in products_versions %} 
+                        {% if p.con_id == detail_cve.id %}
+                        <p><b>- Versions: </b>{{ p.version.version }}</p>
+                        {% endif %}
                         {% endfor %}
                 </div>
             </div>
             <div class="box-info">
               <div class="title-box">
-                  <h2><b style="font-size: 28px;">Exploits, ProblemTypes</b></h2>
+                  <h2><b style="font-size: 28px;">Exploits & ProblemTypes</b></h2>
               </div>
               <div class="content-box url">
                 <p><b>- Exploits: </b>{{ exploits.value }}</p>
-                  <p><b>- ProblemTypes: </b>{{ problemTypes.cwe_id }}</p>
-                  <p><b>- ProblemTypes Description: </b>{{ problemTypes.description }}</p>
+                  {% comment %} <p><b>- ProblemTypes: </b>{{ problemTypes.cwe_id }}</p> {% endcomment %}
+                  {% for p in problemTypes %} 
+                  <p><b>- ProblemTypes Description: </b>{{ p.description }}</p>
+                  {% endfor %}
               </div>
           </div>
             <div class="box-info">
@@ -380,7 +386,7 @@ transform: translateZ(-25px) rotateX(-90deg);
                         <p><b> Date Reserved:</b> {{ detail_cve.date_reserved }}</p>
                         <p><b>Data Version:</b> {{ detail_cve.data_version }}</p>
                         <p><b>Organization ID: </b> {{ detail_cve.assigner_org_id }}</p>
-                        <p><b>Short name:</b> {{ detail_cve.assigner_short_name }}</p>
+                        <p><b>Organization Short Name:</b> {{ detail_cve.assigner_short_name }}</p>
                             <input name="follow_affect" value="null" style="display: none">
                             <input name="follow_affect" value="null" style="display: none">
                         <span><a href="{% url 'app:guidelines' %}" ></a></span>   
