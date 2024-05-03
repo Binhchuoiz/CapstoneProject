@@ -742,6 +742,7 @@ def get_list_problems(request,page):
     paginator = Paginator(list_problems, per_page)
     page_obj = paginator.get_page(page)
     for item in page_obj:
+      if item is not None:
         problem = ProblemTypes.objects.filter(description__contains=item)
         problem_id = [p.con_id for p in problem]
         listCVE = CVE.objects.filter(id__in=problem_id)
@@ -762,7 +763,7 @@ def get_list_problems(request,page):
 		'search_focus': search_focus,
         'counts': counts,
 		}
-    return render(request, 'firstapp/list_problems.html', {'status': status} , context=context)
+    return render(request, 'firstapp/list_problems.html', context=context)
 
 
 

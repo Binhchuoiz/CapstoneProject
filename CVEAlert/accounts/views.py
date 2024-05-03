@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.http import JsonResponse
 from CVEAlert.chatbot import ask_openai
+from firstapp.models import Metric
 import requests
 import json
 
@@ -141,54 +142,64 @@ def list_product_view(request):
 
 #Thêm hàm tại đây!
 def list_cve_by_product_view(request):
-	try :
-		check_user_notifi = models.NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
-			status = False
-		else:
-			status = True
-	except:
-			status = False
+    try:
+        check_user_notifi = models.NotiUser.objects.get(user=request.user)
+        if not check_user_notifi.status or check_user_notifi.email_address == '' and check_user_notifi.token_bot == '':
+            status = False
+        else:
+            status = True
+    except:
+        status = False
 
-	if request.method == 'POST' and 'message' in request.POST:
-		message = request.POST['message']
-		response = ask_openai(message)
+    if request.method == 'POST' and 'message' in request.POST:
+        message = request.POST['message']
+        response = ask_openai(message)
+        return JsonResponse({'message': message, 'response': response})
 
-		return JsonResponse({'message': message, 'response': response})
-	listCVE = []
-	
-	if request.method == 'POST':
-		if 'search_product' in request.POST:
-			search_product = json.loads(request.POST.get('search_product'))
-			product = Products.objects.filter(name__contains=search_product)
-			product_id = [p.id for p in product]
-			affected = Affected.objects.filter(product_id__in=product_id)
-			affected_con_id = [a.con_id for a in affected]
-			listCVE = CVE.objects.filter(id__in=affected_con_id)
-		if 'click_product' in request.POST:
-			search_product = json.loads(request.POST.get('click_product'))
-			product = Products.objects.filter(name__contains=search_product)
-			product_id = [p.id for p in product]
-			affected = Affected.objects.filter(product_id__in=product_id)
-			affected_con_id = [a.con_id for a in affected]
-			listCVE = CVE.objects.filter(id__in=affected_con_id)
-	cve_ids = [cve.id for cve in listCVE]
-	affected_cve = Affected.objects.filter(con_id__in=cve_ids)
-	products_cve = {}
-	for a in affected_cve:
-		if a.con_id in products_cve:
-			products_cve[a.con_id].append(a.product)
-		else:
-			products_cve[a.con_id] = [a.product]
-	listCVE.affected_cve = affected_cve
-	count = listCVE.count()
-	context = {
-		'listCVE': listCVE,
-		'status':status,
-		'count' : count,
-		
-	}
-	return render(request, 'accounts/list_cve_by_product.html', context=context)
+    listCVE = []
+
+    if request.method == 'POST':
+        if 'search_product' in request.POST:
+            search_product = json.loads(request.POST.get('search_product'))
+            product = Products.objects.filter(name__contains=search_product)
+            product_id = [p.id for p in product]
+            affected = Affected.objects.filter(product_id__in=product_id)
+            affected_con_id = [a.con_id for a in affected]
+            listCVE = CVE.objects.filter(id__in=affected_con_id)
+        if 'click_product' in request.POST:
+            search_product = json.loads(request.POST.get('click_product'))
+            product = Products.objects.filter(name__contains=search_product)
+            product_id = [p.id for p in product]
+            affected = Affected.objects.filter(product_id__in=product_id)
+            affected_con_id = [a.con_id for a in affected]
+            listCVE = CVE.objects.filter(id__in=affected_con_id)
+
+    cve_ids = [cve.id for cve in listCVE]
+    affected_cve = Affected.objects.filter(con_id__in=cve_ids)
+
+    metric = Metric.objects.filter(con_id__in=cve_ids)
+    cvss_v31 = {}
+    for m in metric:
+        if m.con_id in cvss_v31:
+            cvss_v31[m.con_id].append(m.cvssv31)
+        else:
+            cvss_v31[m.con_id] = [m.cvssv31]
+
+    products_cve = {}
+    for a in affected_cve:
+        if a.con_id in products_cve:
+            products_cve[a.con_id].append(a.product)
+        else:
+            products_cve[a.con_id] = [a.product]
+
+    listCVE.affected_cve = affected_cve
+    count = listCVE.count()
+    context = {
+        'listCVE': listCVE,
+        'status': status,
+        'count': count,
+    }
+    return render(request, 'accounts/list_cve_by_product.html', context=context)
 
 
 

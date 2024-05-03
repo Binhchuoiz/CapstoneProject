@@ -46,7 +46,7 @@ class ProblemTypes(models.Model):
     # lang = models.CharField(max_length=10, default="en")  # Add language field
 
     def __str__(self):
-        return self.cwe_id
+        return self.cwe_id if self.cwe_id is not None else "Unnamed"
 
 class Workaround(models.Model):
     con = models.ForeignKey(CVE, on_delete=models.CASCADE, related_name='workaround_cves', blank=True, default=None)
