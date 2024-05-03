@@ -193,6 +193,7 @@ def list_cve_by_product_view(request):
             products_cve[a.con_id] = [a.product]
 
     listCVE.affected_cve = affected_cve
+    listCVE.metric = metric
     count = listCVE.count()
     context = {
         'listCVE': listCVE,
