@@ -722,7 +722,7 @@ def get_list_problems(request,page):
     search_focus = None
     list_problems = ProblemTypes.objects.annotate(
             cwe_number=Cast(Substr('description', 5), IntegerField())
-).order_by('-cwe_number')
+).      order_by('cwe_number')
     try:
         check_user_notifi = NotiUser.objects.get(user=request.user)
         if not check_user_notifi.status or (check_user_notifi.email_address == '' and check_user_notifi.token_bot == ''):
@@ -787,17 +787,52 @@ def get_guidelines(request):
 	return render(request, 'firstapp/guidelines.html', {'status': status})
 
 def list_cves_by_problem(request):
-	try:
-		check_user_notifi = NotiUser.objects.get(user=request.user)
-		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
-			status = False
-		else:
-			status = True
-	except:
-		status = False	
-	if request.method == 'POST' and 'message' in request.POST:
-		message = request.POST['message']
-		response = ask_openai(message)
+    try:
+        check_user_notifi = NotiUser.objects.get(user=request.user)
+        if not check_user_notifi.status or check_user_notifi.email_address == '' and check_user_notifi.token_bot == '':
+            status = False
+        else:
+            status = True
+    except:
+        status = False
+    
+    if request.method == 'POST' and 'message' in request.POST:
+        message = request.POST['message']
+        response = ask_openai(message)
+        return JsonResponse({'message': message, 'response': response})
+    if request.method == 'POST':
+        if 'click_problem' in request.POST:
+            click_problem = json.loads(request.POST.get('click_problem'))
+            problem = ProblemTypes.objects.filter(description__contains=click_problem)
+            problem_id = [p.id for p in problem]
+            problemTypes_cve = ProblemTypes_CVE.objects.filter(problemTypes_id__in=problem_id)
+            problemTypes_con_id = [pr.con_id for pr in problemTypes_cve]
+            listCVE = CVE.objects.filter(id__in=problemTypes_con_id)
 
-		return JsonResponse({'message': message, 'response': response})
-	return render(request, 'firstapp/list_cves_by_problem.html', {'status': status})
+    cve_ids = [cve.id for cve in listCVE]
+    affected_cve = Affected.objects.filter(con_id__in=cve_ids)
+
+    metric = Metric.objects.filter(con_id__in=cve_ids)
+    cvss_v31 = {}
+    for m in metric:
+        if m.con_id in cvss_v31:
+            cvss_v31[m.con_id].append(m.cvssv31)
+        else:
+            cvss_v31[m.con_id] = [m.cvssv31]
+    listCVE.metric = metric
+    products_cve = {}
+    for a in affected_cve:
+        if a.con_id in products_cve:
+            products_cve[a.con_id].append(a.product)
+        else:
+            products_cve[a.con_id] = [a.product]
+
+    listCVE.affected_cve = affected_cve
+    count = listCVE.count()
+    context = {
+        'listCVE': listCVE,
+        'status': status,
+        'count': count,
+    }
+
+    return render(request, 'firstapp/list_cves_by_problem.html', context=context)
