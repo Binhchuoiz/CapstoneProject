@@ -39,14 +39,14 @@ def get_home(request):
     elif request.method == 'POST': 
         id_cve= request.POST['id_cve']
         listCVE = CVE.objects.filter(cve_id__contains=id_cve)[:12]
-    
+    listCVE.metric = metric
     context = {
         'listCVE': listCVE,
         'products': products,
         'vendors': vendors,
         'affected': affected,
 		'status': status,
-		'metric':metric
+		'metric':metric,
     }
     return render(request, 'index.html', context=context)
 
@@ -738,7 +738,7 @@ def get_list_problems(request,page):
         response = ask_openai(message)
         return JsonResponse({'message': message, 'response': response})
     counts=[]
-    per_page = request.GET.get("per_page", 10)
+    per_page = request.GET.get("per_page", 20)
     paginator = Paginator(list_problems, per_page)
     page_obj = paginator.get_page(page)
     for item in page_obj:
@@ -782,3 +782,19 @@ def get_guidelines(request):
 
 		return JsonResponse({'message': message, 'response': response})
 	return render(request, 'firstapp/guidelines.html', {'status': status})
+
+def list_cves_by_problem(request):
+	try:
+		check_user_notifi = NotiUser.objects.get(user=request.user)
+		if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
+			status = False
+		else:
+			status = True
+	except:
+		status = False	
+	if request.method == 'POST' and 'message' in request.POST:
+		message = request.POST['message']
+		response = ask_openai(message)
+
+		return JsonResponse({'message': message, 'response': response})
+	return render(request, 'firstapp/list_cves_by_problem.html', {'status': status})
