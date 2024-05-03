@@ -230,10 +230,10 @@ input.largerCheckbox {
                   <div class="card h-100" style="border-width:2px; border-color:black">
                     <div class="card-body">
                       <h3 class="card-title">
-                        <form method="post" action="{% url 'accounts:list_cves_by_problem'  %}" id="click_problem_form">
+                        <form method="post" action="{% url 'app:list_cves_by_problem'  %}" id="click_problem_form">
                           {% csrf_token %}
                           <input type="hidden" name="click_problem" id="click_problem_input">
-                          <a href="{% url 'accounts:list_cves_by_problem'  %}" class="problem-link"><b>{{ a.description }}</b></a>
+                          <a href="{% url 'app:list_cves_by_problem'  %}" class="problem-link"><b>{{ a.description }}</b></a>
                         </br>
                         <p class="url"> <a>Number of cves:</a>{% for c in counts %}
                           {% if c.0 == a %}

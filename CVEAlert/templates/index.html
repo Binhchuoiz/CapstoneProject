@@ -1104,7 +1104,7 @@ a:hover::before {
                                     </p>
                                     <p class="card-text">
                                       {% for m in listCVE.metric %}
-                                      {% if m.con_id == cve.id %}
+                                      {% if m.con_id == i.id %}
                                           {% if m.cvssv31.base_score is not none and m.cvssv31.base_severity is not none %}
                                               <p class="card-text">
                                                 {% if m.cvssv31.base_score >= 0 and m.cvssv31.base_score < 4  %}
