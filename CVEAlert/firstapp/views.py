@@ -745,13 +745,14 @@ def get_list_problems(request,page):
     page_obj = paginator.get_page(page)
     for item in page_obj:
       if item is not None:
-        problem = ProblemTypes.objects.filter(description__contains=item)
-        problem_id = [p.id for p in problem]
-        problemTypes_cve = ProblemTypes_CVE.objects.filter(problemTypes_id__in=problem_id)
-        problemTypes_con_id = [pr.con_id for pr in problemTypes_cve]
-        listCVE = CVE.objects.filter(id__in=problemTypes_con_id)
-        count=listCVE.count()
-        counts.append((item, count))
+        # problem = ProblemTypes.objects.filter(description__icontains=item)
+        problem_id = item.id
+        if problem_id:
+            problemTypes_cve = ProblemTypes_CVE.objects.filter(problemTypes_id=problem_id)
+            problemTypes_con_id = [pr.con_id for pr in problemTypes_cve]
+            listCVE = CVE.objects.filter(id__in=problemTypes_con_id)
+            count=listCVE.count()
+            counts.append((item, count))
     context={
 		  "page": {
             'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
@@ -796,6 +797,7 @@ def list_cves_by_problem(request):
     except:
         status = False
     
+    listCVE = []
     if request.method == 'POST' and 'message' in request.POST:
         message = request.POST['message']
         response = ask_openai(message)
