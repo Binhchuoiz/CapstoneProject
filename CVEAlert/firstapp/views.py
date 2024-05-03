@@ -722,7 +722,7 @@ def get_list_problems(request,page):
     search_focus = None
     list_problems = ProblemTypes.objects.annotate(
             cwe_number=Cast(Substr('description', 5), IntegerField())
-).      order_by('cwe_number')
+).order_by('-cwe_number')
     try:
         check_user_notifi = NotiUser.objects.get(user=request.user)
         if not check_user_notifi.status or (check_user_notifi.email_address == '' and check_user_notifi.token_bot == ''):

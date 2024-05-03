@@ -212,7 +212,7 @@ input.largerCheckbox {
 
 
 {% block title %}
-List CVEs by Product Followed
+List CVEs By Problem
 {% endblock %}
 
 
@@ -270,73 +270,9 @@ List CVEs by Product Followed
 
 
             </form> {% endcomment %}
-
-    
-                <h3><b><u>FINDING METHODS</u></b></h3>
-      
-              
-                <form method="post">
-                    {% csrf_token %}
-                </br>
-                    <h3>PUBLISHED YEARS:</h3>
-                    <hr>
-                    {% comment %} {% for it in unique_year %}
-                        <input type="checkbox" id="years" name="filter_year" value="{{ it }}">
-                        <label for="years">{{ it }}</label><br>
-                    {% endfor %}  {% endcomment %}
-                    <select name="filter_year" class="custom-select">
-                        {% for it in unique_year %}
-                        <b> <option value="{{ it }}">{{ it }}</option></b>
-                        {% endfor %}
-                    </select>
-                    <hr>
-                </br>
-                    <button type="submit" class="btn btn-one" style="width:100%"><b>FIND</b></button>
-                  </br>
-                </br>
-              </br>
-            </form>
-              <p>------------------------------------------------</p>
-              <form method="post">
-                {% csrf_token %}
-                    <h2>SORT ITEMS:</h2>
-                    <hr>
-                    <select name="" class="custom-select">
-                      <b> <option value="date-published">DATE PUBLISHED</option></b>
-                      <b> <option value="date-update">DATE UPDATE</option></b>
-                      <b> <option value="cvss">CVSS </option></b>
-                  </select>
-                </br>
-                <hr>
-                <button id="sort-ascending" onclick=""  type="submit" class="btn btn-one" style="width:100%"> <b>Ascending</b></button>
-              </br>
-            </br>
-                <button id="sort-descending" onclick=""  type="submit" class="btn btn-one" style="width:100%"> <b>Descending</b></button>
-              </br>
-            </br>
-          </form>
-            <form method="post">
-              {% csrf_token %}
-            <p>------------------------------------------------</p>
-              <h2>CVSS SCORES:</h2>
-                    <hr>
-                    <input type="number" id="min" placeholder="Enter the range of CVSS scores 'Min'" style="width:100%" min="0" max="10">
-                    <label for="cvss_min"></label><br>
-                    <input type="number" id="max" placeholder="Enter the range of CVSS scores 'Max'" style="width:100%" min="0" max="10">
-                    <label for="cvss_max"></label><br>
-                </br>
-                <hr>
-                <button id="sort-ascending" onclick=""  type="submit" class="btn btn-one" style="width:100%"> <b>FIND</b></button>
-              </br>
-                </form>
-            </br>
-        </br>
-    </br>
-    
-
         </div>
         <div class="col-9 ">
-            <h2 style="font-size: 35px; text-align:center"><b><u>List CVEs by Product Followed</u></b></h2>
+            <h2 style="font-size: 35px; text-align:center"><b><u>List CVEs By Problem</u></b></h2>
           
             {% for l in listCVE %}
         </br>
