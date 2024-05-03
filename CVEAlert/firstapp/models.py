@@ -40,13 +40,19 @@ class Exploits(models.Model):
         return self.value
 
 class ProblemTypes(models.Model):
-    con = models.ForeignKey(CVE, on_delete=models.CASCADE, related_name='problemtypes_cves', blank=True, default=None)
     cwe_id = models.CharField(max_length=255, default="", null=True)  # Update field name
     description = models.CharField(max_length=9000, default="", null=True)
     # lang = models.CharField(max_length=10, default="en")  # Add language field
 
     def __str__(self):
         return self.cwe_id if self.cwe_id is not None else "Unnamed"
+
+class ProblemTypes_CVE(models.Model):
+    con = models.ForeignKey(CVE, on_delete=models.CASCADE, related_name='problemTypes_cves', blank=True, default=None)
+    problemTypes = models.ForeignKey(ProblemTypes, on_delete=models.CASCADE, related_name='cves_problemTypes', blank=True, default=None)
+
+    def __str__(self):
+        return self.con
 
 class Workaround(models.Model):
     con = models.ForeignKey(CVE, on_delete=models.CASCADE, related_name='workaround_cves', blank=True, default=None)

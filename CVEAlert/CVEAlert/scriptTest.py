@@ -6,7 +6,7 @@ import json
 os.environ['DJANGO_SETTINGS_MODULE'] = 'CVEAlert.settings'
 django.setup()
 
-from firstapp.models import CVE, Descriptions, Versions, Solutions, Metric, CvssV20, CvssV30, CvssV31, References, Affected, Products, Vendors, Products_Versions, Exploits, ProblemTypes, Workaround
+from firstapp.models import CVE, Descriptions, Versions, Solutions, Metric, CvssV20, CvssV30, CvssV31, References, Affected, Products, Vendors, Products_Versions, Exploits, ProblemTypes, Workaround , ProblemTypes_CVE
 
 
 def add_data_to_database(data, folder_name, json_filepath):
@@ -92,15 +92,17 @@ def add_data_to_database(data, folder_name, json_filepath):
 
     # Handle 'problemTypes' key
     try:
-        problem_types = data['containers']['cna'].get('problemTypes', [])
-        for p in problem_types:
+        problem_types_data = data['containers']['cna'].get('problemTypes', [])
+        for p in problem_types_data:
             try:
                 for d in p['descriptions']:
                     cwe_id = d.get('cweId')
                     description = d.get('description')
-                    ProblemTypes.objects.create(cwe_id=cwe_id, description=description, con=cve)
+                    problem_types, _ = ProblemTypes.objects.get_or_create(cwe_id=cwe_id, description=description)
+                    ProblemTypes_CVE.objects.create(con=cve, problemTypes=problem_types)
             except (KeyError, IndexError):
-                ProblemTypes.objects.create(cwe_id=None, description=None, con=cve)
+                problem_types, _ = ProblemTypes.objects.get_or_create(cwe_id=None, description=None)
+                ProblemTypes_CVE.objects.create(con=cve, problemTypes=problem_types)
                 continue
     except KeyError:
         print("No 'problemTypes' found in the JSON data.")
@@ -209,7 +211,7 @@ def read_json_files(folder_path, folder_name):
 
 
 # Specify the path to the directory containing JSON files
-cves_folder_path = r"D:\Đồ án\cves\cves"
+cves_folder_path = r"E:\IAP104\cvelistV5-main\cves"
 
 cves_folder_path = os.path.normpath(cves_folder_path)
 
