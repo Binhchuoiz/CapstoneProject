@@ -232,6 +232,13 @@ input.largerCheckbox {
                       <h3 class="card-title">
                         <a href="{% url 'app:list_cves_by_problem' %}"><b>{{ a.description }}</b></a>
                       </h3>
+                      <p class="url"> <a>Number of cves:</a>{% for c in counts %}
+                        {% if c.0 == a %}
+                            {{ c.1 }}
+                        {% endif %}
+                      {% endfor %} 
+                      
+                       </p>
                     </div>
                   </div>
                 </div>

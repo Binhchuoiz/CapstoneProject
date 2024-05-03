@@ -10,6 +10,9 @@ from django.http import JsonResponse
 from CVEAlert.chatbot import ask_openai
 from django.template import RequestContext
 import json
+from django.db.models import Value, CharField, IntegerField
+from django.db.models.functions import Cast, Substr
+import re
 # Create your views here.
 def get_home(request):
     listCVE = CVE.objects.all().order_by('-date_publish')[:3] 
@@ -717,7 +720,9 @@ def get_cvss_statistic(request):
 
 def get_list_problems(request,page):
     search_focus = None
-    list_problems = ProblemTypes.objects.all()
+    list_problems = ProblemTypes.objects.annotate(
+            cwe_number=Cast(Substr('description', 5), IntegerField())
+).      order_by('cwe_number')
     try:
         check_user_notifi = NotiUser.objects.get(user=request.user)
         if not check_user_notifi.status or (check_user_notifi.email_address == '' and check_user_notifi.token_bot == ''):
@@ -741,11 +746,12 @@ def get_list_problems(request,page):
     for item in page_obj:
       if item is not None:
         problem = ProblemTypes.objects.filter(description__contains=item)
-        problem_id = [p.con_id for p in problem]
-        listCVE = CVE.objects.filter(id__in=problem_id)
+        problem_id = [p.id for p in problem]
+        problemTypes_cve = ProblemTypes_CVE.objects.filter(problemTypes_id__in=problem_id)
+        problemTypes_con_id = [pr.con_id for pr in problemTypes_cve]
+        listCVE = CVE.objects.filter(id__in=problemTypes_con_id)
         count=listCVE.count()
         counts.append((item, count))
-        print(count)
     context={
 		  "page": {
             'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
