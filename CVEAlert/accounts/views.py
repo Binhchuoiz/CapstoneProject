@@ -156,6 +156,7 @@ def list_cve_by_product_view(request):
 
 		return JsonResponse({'message': message, 'response': response})
 	listCVE = []
+	
 	if request.method == 'POST':
 		if 'search_product' in request.POST:
 			search_product = json.loads(request.POST.get('search_product'))
@@ -185,6 +186,7 @@ def list_cve_by_product_view(request):
 		'listCVE': listCVE,
 		'status':status,
 		'count' : count,
+		
 	}
 	return render(request, 'accounts/list_cve_by_product.html', context=context)
 

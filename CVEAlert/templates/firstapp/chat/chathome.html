@@ -39,15 +39,15 @@ Chat With your Partners
 
 
 {% block content %}
-<div class="container">
+<div class="container" style="padding:200px">
   <form id="post-form" method="POST" action="checkview">
       {% csrf_token %}
       <fieldset id="commentFS">
-        <legend>Let's exchange by creating a room</legend>
+        <h1><b>Let's exchange by creating a room!</b></h1>
       <label>Room Name</label>
-      <input type="text" name="room_name" id="room_name" width="100px" />
+      <input type="text" name="room_name" id="room_name" width="100px" placeholder="Input your partner room"/>
       <label>Username</label>
-      <input type="text" name="username" id="username" width="100px" />
+      <input type="text" name="username" id="username" width="100px" placeholder="Input your username"/>
       <input type="submit" value="Enter Room">
   </form>
 </div>
