@@ -209,7 +209,7 @@ input.largerCheckbox {
 /*=URL=*/
 .url{
     a {
-    color: black;
+    color: blue;
       position: relative;
       text-decoration: none;
     }
@@ -361,12 +361,13 @@ a:hover::before {
                                           {% csrf_token %}
                                           <!-- Input ẩn để lưu trữ giá trị productName -->
                                           <input type="hidden" name="click_product" id="click_product_input">
-                                          <p class="url"><b>Product: </b>
+                                          <p class="url"><b>Product: </b>"{{ a.product.name }}"
                                           <a href="#" class="product-link" data-product-name="{{ a.product.name }}">
                                           
                                           
-                                             <i> "{{ a.product.name }}"</i>
+                                               <i>(Click here to see related cves!)</i>
                                           </a>
+                                          
                                         </p>
                                       </form>
                                         {% comment %} <a href="{% url 'accounts:list_cve_by_product'  %}" class="product-link"><b> Product:</b> <b>"{{ a.product.name }}"</b></a> {% endcomment %}
