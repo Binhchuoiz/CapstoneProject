@@ -207,7 +207,33 @@ input.largerCheckbox {
   height: 40px;
 } {% endcomment %}
 
+/*=URL=*/
+.url{
+    a {
+    color: blue;
+      position: relative;
+      text-decoration: none;
+    }
+    
+    a::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-radius: 4px;
+      background-color: #18272F;
+      bottom: 0;
+      left: 0;
+      transform-origin: right;
+      transform: scaleX(0);
+      transition: transform .3s ease-in-out;
+    }
+}
 
+a:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
 {% endblock %}
 
 
@@ -270,10 +296,15 @@ List CVEs By Problem
 
 
             </form> {% endcomment %}
+
+    
+             
+    
+
         </div>
         <div class="col-9 ">
             <h2 style="font-size: 35px; text-align:center"><b><u>List CVEs By Problem</u></b></h2>
-          
+          {% if listCVE %}
             {% for l in listCVE %}
         </br>
 
@@ -293,10 +324,95 @@ List CVEs By Problem
                                 <p class="card-text">
                                   {% for i in listCVE.affected_cve %}
                                         {% if i.con_id == l.id %}
-                                            <p class="card-text"><b> Product:</b> "{{ i.product.name }}"</p>
+                                        <form id="click_product_form" method="post" action="{% url 'accounts:list_cve_by_product' %}">
+                                          {% csrf_token %}
+                                          <!-- Input ẩn để lưu trữ giá trị productName -->
+                                          <input type="hidden" name="click_product" id="click_product_input">
+                                          <p class="url"><b>Product: </b>"{{ i.product.name }}"
+                                          <a href="{% url 'accounts:list_cve_by_product' %}" class="product-link" data-product-name="{{ i.product.name }}">
+                                               <i>(Click here to see related cves!)</i>
+                                          </a>
+                                          
+                                        </p>
+                                      </form>
+                                            
                                           {% endif %}
                                     {% endfor %}
                                 </p>
+                                <p class="card-text">
+                                  {% for m in listCVE.metric %}
+                                      {% if m.con_id == l.id %}
+                                          {% if m.cvssv31.base_score is not none and m.cvssv31.base_severity is not none %}
+                                              <p class="card-text">
+                                                {% if m.cvssv31.base_score >= 0 and m.cvssv31.base_score < 4  %}
+                                                <p  > <b>CVSS V3.1 Score:</b> 
+                                                  "{{ m.cvssv31.base_score }}" - <b style="background-color:green;border-radius:5px;"> LOW </b> 
+                                                </p></br>
+                                                {% elif m.cvssv31.base_score >= 4 and m.cvssv31.base_score < 7 %}
+                                                <p  > <b>CVSS V3.1 Score:</b> 
+                                                  "{{ m.cvssv31.base_score }}" - <b style="background-color:yellow;border-radius:5px;"> MEDIUM </b> 
+                                                </p></br>
+                                                {% elif m.cvssv31.base_score >= 7 and m.cvssv31.base_score < 9 %}
+                                                <p  > <b>CVSS V3.1 Score:</b> 
+                                                  "{{ m.cvssv31.base_score }}" - <b style="background-color:orange;border-radius:5px;" >HIGH </b> 
+                                                </p></br>
+                                                {% else %}
+                                                <p  > <b>CVSS V3.1 Score:</b> 
+                                                  "{{ m.cvssv31.base_score }}" - <b style="background-color:red;border-radius:5px;"> CRITICAL </b> 
+                                                </p></br>
+                                                {% endif %}  
+                                              </p>
+                                          {% elif m.cvssv30.base_score is not none and m.cvssv30.base_severity is not none  %}
+                                            <p class="card-text">
+                                              
+                                              {% if m.cvssv30.base_score >= 0 and m.cvssv30.base_score < 4  %}
+                                              <p  > <b>CVSS V3.0 Score:</b> 
+                                                "{{ m.cvssv30.base_score }}" - <b style="background-color:green;border-radius:5px;"> LOW </b> 
+                                              </p></br>
+                                              {% elif m.cvssv30.base_score >= 4 and m.cvssv30.base_score < 7 %}
+                                              <p  > <b>CVSS V3.0 Score:</b> 
+                                                "{{ m.cvssv30.base_score }}" - <b style="background-color:yellow;border-radius:5px;"> MEDIUM </b> 
+                                              </p></br>
+                                              {% elif m.cvssv30.base_score >= 7 and m.cvssv30.base_score < 9 %}
+                                              <p  > <b>CVSS V3.0 Score:</b> 
+                                                "{{ m.cvssv30.base_score }}" - <b style="background-color:orange;border-radius:5px;" >HIGH </b> 
+                                              </p></br>
+                                              {% else %}
+                                              <p  > <b>CVSS V3.0 Score:</b> 
+                                                "{{ m.cvssv30.base_score }}" - <b style="background-color:red;border-radius:5px;"> CRITICAL </b> 
+                                              </p></br>
+                                              {% endif %}                                         
+
+                                          </p>
+                                          {% elif m.cvssv20.base_score is not none %}
+                                          <p class="card-text">
+                                            {% if m.cvssv20.base_score >= 0 and m.cvssv20.base_score < 4  %}
+                                              <p  > <b>CVSS V2.0 Score:</b> 
+                                                "{{ m.cvssv20.base_score }}" - <b style="background-color:green;border-radius:5px;"> LOW </b> 
+                                              </p></br>
+                                              {% elif m.cvssv20.base_score >= 4 and m.cvssv20.base_score < 7 %}
+                                              <p  > <b>CVSS V2.0 Score:</b> 
+                                                "{{ m.cvssv20.base_score }}" - <b style="background-color:yellow;border-radius:5px;"> MEDIUM </b> 
+                                              </p></br>
+                                              {% elif m.cvssv20.base_score >= 7 and m.cvssv20.base_score < 9 %}
+                                              <p  > <b>CVSS V2.0 Score:</b> 
+                                                "{{ m.cvssv20.base_score }}" - <b style="background-color:orange;border-radius:5px;" >HIGH </b> 
+                                              </p></br>
+                                              {% else %}
+                                              <p  > <b>CVSS V2.0 Score:</b> 
+                                                "{{ m.cvssv20.base_score }}" - <b style="background-color:red;border-radius:5px;"> CRITICAL </b> 
+                                              </p></br>
+                                              {% endif %}                                         
+
+                                        </p>
+                                        {% else %}
+                                        <p class="card-text"><b>CVSS Score:</b>
+                                          <b  style="background-color:black; color:white; border-radius:5px; "> NOT UPDATED!</b> 
+                                      </p>
+                                          {% endif %}
+                                      {% endif %}
+                                  {% endfor %}
+                              </p>
                                 <!--Thêm logic hiển thị điểm và mức độ nghiêm trọng-->
                                  <a href="{% url 'app:detail_cves' pk=l.pk %}" class="cta">
                                     <button class="btn btn-one"> <b style= "color: dodgerblue"> READ </b>NOW</button>
@@ -310,9 +426,30 @@ List CVEs By Problem
        
            
             {% endfor %}
+          {% else %}
+                  <p style="color: black; padding:50px;"><b>There are currently no CVEs matches with your selection!</b></p>
+          {% endif %}
         </div>   
     </div>
 </div>
+<script>
+  // Lắng nghe sự kiện click trên tất cả các thẻ 'a' có class 'product-link'
+  document.querySelectorAll('.product-link').forEach(link => {
+      link.addEventListener('click', function(event) {
+          event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ 'a'
 
+          const productName = this.getAttribute('data-product-name'); // Lấy tên sản phẩm từ thuộc tính 'data-product-name' của thẻ 'a'
+
+          // Lưu giá trị vào localStorage với khóa là "click_product"
+          localStorage.setItem('click_product', JSON.stringify(productName));
+
+          // Đặt giá trị cho input ẩn trong form
+          document.getElementById('click_product_input').value = JSON.stringify(productName);
+
+          // Submit form
+          document.getElementById('click_product_form').submit();
+      });
+  });
+</script>
 
 {% endblock %}
