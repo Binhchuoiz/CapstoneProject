@@ -206,6 +206,33 @@ input.largerCheckbox {
   width: 40px;
   height: 40px;
 } {% endcomment %}
+/*=URL=*/
+.url{
+    a {
+    color: black;
+      position: relative;
+      text-decoration: none;
+    }
+    
+    a::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-radius: 4px;
+      background-color: #18272F;
+      bottom: 0;
+      left: 0;
+      transform-origin: right;
+      transform: scaleX(0);
+      transition: transform .3s ease-in-out;
+    }
+}
+
+a:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
 
 {% endblock %}
 
@@ -292,7 +319,7 @@ input.largerCheckbox {
         <form method="post">
           {% csrf_token %}
         <p>------------------------------------------------</p>
-          <h2>CVSS SCORES:</h2>
+          <h2>CVSS V3.1 SCORES:</h2>
                 <hr>
                 <input type="number" name="cvss_min" id="min" placeholder="Enter the range of CVSS scores 'Min'" style="width:100%" min="0" max="10" required>
                 <label for="cvss_min"></label><br>
@@ -334,11 +361,13 @@ input.largerCheckbox {
                                           {% csrf_token %}
                                           <!-- Input ẩn để lưu trữ giá trị productName -->
                                           <input type="hidden" name="click_product" id="click_product_input">
+                                          <p class="url"><b>Product: </b>
                                           <a href="#" class="product-link" data-product-name="{{ a.product.name }}">
-                                          <b>Product: </b>
                                           
-                                              "{{ a.product.name }}"
+                                          
+                                             <i> "{{ a.product.name }}"</i>
                                           </a>
+                                        </p>
                                       </form>
                                         {% comment %} <a href="{% url 'accounts:list_cve_by_product'  %}" class="product-link"><b> Product:</b> <b>"{{ a.product.name }}"</b></a> {% endcomment %}
                                             {% comment %} <p class="card-text"><b> Product:</b> "{{ a.product.name }}"</p> {% endcomment %}

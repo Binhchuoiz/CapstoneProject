@@ -435,7 +435,7 @@ transform: translateZ(-25px) rotateX(-90deg);
                 <button class="accordion"><b>CVSS V3.0</b></button>
                     <div class="panel">
                         {% for m in metric %}
-                        {% if m.con_id == detail_cve.id  and m.cvssv30.base_score != null%}
+                        {% if m.con_id == detail_cve.id  and m.cvssv30.base_score is not none and m.cvssv30.base_severity is not none%}
                     </br>
                             <p class="base-score"> <b style="font-size: 20px;">Base Score: "{{ m.cvssv30.base_score }}"</b> 
                             </p></br>
@@ -462,7 +462,7 @@ transform: translateZ(-25px) rotateX(-90deg);
                     <button class="accordion"><b>CVSS V2.0</b></button>
                     <div class="panel">
                         {% for m in metric %}
-                        {% if m.con_id == detail_cve.id  and m.cvssv20.base_score != null%}
+                        {% if m.con_id == detail_cve.id  and m.cvssv20.base_score is not none %}
                     </br>
                             <p class="base-score"> <b style="font-size: 20px;">Base Score: "{{ m.cvssv20.base_score }}"</b> 
                             </p></br>
@@ -481,8 +481,11 @@ transform: translateZ(-25px) rotateX(-90deg);
                             <p class="base-score" style="background-color:red"> <b style="font-size: 20px; ">Base Severity:  "CRITICAL"</b> 
                             </p></br>
                             {% endif %}
-                           
-                           
+                            
+                      {% comment %} {% elif m.con_id == detail_cve.id and m.cvssv20.base_score is none and m.cvssv20.base_score < 0 or m.cvssv20.base_score > 10%}  
+                      <p class="base-score"> <b style="font-size: 20px;">NOT UPDATED!</b> 
+                      </p></br>   {% endcomment %}
+                    
                             {% endif %}
                     {% endfor %}
                     </div>
