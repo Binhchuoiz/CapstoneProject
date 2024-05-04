@@ -287,6 +287,34 @@ transform: translateZ(-25px) rotateX(-90deg);
     overflow: hidden;
     transition: max-height 0.5s ease-out;
   }
+  
+/*=URL=*/
+.url{
+    a {
+    color: blue;
+      position: relative;
+      text-decoration: none;
+    }
+    
+    a::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-radius: 4px;
+      background-color: #18272F;
+      bottom: 0;
+      left: 0;
+      transform-origin: right;
+      transform: scaleX(0);
+      transition: transform .3s ease-in-out;
+    }
+}
+
+a:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
 {% endblock %}
 
 
@@ -327,7 +355,16 @@ transform: translateZ(-25px) rotateX(-90deg);
                 <div class="content-box">
                         {% for a in affected %} 
                             {% if a.con_id == detail_cve.id %}
-                                <p><b>- Product name:</b> {{ a.product.name }}</p>
+                            <form id="click_product_form" method="post" action="{% url 'accounts:list_cve_by_product' %}">
+                              {% csrf_token %}
+                              <!-- Input ẩn để lưu trữ giá trị productName -->
+                              <input type="hidden" name="click_product" id="click_product_input">
+                              <p class="url"><b>- Product name: </b>"{{ a.product.name }}"
+                              <a href="{% url 'accounts:list_cve_by_product' %}" class="product-link" data-product-name="{{ i.product.name }}">
+                                   <i>(Click here to see related cves!)</i>
+                              </a>
+                            </p>
+                          </form>
                                 <p><b>- Vendor name: </b>{{ a.vendor.name }}</p>
                                
                             {% endif %}
@@ -353,7 +390,16 @@ transform: translateZ(-25px) rotateX(-90deg);
                   {% comment %} <p><b>- ProblemTypes: </b>{{ problemTypes.cwe_id }}</p> {% endcomment %}
                   {% for p in problemTypes_cve %} 
                   {% if p.con_id == detail_cve.id %}
-                  <p><b>- ProblemTypes Description: </b>{{ p.problemTypes.description }}</p>
+                  <form id="click_problem_form" method="post" action="{% url 'app:list_cves_by_problem' %}">
+                    {% csrf_token %}
+                    <!-- Input ẩn để lưu trữ giá trị productName -->
+                    <input type="hidden" name="click_problem" id="click_problem_input">
+                    <p class="url"><b>- ProblemTypes Description: </b>"{{ p.problemTypes.description }} "
+                    <a href="{% url 'app:list_cves_by_problem' %}" class="problem-link" data-product-name="{{ p.problemTypes.description }}">
+                         <i>(Click here to see related cves!)</i>
+                    </a>
+                  </p>
+                </form>
                   {% endif %}
                   {% endfor %}
               </div>
@@ -517,4 +563,43 @@ transform: translateZ(-25px) rotateX(-90deg);
         </div>
     </div>
 </div>
+<script>
+  // Lắng nghe sự kiện click trên tất cả các thẻ 'a' có class 'product-link'
+  document.querySelectorAll('.product-link').forEach(link => {
+      link.addEventListener('click', function(event) {
+          event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ 'a'
+
+          const productName = this.getAttribute('data-product-name'); // Lấy tên sản phẩm từ thuộc tính 'data-product-name' của thẻ 'a'
+
+          // Lưu giá trị vào localStorage với khóa là "click_product"
+          localStorage.setItem('click_product', JSON.stringify(productName));
+
+          // Đặt giá trị cho input ẩn trong form
+          document.getElementById('click_product_input').value = JSON.stringify(productName);
+
+          // Submit form
+          document.getElementById('click_product_form').submit();
+      });
+  });
+</script>
+
+<script>
+  // Lắng nghe sự kiện click trên tất cả các thẻ 'a' có class 'product-link'
+  document.querySelectorAll('.problem-link').forEach(link => {
+      link.addEventListener('click', function(event) {
+          event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ 'a'
+
+          const productName = this.getAttribute('data-problem-name'); // Lấy tên sản phẩm từ thuộc tính 'data-product-name' của thẻ 'a'
+
+          // Lưu giá trị vào localStorage với khóa là "click_product"
+          localStorage.setItem('click_problem', JSON.stringify(productName));
+
+          // Đặt giá trị cho input ẩn trong form
+          document.getElementById('click_problem_input').value = JSON.stringify(productName);
+
+          // Submit form
+          document.getElementById('click_problem_form').submit();
+      });
+  });
+</script>
 {% endblock %}
