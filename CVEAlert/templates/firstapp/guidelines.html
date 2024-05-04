@@ -225,7 +225,7 @@ transition: transform .25s;
 span a:before,
 span a:after{
 position: absolute;
-content: "Click here to see how to read an CVE! ";
+content: "Click to see list CVEs! ";
 height: 55px;
 width: 180px;
 display: flex;
@@ -290,14 +290,14 @@ transform: translateZ(-25px) rotateX(-90deg);
 
 
 {% block title %}
-    Detail CVEs
+   Guidelines
 {% endblock %}
 
 
 {% block content %}
 {# Thêm logic để hiện thị các trường của CVE #}
 <div class="container" style="margin-top: 100px; margin-bottom: 200px">
-    <p class="list"><a href={% url 'app:list_cves' page=1 %}>Explore CVE list</a></p>
+    <p class="list"><a href={% url 'app:home' %}>Back Home</a></p>
     <div class="arrow" onclick="goBack()">
         <span></span>
         <span></span>
@@ -310,7 +310,7 @@ transform: translateZ(-25px) rotateX(-90deg);
     </script>
     <div class="row">
         <div class="col-8">
-            <h1><b>{{ detail_cve.cve_id }}</b></h1>
+            <h1><b>Instructions On How To Read An CVE!</b></h1>
             <div class="box-info">
                 <div class="title-box">
                     <h2><b style="font-size: 28px;">DESCRIPTION</b></h2>
@@ -324,23 +324,9 @@ transform: translateZ(-25px) rotateX(-90deg);
                     <h2><b style="font-size: 28px;">Vulnerable products, Vendor, Version</b></h2>
                 </div>
                 <div class="content-box">
-                        {% for a in affected %} 
-                            {% if a.con_id == detail_cve.id %}
-                                <p><b>- Product name:</b> {{ a.product.name }}</p>
-                                <p><b>- Vendor name: </b>{{ a.vendor.name }}</p>
-                               
-                            {% endif %}
-                            {% comment %} {% for p in products_versions %} 
-                                {% if p.product_id == a.product.id %}
-                                    <p><b>+ Version:</b> {{ p.version.version }}</p>
-                                {% endif %}
-                            {% endfor %} {% endcomment %}
-                        {% endfor %}
-                        {% for p in products_versions %} 
-                        {% if p.con_id == detail_cve.id %}
-                        <p><b>- Versions: </b>{{ p.version.version }}</p>
-                        {% endif %}
-                        {% endfor %}
+                                <p><b>- Product name:</b> </p>
+                                <p><b>- Vendor name: </b></p>
+                        <p><b>- Versions: </b></p>
                 </div>
             </div>
             <div class="box-info">
@@ -348,11 +334,11 @@ transform: translateZ(-25px) rotateX(-90deg);
                   <h2><b style="font-size: 28px;">Exploits & ProblemTypes</b></h2>
               </div>
               <div class="content-box url">
-                <p><b>- Exploits: </b>{{ exploits.value }}</p>
+                <p><b>- Exploits: </b></p>
                   {% comment %} <p><b>- ProblemTypes: </b>{{ problemTypes.cwe_id }}</p> {% endcomment %}
-                  {% for p in problemTypes %} 
-                  <p><b>- ProblemTypes Description: </b>{{ p.description }}</p>
-                  {% endfor %}
+                 
+                  <p><b>- ProblemTypes Description: </b></p>
+                  
               </div>
           </div>
             <div class="box-info">
@@ -360,14 +346,11 @@ transform: translateZ(-25px) rotateX(-90deg);
                     <h2><b style="font-size: 28px;">Solution, References, Work Around</b></h2>
                 </div>
                 <div class="content-box url">
-                  <p><b>- Work Around: </b>{{ workaround.value }}</p>
-                    <p><b>- Solution: </b>{{ solutions.value }}</p>
-                    {% for r in refrences %}
-                        {% if r.con_id == detail_cve.id %}
-                        <b>+ URL:</b><a href="{{ r.url }}"> {{ r.url }}</a>
+                  <p><b>- Work Around: </b></p>
+                    <p><b>- Solution: </b></p>
+                        <b>+ URL:</b>
                 </br>
-                        {% endif %}
-                    {% endfor %}
+                        
                 </div>
             </div>
             
@@ -380,123 +363,55 @@ transform: translateZ(-25px) rotateX(-90deg);
                 <div class="content-box" >
                     <form method="post">
                         {% csrf_token %}
-                        <p><b>CVE ID:</b> {{ detail_cve.cve_id }}</p>
-                        <p><b>Published Date:</b> {{ detail_cve.date_publish }}</p>
-                        <p><b>Date Update: </b> {{ detail_cve.date_update }}</p>
-                        <p><b> Date Reserved:</b> {{ detail_cve.date_reserved }}</p>
-                        <p><b>Data Version:</b> {{ detail_cve.data_version }}</p>
-                        <p><b>Organization ID: </b> {{ detail_cve.assigner_org_id }}</p>
-                        <p><b>Organization Short Name:</b> {{ detail_cve.assigner_short_name }}</p>
+                        <p><b>CVE ID:</b> </p>
+                        <p><b>Published Date:</b> </p>
+                        <p><b>Date Update: </b> </p>
+                        <p><b> Date Reserved:</b> </p>
+                        <p><b>Data Version:</b> </p>
+                        <p><b>Organization ID: </b> </p>
+                        <p><b>Organization Short Name:</b> </p>
                             <input name="follow_affect" value="null" style="display: none">
                             <input name="follow_affect" value="null" style="display: none">
-                        <span><a href="{% url 'app:guidelines' %}" ></a></span>   
+                        <span><a href="{% url 'app:list_cves' page=1%}" ></a></span>   
                     </form>
                 </div>
             </div>
             <br>
                 <button class="accordion"><b>CVSS V3.1</b></button>
                 <div class="panel">
-                    {% for m in metric %}
-                    {% if m.con_id == detail_cve.id  and m.cvssv31.base_score is not none and m.cvssv31.base_severity is not none%}
-                        <span style="float: right">{{ m.cvssv31.base_score }}</span>
-                    </br>
-                        {% comment %} <span style="float: right">{{ m.cvssv20.base_score }}</span> {% endcomment %}
-                        <p class="base-score"> <b style="font-size: 20px;">Base Score: "{{ m.cvssv31.base_score }}"</b>
-                        </p></br>
-                        <p class="base-score"> <b style="font-size: 20px;">Vector String: "{{ m.cvssv31.vector_string }}"</b> 
-                        </p></br>
-                        {% if m.cvssv31.base_score > 0 and m.cvssv31.base_score < 4  %}
-                        <p class="base-score" style="background-color:green"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv31.base_severity }}"</b> 
-                        </p></br>
-                        {% elif m.cvssv31.base_score >= 4 and m.cvssv31.base_score < 7 %}
-                        <p class="base-score" style="background-color:yellow"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv31.base_severity }}"</b> 
-                        </p></br>
-                        {% elif m.cvssv31.base_score >= 7 and m.cvssv31.base_score < 9 %}
-                        <p class="base-score" style="background-color:orange"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv31.base_severity }}"</b> 
-                        </p></br>
-                        {% else %}
-                        <p class="base-score" style="background-color:red"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv31.base_severity }}"</b> 
-                        </p></br>
-                        {% endif %}
-                        <p class="base-score"> <b style="font-size: 20px;">Attack Complexity: "{{ m.cvssv31.attackComplexity }}"</b>
-                        </p></br>
-                        <p class="base-score"> <b style="font-size: 20px;">Attack Vector: "{{ m.cvssv31.attackVector }}"</b>
-                        </p></br>
-                        <p class="base-score"> <b style="font-size: 20px;">Availability Impact: "{{ m.cvssv31.availabilityImpact }}"</b> 
-                        </p></br>
-                        <p class="base-score"> <b style="font-size: 20px;">Confidentiality Impact: "{{ m.cvssv31.confidentialityImpact }}"</b> 
-                        </p></br>
-                        <p class="base-score"> <b style="font-size: 20px;">Integrity Impact: "{{ m.cvssv31.integrityImpact }}"</b>
-                        </p></br>
-                        <p class="base-score"> <b style="font-size: 20px;">Privileges Required: "{{ m.cvssv31.privilegesRequired }}"</b>
-                        </p></br>
-                        <p class="base-score"> <b style="font-size: 20px;">Scope Of: "{{ m.cvssv31.scope }}"</b> 
-                        </p></br>
-                        <p class="base-score"> <b style="font-size: 20px;">User Interaction: "{{ m.cvssv31.userInteraction }}"</b> 
-                        </p></br>
-                    {% endif %}
-                {% endfor %}
+                    <p style="color: white;"><b>"Lorem ipsum dolor sit amet"</b></p> 
                 </div>      
             </br>
-                <button class="accordion"><b>CVSS V3.0</b></button>
-                    <div class="panel">
-                        {% for m in metric %}
-                        {% if m.con_id == detail_cve.id  and m.cvssv30.base_score is not none and m.cvssv30.base_severity is not none%}
-                    </br>
-                            <p class="base-score"> <b style="font-size: 20px;">Base Score: "{{ m.cvssv30.base_score }}"</b> 
-                            </p></br>
-                            <p class="base-score"> <b style="font-size: 20px;">Vector String: "{{ m.cvssv30.vector_string }}"</b> 
-                            </p></br>
-                            {% if m.cvssv30.base_score > 0 and m.cvssv30.base_score < 4  %}
-                            <p class="base-score" style="background-color:green"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv30.base_severity }}"</b> 
-                            </p></br>
-                            {% elif m.cvssv30.base_score >= 4 and m.cvssv30.base_score < 7 %}
-                            <p class="base-score" style="background-color:yellow"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv30.base_severity }}"</b> 
-                            </p></br>
-                            {% elif m.cvssv30.base_score >= 7 and m.cvssv30.base_score < 9 %}
-                            <p class="base-score" style="background-color:orange"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv30.base_severity }}"</b> 
-                            </p></br>
-                            {% else %}
-                            <p class="base-score" style="background-color:red"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv30.base_severity }}"</b> 
-                            </p></br>
-                            {% endif %}
-                        
-                        {% endif %}
-                    {% endfor %}
-                    </div>
-                </br>
-                    <button class="accordion"><b>CVSS V2.0</b></button>
-                    <div class="panel">
-                        {% for m in metric %}
-                        {% if m.con_id == detail_cve.id  and m.cvssv20.base_score is not none %}
-                    </br>
-                            <p class="base-score"> <b style="font-size: 20px;">Base Score: "{{ m.cvssv20.base_score }}"</b> 
-                            </p></br>
-                            <p class="base-score"> <b style="font-size: 20px;">Vector String: "{{ m.cvssv20.vector_string }}"</b> 
-                            </p></br>
-                            {% if m.cvssv20.base_score > 0 and m.cvssv20.base_score < 4  %}
-                            <p class="base-score" style="background-color:green"> <b style="font-size: 20px; ">Base Severity:  "LOW"</b> 
-                            </p></br>
-                            {% elif m.cvssv20.base_score >= 4 and m.cvssv20.base_score < 7 %}
-                            <p class="base-score" style="background-color:yellow"> <b style="font-size: 20px; ">Base Severity:  "MEDIUM"</b> 
-                            </p></br>
-                            {% elif m.cvssv20.base_score >= 7 and m.cvssv20.base_score < 9 %}
-                            <p class="base-score" style="background-color:orange"> <b style="font-size: 20px; ">Base Severity:  "HIGH"</b> 
-                            </p></br>
-                            {% else %}
-                            <p class="base-score" style="background-color:red"> <b style="font-size: 20px; ">Base Severity:  "CRITICAL"</b> 
-                            </p></br>
-                            {% endif %}
-                            
-                      {% comment %} {% elif m.con_id == detail_cve.id and m.cvssv20.base_score is none and m.cvssv20.base_score < 0 or m.cvssv20.base_score > 10%}  
-                      <p class="base-score"> <b style="font-size: 20px;">NOT UPDATED!</b> 
-                      </p></br>   {% endcomment %}
-                    
-                            {% endif %}
-                    {% endfor %}
+            <button class="accordion"><b>CVSS V3.0</b></button>
+                <div class="panel">
+                    <p style="color: white;"><b>"Lorem ipsum dolor sit amet"</b></p> 
+                </div>      
+            </br>
+            <button class="accordion"><b>CVSS V2.0</b></button>
+                <div class="panel">
+                    <p style="color: white;"><b>"Lorem ipsum dolor sit amet"</b></p> 
+                </div>      
+            </br>
+                
                     </div>
            
         </div>
     </div>
 </div>
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+    
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        } 
+      });
+    }
+    </script>
 {% endblock %}
