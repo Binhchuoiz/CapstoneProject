@@ -291,19 +291,27 @@
                 <!--ms-md-auto chia navbar 2 phia-->
                 <ul class="navbar-nav ms-md-auto">
                     {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'app:guidelines' %}" ><i class="fa-solid fa-info-circle"></i> GuideLines</a>
+                    </li>   
                         <li content="nav-item">
                             <a class="nav-link" href="{% url 'accounts:profile' %}"><b><i class="fa-solid fa-user"></i> My Account:  {{ user.username }} </b></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" style="right: -40px;" href="{% url 'accounts:log_out' %}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
                         </li>
+                      
                     {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'app:guidelines' %}" ><i class="fa-solid fa-info-circle"></i> GuideLines</a>
+                    </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'accounts:login' %}"><i class="fa-solid fa-right-to-bracket" ></i> Login</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'accounts:sign_up' %}"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
                         </li>
+                        
                     {% endif %}
                 </ul>    
       </div>
@@ -446,7 +454,7 @@ function topFunction() {
             <h3>QUICK LINKS</h3>
             <p>Go fast to your destination</p>
             <a href="{% url 'app:home' %}"><p style="color: dodgerblue" >Home</p></a>
-            <a href="{% url 'app:list_cves' page=1 %}" ><p style="color: dodgerblue" >Finding</p></a>
+            <a href="{% url 'app:guidelines' %}" ><p style="color: dodgerblue" >Guide Lines</p></a>
             <a {% if user.is_authenticated %} href="{% url 'accounts:profile' %}" {% else %}href="{% url 'accounts:login' %}" {% endif %}><p style="color: dodgerblue" >Profile</p></a> 
         </div>
         <div class="col icon-social" style="width: 80%" >
