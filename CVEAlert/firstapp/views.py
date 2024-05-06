@@ -41,7 +41,7 @@ def get_home(request):
         return JsonResponse({'message': message, 'response': response})
     elif request.method == 'POST': 
         id_cve= request.POST['id_cve']
-        listCVE = CVE.objects.filter(cve_id__contains=id_cve)[:12]
+        listCVE = CVE.objects.filter(cve_id__contains=id_cve)[:9]
     listCVE.metric = metric
     context = {
         'listCVE': listCVE,
