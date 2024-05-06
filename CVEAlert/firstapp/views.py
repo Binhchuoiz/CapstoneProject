@@ -39,9 +39,20 @@ def get_home(request):
         message = request.POST['message']
         response = ask_openai(message)
         return JsonResponse({'message': message, 'response': response})
-    elif request.method == 'POST': 
+    elif request.method == 'POST':
         id_cve= request.POST['id_cve']
         listCVE = CVE.objects.filter(cve_id__contains=id_cve)[:9]
+        cve_ids = [cve.id for cve in listCVE]
+        affected = Affected.objects.filter(con_id__in=cve_ids) 
+        products = [a.product for a in affected]
+        vendors = [a.vendor for a in affected]
+        metric = Metric.objects.filter(con_id__in=cve_ids)
+        cvss_v31 = {}
+        for m in metric:
+            if m.con_id in cvss_v31:
+                cvss_v31[m.con_id].append(m.cvssv31)
+            else:
+                cvss_v31[m.con_id] = [m.cvssv31]
     listCVE.metric = metric
     context = {
         'listCVE': listCVE,
