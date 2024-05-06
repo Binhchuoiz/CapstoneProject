@@ -310,120 +310,87 @@ transform: translateZ(-25px) rotateX(-90deg);
         }
     </script>
     <div class="row">
+      {% comment %} <div class="col-4">
+        <div class="box-info">
+          <div class="title-box ">
+            <h2><b>Content Bookmarks</b></h2>
+          </div>
+          <div class="content-box ">
+            <p><a href="#1"><b>1. Description</b></a></p>
+              <p><a href="#2"><b>2. Vulnerable products, Vendor, Version</b></a></p>
+                <p><a href="#3"><b>3. Exploits & ProblemTypes</b></a></p>
+                  <p> <a href="#4"><b>4. Solution, References, Work Around</b></a></p>
+                    <p> <a href="#5"><b>5. CVE Informations</b></a></p>
+                      <p> <a href="#6"><b>6. CVSS</b></a></p>
+          </div>
+      
+        </div>
+      </div> {% endcomment %}
         <div class="col-8">
             <h1><b>Instructions On How To Read An CVE!</b></h1>
             <div class="box-info">
-                <div class="title-box">
-                    <h2><b style="font-size: 28px;">DESCRIPTION</b></h2>
-                </div>
-                <div class="content-box">
+                <div >
+                   <button class="accordion" style="font-size:25px"><b id="1">Description</b></button>
+                <div class="content-box panel">
                     <p><i>"Description (DESCRIPTION) is an important part of the Common Vulnerabilities and Exposures (CVE) identifier, providing a detailed summary of the nature of the vulnerability and how it operates."</i></p>
-                
-                 
                   <b>🛎️ Importance of the CVE description:</b> 
                   <p> ➡️ The CVE description provides system administrators, security researchers, and users with the information needed to understand the nature and severity of the vulnerability.</p> 
                   <p>➡️ Helps identify affected systems and applications.</p> 
                   <p>➡️ Support the development of patches and mitigation solutions.</p> 
                   <p>➡️ Raise awareness of security threats and encourage better security practices.</p> 
                   <p>➡️ Additionally, the CVE description can include additional information such as the date of discovery, the researcher who discovered the vulnerability, links to in-depth analysis, and more.</p> 
-                  <b>🛎️ Example:</b>
-                  <p>Consider the description of <b>"CVE-2023-23397"</b>, a critical vulnerability in Microsoft Outlook:</p>
-                  <img src="/media/maxresdefault1.jpg" style="width:100%;" alt="CVE-2023-23397">
-              <p> ➡️ A buffer overflow vulnerability occurs in the email handler of Microsoft Outlook. This vulnerability could allow an attacker to remotely execute arbitrary code by sending malicious emails to Outlook users. An attacker could use this vulnerability to take control of the victim's system, steal sensitive data, or disrupt services. This vulnerability affects all versions of Microsoft Outlook. Users should update Outlook to the latest available version and take appropriate precautions, such as not opening emails or attachments from unknown senders.</p>
                 </div>
+              </div>
             </div>
             <div class="box-info">
-                <div class="title-box">
-                    <h2><b style="font-size: 28px;">Vulnerable products, Vendor, Version</b></h2>
-                </div>
-                <div class="content-box">
+                <div >
+                    <button class="accordion" style="font-size:25px"><b id="2">Vulnerable products, Vendor, Version</b></button>
+                
+                <div class="content-box panel">
                                 <p><b style="font-size:23px;">- Product name:</b><i> "Although the Common Vulnerabilities and Exposures (CVE) format does not include a separate "product name" field, it does contain information about the affected product. This information is often more detailed than a general product catalog."</i></p>
                                 <b>🛎️ Importance of the "Product" field:</b>
                                 <p>➡️ Helps pinpoint systems and applications vulnerable to specific CVEs.</p>
                                 <p>➡️ Allows system administrators to focus patching and risk mitigation efforts on affected products.</p>
                                 <p>➡️ Assists users in determining whether their personal systems are affected by vulnerabilities and taking appropriate steps to protect themselves.</p>
-                                <b>🛎️ Example:</b>
-                                <p>➡️ In the example you saw earlier <b>"CVE-2023-23397"</b>", the affected product was specifically listed as <b>"Microsoft Outlook"</b>.</p>
-                                <img src="/media/microsoft-outlook-1.jpg" style="width:100%;" alt="CVE-2023-23397">
                                 <p><b style="font-size:23px;">- Vendor name: </b><i> "Vendor field in the CVE (Common Vulnerabilities and Exposures) format identifies the software or hardware vendor responsible for the product affected by the described vulnerability."</i></p>
                         <b>🛎️ The importance of the "Vendor" field</b>
                                 <p>➡️  Helps users and system administrators easily identify who is responsible for resolving vulnerabilities and providing patches.</p>
                                 <p>➡️  Allows users to contact the vendor directly to seek support or further information about the vulnerability.</p>
                                 <p>➡️  Assists organizations in coordinating patching and risk mitigation efforts across different vendors.</p>
-                                <b>🛎️ Example:</b>
-                                <p>➡️ In <b>"CVE-2023-23397"</b> (Microsoft Outlook vulnerability), <b>"Vendor"</b> is listed as <b>"Microsoft".</b></p>
-                                <img src="/media/microsoft-headquarters-fdi.jpg" style="width:100%;" alt="CVE-2023-23397">
-                        <p><b style="font-size:23px;">- Versions: </b><i> "Version field in the CVE (Common Vulnerabilities and Exposures) format identifies the specific version of the software or hardware product affected by the described vulnerability."</i></p>
+                               <p><b style="font-size:23px;">- Versions: </b><i> "Version field in the CVE (Common Vulnerabilities and Exposures) format identifies the specific version of the software or hardware product affected by the described vulnerability."</i></p>
                         <b>🛎️ Importance of the "Version" field:</b>
                                 <p>➡️  Helps users and system administrators accurately determine which versions of the product are affected by the vulnerability.</p>
                                 <p>➡️ Allows users to update only affected versions, saving time and resources.</p>
                                 <p>➡️  Assist vendors in releasing the correct patch for affected versions.</p>
-                                <b>🛎️ Example:</b>
-                                <p>➡️ In <b>"CVE-2023-23397"</b> (Microsoft Outlook vulnerability), <b>"Version"</b> is listed as <b>"All versions"</b>. This means that all versions of Microsoft Outlook are affected by the vulnerability.</p>
-                                <img src="/media/5edaa1a14dca6814f319dd47.jpg" style="width:100%;" alt="CVE-2023-23397">
                 </div>
+              </div>
             </div>
             <div class="box-info">
-              <div class="title-box">
-                  <h2><b style="font-size: 28px;">Exploits & ProblemTypes</b></h2>
-              </div>
-              <div class="content-box url">
+              <div >
+                  <button class="accordion" style="font-size:25px"><b id="3">Exploits & ProblemTypes</b></button>
+              
+              <div class="content-box url panel">
                 <p><b style="font-size:23px;">- Exploits: </b><i> "Although the Common Vulnerabilities and Exposures (CVE) format does not include an official "Exploits" field, there are still ways to find information about available exploits for a specific CVE vulnerability."</i></p>
                         <b>🛎️ Reasons why there is no Exploits field:</b>
                                 <p>➡️   <b>Complexity and variability:</b> Mining can vary greatly in complexity, how it works, and how effective it is. Maintaining a formal list of exploits for each CVE would be expensive and difficult.</p>
                                 <p>➡️  <b>Risk of Encouraging Exploits:</b> Listing specific exploits could unintentionally provide attackers with useful insights to exploit the vulnerability more easily.</p>
                                 <p>➡️ <b> Rapid change:</b> New exploits can be developed rapidly, making maintaining an official list obsolete.</p>
-                                <b>🛎️ Example:</b>
-                                <p>➡️ Although the Common Vulnerabilities and Exposures (CVE) format does not include an official "Exploits" field, there are still ways to find information about exploits related to <b>"CVE-2023-23397"</b>, the security vulnerability affects Microsoft Outlook software.</p>
-                                <p>➡️ Microsoft Security Response Center: Microsoft, the vendor of the affected Microsoft Outlook software, has published a Security Update Guide for <b>"CVE-2023-23397"</b> <a href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-23397">(https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-23397)</a>. This guide provides information about the vulnerability, its impact, and available patches. While it does not detail specific exploits, it does mention that the vulnerability was exploited by a group of nation-state threat actors called Forest Blizzard (STRONTIUM).</p>
-                                <img src="/media/figure-1-patch-cve-2023-23397-outlook-vulnerability-faq-what-you-need-to-know-do.png" style="width:100%;" alt="CVE-2023-23397">
-                                
-                 
-                  
-                  <p><b style="font-size:23px;">- ProblemTypes Description: </b><i> "The ProblemTypes field in the CVE (Common Vulnerabilities and Exposures) format provides information about the type of vulnerability described in the CVE record."</i></p>
                         <b>🛎️ Importance of the "ProblemTypes" field:</b>
                                 <p>➡️   Helps users and system administrators easily classify and understand the nature of vulnerabilities.</p>
                                 <p>➡️  Enables organizations to prioritize patching and risk mitigation efforts based on issue type.</p>
                                 <p>➡️   Assists security researchers and experts in assessing the severity and exploitation potential of vulnerabilities.</p>
-                                <b>🛎️ Example:</b>
-                                <p>➡️ In <b>"CVE-2023-23397"</b> (Microsoft Outlook vulnerability), <b>"ProblemTypes"</b> is listed as <b>"Buffer overflow"</b>.</p>
-                                <img src="/media/buffer-overflow-attacks.png" style="width:100%;" alt="CVE-2023-23397">
               </div>
+            </div>
           </div>
             <div class="box-info">
-                <div class="title-box">
-                    <h2><b style="font-size: 28px;">Solution, References, Work Around</b></h2>
-                </div>
-                <div class="content-box url">
+                <div >
+                  <button class="accordion" style="font-size:25px"><b id="4">Solution, References, Work Around</b></button>
+                <div class="content-box url panel">
                   <p><b style="font-size:23px;">- Work Around: </b><i> "Workaround is a temporary solution to mitigate the risks associated with the vulnerability described in the Common Vulnerabilities and Exposures (CVE) log."</i></p>
                         <b>🛎️ It is often used in cases:</b>
                                 <p>➡️  <b> No official patch yet:</b> The affected product vendor has not released a security patch to fully fix the vulnerability.</p>
                                 <p>➡️ <b> Patches causing issues:</b> Official patches may cause performance or compatibility issues with some systems.</p>
                                 <p>➡️  <b> Limited patch deployment time:</b> Applying a patch to all affected systems may take time. Workaround can be used as a temporary solution while waiting for the official patch deployment.</p>
-                                <b>🛎️ Example:</b>
-                                <p>➡️ <b>"CVE-2023-23397"</b> is a buffer overflow vulnerability affecting Microsoft Outlook that could allow attackers to execute arbitrary code on the target system. Although Microsoft has released a security patch to fix the vulnerability, in some cases applying the patch may cause compatibility or performance issues. Below are some examples of workarounds that can be used to mitigate the risks associated with this vulnerability while waiting for a patch to be deployed:</p>
-                                <img src="/media/RE4trg6.png" style="width:100%;" alt="CVE-2023-23397">
-                                <p><b>1. Disable attachment preview:</b></p>
-                                <p>➡️ Open Outlook.</p>
-                                <p>➡️  Choose File > Options.</p>
-                                <p>➡️  Select the Trust Center tab.</p>
-                                <p>➡️ Click Trust Center > Trust Center Settings.</p>
-                                <p>➡️ Select the Attached Archives tab.</p>
-                                <p>➡️ Uncheck the Enable attachment preview checkbox.</p>
-                                <p>➡️ Click OK.</p>
-
-                                <p><b>2. Disable embedded attachment processing:</b></p>
-                                <p>➡️ Open Outlook.</p>
-                                <p>➡️ Choose File > Options.</p>
-                                <p>➡️  Select the Advanced tab.</p>
-                                <p>➡️ Scroll down to the Security section.</p>
-                                <p>➡️ Uncheck the Handle embedded attachments checkbox.</p>
-                                <p>➡️ Click OK.</p>
-
-                                <p><b>3. Update anti-virus software:
-                                </b></p>
-                                <p>➡️ Make sure your anti-virus software is updated to the latest version.</p>
-                                <p>➡️ Some antivirus software can detect and prevent attacks that exploit the vulnerability <b>"CVE-2023-23397"</b>.</p>
                                 <p><b style="font-size:23px;">- Solution: </b><i> "The "Solutions" field in a CVE (Common Vulnerabilities and Exposures) entry doesn't have a standardized format or content across different sources. However, it generally provides information about how to address the vulnerability and reduce the associated risks."</i></p>
                                 <b>🛎️ What to Expect in the Solutions Field:</b>
                                         <p>➡️   <b>References to Patches:</b> The most common solution mentioned is a <b>security patch</b> released by the vendor of the affected software or hardware. This patch addresses the underlying vulnerability in the code, eliminating the possibility of exploitation.</p>
@@ -432,59 +399,43 @@ transform: translateZ(-25px) rotateX(-90deg);
                                         <p> •  <b>Configuration changes:</b> Adjusting system configurations to minimize exposure to the vulnerability.</p>
                                         <p> • <b>Disabling affected features:</b> Temporarily disabling features or functionality that are directly related to the vulnerability.</p>
                                         <p> • <b>Implementing access controls:</b> Restricting access to vulnerable components or limiting user privileges to reduce the potential impact of an exploit.</p>
-                                        <b>🛎️ Example:</b>
-                                        <p>➡️ <b>"CVE-2023-23397"</b> is a buffer overflow vulnerability affecting Microsoft Outlook that could allow attackers to execute arbitrary code on the target system. Microsoft has released a security patch to address this vulnerability, however, in some cases, applying the patch may cause compatibility or performance issues. Below are some solutions that can be used to mitigate the risks associated with this vulnerability while waiting for the patch to be deployed.</p>
-                                        <p> • <b>Update Microsoft Outlook:</b> The best workaround for <b>"CVE-2023-23397"</b> is to install the security patch released by Microsoft for Microsoft Outlook. This patch addresses the underlying vulnerability and eliminates the possibility of exploitation. Users should update Outlook to the latest version as soon as possible.</p>
-                                        <p> • <b>Windows Update:</b> Microsoft has also released a Windows update to address <b>"CVE-2023-23397"</b>. Updating Windows is also important to ensure system security.
-                                        </p>
-                                        <img src="/media/CVE-2023-23397-1.jpg" style="width:100%;" alt="CVE-2023-23397">
                                         <p><b style="font-size:23px;">- URL: </b><i> "A CVE (Common Vulnerabilities and Exposures) URL is a unique link to the official CVE website that provides detailed information about a specific security vulnerability. This URL is created according to the following structure: <b>'https://nvd.nist.gov/vuln/detail/(CVE-ID)'</b>"</i></p>
                                         <b>🛎️ Purpose of the URL:</b>
                                                 <p>➡️   Provide users with access to official and up-to-date information about a specific security vulnerability.</p>
                                                 <p>➡️  Includes detailed information such as vulnerability description, severity level, affected systems, security patches, workarounds, etc.ss</p>
                                                 <p>➡️   Helps users assess risk and take appropriate remediation measures to protect their systems.</p>
-                                                <b>🛎️ Example:</b>
-                                                <p>➡️ The URL for <b>"CVE-2023-23397"</b> (Microsoft Outlook vulnerability) is: <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-23397">https://nvd.nist.gov/vuln/detail/CVE-2023-23397</a>.</p>
-                                                <img src="/media/Screenshot 2024-05-04 212237.png" style="width:100%;" alt="CVE-2023-23397">
                 </br>
-                        
+              </div>   
                 </div>
             </div>
             
         </div>
         <div class="col-4">
             <div class="box-info" style="margin-top:65px;">
-                <div class="title-box">
-                    <h2><b style="font-size: 28px;">CVE Informations</b></h2>
-                </div>
-                <div class="content-box url" >
+                <div >
+                    <button class="accordion" style="font-size:25px"><b id="5">CVE Informations</b></button>
+                <div class="content-box panel" >
                     <form method="post">
                         {% csrf_token %}
                         <p><b>CVE ID: </b> CVE ID stands for Common Vulnerabilities and Exposures Identifier, also known as Common Vulnerability Identifier.</p>
-                        <p>➡️ <b>"CVE-2023-23397"</b> - The vulnerability was first discovered or made public in 2023 and assigned serial number 23397.</p>
+                       
                         <p><b>Published Date:</b> (Date made public) of a CVE.</p>
-                        <p>➡️ According to the NVD website <a href="https://nvd.nist.gov/vuln/detail/cve-2023-23397">(https://nvd.nist.gov/vuln/detail/cve-2023-23397)</a>, entry <b>"CVE-2023-23397"</b> was published on <b>March 14, 2023</b>.</p>
-                        <p><b>Date Update: </b> CVE "Recently updated" date.</p>
-                        <p>➡️ Visit the NVD page for <b>"CVE-2023-23397"</b>: <a href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-23397">https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-23397</a>
-
-                          .Check the "Details" section: In this section, you'll see a "Last Modified" section showing the date <b>March 20, 2023</b>.</p>
-                        <p><b> Date Reserved:</b> "Date Reserved" does not represent the specific date on which the vulnerability was discovered or exploited. It is simply an indication that the ID has been allocated and is in the process of being filled with details about the vulnerability.</p>
-                        <p>➡️ <b>"CVE-2023-23397"</b> - The vulnerability was first discovered or made public in 2023 and assigned serial number 23397.</p>
-                        <p><b>Data Version:</b> </p>
-                        <p>➡️ <b>"CVE-2023-23397"</b> - The vulnerability was first discovered or made public in 2023 and assigned serial number 23397.</p>
-                        <p><b>Organization ID: </b> </p>
-                        <p>➡️ <b>"CVE-2023-23397"</b> - The vulnerability was first discovered or made public in 2023 and assigned serial number 23397.</p>
-                        <p><b>Organization Short Name:</b> </p>
-                        <p>➡️ <b>"CVE-2023-23397"</b> - The vulnerability was first discovered or made public in 2023 and assigned serial number 23397.</p>
+                       <p><b>Date Update: </b> CVE "Recently updated" date.</p>
+                        <p><b> Date Reserved:</b> "In a CVE entry, "Date Reserved" signifies the official reservation of a unique ID (CVE-ID) for a reported security flaw. This kickstarts the process of documenting and tracking the vulnerability across different security platforms."</p>
+                       <p><b>Data Version:</b> The "Data Version" in a CVE (Common Vulnerabilities and Exposures) entry typically refers to the version of the CVE data schema or format used to represent the information about the vulnerability. This version number indicates the specific format or structure used to encode and store the CVE entry. It helps in understanding how the information is organized and interpreted within CVE databases and tools. As the CVE data schema evolves over time to accommodate new requirements or improvements, the data version helps ensure compatibility and consistency across different implementations and releases.</p>
+                        <p><b>Organization ID: </b> 
+                          In a CVE (Common Vulnerabilities and Exposures) entry, the "Organization ID" typically refers to a unique identifier assigned to the organization or entity that reported or disclosed the vulnerability associated with that CVE. This ID helps to identify the entity responsible for discovering, reporting, or coordinating the response to the vulnerability. It aids in tracking and attributing the source of the vulnerability information within the CVE ecosystem.</p>
+                        <p><b>Organization Short Name:</b> In a CVE (Common Vulnerabilities and Exposures) entry, the "Organization Short Name" typically refers to the organization or vendor that discovered or reported the vulnerability associated with that CVE. It is a way to attribute the discovery or reporting of the vulnerability to a specific entity. This information helps in understanding who identified the vulnerability and can be useful for further investigation or collaboration between different organizations working on cybersecurity issues.</p>
                             <input name="follow_affect" value="null" style="display: none">
                             <input name="follow_affect" value="null" style="display: none">
                         <span><a href="{% url 'app:list_cves' page=1%}" ></a></span>   
                     </form>
                 </div>
+              </div>
             </div>
             <br>
-                <button class="accordion"><b>CVSS V3.1</b></button>
-                <div class="panel">
+                <button class="accordion"><b id="6">CVSS V3.1</b></button>
+                <div class=" panel">
                     <p style="color: white;"><b>"This version was released in 2019 and is the current version of CVSS. CVSS v3.1 includes several minor updates to improve the accuracy and usefulness of the system."</b></p> 
                 </div>      
             </br>

@@ -35,8 +35,9 @@
     background-color: white ;
     color: black !important;
     padding: 20px;
-    width:100%;
+    width:395px;
     border-radius: 10px;
+    align:right;
     }
     .alert-msg {
         background-color: lightgreen;
@@ -359,10 +360,13 @@ a:hover::before {
                               {% csrf_token %}
                               <!-- Input ẩn để lưu trữ giá trị productName -->
                               <input type="hidden" name="click_product" id="click_product_input">
-                              <p class="url"><b>- Product name: </b>"{{ a.product.name }}"
-                              <a href="{% url 'accounts:list_cve_by_product' %}" class="product-link" data-product-name="{{ i.product.name }}">
+                              <p class="url"><b>- Product: </b>"{{ a.product.name }}"
+                              <a href="#" class="product-link" data-product-name="{{ a.product.name }}">
+                              
+                              
                                    <i>(Click here to see related cves!)</i>
                               </a>
+                              
                             </p>
                           </form>
                                 <p><b>- Vendor name: </b>{{ a.vendor.name }}</p>
@@ -395,7 +399,7 @@ a:hover::before {
                     <!-- Input ẩn để lưu trữ giá trị productName -->
                     <input type="hidden" name="click_problem" id="click_problem_input">
                     <p class="url"><b>- ProblemTypes Description: </b>"{{ p.problemTypes.description }} "
-                    <a href="{% url 'app:list_cves_by_problem' %}" class="problem-link" data-product-name="{{ p.problemTypes.description }}">
+                    <a href="{% url 'app:list_cves_by_problem' %}" class="problem-link" data-problem-name="{{ p.problemTypes.description }}">
                          <i>(Click here to see related cves!)</i>
                     </a>
                   </p>
