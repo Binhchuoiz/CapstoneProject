@@ -459,7 +459,7 @@ a:hover::before {
                         <p class="base-score"> <b style="font-size: 20px;">Vector String: "{{ m.cvssv31.vector_string }}"</b> 
                         </p></br>
                         {% if m.cvssv31.base_score > 0 and m.cvssv31.base_score < 4  %}
-                        <p class="base-score" style="background-color:green"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv31.base_severity }}"</b> 
+                        <p class="base-score" style="background-color:lightgreen"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv31.base_severity }}"</b> 
                         </p></br>
                         {% elif m.cvssv31.base_score >= 4 and m.cvssv31.base_score < 7 %}
                         <p class="base-score" style="background-color:yellow"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv31.base_severity }}"</b> 
@@ -501,7 +501,7 @@ a:hover::before {
                             <p class="base-score"> <b style="font-size: 20px;">Vector String: "{{ m.cvssv30.vector_string }}"</b> 
                             </p></br>
                             {% if m.cvssv30.base_score > 0 and m.cvssv30.base_score < 4  %}
-                            <p class="base-score" style="background-color:green"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv30.base_severity }}"</b> 
+                            <p class="base-score" style="background-color:lightgreen"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv30.base_severity }}"</b> 
                             </p></br>
                             {% elif m.cvssv30.base_score >= 4 and m.cvssv30.base_score < 7 %}
                             <p class="base-score" style="background-color:yellow"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv30.base_severity }}"</b> 
@@ -528,7 +528,7 @@ a:hover::before {
                             <p class="base-score"> <b style="font-size: 20px;">Vector String: "{{ m.cvssv20.vector_string }}"</b> 
                             </p></br>
                             {% if m.cvssv20.base_score > 0 and m.cvssv20.base_score < 4  %}
-                            <p class="base-score" style="background-color:green"> <b style="font-size: 20px; ">Base Severity:  "LOW"</b> 
+                            <p class="base-score" style="background-color:lightgreen"> <b style="font-size: 20px; ">Base Severity:  "LOW"</b> 
                             </p></br>
                             {% elif m.cvssv20.base_score >= 4 and m.cvssv20.base_score < 7 %}
                             <p class="base-score" style="background-color:yellow"> <b style="font-size: 20px; ">Base Severity:  "MEDIUM"</b> 

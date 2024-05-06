@@ -15,6 +15,8 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" href="/media/CVE.jpg">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"/>
+    <link rel = "stylesheet" type = "text/css" href = "https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"/>
     <title>
     {% block title %}
 
@@ -247,6 +249,15 @@
 
 {#  Thêm logic django  vào phần profile#}
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src = "https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script type = "text/javascript">
+        $(document).ready(function(){
+            $('#table').DataTable();
+        });
+      
+        </script>
 {#  Chỉnh lại style  #}
 <!--https://getbootstrap.com/docs/5.3/components/navbar/-->
 <nav class="navbar navbar-expand-lg navbar-dark " style="background-color:black; padding:15px;">
@@ -304,6 +315,9 @@
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'app:guidelines' %}" ><i class="fa-solid fa-info-circle"></i> GuideLines</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'app:search' page=1 %}" ><i class="fa-solid fa-search"></i> Search</a>
                     </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'accounts:login' %}"><i class="fa-solid fa-right-to-bracket" ></i> Login</a>

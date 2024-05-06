@@ -382,7 +382,7 @@ a:hover::before {
                                               <p class="card-text">
                                                 {% if m.cvssv31.base_score >= 0 and m.cvssv31.base_score < 4  %}
                                                 <p  > <b>CVSS V3.1 Score:</b> 
-                                                  "{{ m.cvssv31.base_score }}" - <b style="background-color:green;border-radius:5px;"> LOW </b> 
+                                                  "{{ m.cvssv31.base_score }}" - <b style="background-color:lightgreen;border-radius:5px;"> LOW </b> 
                                                 </p></br>
                                                 {% elif m.cvssv31.base_score >= 4 and m.cvssv31.base_score < 7 %}
                                                 <p  > <b>CVSS V3.1 Score:</b> 
@@ -403,7 +403,7 @@ a:hover::before {
                                               
                                               {% if m.cvssv30.base_score >= 0 and m.cvssv30.base_score < 4  %}
                                               <p  > <b>CVSS V3.0 Score:</b> 
-                                                "{{ m.cvssv30.base_score }}" - <b style="background-color:green;border-radius:5px;"> LOW </b> 
+                                                "{{ m.cvssv30.base_score }}" - <b style="background-color:lightgreen;border-radius:5px;"> LOW </b> 
                                               </p></br>
                                               {% elif m.cvssv30.base_score >= 4 and m.cvssv30.base_score < 7 %}
                                               <p  > <b>CVSS V3.0 Score:</b> 
@@ -424,7 +424,7 @@ a:hover::before {
                                           <p class="card-text">
                                             {% if m.cvssv20.base_score >= 0 and m.cvssv20.base_score < 4  %}
                                               <p  > <b>CVSS V2.0 Score:</b> 
-                                                "{{ m.cvssv20.base_score }}" - <b style="background-color:green;border-radius:5px;"> LOW </b> 
+                                                "{{ m.cvssv20.base_score }}" - <b style="background-color:lightgreen;border-radius:5px;"> LOW </b> 
                                               </p></br>
                                               {% elif m.cvssv20.base_score >= 4 and m.cvssv20.base_score < 7 %}
                                               <p  > <b>CVSS V2.0 Score:</b> 

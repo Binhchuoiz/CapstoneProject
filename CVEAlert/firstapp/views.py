@@ -849,3 +849,133 @@ def list_cves_by_problem(request):
     }
 
     return render(request, 'firstapp/list_cves_by_problem.html', context=context)
+
+
+def get_search_list_CVE(request, page):
+    listCVE = CVE.objects.all().order_by('date_publish')
+    year = CVE.objects.values_list('year', flat=True)
+    unique_Year = set(year)
+    unique_year_List = sorted(unique_Year)
+    selected_year = None
+    search_focus = None
+    try:
+        check_user_notifi = NotiUser.objects.get(user=request.user)
+        if not check_user_notifi.status or check_user_notifi.email_address =='' and check_user_notifi.token_bot =='':
+            status = False
+        else:
+            status = True
+    except:
+        status = False
+    cvss_min = request.POST.get('cvss_min')
+    cvss_max = request.POST.get('cvss_max')
+    if cvss_min and cvss_max:
+            cvss_min = float(cvss_min)
+            cvss_max = float(cvss_max)
+            listCVE = listCVE.filter(metric_cve__cvssv31__base_score__gte=cvss_min, 
+                                     metric_cve__cvssv31__base_score__lte=cvss_max)
+    if request.method == 'POST':
+        selected_years = request.POST.getlist('filter_year')
+        if selected_years:
+            selected_year = selected_years[0]  
+            listCVE = CVE.objects.filter(year__in=selected_years)
+            page = 1
+        if 'search_focus' in request.POST:
+            search_focus = request.POST['search_focus']
+            listCVE = listCVE.filter(cve_id__contains=search_focus)
+            page = 1
+
+        sort_order = request.POST.get('sort_order')
+        sort_by = request.POST.get('sort_by')
+        if sort_by == 'cvss':
+            listCVE = listCVE.annotate(
+                cvss_score=Case(
+                    When(metric_cve__cvssv31__isnull=False, then=F('metric_cve__cvssv31__base_score')),
+                    default=None,  # Ignore entries without a CVSS 3.1 score
+                    output_field=FloatField()
+                )
+            ).exclude(cvss_score__isnull=True)  # Exclude entries without CVSS v3.1
+            order_prefix = '' if sort_order == 'asc' else '-'
+            listCVE = listCVE.order_by(f'{order_prefix}cvss_score')
+            page = 1
+        elif sort_by == 'date_publish':
+            if sort_order == 'asc':
+                listCVE = listCVE.order_by('date_publish')
+            else:
+                listCVE = listCVE.order_by('-date_publish')
+            page = 1
+        elif sort_by == 'date_update':
+            if sort_order == 'asc':
+                listCVE = listCVE.order_by('date_update')
+            else:
+                listCVE = listCVE.order_by('-date_update')
+            page = 1
+
+    else:
+        sort_by = request.GET.get('sort_by', None)
+        sort_order = request.GET.get('sort_order', None)
+        search_focus = request.GET.get('search_focus', None)
+        selected_year = request.GET.get('filter_year', None)
+        if selected_year:
+            listCVE = listCVE.filter(year=selected_year)
+        if search_focus:
+            listCVE = listCVE.filter(cve_id__contains=search_focus)
+        if sort_by == 'cvss':
+            listCVE = listCVE.annotate(
+                cvss_score=Case(
+                    When(metric_cve__cvssv31__isnull=False, then=F('metric_cve__cvssv31__base_score')),
+                    default=None,  # Ignore entries without a CVSS 3.1 score
+                    output_field=FloatField()
+                )
+            ).exclude(cvss_score__isnull=True)  # Exclude entries without CVSS v3.1
+            order_prefix = '' if sort_order == 'asc' else '-'
+            listCVE = listCVE.order_by(f'{order_prefix}cvss_score')
+
+
+
+    per_page = request.GET.get("per_page", 1000000)
+    paginator = Paginator(listCVE, per_page)
+    page_obj = paginator.get_page(page)
+
+    cve_ids = [cve.id for cve in page_obj]
+    affected = Affected.objects.filter(con_id__in=cve_ids)
+    products = {}
+    vendors = {}
+    for a in affected:
+        if a.con_id in products:
+            products[a.con_id].append(a.product)
+            vendors[a.con_id].append(a.vendor)
+        else:
+            products[a.con_id] = [a.product]
+            vendors[a.con_id] = [a.vendor]
+    page_obj.affected = affected
+
+    metric = Metric.objects.filter(con_id__in=cve_ids)
+    cvss_v31 = {}
+    for m in metric:
+        if m.con_id in cvss_v31:
+            cvss_v31[m.con_id].append(m.cvssv31)
+        else:
+            cvss_v31[m.con_id] = [m.cvssv31]
+    page_obj.metric = metric
+
+    context = {
+        "page": {
+            'prev': page_obj.number - 1 if page_obj.number - 1 > 0 else 1,
+            'current': page_obj.number,
+            'next': page_obj.number + 1 if page_obj.number + 1 < paginator.num_pages else paginator.num_pages,
+        },
+        'len_page': paginator.num_pages,
+        'paginator': paginator,
+        'page_obj': page_obj,
+        'products': products,
+        'vendors': vendors,
+        'affected': affected,
+        'unique_year': unique_year_List,
+        'selected_year': selected_year,
+        'search_focus': search_focus,
+        'status': status,
+        
+    }
+
+    return render(request, 'firstapp/search.html', context=context)
+

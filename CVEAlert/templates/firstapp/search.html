@@ -1,0 +1,383 @@
+{% extends 'navbar.html' %}
+
+{% block css %}
+    a {
+    text-decoration: none;
+    color: black;
+    }
+    .pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    /*=SEARCH BAR=*/
+
+   
+
+    /*=CARD TITLE=*/
+    .card-title{
+        a {
+            box-shadow: inset 0 0 0 0 black;
+            color: black;
+              padding: 0 .25rem;
+              margin: 0 -.25rem;
+              border-radius: 5px;
+            transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+          }
+          a:hover {
+            color: white;
+            box-shadow: inset 200px 0 0 0 black;;
+          }
+          
+          /* Presentational styles */
+          a {
+            color: black;
+            font-family: 'Poppins', sans-serif;
+            font-size: 23px;
+            font-weight: 600;
+            line-height: 0;
+            text-decoration: none;
+          }
+    }
+    /*=READ NOW=*/
+    .btn {
+        line-height: 20px;
+        height: 60px;
+        text-align: center;
+        width: 120px;
+        cursor: pointer;
+        background-color:black;
+      }
+      .btn-one {
+        color: white;
+        transition: all 0.5s;
+        position: relative;
+      }
+      .btn-one span {
+        transition: all 0.5s;
+      }
+      .btn-one::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        opacity: 0;
+        transition: all 1s;
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-top-style: solid;
+        border-bottom-style: solid;
+        border-top-color: black;
+        border-bottom-color: black;
+        transform: scale(0.1, 1);
+        
+      }
+      .btn-one:hover span {
+        letter-spacing: 2px;
+      }
+      .btn-one:hover::before {
+        opacity: 1; 
+        transform: scale(1, 1); 
+      }
+      .btn-one::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        transition: all 0.3s;
+        background-color: rgba(255,255,255,0.1);
+      }
+      .btn-one:hover::after {
+        opacity: 0; 
+        transform: scale(0.1, 1);
+      }
+      
+
+/*=PAGE=*/
+.pagination-style-one a { 
+    padding: 10px; 
+    margin: 15px;
+    background: black; 
+    color: white; 
+    border-radius: 80%; 
+    box-shadow: 0px 5px 10px 5px rgba(0,0,0,.1);}
+.pagination-style-one a.selected, 
+.pagination-style-one a:hover, 
+.pagination-style-one a:active, 
+.pagination-style-one a:focus { 
+    padding: 15px; 
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,.5);
+}
+
+.custom-select {
+    position: relative;
+    width: 100%;
+    height:40px;
+    font-size:17px;
+    text-align:center;
+    background-color:white;
+    color:black;
+    border-radius:5px;
+  }
+
+  {% comment %} /*= NOTIFICATIONS=*/
+  @import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+
+span{
+  position: relative;
+  display: inline-flex;
+  width: -10px;
+  height: 55px;
+  margin: 0 5px;
+  perspective: 1000px;
+}
+span a{
+  font-size: 15px;
+  letter-spacing: 1px;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform .25s;
+  
+}
+span a:before,
+span a:after{
+  position: absolute;
+  content: "Get Notify now!";
+  height: 60px;
+  width: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid black;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+span a:before{
+  color: #fff;
+  background: #000;
+  transform: rotateY(0deg) translateZ(25px);
+}
+span a:after{
+  color: #000;
+  transform: rotateX(90deg) translateZ(25px);
+}
+span a:hover{
+  transform: translateZ(-25px) rotateX(-90deg);
+} {% endcomment %}
+
+
+{% comment %} /*Check Box*/
+body{
+  counter-reset: checkBox-counter 0 ;
+  
+}
+
+div{
+counter-reset: checkBox-length;
+
+
+input[type="checkBox"]:after{
+  counter-increment: checkBox-length;
+  content: counter(checkBox-length);
+  position: relative;
+  top: 15px;
+  
+}
+input:checked{
+   counter-increment: checkBox-counter;
+   
+}
+}
+
+main:after{
+content: "Number of Products Selected: " counter(checkBox-counter) ;
+display: block;
+position: absolute; /*fixed*/
+margin:-15px;
+}
+
+input.largerCheckbox {
+  width: 40px;
+  height: 40px;
+} {% endcomment %}
+/*=URL=*/
+.url{
+    a {
+    color: blue;
+      position: relative;
+      text-decoration: none;
+    }
+    
+    a::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-radius: 4px;
+      background-color: #18272F;
+      bottom: 0;
+      left: 0;
+      transform-origin: right;
+      transform: scaleX(0);
+      transition: transform .3s ease-in-out;
+    }
+}
+
+a:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+
+{% endblock %}
+
+
+{% block title %}
+    Search
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    
+    
+        <div class="col-12 ">
+            <h2 style="font-size: 35px; text-align:center; padding:50px;"><b><u>SEARCH</u></b></h2>
+              <table id = "table" class = "table table-bordered">
+                  <thead class="alert-warning">
+                      <tr>
+                          <th>CVE ID</th>
+                          <th>Year</th>
+                          <th>Publish Date</th>
+                          <th>Product</th>
+                          {% comment %} <th>Problem</th> {% endcomment %}
+                           <th colspan="1">CVSS</th> 
+                      </tr>
+                  </thead>
+                  <tbody>
+                    {% for cve in page_obj %}
+                      <tr>
+                          <td class= "url"><a href="{% url 'app:detail_cves' pk=cve.pk %}"><b>{{ cve.cve_id }}</b></a></td>
+                          <td>{{ cve.year }}</td>
+                          <td>{{ cve.date_publish }}</td>
+                          {% for a in page_obj.affected %}
+                          {% if a.con_id == cve.id %}
+                          <td><form class="url " id="click_product_form" method="post" action="{% url 'accounts:list_cve_by_product' %}">
+                            {% csrf_token %}
+                            <!-- Input ẩn để lưu trữ giá trị productName -->
+                            <input type="hidden" name="click_product" id="click_product_input">
+                            <a class="url product-link" data-product-name="{{ a.product.name }}"><b>{{ a.product.name }} </b>
+                          </a>
+                        </form></td>
+                        
+                          {% endif %}
+                          {% endfor %}
+                          {% comment %} {% for p in problemTypes_cve %} 
+                          {% if p.con_id == cve.id %}
+                          <td><form id="click_problem_form" method="post" action="{% url 'app:list_cves_by_problem' %}">
+                            {% csrf_token %}
+                            <!-- Input ẩn để lưu trữ giá trị productName -->
+                            <input type="hidden" name="click_problem" id="click_problem_input">
+                            <p class="url"><b> </b>{{ p.problemTypes.description }}
+                            <a href="{% url 'app:list_cves_by_problem' %}" class="problem-link" data-problem-name="{{ p.problemTypes.description }}">
+                                 <i>(Click here to see related cves!)</i>
+                            </a>
+                          </p>
+                        </form></td>
+                          {% endif %}
+                          {% endfor %} {% endcomment %}
+                          {% for m in page_obj.metric %}
+                          {% if m.con_id == cve.id %}
+                          {% if m.cvssv31.base_score is not none and m.cvssv31.base_severity is not none %}
+                          {% if m.cvssv31.base_score > 0 and m.cvssv31.base_score < 4  %}
+                          <td style="background-color:lightgreen;">{{ m.cvssv31.base_score }}</td>
+                         
+                          {% elif m.cvssv31.base_score >= 4 and m.cvssv31.base_score < 7  %}
+                          <td style="background-color:yellow;">{{ m.cvssv31.base_score }}</td>
+                          
+                          {% elif m.cvssv31.base_score >= 7  and m.cvssv31.base_score < 9  %}
+                          <td style="background-color:orange;">{{ m.cvssv31.base_score }}</td>
+                          
+                          {% else  %}
+                          <td style="background-color:red;">{{ m.cvssv31.base_score }}</td>
+                          {% endif %}
+                          {% elif m.cvssv30.base_score is not none and m.cvssv30.base_severity is not none  %}
+                          {% if m.cvssv30.base_score > 0 and m.cvssv30.base_score < 4  %}
+                          <td style="background-color:lightgreen;">{{ m.cvssv30.base_score }}</td>
+                         
+                          {% elif m.cvssv30.base_score >= 4 and m.cvssv30.base_score < 7  %}
+                          <td style="background-color:yellow;">{{ m.cvssv30.base_score }}</td>
+                          
+                          {% elif m.cvssv30.base_score >= 7  and m.cvssv30.base_score < 9  %}
+                          <td style="background-color:orange;">{{ m.cvssv30.base_score }}</td>
+                          
+                          {% else  %}
+                          <td style="background-color:red;">{{ m.cvssv30.base_score }}</td>
+                          {% endif %}
+                          {% elif m.cvssv20.base_score is not none %}
+                          {% if m.cvssv20.base_score > 0 and m.cvssv20.base_score < 4  %}
+                          <td style="background-color:lightgreen;">{{ m.cvssv20.base_score }}</td>
+                         
+                          {% elif m.cvssv20.base_score >= 4 and m.cvssv20.base_score < 7  %}
+                          <td style="background-color:yellow;">{{ m.cvssv20.base_score }}</td>
+                          
+                          {% elif m.cvssv20.base_score >= 7  and m.cvssv20.base_score < 9  %}
+                          <td style="background-color:orange;">{{ m.cvssv20.base_score }}</td>
+                          
+                          {% else  %}
+                          <td style="background-color:red;">{{ m.cvssv20.base_score }}</td>
+                          {% endif %}
+                          {% endif %}
+                          {% endif %}
+                          {% endfor %}
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+        </div>   
+    </div>
+</div>
+<script>
+  // Lắng nghe sự kiện click trên tất cả các thẻ 'a' có class 'product-link'
+  document.querySelectorAll('.product-link').forEach(link => {
+      link.addEventListener('click', function(event) {
+          event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ 'a'
+
+          const productName = this.getAttribute('data-product-name'); // Lấy tên sản phẩm từ thuộc tính 'data-product-name' của thẻ 'a'
+
+          // Lưu giá trị vào localStorage với khóa là "click_product"
+          localStorage.setItem('click_product', JSON.stringify(productName));
+
+          // Đặt giá trị cho input ẩn trong form
+          document.getElementById('click_product_input').value = JSON.stringify(productName);
+
+          // Submit form
+          document.getElementById('click_product_form').submit();
+      });
+  });
+</script>
+<script>
+    // Lắng nghe sự kiện click trên tất cả các thẻ 'a' có class 'product-link'
+    document.querySelectorAll('.problem-link').forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ 'a'
+  
+            const productName = this.getAttribute('data-problem-name'); // Lấy tên sản phẩm từ thuộc tính 'data-product-name' của thẻ 'a'
+  
+            // Lưu giá trị vào localStorage với khóa là "click_product"
+            localStorage.setItem('click_problem', JSON.stringify(productName));
+  
+            // Đặt giá trị cho input ẩn trong form
+            document.getElementById('click_problem_input').value = JSON.stringify(productName);
+  
+            // Submit form
+            document.getElementById('click_problem_form').submit();
+        });
+    });
+  </script>
+{% endblock %}

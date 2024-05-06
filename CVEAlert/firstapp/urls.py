@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import get_home, get_list_CVE,get_detail_cves,get_tele_notifi,get_gmail_notifi,get_list_Products,get_about,get_list_definations,get_cve_definations,get_cvss_definations,get_cvss_compare,get_base_definations,get_temporal_definations,get_environmental_definations,get_difference_definations,get_type_definations,get_list_statistic,get_cve_statistic,get_risk_statistic,get_application_statistic,get_cvss_statistic,get_list_problems,get_cwe_definations,get_guidelines,list_cves_by_problem
+from .views import get_home, get_list_CVE,get_detail_cves,get_tele_notifi,get_gmail_notifi,get_list_Products,get_about,get_list_definations,get_cve_definations,get_cvss_definations,get_cvss_compare,get_base_definations,get_temporal_definations,get_environmental_definations,get_difference_definations,get_type_definations,get_list_statistic,get_cve_statistic,get_risk_statistic,get_application_statistic,get_cvss_statistic,get_list_problems,get_cwe_definations,get_guidelines,list_cves_by_problem,get_search_list_CVE
 
 app_name = 'app'
 
@@ -30,4 +30,5 @@ urlpatterns = [
     path('list-problems/<int:page>/', get_list_problems, name='list_problems'),
     path('guidelines/', get_guidelines, name='guidelines'),
     path('list-cves-by-problem/', list_cves_by_problem, name='list_cves_by_problem'),
+    path('search/<int:page>/', get_search_list_CVE,name='search'),
 ]
