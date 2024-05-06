@@ -99,8 +99,13 @@ def get_list_CVE(request, page):
             page = 1
         if 'search_focus' in request.POST:
             search_focus = request.POST['search_focus']
-            listCVE = listCVE.filter(cve_id__contains=search_focus)
-            page = 1
+            listCVE = listCVE.filter(
+        Q(cve_id__icontains=search_focus) |
+        Q(description_cves__value__icontains=search_focus) |  # Search in related Descriptions
+        Q(date_publish__icontains=search_focus) |
+        Q(date_update__icontains=search_focus) |
+        Q(date_reserved__icontains=search_focus)
+    ).distinct()
 
         sort_order = request.POST.get('sort_order')
         sort_by = request.POST.get('sort_by')
@@ -116,16 +121,12 @@ def get_list_CVE(request, page):
             listCVE = listCVE.order_by(f'{order_prefix}cvss_score')
             page = 1
         elif sort_by == 'date_publish':
-            if sort_order == 'asc':
-                listCVE = listCVE.order_by('date_publish')
-            else:
-                listCVE = listCVE.order_by('-date_publish')
+            order_prefix = '' if sort_order == 'asc' else '-'
+            listCVE = listCVE.order_by(f'{order_prefix}date_publish')
             page = 1
         elif sort_by == 'date_update':
-            if sort_order == 'asc':
-                listCVE = listCVE.order_by('date_update')
-            else:
-                listCVE = listCVE.order_by('-date_update')
+            order_prefix = '' if sort_order == 'asc' else '-'
+            listCVE = listCVE.order_by(f'{order_prefix}date_update')
             page = 1
 
     else:
@@ -136,17 +137,24 @@ def get_list_CVE(request, page):
         if selected_year:
             listCVE = listCVE.filter(year=selected_year)
         if search_focus:
-            listCVE = listCVE.filter(cve_id__contains=search_focus)
+            listCVE = listCVE.filter(
+        Q(cve_id__icontains=search_focus) |
+        Q(description_cves__value__icontains=search_focus) |  # Search in related Descriptions
+        Q(date_publish__icontains=search_focus) |
+        Q(date_update__icontains=search_focus) |
+        Q(date_reserved__icontains=search_focus)
+    ).distinct()
         if sort_by == 'cvss':
             listCVE = listCVE.annotate(
                 cvss_score=Case(
                     When(metric_cve__cvssv31__isnull=False, then=F('metric_cve__cvssv31__base_score')),
-                    default=None,  # Ignore entries without a CVSS 3.1 score
+                    default=None,
                     output_field=FloatField()
                 )
-            ).exclude(cvss_score__isnull=True)  # Exclude entries without CVSS v3.1
+            ).exclude(cvss_score__isnull=True)
             order_prefix = '' if sort_order == 'asc' else '-'
             listCVE = listCVE.order_by(f'{order_prefix}cvss_score')
+
 
 
 
@@ -932,7 +940,7 @@ def get_search_list_CVE(request, page):
 
 
 
-    per_page = request.GET.get("per_page", 1000000)
+    per_page = request.GET.get("per_page", 10)
     paginator = Paginator(listCVE, per_page)
     page_obj = paginator.get_page(page)
 
