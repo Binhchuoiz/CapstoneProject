@@ -316,9 +316,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'app:guidelines' %}" ><i class="fa-solid fa-info-circle"></i> GuideLines</a>
                     </li>
-                    <li class="nav-item">
+                    {% comment %} <li class="nav-item">
                         <a class="nav-link" href="{% url 'app:search' page=1 %}" ><i class="fa-solid fa-search"></i> Search</a>
-                    </li>
+                    </li> {% endcomment %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'accounts:login' %}"><i class="fa-solid fa-right-to-bracket" ></i> Login</a>
                         </li>

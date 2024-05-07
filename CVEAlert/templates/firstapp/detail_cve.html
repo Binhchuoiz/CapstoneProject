@@ -227,7 +227,7 @@ transition: transform .25s;
 span a:before,
 span a:after{
 position: absolute;
-content: "Click here to see how to read an CVE! ";
+content: "Click here to see full how to read an CVE! ";
 height: 55px;
 width: 180px;
 display: flex;
@@ -316,6 +316,11 @@ a:hover::before {
   transform-origin: left;
   transform: scaleX(1);
 }
+abbr {
+  font-style: italic;
+  position: relative
+}
+
 {% endblock %}
 
 
@@ -343,15 +348,15 @@ a:hover::before {
             <h1><b>{{ detail_cve.cve_id }}</b></h1>
             <div class="box-info">
                 <div class="title-box">
-                    <h2><b style="font-size: 28px;">DESCRIPTION</b></h2>
+                    <h2><b style="font-size: 28px;">DESCRIPTION </b></h2>
                 </div>
                 <div class="content-box">
-                    <p>{{ descriptions.value }}</p>
+                    <p><abbr title="Description (DESCRIPTION) is an important part of the Common Vulnerabilities and Exposures (CVE) identifier, providing a detailed summary of the nature of the vulnerability and how it operates."><i class="fa-solid fa-info-circle" ></i></abbr> {{ descriptions.value }}</p>
                 </div>
             </div>
             <div class="box-info">
                 <div class="title-box">
-                    <h2><b style="font-size: 28px;">Vulnerable products, Vendor, Version</b></h2>
+                    <h2><b style="font-size: 28px;">Vulnerable products, Vendor, Version </b></h2>
                 </div>
                 <div class="content-box">
                         {% for a in affected %} 
@@ -360,7 +365,7 @@ a:hover::before {
                               {% csrf_token %}
                               <!-- Input ẩn để lưu trữ giá trị productName -->
                               <input type="hidden" name="click_product" id="click_product_input">
-                              <p class="url"><b>- Product: </b>"{{ a.product.name }}"
+                              <p class="url"><b> <abbr title="Although the Common Vulnerabilities and Exposures (CVE) format does not include a separate 'product name' field, it does contain information about the affected product. This information is often more detailed than a general product catalog."><i class="fa-solid fa-info-circle" ></i></abbr> Product: </b>"{{ a.product.name }}"
                               <a href="#" class="product-link" data-product-name="{{ a.product.name }}">
                               
                               
@@ -369,7 +374,7 @@ a:hover::before {
                               
                             </p>
                           </form>
-                                <p><b>- Vendor name: </b>{{ a.vendor.name }}</p>
+                                <p><b><abbr title="Vendor field in the CVE (Common Vulnerabilities and Exposures) format identifies the software or hardware vendor responsible for the product affected by the described vulnerability."><i class="fa-solid fa-info-circle" ></i></abbr> Vendor name: </b>{{ a.vendor.name }}</p>
                                
                             {% endif %}
                             {% comment %} {% for p in products_versions %} 
@@ -380,17 +385,17 @@ a:hover::before {
                         {% endfor %}
                         {% for p in products_versions %} 
                         {% if p.con_id == detail_cve.id %}
-                        <p><b>- Versions: </b>{{ p.version.version }}</p>
+                        <p><b><abbr title="Version field in the CVE (Common Vulnerabilities and Exposures) format identifies the specific version of the software or hardware product affected by the described vulnerability."><i class="fa-solid fa-info-circle" ></i></abbr> Versions: </b>{{ p.version.version }}</p>
                         {% endif %}
                         {% endfor %}
                 </div>
             </div>
             <div class="box-info">
               <div class="title-box">
-                  <h2><b style="font-size: 28px;">Exploits & ProblemTypes</b></h2>
+                  <h2><b style="font-size: 28px;">Exploits & ProblemTypes </b></h2>
               </div>
               <div class="content-box url">
-                <p><b>- Exploits: </b>{{ exploits.value }}</p>
+                <p><b><abbr title="Although the Common Vulnerabilities and Exposures (CVE) format does not include an official 'Exploits' field, there are still ways to find information about available exploits for a specific CVE vulnerability."><i class="fa-solid fa-info-circle" ></i></abbr> Exploits: </b>{{ exploits.value }}</p>
                   {% comment %} <p><b>- ProblemTypes: </b>{{ problemTypes.cwe_id }}</p> {% endcomment %}
                   {% for p in problemTypes_cve %} 
                   {% if p.con_id == detail_cve.id %}
@@ -398,7 +403,7 @@ a:hover::before {
                     {% csrf_token %}
                     <!-- Input ẩn để lưu trữ giá trị productName -->
                     <input type="hidden" name="click_problem" id="click_problem_input">
-                    <p class="url"><b>- ProblemTypes Description: </b>"{{ p.problemTypes.description }} "
+                    <p class="url"><b><abbr title="ProblemType refers to a standardized way of classifying the type of vulnerability based on how it can be exploited. It helps categorize vulnerabilities and understand their potential impact on systems."><i class="fa-solid fa-info-circle" ></i></abbr> ProblemTypes Description: </b>"{{ p.problemTypes.description }} "
                     <a href="{% url 'app:list_cves_by_problem' %}" class="problem-link" data-problem-name="{{ p.problemTypes.description }}">
                          <i>(Click here to see related cves!)</i>
                     </a>
@@ -410,14 +415,14 @@ a:hover::before {
           </div>
             <div class="box-info">
                 <div class="title-box">
-                    <h2><b style="font-size: 28px;">Solution, References, Work Around</b></h2>
+                    <h2><b style="font-size: 28px;">Solution, References, Work Around  </b></h2>
                 </div>
                 <div class="content-box url">
-                  <p><b>- Work Around: </b>{{ workaround.value }}</p>
-                    <p><b>- Solution: </b>{{ solutions.value }}</p>
+                  <p><b><abbr title="Workaround is a temporary solution to mitigate the risks associated with the vulnerability described in the Common Vulnerabilities and Exposures (CVE) log."><i class="fa-solid fa-info-circle" ></i></abbr> Work Around: </b>{{ workaround.value }}</p>
+                    <p><b><abbr title="The 'Solutions' field in a CVE (Common Vulnerabilities and Exposures) entry doesn't have a standardized format or content across different sources. However, it generally provides information about how to address the vulnerability and reduce the associated risks."><i class="fa-solid fa-info-circle" ></i></abbr> Solution: </b>{{ solutions.value }}</p>
                     {% for r in refrences %}
                         {% if r.con_id == detail_cve.id %}
-                        <b>+ URL:</b><a href="{{ r.url }}"> {{ r.url }}</a>
+                        <b><abbr title="A CVE (Common Vulnerabilities and Exposures) URL is a unique link to the official CVE website that provides detailed information about a specific security vulnerability. This URL is created according to the following structure: 'https://nvd.nist.gov/vuln/detail/(CVE-ID)'"><i class="fa-solid fa-info-circle" ></i></abbr> URL:</b><a href="{{ r.url }}"> {{ r.url }}</a>
                 </br>
                         {% endif %}
                     {% endfor %}
@@ -428,18 +433,18 @@ a:hover::before {
         <div class="col-4">
             <div class="box-info" style="margin-top:65px;">
                 <div class="title-box">
-                    <h2><b style="font-size: 28px;">CVE Informations</b></h2>
+                    <h2><b style="font-size: 28px;">CVE Informations </b></h2>
                 </div>
                 <div class="content-box" >
                     <form method="post">
                         {% csrf_token %}
-                        <p><b>CVE ID:</b> {{ detail_cve.cve_id }}</p>
-                        <p><b>Published Date:</b> {{ detail_cve.date_publish }}</p>
-                        <p><b>Date Update: </b> {{ detail_cve.date_update }}</p>
-                        <p><b> Date Reserved:</b> {{ detail_cve.date_reserved }}</p>
-                        <p><b>Data Version:</b> {{ detail_cve.data_version }}</p>
-                        <p><b>Organization ID: </b> {{ detail_cve.assigner_org_id }}</p>
-                        <p><b>Organization Short Name:</b> {{ detail_cve.assigner_short_name }}</p>
+                        <p><b><abbr title="CVE ID stands for Common Vulnerabilities and Exposures Identifier, also known as Common Vulnerability Identifier."><i class="fa-solid fa-info-circle" ></i></abbr> CVE ID:</b> {{ detail_cve.cve_id }}</p>
+                        <p><b><abbr title="(Date made public) of a CVE."><i class="fa-solid fa-info-circle" ></i></abbr> Published Date:</b> {{ detail_cve.date_publish }}</p>
+                        <p><b><abbr title=" CVE 'Recently updated' date."><i class="fa-solid fa-info-circle" ></i></abbr> Date Update: </b> {{ detail_cve.date_update }}</p>
+                        <p><b><abbr title="In a CVE entry, 'Date Reserved' signifies the official reservation of a unique ID (CVE-ID) for a reported security flaw. This kickstarts the process of documenting and tracking the vulnerability across different security platforms."><i class="fa-solid fa-info-circle" ></i></abbr> Date Reserved:</b> {{ detail_cve.date_reserved }}</p>
+                        <p><b><abbr title="The 'Data Version' in a CVE (Common Vulnerabilities and Exposures) entry typically refers to the version of the CVE data schema or format used to represent the information about the vulnerability. This version number indicates the specific format or structure used to encode and store the CVE entry. It helps in understanding how the information is organized and interpreted within CVE databases and tools. As the CVE data schema evolves over time to accommodate new requirements or improvements, the data version helps ensure compatibility and consistency across different implementations and releases."><i class="fa-solid fa-info-circle" ></i></abbr> Data Version:</b> {{ detail_cve.data_version }}</p>
+                        <p><b><abbr title=" In a CVE (Common Vulnerabilities and Exposures) entry, the 'Organization ID' typically refers to a unique identifier assigned to the organization or entity that reported or disclosed the vulnerability associated with that CVE. This ID helps to identify the entity responsible for discovering, reporting, or coordinating the response to the vulnerability. It aids in tracking and attributing the source of the vulnerability information within the CVE ecosystem."><i class="fa-solid fa-info-circle" ></i></abbr> Organization ID: </b> {{ detail_cve.assigner_org_id }}</p>
+                        <p><b><abbr title="In a CVE (Common Vulnerabilities and Exposures) entry, the 'Organization Short Name' typically refers to the organization or vendor that discovered or reported the vulnerability associated with that CVE. It is a way to attribute the discovery or reporting of the vulnerability to a specific entity. This information helps in understanding who identified the vulnerability and can be useful for further investigation or collaboration between different organizations working on cybersecurity issues."><i class="fa-solid fa-info-circle" ></i></abbr> Organization Short Name:</b> {{ detail_cve.assigner_short_name }}</p>
                             <input name="follow_affect" value="null" style="display: none">
                             <input name="follow_affect" value="null" style="display: none">
                         <span><a href="{% url 'app:guidelines' %}" ></a></span>   
@@ -447,6 +452,47 @@ a:hover::before {
                 </div>
             </div>
             <br>
+            <button class="accordion"><b id="6"><abbr title="FULL CVSS SCORE REFERENCES(CVSS V2.0 to CVSS V3.0)."><i class="fa-solid fa-info-circle" ></i></abbr> FULL CVSS SCORE REFERENCES</b></button>
+                <div class=" panel" style="background-color: lightgray;">
+                  <p style="color: black;"><b>Base Score:</b> The Base Score of a CVE (Common Vulnerabilities and Exposures) in CVSS v3.1 reflects the overall severity of the vulnerability.</p>
+                  <p style="color: black;"><b></b>➡️ "It's a numerical value (0.0 to 10.0)."</p> 
+                  <hr>
+                  <p style="color: black;"><b>Vector String:</b>  The CVSS v3.1 vector string is a text representation of a set of CVSS metrics. It is commonly used to record or transfer CVSS metric information in a concise form.</p> 
+                  <p style="color: black;"><b></b>➡️ "Exploit: (AV, AC, PR, UI)"</p> 
+                 
+                  <p style="color: black;"><b></b>➡️ "Impact: (C, I, A), S"</p> 
+                  <hr>
+                  <p style="color: black;"><b>Base Severity:</b>The Base severity of a vulnerability.</p> 
+                 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (Low, High, Medium, Critical)"</p> 
+                  <hr>
+                  <p style="color: black;"><b>Attack Complexity:</b> This metric describes the conditions beyond the attacker’s control that must exist in order to exploit the vulnerability.</p> 
+                  
+                  <p style="color: black;"><b></b>➡️ "Metric Value: ( Low (L), High (H))"</p> 
+                  <hr>
+                  <p style="color: black;"><b>Attack Vector:</b>This metric reflects the context by which vulnerability exploitation is possible.</p> 
+                 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (Network (N), Adjacent (A), Local (L), Physical (P))"</p> 
+                  <hr>
+                  <p style="color: black;"><b>Availability Impact:</b >This metric measures the impact to the availability of the impacted component resulting from a successfully exploited vulnerability.</p> 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Low (L), High (H))"</p>
+                  <hr> 
+                  <p style="color: black;"><b>Confidentiality Impact:</b> This metric measures the impact to the confidentiality of the information resources managed by a software component due to a successfully exploited vulnerability. </p> 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Low (L), High (H))"</p> 
+                  <hr>
+                  <p style="color: black;"><b>Integrity Impact:</b>This metric measures the impact to integrity of a successfully exploited vulnerability. Integrity refers to the trustworthiness and veracity of information.</p> 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Low (L), High (H))"</p> 
+                  <hr>
+                  <p style="color: black;"><b>Privileges Required: </b>This metric describes the level of privileges an attacker must possess before successfully exploiting the vulnerability.</p> 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Low (L), High (H))"</p> 
+                  <hr>
+                  <p style="color: black;"><b>Scope Of:</b>The Scope metric captures whether a vulnerability in one vulnerable component impacts resources in components beyond its security scope.</p> 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (Unchanged (U), Changed (C))"</p> 
+                  <hr>
+                  <p style="color: black;"><b>User Interaction:</b>This metric captures the requirement for a human user, other than the attacker, to participate in the successful compromise of the vulnerable component</p> 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Required (R))"</p> 
+                </div>      
+            </br>
                 <button class="accordion"><b>CVSS V3.1</b></button>
                 <div class="panel">
                     {% for m in metric %}

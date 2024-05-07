@@ -30,5 +30,5 @@ urlpatterns = [
     path('list-problems/<int:page>/', get_list_problems, name='list_problems'),
     path('guidelines/', get_guidelines, name='guidelines'),
     path('list-cves-by-problem/', list_cves_by_problem, name='list_cves_by_problem'),
-    path('search/<int:page>/', get_search_list_CVE,name='search'),
+    # path('search/<int:page>/', get_search_list_CVE,name='search'),
 ]
