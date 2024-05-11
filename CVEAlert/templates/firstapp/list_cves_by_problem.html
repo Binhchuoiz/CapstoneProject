@@ -245,63 +245,31 @@ List CVEs By Problem
 {% block content %}
 <div class="container">
     <div class="row" style="margin-top: 30px; margin-bottom: 30px;">
-        <div class="col-3">
-          {% comment %} <p class="list"><a href={% url 'app:list_products' page=1 %} style="font-size:20px">< Return list products</a></p> {% endcomment %}
-        </div>
-        <div class="col-9">
-            <form method="post">
-                {% csrf_token %}
-                <div class="input-group">
-                    <input name="search_focus" type="search" class="form-control" placeholder="Search CVE ID..."/>
-                    <button type="submit" class="btn btn-one">
-                        <i class="fas fa-search"></i>
-                    </button>
-                    <div>
-                        <span><a href="{% url 'app:tele_noti' %}"></a></span>
-                </div>
-                </div>
-            </form>
-        </div>
+       
+       
 
     </div>
     <div class="row" style="margin-top: 30px;">
-        {# Hiển thị filter year#}
-        <div class="col-3 " >
-        </br>
+      <div class="col-3" >
+      </br>
     </br>
-</br>
-
-            {% comment %} <h3><b><u>FINDING METHODS</u></b></h3> {% endcomment %}
-  
-          
-            {% comment %} <form method="post">
-                {% csrf_token %}
-            </br>
-                <h3>PUBLISHED YEARS:</h3>
+  </br>
+        <form method="post">
+        {% csrf_token %}
+                <h2><b>Number of CVEs:</b></h2>
                 <hr>
-                {% for it in unique_year %}
-                    <input type="checkbox" id="years" name="filter_year" value="{{ it }}">
-                    <label for="years">{{ it }}</label><br>
-                {% endfor %} 
-                <select name="filter_year" class="custom-select">
-                    {% for it in unique_year %}
-                    <b> <option value="{{ it }}">{{ it }}</option></b>
-                    {% endfor %}
-                </select>
-                <hr>
-            </br>
-
-
-                <button type="submit" class="btn btn-one" style="width:100%"><b>FIND</b></button>
-
-
-            </form> {% endcomment %}
-
-    
+                {% if listCVE %}
              
-    
-
-        </div>
+                {% for l in listCVE %}
+                <p class="url" >
+                  {{ forloop.counter }}.<a href="{% url 'app:detail_cves' pk=l.pk %}"> <b>{{ l.cve_id }}</b></a>
+                </p>
+                
+                {% endfor %}
+                {% endif %}
+                <hr>
+        </form>
+      </div>
         <div class="col-9 ">
             <h2 style="font-size: 35px; text-align:center"><b><u>List CVEs By Problem</u></b></h2>
           {% if listCVE %}
