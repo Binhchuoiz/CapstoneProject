@@ -1054,7 +1054,7 @@ a:hover::before {
             
             <form method="post">
                 {% csrf_token %}
-                <input type="text" name="id_cve" style="width: 100%" placeholder="Find CVE-ID">
+                <input type="text" name="id_cve" style="width: 100%" placeholder="Find CVE-ID" required>
                 <button type="submit" class="btn btn-one button-find">FIND NOW</button>
             </form>
         </div>

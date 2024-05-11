@@ -251,7 +251,7 @@ a:hover::before {
             <form method="post">
                 {% csrf_token %}
                 <div class="input-group">
-                    <input name="search_focus" type="search" class="form-control" placeholder="Search CVE ID..."/>
+                    <input name="search_focus" type="search" class="form-control" placeholder="Search CVE ID..."/ required>
                     <button type="submit" class="btn btn-one">
                         <i class="fas fa-search"></i>
                     </button>
