@@ -332,17 +332,8 @@ abbr {
 {% block content %}
 {# Thêm logic để hiện thị các trường của CVE #}
 <div class="container" style="margin-top: 100px; margin-bottom: 200px">
-    <p class="list"><a href={% url 'app:list_cves' page=1 %}>Explore CVE list</a></p>
-    <div class="arrow" onclick="goBack()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
+    <p class="list"><a href={% url 'app:list_cves' page=1 %}>< Explore CVE list</a></p>
+    
     <div class="row">
         <div class="col-8">
             <h1><b>{{ detail_cve.cve_id }}</b></h1>
