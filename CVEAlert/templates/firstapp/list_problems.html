@@ -236,7 +236,7 @@ input.largerCheckbox {
                           <a href="{% url 'app:list_cves_by_problem'  %}" class="problem-link"><b>{{ a.description }}</b></a>
                         </br>
                         <p class="url"> <a>Number of cves:</a>{% for c in counts %}
-                          {% if c.0 == a %}
+                          {% if c.0.id == a.id %}
                               {{ c.1 }}
                           {% endif %}
                         {% endfor %} 
