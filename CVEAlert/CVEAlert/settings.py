@@ -94,30 +94,30 @@ WSGI_APPLICATION = 'CVEAlert.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test',
-        'USER': 'root',
-        'PASSWORD': 'Hanoi123789@',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
-
-
-
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'defaultdb',
-#         'USER': 'avnadmin',
-#         'PASSWORD': 'AVNS_IDnM8mJteaEzMW9X_5f',
-#         'HOST': 'mysql-195c0d0a-okthichiatay77-7f88.a.aivencloud.com',
-#         'PORT': '15475',
+#         'NAME': 'test',
+#         'USER': 'root',
+#         'PASSWORD': 'Hanoi123789@',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
 #     }
 # }
+
+
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'test4',
+        'USER': 'avnadmin',
+        'PASSWORD': 'AVNS_pTfxJ5q7MM_aQajmvBn',
+        'HOST': 'mysql-21a621ce-cvealert-1602.i.aivencloud.com',
+        'PORT': '15804',
+    }
+}
 
 
 
