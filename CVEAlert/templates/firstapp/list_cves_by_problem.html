@@ -259,7 +259,6 @@ List CVEs By Weakness
                 <h2><b>Number of CVEs:</b></h2>
                 <hr>
                 {% if listCVE %}
-             
                 {% for l in listCVE %}
                 <p class="url" >
                   {{ forloop.counter }}.<a href="{% url 'app:detail_cves' pk=l.pk %}"> <b>{{ l.cve_id }}</b></a>

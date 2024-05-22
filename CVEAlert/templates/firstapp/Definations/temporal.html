@@ -460,7 +460,30 @@ Temporal CVSS Scores
                         <h2><b style="font-size: 28px;">CVSS Temporal Metrics</b></h2>
                     </div>
                     <div class="content-box">
-                     
+                      <p>According to FIRST, the organization that publishes the CVSS methodology, “Temporal metrics measure the current state of exploit techniques or code availability, the existence of any patches or workarounds, or the confidence in the description of a vulnerability.” There are three metrics within this metric group – Exploit Code Maturity, Remediation Level, and Report Confidence.</p>
+                    <h1>Exploit Code Maturity</h1>
+                    <p>Exploit code maturity answers the question, “Is this exploit being used in the wild?” Many exploits are only theoretical in nature, and never actually get exploited by adversaries. Others get exploited, but code to operationalize those exploits never gets widely distributed, rendering it unusable to unskilled hackers, who represent the majority.</p>
+                    <p>Exploit Code Maturity is rated at one of five levels:</p>
+                    <p>1. Not Defined (X) – there is not enough information to assign one of the other values. This value does not impact the Temporal score.</p>
+                    <p>2. High (H) – There is wide availability of reliable, easy-to-use, functional exploit code.</p>
+                    <p>3. Functional (F) – Code that works is available and is at least somewhat reliable.</p>
+                    <p>4. Proof-of-concept (P) – Code exists, but might not be reliable and might require a very skilled attacker to use successfully.</p>
+                    <p>5. Unproven (U) – this applies when the exploit is only theoretical and/or no known exploit code exists</p>
+                    <h1>Remediation Level</h1>
+                    <p>Remediation level refers to the availability and maturity of a fix or patch for the vulnerability. As remediation code matures, the Temporal score will decreased.</p>
+                    <p>Remediation Level is rated at one of five levels:</p>
+                    <p>1. Not Defined (X) – there is not enough information to assign one of the other values. This value does not impact the Temporal score.</p>
+                    <p>2. Unavailable (U) – there is no mitigation or patch available for the vulnerability.</p>
+                    <p>3. Workaround (W) – there is either an unofficial patch available, or configuration/setting that can mitigate the impact of the vulnerability.</p>
+                    <p>4. Temporary Fix (T) – there is a vendor created, but temporary, fix or patch available.</p>
+                    <p>5. Official Fix (O) – a fix for the vulnerability is available as either a permanent patch or as an upgrade from the vendor.</p>
+                    <h1>Report Confidence</h1>
+                    <p>This metric measures the confidence level that the vulnerability actually exists, as well as the details of the issue. For example, if the vendor publicly acknowledges that a vulnerability exists, there is a very high confidence level that the vulnerability is real.</p>
+                    <p>Report confidence is rated at one of four levels:</p>
+                    <p>1. Not Defined (X) – there is not enough information to assign one of the other values. This value does not impact the Temporal score.</p>
+                    <p>2. Confirmed (C) – Either the vendor has confirmed that the vulnerability exists, reproduction of the vulnerability has been proven, or source code is available to confirm the issue.</p>
+                    <p>3. Reasonable (R) – Details have been published, but the vulnerability has not been independently verified.</p>
+                    <p>4. Unknown (U) – There are reports or rumors that the vulnerability exists, but there is some reason to question the validity of those reports or the vulnerability is not consistently reproducible.</p>
                     </div>
                 </div>
                 <div class="box-info">

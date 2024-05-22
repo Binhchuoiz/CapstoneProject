@@ -307,13 +307,6 @@ a:hover::before {
                         <a href="{% url 'accounts:list_cve_by_product'  %}" class="product-link"><b>{{ p.name }}</b></a>
                       </br>
                       <!--Thêm hàm count trong back end-->
-                        <p class="url"> <a>Number of cves:</a>{% for c in counts %}
-                          {% if c.0 == p %}
-                              {{ c.1 }}
-                          {% endif %}
-                        {% endfor %} 
-                        
-                         </p>
                     </form>
                   </h3>  
                        <div  style="height:30px;">
