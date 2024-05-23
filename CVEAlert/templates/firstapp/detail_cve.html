@@ -406,7 +406,7 @@ abbr {
           </div>
             <div class="box-info">
                 <div class="title-box">
-                    <h2><b style="font-size: 28px;">Solution, References, Work Around  </b></h2>
+                    <h2><b style="font-size: 28px;">Work Around, Solution, References   </b></h2>
                 </div>
                 <div class="content-box url">
                   <p><b><abbr title="Workaround is a temporary solution to mitigate the risks associated with the vulnerability described in the Common Vulnerabilities and Exposures (CVE) log."><i class="fa-solid fa-info-circle" ></i></abbr> Work Around: </b>{{ workaround.value }}</p>
@@ -448,40 +448,43 @@ abbr {
                   <p style="color: black;"><b>Base Score:</b> The Base Score of a CVE (Common Vulnerabilities and Exposures) in CVSS v3.1 reflects the overall severity of the vulnerability.</p>
                   <p style="color: black;"><b></b>➡️ "It's a numerical value (0.0 to 10.0)."</p> 
                   <hr>
+                  <p style="color: black;"><b>Base Severity:</b> The Base severity of a vulnerability.</p> 
+                 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (Low, High, Medium, Critical)"</p> 
+                  <hr>
                   <p style="color: black;"><b>Vector String:</b>  The CVSS v3.1 vector string is a text representation of a set of CVSS metrics. It is commonly used to record or transfer CVSS metric information in a concise form.</p> 
                   <p style="color: black;"><b></b>➡️ "Exploit: (AV, AC, PR, UI)"</p> 
                  
                   <p style="color: black;"><b></b>➡️ "Impact: (C, I, A), S"</p> 
                   <hr>
-                  <p style="color: black;"><b>Base Severity:</b>The Base severity of a vulnerability.</p> 
+                  <p style="color: black;"><b>Attack Vector:</b>This metric reflects the context by which vulnerability exploitation is possible.</p> 
                  
-                  <p style="color: black;"><b></b>➡️ "Metric Value: (Low, High, Medium, Critical)"</p> 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (Network (N), Adjacent (A), Local (L), Physical (P))"</p> 
                   <hr>
                   <p style="color: black;"><b>Attack Complexity:</b> This metric describes the conditions beyond the attacker’s control that must exist in order to exploit the vulnerability.</p> 
                   
                   <p style="color: black;"><b></b>➡️ "Metric Value: ( Low (L), High (H))"</p> 
                   <hr>
-                  <p style="color: black;"><b>Attack Vector:</b>This metric reflects the context by which vulnerability exploitation is possible.</p> 
-                 
-                  <p style="color: black;"><b></b>➡️ "Metric Value: (Network (N), Adjacent (A), Local (L), Physical (P))"</p> 
+                  <p style="color: black;"><b>Privileges Required: </b>This metric describes the level of privileges an attacker must possess before successfully exploiting the vulnerability.</p> 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Low (L), High (H))"</p> 
                   <hr>
-                  <p style="color: black;"><b>Availability Impact:</b >This metric measures the impact to the availability of the impacted component resulting from a successfully exploited vulnerability.</p> 
-                  <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Low (L), High (H))"</p>
-                  <hr> 
+                  <p style="color: black;"><b>User Interaction:</b>This metric captures the requirement for a human user, other than the attacker, to participate in the successful compromise of the vulnerable component</p> 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Required (R))"</p> 
+                  <hr>
+                  <p style="color: black;"><b>Scope Of:</b>The Scope metric captures whether a vulnerability in one vulnerable component impacts resources in components beyond its security scope.</p> 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (Unchanged (U), Changed (C))"</p> 
+                  <hr>
+                
                   <p style="color: black;"><b>Confidentiality Impact:</b> This metric measures the impact to the confidentiality of the information resources managed by a software component due to a successfully exploited vulnerability. </p> 
                   <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Low (L), High (H))"</p> 
                   <hr>
                   <p style="color: black;"><b>Integrity Impact:</b>This metric measures the impact to integrity of a successfully exploited vulnerability. Integrity refers to the trustworthiness and veracity of information.</p> 
                   <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Low (L), High (H))"</p> 
                   <hr>
-                  <p style="color: black;"><b>Privileges Required: </b>This metric describes the level of privileges an attacker must possess before successfully exploiting the vulnerability.</p> 
-                  <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Low (L), High (H))"</p> 
-                  <hr>
-                  <p style="color: black;"><b>Scope Of:</b>The Scope metric captures whether a vulnerability in one vulnerable component impacts resources in components beyond its security scope.</p> 
-                  <p style="color: black;"><b></b>➡️ "Metric Value: (Unchanged (U), Changed (C))"</p> 
-                  <hr>
-                  <p style="color: black;"><b>User Interaction:</b>This metric captures the requirement for a human user, other than the attacker, to participate in the successful compromise of the vulnerable component</p> 
-                  <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Required (R))"</p> 
+                  <p style="color: black;"><b>Availability Impact:</b >This metric measures the impact to the availability of the impacted component resulting from a successfully exploited vulnerability.</p> 
+                    <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Low (L), High (H))"</p>
+                  
+                  
                 </div>      
             </br>
                 <button class="accordion"><b>CVSS V3.1</b></button>
@@ -493,8 +496,7 @@ abbr {
                         {% comment %} <span style="float: right">{{ m.cvssv20.base_score }}</span> {% endcomment %}
                         <p class="base-score"> <b style="font-size: 20px;">Base Score: "{{ m.cvssv31.base_score }}"</b>
                         </p></br>
-                        <p class="base-score"> <b style="font-size: 20px;">Vector String: "{{ m.cvssv31.vector_string }}"</b> 
-                        </p></br>
+                        
                         {% if m.cvssv31.base_score > 0 and m.cvssv31.base_score < 4  %}
                         <p class="base-score" style="background-color:lightgreen"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv31.base_severity }}"</b> 
                         </p></br>
@@ -508,22 +510,29 @@ abbr {
                         <p class="base-score" style="background-color:red"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv31.base_severity }}"</b> 
                         </p></br>
                         {% endif %}
-                        <p class="base-score"> <b style="font-size: 20px;">Attack Complexity: "{{ m.cvssv31.attackComplexity }}"</b>
+                        <p class="base-score"> <b style="font-size: 20px;">Vector String: "{{ m.cvssv31.vector_string }}"</b> 
                         </p></br>
                         <p class="base-score"> <b style="font-size: 20px;">Attack Vector: "{{ m.cvssv31.attackVector }}"</b>
                         </p></br>
-                        <p class="base-score"> <b style="font-size: 20px;">Availability Impact: "{{ m.cvssv31.availabilityImpact }}"</b> 
+                        <p class="base-score"> <b style="font-size: 20px;">Attack Complexity: "{{ m.cvssv31.attackComplexity }}"</b>
+                        </p></br>
+                        <p class="base-score"> <b style="font-size: 20px;">Privileges Required: "{{ m.cvssv31.privilegesRequired }}"</b>
+                        </p></br>
+                        <p class="base-score"> <b style="font-size: 20px;">User Interaction: "{{ m.cvssv31.userInteraction }}"</b> 
+                        </p></br>
+                        <p class="base-score"> <b style="font-size: 20px;">Scope Of: "{{ m.cvssv31.scope }}"</b> 
                         </p></br>
                         <p class="base-score"> <b style="font-size: 20px;">Confidentiality Impact: "{{ m.cvssv31.confidentialityImpact }}"</b> 
                         </p></br>
                         <p class="base-score"> <b style="font-size: 20px;">Integrity Impact: "{{ m.cvssv31.integrityImpact }}"</b>
                         </p></br>
-                        <p class="base-score"> <b style="font-size: 20px;">Privileges Required: "{{ m.cvssv31.privilegesRequired }}"</b>
+                        <p class="base-score"> <b style="font-size: 20px;">Availability Impact: "{{ m.cvssv31.availabilityImpact }}"</b> 
                         </p></br>
-                        <p class="base-score"> <b style="font-size: 20px;">Scope Of: "{{ m.cvssv31.scope }}"</b> 
-                        </p></br>
-                        <p class="base-score"> <b style="font-size: 20px;">User Interaction: "{{ m.cvssv31.userInteraction }}"</b> 
-                        </p></br>
+                        
+                        
+                        
+                        
+                        
                     {% endif %}
                 {% endfor %}
                 </div>      
@@ -535,8 +544,7 @@ abbr {
                     </br>
                             <p class="base-score"> <b style="font-size: 20px;">Base Score: "{{ m.cvssv30.base_score }}"</b> 
                             </p></br>
-                            <p class="base-score"> <b style="font-size: 20px;">Vector String: "{{ m.cvssv30.vector_string }}"</b> 
-                            </p></br>
+                            
                             {% if m.cvssv30.base_score > 0 and m.cvssv30.base_score < 4  %}
                             <p class="base-score" style="background-color:lightgreen"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv30.base_severity }}"</b> 
                             </p></br>
@@ -550,7 +558,8 @@ abbr {
                             <p class="base-score" style="background-color:red"> <b style="font-size: 20px; ">Base Severity:  "{{ m.cvssv30.base_severity }}"</b> 
                             </p></br>
                             {% endif %}
-                        
+                            <p class="base-score"> <b style="font-size: 20px;">Vector String: "{{ m.cvssv30.vector_string }}"</b> 
+                            </p></br>
                         {% endif %}
                     {% endfor %}
                     </div>
@@ -562,8 +571,7 @@ abbr {
                     </br>
                             <p class="base-score"> <b style="font-size: 20px;">Base Score: "{{ m.cvssv20.base_score }}"</b> 
                             </p></br>
-                            <p class="base-score"> <b style="font-size: 20px;">Vector String: "{{ m.cvssv20.vector_string }}"</b> 
-                            </p></br>
+                            
                             {% if m.cvssv20.base_score > 0 and m.cvssv20.base_score < 4  %}
                             <p class="base-score" style="background-color:lightgreen"> <b style="font-size: 20px; ">Base Severity:  "LOW"</b> 
                             </p></br>
@@ -577,7 +585,8 @@ abbr {
                             <p class="base-score" style="background-color:red"> <b style="font-size: 20px; ">Base Severity:  "CRITICAL"</b> 
                             </p></br>
                             {% endif %}
-                            
+                            <p class="base-score"> <b style="font-size: 20px;">Vector String: "{{ m.cvssv20.vector_string }}"</b> 
+                            </p></br>
                       {% comment %} {% elif m.con_id == detail_cve.id and m.cvssv20.base_score is none and m.cvssv20.base_score < 0 or m.cvssv20.base_score > 10%}  
                       <p class="base-score"> <b style="font-size: 20px;">NOT UPDATED!</b> 
                       </p></br>   {% endcomment %}

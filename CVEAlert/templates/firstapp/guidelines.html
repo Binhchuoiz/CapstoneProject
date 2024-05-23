@@ -386,7 +386,7 @@ transform: translateZ(-25px) rotateX(-90deg);
           </div>
             <div class="box-info">
                 <div >
-                  <button class="accordion" style="font-size:25px"><b id="4">Solution, References, Work Around</b></button>
+                  <button class="accordion" style="font-size:25px"><b id="4">Work Around, Solution, References </b></button>
                 <div class="content-box url panel">
                   <p><b style="font-size:23px;">- Work Around: </b><i> "Workaround is a temporary solution to mitigate the risks associated with the vulnerability described in the Common Vulnerabilities and Exposures (CVE) log."</i></p>
                         <b>🛎️ It is often used in cases:</b>
@@ -441,40 +441,42 @@ transform: translateZ(-25px) rotateX(-90deg);
                   <p style="color: black;"><b>Base Score:</b> The Base Score of a CVE (Common Vulnerabilities and Exposures) in CVSS v3.1 reflects the overall severity of the vulnerability.</p>
                   <p style="color: black;"><b></b>➡️ "It's a numerical value (0.0 to 10.0)."</p> 
                   <hr>
+                  <p style="color: black;"><b>Base Severity:</b> The Base severity of a vulnerability.</p> 
+                 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (Low, High, Medium, Critical)"</p> 
+                  <hr>
                   <p style="color: black;"><b>Vector String:</b>  The CVSS v3.1 vector string is a text representation of a set of CVSS metrics. It is commonly used to record or transfer CVSS metric information in a concise form.</p> 
                   <p style="color: black;"><b></b>➡️ "Exploit: (AV, AC, PR, UI)"</p> 
                  
                   <p style="color: black;"><b></b>➡️ "Impact: (C, I, A), S"</p> 
                   <hr>
-                  <p style="color: black;"><b>Base Severity:</b>The Base severity of a vulnerability.</p> 
+                  <p style="color: black;"><b>Attack Vector:</b>This metric reflects the context by which vulnerability exploitation is possible.</p> 
                  
-                  <p style="color: black;"><b></b>➡️ "Metric Value: (Low, High, Medium, Critical)"</p> 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (Network (N), Adjacent (A), Local (L), Physical (P))"</p> 
                   <hr>
                   <p style="color: black;"><b>Attack Complexity:</b> This metric describes the conditions beyond the attacker’s control that must exist in order to exploit the vulnerability.</p> 
                   
                   <p style="color: black;"><b></b>➡️ "Metric Value: ( Low (L), High (H))"</p> 
                   <hr>
-                  <p style="color: black;"><b>Attack Vector:</b>This metric reflects the context by which vulnerability exploitation is possible.</p> 
-                 
-                  <p style="color: black;"><b></b>➡️ "Metric Value: (Network (N), Adjacent (A), Local (L), Physical (P))"</p> 
+                  <p style="color: black;"><b>Privileges Required: </b>This metric describes the level of privileges an attacker must possess before successfully exploiting the vulnerability.</p> 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Low (L), High (H))"</p> 
                   <hr>
-                  <p style="color: black;"><b>Availability Impact:</b >This metric measures the impact to the availability of the impacted component resulting from a successfully exploited vulnerability.</p> 
-                  <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Low (L), High (H))"</p>
-                  <hr> 
+                  <p style="color: black;"><b>User Interaction:</b>This metric captures the requirement for a human user, other than the attacker, to participate in the successful compromise of the vulnerable component</p> 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Required (R))"</p> 
+                  <hr>
+                  <p style="color: black;"><b>Scope Of:</b>The Scope metric captures whether a vulnerability in one vulnerable component impacts resources in components beyond its security scope.</p> 
+                  <p style="color: black;"><b></b>➡️ "Metric Value: (Unchanged (U), Changed (C))"</p> 
+                  <hr>
+                
                   <p style="color: black;"><b>Confidentiality Impact:</b> This metric measures the impact to the confidentiality of the information resources managed by a software component due to a successfully exploited vulnerability. </p> 
                   <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Low (L), High (H))"</p> 
                   <hr>
                   <p style="color: black;"><b>Integrity Impact:</b>This metric measures the impact to integrity of a successfully exploited vulnerability. Integrity refers to the trustworthiness and veracity of information.</p> 
                   <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Low (L), High (H))"</p> 
                   <hr>
-                  <p style="color: black;"><b>Privileges Required: </b>This metric describes the level of privileges an attacker must possess before successfully exploiting the vulnerability.</p> 
-                  <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Low (L), High (H))"</p> 
-                  <hr>
-                  <p style="color: black;"><b>Scope Of:</b>The Scope metric captures whether a vulnerability in one vulnerable component impacts resources in components beyond its security scope.</p> 
-                  <p style="color: black;"><b></b>➡️ "Metric Value: (Unchanged (U), Changed (C))"</p> 
-                  <hr>
-                  <p style="color: black;"><b>User Interaction:</b>This metric captures the requirement for a human user, other than the attacker, to participate in the successful compromise of the vulnerable component</p> 
-                  <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Required (R))"</p> 
+                  <p style="color: black;"><b>Availability Impact:</b >This metric measures the impact to the availability of the impacted component resulting from a successfully exploited vulnerability.</p> 
+                    <p style="color: black;"><b></b>➡️ "Metric Value: (None (N), Low (L), High (H))"</p>
+                  
                 </div>      
             </br>
             <button class="accordion"><b>CVSS V3.0</b></button>
